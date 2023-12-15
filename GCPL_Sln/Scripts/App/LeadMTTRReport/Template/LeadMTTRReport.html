@@ -1,0 +1,215 @@
+﻿
+
+<head>
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        ::-webkit-scrollbar-thumb {
+            overflow-x: scroll !important;
+            background: #808080;
+        }
+    </style>
+</head>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="header">
+            <h2 class="page-title">Leads MTTR Report</h2>
+        </div>
+    </div>
+</div>
+<div class="selection-filter-container">
+    <h2 class="section-header-title">Selection Filter</h2>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="selection-filter-sub-container">
+                <div class="row">
+                    <form method="post">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">From Date</label>
+                                        <input id="hfFromDate" type="hidden" name="hfFromDate">
+                                        <input name="txtFromDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" id="txtFromDate" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">To Date</label>
+                                        <input id="hfFromDate" type="hidden" name="hfFromDate">
+                                        <input name="txtToDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" id="txtToDate" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Customer Name</label>
+                                        <!--<input type="text" id="txtCustomerName" placeholder="Enter Customer Name" ng-model="$ctrl.AllLeadsHeaderModel.CustomerName" class="form-control" name="name" value="" />-->
+                                        <input id="txtCustomer" class="form-control" type="text" placeholder="Search by Company Name" style="width:100%" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Customer SAP ID</label>
+                                        <input id="txtCustomerSAPID" class="form-control" type="text" ng-model="$ctrl.LeadsMTTRHeaderModel.CustSAPID" placeholder="Search by Customer SAP ID" style="width:100%" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Lead ID</label>
+                                        <input type="text" placeholder="Search by Lead Id" ng-model="$ctrl.LeadsMTTRHeaderModel.LeadID" class="form-control" name="name" value="" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Allocated To </label>
+                                        <input type="text" id="txtSalesRep1" name="txtemployeename" placeholder="Start typing a User Name" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Lead Status</label>
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle chkBox-btn" type="button" data-toggle="dropdown">
+                                                Select<span class="caret checkbox-dropdown-caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu chkBox-btn-container">
+                                                <li ng-repeat="item in $ctrl.LeadStatusDropDown"><input type="checkbox" ng-click="$ctrl.addStatus(item.LeadStatusID)" value={{item.LeadStatusID}} class="chkBox"><span>{{item.Status}}</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3" style="padding-top:28px">
+                                    <input type="submit" name="btnSubmit" value="Search" ng-click="$ctrl.Search()" id="btnSubmit" class="btn search-btn">
+                                    <input type="submit" name="btnSubmit" value="Clear" ng-click="$ctrl.Clear()" id="btnSubmit" class="btn clear-btn">
+                                    <input type="submit" name="btnSubmit" value="Download Excel" id="btnSubmit" ng-click="$ctrl.exportTableToCSV('AllLeadsReport.csv')" class="btn download-btn">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-container">
+    <h2 class="section-header-title">
+        Leads MTTR List
+    </h2>
+    <div class="row">
+        <div class="col-md-12" id="divlist">
+            <div class="table-sub-container">
+                <div id="div-1" class="body">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <label class="table-label">Count : {{$ctrl.FillAllMTTRLeadsSGrid.length}} </label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 text-right">
+                            <label class="table-label">No of Records Display : </label>
+                            <select name="Status" id="DDLStatus" ng-change="$ctrl.Refresh()" ng-model="$ctrl.NoOfRds" class="no-record-dropdown">
+                                <option value=10>10</option>
+                                <option value=30>30</option>
+                                <option value=50>50</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="validation-table table-responsive" style="overflow:auto;">
+                        <table id="dataTable" class="table table-striped table-bordered customer-list-table ">
+                            <thead class="customer-list-heading">
+                                <tr>
+                                    <th>Company Name</th>
+                                    <th>AllocatedTo</th>
+                                    <th>BusinessPartnerNo</th>
+                                    <th>LeadID</th>
+                                    <th>Lead Status</th>
+                                    <th>Ageing(Creation/Validation)</th>
+                                    <th>Ageing(Validation/Assessment)</th>
+                                    <th>Ageing(Assessment/Conversion)</th>
+                                    <th>Ageing(Creation/Conversion)</th>
+                                    <th>Ageing(Creation/Closure</th>
+                                    <th>Open Leads Ageing</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in $ctrl.shownItems | filter: searchKeyword | orderBy:orderByField:reverseSort">
+                                    <td>{{item.CompanyName}}</td>
+                                    <td>{{item.AllocatedTo}}</td>
+                                    <td>{{item.BusinessPartnerNo}}</td>
+                                    <td>{{item.LeadID}}</td>
+                                    <td>{{item.Status}}</td>
+                                    <td>{{item.AgeingCreationValidation}}</td>
+                                    <td>{{item.AgeingValidationAssessment}}</td>
+                                    <td>{{item.AgeingAssessmentConversion}}</td>
+                                    <td>{{item.AgeingCreationConversion}}</td>
+                                    <td>{{item.AgeingCreationClosure}}</td>
+                                    <td>{{item.OpenLeadsAgeing}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table id="excelDownload" style="display:none;">
+                            <thead>
+                                <tr>
+                                    <th>CompanyName</th>
+                                    <th>AllocatedTo</th>
+                                    <th>BusinessPartnerNo</th>
+                                    <th>LeadID</th>
+                                    <th>LeadStatus</th>
+                                    <th>AgeingCreationValidation</th>
+                                    <th>AgeingValidationAssessment</th>
+                                    <th>AgeingAssessmentConversion</th>
+                                    <th>AgeingCreationConversion</th>
+                                    <th>AgeingCreationClosure</th>
+                                    <th>OpenLeadsAgeing</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in $ctrl.FillAllMTTRLeadsSGrid">
+                                    <td>{{item.CompanyName}}</td>
+                                    <td>{{item.AllocatedTo}}</td>
+                                    <td>{{item.BusinessPartnerNo}}</td>
+                                    <td>{{item.LeadID}}</td>
+                                    <td>{{item.Status}}</td>
+                                    <td>{{item.AgeingCreationValidation}}</td>
+                                    <td>{{item.AgeingValidationAssessment}}</td>
+                                    <td>{{item.AgeingAssessmentConversion}}</td>
+                                    <td>{{item.AgeingCreationConversion}}</td>
+                                    <td>{{item.AgeingCreationClosure}}</td>
+                                    <td>{{item.OpenLeadsAgeing}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="nullDataDiv" style="display: none;">
+                    <div class="mdl-grid jumbotron">
+                        <h3 class="page-header" style="color: brown; margin-left: 33%">
+                            <i class="fa fa-exclamation-triangle">
+                            </i>&nbsp; No Data available
+                        </h3>
+                    </div>
+                </div>
+                <div class="row nex-prev-container">
+                    <div class="col-lg-12 col-md-12 text-right">
+                        <button ng-show="$ctrl.ShowBack" ng-click="$ctrl.back()" class="btn btn-default">Prev</button>
+                        <button ng-show="$ctrl.ShowNext" ng-click="$ctrl.next()" class="btn btn-default">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Search Loader Started -->
+    <div class="search-loader" id="search-btn-loader">
+        <div class="search-loader-container">
+            <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+        </div>
+    </div>
+    <!-- Search Loader Ended -->
+</div>

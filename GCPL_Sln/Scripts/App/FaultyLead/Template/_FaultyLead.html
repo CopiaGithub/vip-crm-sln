@@ -1,0 +1,188 @@
+﻿<head>
+
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+</head>
+
+<style>
+    .header {
+        background: #555;
+        color: #f1f1f1;
+        text-align: center;
+    }
+</style>
+
+<div class="row container-fluid">
+    <div class="col-md-12" id="divlist">
+        <div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!--<div class="header" id="myHeader">
+        <h5 style="font-size:20px;margin:0px;padding:15px">Faulty Lead Management</h5>
+    </div>-->
+
+                    <div>
+                        <header style="position: initial">
+
+                            <div class="icons"><!--<img src="../../../../../Content/assets/img/App copy.png" style="height:30px" />--></div>
+                            <h5 class="leader-heading">Faulty Lead Management</h5>
+                            <!--<a href="/#!/ContactPerson" class="btn btn-primary pull-right" style="margin:8px">Add New</a>-->
+                            <!--<div class="form-group">
+            <div class="col-lg-12">
+            </div>
+        </div>-->
+
+                        </header>
+                        <hr />
+                        <div class="body">
+                            <form id="validVal">
+                                <div class="col-md-12" style="border-bottom:0px solid black;padding-left:0;padding-bottom:15px;">
+                                    <div class="col-md-4" style="padding-left: 0">
+                                        <label>Search By Customer</label>
+                                        <input class="form-control" type="text"
+                                               placeholder="Customer Name" style="width:100%" />
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label class="label-block">&nbsp;</label>
+                                        <input type="submit" class="btn search-btn" name="name" value="Search" />
+                                        <input type="button" class="btn search-btn" name="name" value="Clear" />
+                                    </div>
+                                </div>
+                                
+                            </form>
+                        </div>
+                        <hr />
+                        <h3 class="acco-sub-heading" style="font-size: 18px; border-color: #fff"> Faulty Lead Lists </h3>
+                        <div class="row">
+                            <div class="col-md-12" id="divlist">
+                                <div>
+                                    <div id="div-1" class="body">
+                                        <form id="" class="form-inline">
+                                            <div class="row" style="margin:0px;">
+                                                <div class="validation-table table-responsive" style=";overflow:auto;">
+                                                    <table class="table table-striped table-bordered customer-list-table">
+                                                        <thead class="customer-list-heading">
+                                                            <tr>
+                                                                <th>Sr.No</th>
+                                                                <th>Customer</th>
+                                                                <th>Contact Name</th>
+                                                                <th>Designation</th>
+                                                                <th>Email</th>
+                                                                <th>Mobile</th>
+                                                                <th>Address</th>
+                                                                <th>District</th>
+                                                                <th>Pincode</th>
+                                                                <th>Plan To Purchase</th>
+                                                                <th>Model No</th>
+                                                                <th>Specify More</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <!--ng-repeat="item in $ctrl.shownItems"-->
+
+                                                                <td style="vertical-align: middle">1</td>
+                                                                <td style="vertical-align: middle" >TIPL</td>
+                                                                <td style="vertical-align: middle" >Ambalika Test</td>
+                                                                <td style="vertical-align: middle" >Executive</td>
+                                                                <td style="vertical-align: middle" >ambalika.dey@tiplindia.com</td>
+                                                                <td style="vertical-align: middle" >9903797590</td>
+                                                                <td style="vertical-align: middle">Taratolla Road</td>
+                                                                <td style="vertical-align: middle">266</td>
+                                                                <td style="vertical-align: middle">700024</td>
+                                                                <td style="vertical-align: middle">get a Quote</td>
+                                                                <td style="vertical-align: middle">FB160-2</td>
+                                                                <td style="vertical-align: middle">testing</td>
+                                                                <td>
+                                                                    <!--<label class="btn-link" ng-click="$ctrl.EditContactPerson(item.ContactID);">Edit</label>-->
+                                                                    <a id="Edit" href="/#!/FaultyLeadManagement" class="btn update-btn btn-danger">Correct</a>
+                                                                </td>
+
+                                                            </tr>
+
+                                                            <tr>
+                                                                <!--ng-repeat="item in $ctrl.shownItems"-->
+
+                                                                <td>1</td>
+                                                                <td>TIPL</td>
+                                                                <td>Ambalika Test</td>
+                                                                <td>Executive</td>
+                                                                <td>ambalika.dey@tiplindia.com</td>
+                                                                <td>9903797590</td>
+                                                                <td>Taratolla Road</td>
+                                                                <td>266</td>
+                                                                <td>700024</td>
+                                                                <td>get a Quote</td>
+                                                                <td>FB160-2</td>
+                                                                <td>testing</td>
+                                                                <td>
+                                                                    <!--<label class="btn-link" ng-click="$ctrl.EditContactPerson(item.ContactID);">Edit</label>-->
+                                                                    <a id="Edit" href="/#!/FaultyLeadManagement" class="btn update-btn btn-danger">Correct</a>
+                                                                </td>
+
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+
+
+                                                </div>
+
+                                            </div>
+
+
+
+
+                                        </form>
+
+
+
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="myAlert" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.Close();" aria-hidden="true">&times;</button>
+                <!--<button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.ErrorClose();"  aria-hidden="true">&times;</button>-->
+                <h4 class="modal-title" id="myModalLabel2">Alert</h4>
+
+            </div>
+            <div class="modal-body">
+                <p>{{$ctrl.alert}}</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" id="errorclose" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,452 @@
+﻿<head>
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+</head>
+
+<div id="content">
+
+    <!--<div class="outer">-->
+    <!--<div class="inner bg-light lter">-->
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="header">
+                <h2 class="page-title">User Master</h2>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 page-title-right-container text-right">
+            <button id="#myBtnNextMetting" class="btn create-btn pull-right" data-toggle="modal" data-target="#myModalAddNew" ng-click="$ctrl.Add();">Add User</button>
+        </div>
+    </div>
+    <div class="selection-filter-container">
+        <h2 class="section-header-title">Selection Filter</h2>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="selection-filter-sub-container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>Name</label>
+                                    <input id="txtName" class="form-control" type="text"
+                                           placeholder="Search by UserName" style="width:100%" /><!--ng-model="$ctrl.UserMasterHeaderModel.SearchText"-->
+
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label>Employee Code</label>
+                                    <input id="txtName" class="form-control" type="text" ng-model="$ctrl.UserMasterHeaderModel.SearchEmployeeCode"
+                                           placeholder="Search by EmployeeCode" style="width:100%" />
+
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Phone No</label>
+                                    <input id="txtPhone" class="form-control" type="text" ng-model="$ctrl.UserMasterHeaderModel.SearchPhoneNo"
+                                           placeholder="Search by PhoneNo" style="width:100%" />
+
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Status</label>
+                                    <select id="ddlstatus" class="form-control" style="width:100%" ng-model="$ctrl.UserMasterHeaderModel.Status">
+                                        <option value="">Select</option>
+                                        <option value="1"> Active</option>
+                                        <option value="0">Inactive</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-right nex-prev-container">
+                                    <input type="submit" name="btnSubmit" value="Search" id="btnSubmit" ng-click="$ctrl.Search();" class="btn search-btn">
+                                    <input type="submit" name="btnSubmit" value="Clear" id="btnSubmit" ng-click="$ctrl.Clear();" class="btn clear-btn">
+                                    <input type="submit" name="btnSubmit" value="Excel Download" id="btnSubmit" ng-click="$ctrl.exportTableToCSV('UserMaster.csv')" class="btn download-btn">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!--<div class="col-md-4">
+            <h5 style="font-size:18px;color:red;font-weight:600">count:-{{$ctrl.FillUserMasterGrid.length}}</h5>
+        </div>-->
+        <!--<div class="col-md-8">
+            <div class="col-sm-9 col-md-9">
+                <h5 style="font-size:13px;text-align:right;font-weight:600;margin-right:5px; color: #333">No of Records Display:</h5>
+            </div>
+            <div class="col-md-3">
+                <select name="Status" id="" style="padding-left:0px;padding-right:0px;margin-right:1px;" ng-change="$ctrl.Refresh()" class="form-control">
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                </select>
+            </div>
+            <br />
+        </div>-->
+
+
+
+
+        <div class="col-llg-12 col-md-12">
+            <div class="table-container">
+                <h2 class="section-header-title">User Master List</h2>
+                <div class="row">
+                    <div class="col-md-12" id="divlist">
+                        <div class="table-sub-container">
+                            <div id="div-1" class="body">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <label class="table-label">Count - {{$ctrl.FillUserMasterGrid.length}} </label>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 text-right">
+                                        <label class="table-label">Records/Page - </label>
+                                        <select name="Status" id="DDLStatus" ng-change="$ctrl.Refresh()" ng-model="$ctrl.NoOfRds" class="no-record-dropdown">
+                                            <option value=10>10</option>
+                                            <option value=30>30</option>
+                                            <option value=50>50</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="validation-table table-responsive" style="overflow:auto;">
+                                    <table id="dataTable" class="table table-striped table-bordered customer-list-table">
+                                        <thead class="customer-list-heading">
+                                            <tr>
+                                                <th>Employee Code</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Email</th>
+                                                <th>Phone No</th>
+                                                <th>Role</th>
+                                                <th>State</th>
+                                                <th>District</th>
+                                                <th>Region</th>
+                                                <th>Date Created</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in $ctrl.shownItems ">
+
+                                                <td>{{item.EmployeeCode}}</td>
+                                                <!--<td>{{item.FirstName}}</td>-->
+                                                <td style="text-decoration:underline">
+
+                                                    <span ng-click="$ctrl.EditUserMaster(item.UserID);" data-toggle="modal" data-target="#myModalAddNew">{{item.FirstName}}</span>
+                                                </td>
+                                                <td>{{item.LastName}}</td>
+                                                <td>{{item.Email}}</td>
+                                                <td>{{item.PhoneNo}}</td>
+                                                <td>{{item.Role}}</td>
+                                                <td>{{item.State}}</td>
+                                                <td>{{item.District}}</td>
+                                                <td>{{item.Region}}</td>
+                                                <td>{{item.DateCreated}}</td>
+                                                <td>{{item.IsActive}}</td>
+
+
+                                                <td>
+                                                    <span class="edit-table-link" ng-click="$ctrl.EditUserMaster(item.UserID);" data-toggle="modal" data-target="#myModalAddNew"><i class="fa fa-edit"></i></span>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table id="excelDownload" style="display:none;">
+                                        <thead>
+                                            <tr>
+                                                <th>Employee Code</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Email</th>
+                                                <th>Phone No</th>
+                                                <th>Role</th>
+                                                <th>State</th>
+                                                <th>District</th>
+                                                <th>Region</th>
+                                                <th>Date Created</th>
+                                                <th>Status</th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in $ctrl.FillUserMasterGrid">
+
+                                                <td>{{item.EmployeeCode}}</td>
+                                                <td>{{item.FirstName}}</td>
+                                                <td>{{item.LastName}}</td>
+                                                <td>{{item.Email}}</td>
+                                                <td>{{item.PhoneNo}}</td>
+                                                <td>{{item.Role}}</td>
+                                                <td>{{item.State}}</td>
+                                                <td>{{item.District}}</td>
+                                                <td>{{item.Region}}</td>
+                                                <td>{{item.DateCreated}}</td>
+                                                <td>{{item.IsActive}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="row nex-prev-container">
+                                <div class="col-lg-12 col-md-12 text-right">
+                                    <button ng-show="$ctrl.ShowBack" ng-click="$ctrl.back()" class="btn btn-default">Prev</button>
+                                    <button ng-show="$ctrl.ShowNext" ng-click="$ctrl.next()" class="btn btn-default">Next</button>
+                                </div>
+                            </div>
+                            <div id="nullDataDiv" style="display: none;">
+                                <br />
+                                <div class="mdl-grid jumbotron">
+                                    <h3 class="page-header" style="color: brown; margin-left: 33%">
+                                        <i class="fa fa-exclamation-triangle">
+                                        </i>&nbsp; No Data available
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                           
+                        </div>
+
+                    </div>
+                </div>
+                <!-- Search Loader Started -->
+                <div class="search-loader" id="search-btn-loader">
+                    <div class="search-loader-container">
+                        <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+                    </div>
+                </div>
+                <!-- Search Loader Ended -->
+            </div>
+        </div>
+    </div>
+
+
+<div class="modal fade" id="myModalAddNew" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-2">
+
+        <div class="modal-content ">
+
+            <div class="modal-header modal-head">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title modal-head-title" id="myModalLabel2"> User Master</h3>
+            </div>
+            <div id="div-1" class="modal-body">
+                <form class="form-horizontal" name="userForm" novalidate>
+                    <div class="form-group">
+                        <div class="col-lg-4">
+                            <div ng-class="{ 'has-error' : (userForm.txtempcode.$invalid && userForm.txtempcode.$pristine) }">
+                                <label for="Address">Employee Code <span class="Mandatory">*</span></label>
+                                <input type="text" id="txtempcode" name="txtempcode" placeholder="Employee Code" ng-model="$ctrl.InserUserMaster.EmployeeCode" class="form-control">
+                                <!--<p ng-show="(userForm.txtempcode.$invalid && !userForm.txtempcode.$pristine)" id="errorWOType" class="help-block" style="color:red">Enter EmployeeCode code</p>-->
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label for="Address" >First Name <span class="Mandatory">*</span></label>
+                            <input type="text" id="txtfirstname" name="txtfirstname" placeholder="First Name" ng-model="$ctrl.InserUserMaster.FirstName" class="form-control">
+
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label for="Address" >Last Name <span class="Mandatory">*</span></label>
+                            <input type="text" id="txtlastname" name="txtlastname" placeholder="Last Name" ng-model="$ctrl.InserUserMaster.LastName" class="form-control">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <div class="col-lg-4">
+                            <label for="Address" >Email <span class="Mandatory">*</span></label>
+                            <input type="text" id="txtemail" name="txtemail" placeholder="Email" ng-model="$ctrl.InserUserMaster.Email" class="form-control">
+
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label>Phone No</label>
+                            <input type="text" id="txyphno" name="txyphno" placeholder="Phone No" ng-model="$ctrl.InserUserMaster.PhoneNo" class="form-control" maxlength="10" >
+
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label for="Address" >Password <span class="Mandatory">*</span></label>
+                            <input type="text" id="txtpwd" name="txtpwd" placeholder="Password" ng-model="$ctrl.InserUserMaster.Password" class="form-control">
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <div class="col-lg-4">
+                            <label for="Address" >Role <span class="Mandatory">*</span></label>
+                            <select id="txtRole" name="Role" class="form-control col-lg-4" ng-model="$ctrl.InserUserMaster.RoleID">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.RoleDropDown" value="{{item.RoleID}}">{{item.Title}}</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-lg-4">
+                            <label for="Address" >Department <span class="Mandatory">*</span></label>
+                            <select id="txtDepartment" name="Department" class="form-control col-lg-4" ng-model="$ctrl.InserUserMaster.UserDepartment">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.UserDepartment" value="{{item.Id}}">{{item.BroadFunction}}</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-lg-4">
+                            <label for="Address" >Division <span class="Mandatory">*</span></label>
+                            
+                            <select id="txtDivision" name="Division" ng-model="$ctrl.InserUserMaster.CustDivision" class="form-control col-lg-4" tabindex="2">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.CustomerDivisionDD" value={{item.CustomerDivisionID}}>{{item.CustomerDivision}}</option>
+                            </select>
+                        </div>
+                        <!--<div class="form-group">
+                            <label for="Address" class="control-label col-lg-4">Division</label>
+                            <div class="col-lg-6" ng-class="{ 'has-error' : (userForm.txtDivision.$invalid && userForm.txtDivision.$pristine) }">
+                                <select id="txtDivision" name="Division"  ng-model="$ctrl.InserUserMaster.Division" class="form-control col-lg-4" tabindex="2" required>
+                                    <option value="">Select</option>
+                                    <option ng-repeat="item in $ctrl.DivisionDropDown" value={{item.DivisionID}}>{{item.Division}}</option>
+                                </select>
+                                <p ng-show="(userForm.txtDivision.$invalid && !userForm.txtDivision.$pristine)" id="errortitle" class="help-block" style="color:red">Division is required.</p>
+                            </div>
+                        </div>-->
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-lg-4">
+                            <label for="Address" >Sales Office <span class="Mandatory">*</span></label>
+                            <select id="txtSalesOffice" name="SalesOffice" class="form-control col-lg-4" ng-model="$ctrl.InserUserMaster.SalesOfficeID" ng-change="$ctrl.Zone();">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.SalesOfficeDropDown" value="{{item.SalesOfficeID}}">{{item.SalesOffice}}</option>
+
+                            </select>
+
+                        </div>
+                        <div class="col-lg-4">
+                            <label for="Address" >Zone <span class="Mandatory">*</span></label>
+                            <select class="form-control col-lg-4" name="Status"  ng-model="$ctrl.CheckZone.ZoneID" tabindex="2">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ZoneDD" value="{{item.ID}}">{{item.ZoneName}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label for="Address" >Country <span class="Mandatory">*</span></label>
+                            <select id="txtCountry" ng-model="$ctrl.InserUserMaster.CountryID" disabled="disabled" name="Country" class="form-control">
+                                <option value="">India</option>
+                                <option ng-repeat="item in $ctrl.CountryDropDown" value={{item.CountryID}}>{{item.Country}}</option>
+                            </select>
+
+                        </div>
+
+                      
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-4">
+                            <label for="Address" >State <span class="Mandatory">*</span></label>
+                            <select id="txtState" ng-model="$ctrl.InserUserMaster.StateID" name="State" ng-change="$ctrl.District();" class="form-control">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.StateDropDown" value={{item.StateID}}>{{item.State}}</option>
+                            </select>
+
+                        </div>
+                        <div class="col-lg-4">
+                            <label for="Address" >District <span class="Mandatory">*</span></label>
+                            <select id="txtDistrict" name="District" class="form-control col-lg-4" ng-model="$ctrl.InserUserMaster.DistrictID" ng-change="$ctrl.Region();">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.DistrictDropDown" value="{{item.DistrictID}}">{{item.District}}</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label for="Address" >Region <span class="Mandatory">*</span></label>
+                            <select class="form-control col-lg-4" name="Status" ng-model="$ctrl.CheckRegion.RegionID" tabindex="2">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.RegionDropDown" value="{{item.RegionID}}">{{item.Region}}</option>
+                            </select>
+
+                        </div>
+
+                       
+                    </div>
+                    <div class="form-group">
+
+                         <div class="col-lg-4">
+                            <label for="Address" >Designation <span class="Mandatory">*</span></label>
+                            <select id="ddlDesignation" name="Designation" class="form-control col-lg-4" ng-model="$ctrl.InserUserMaster.DesignationId">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.DesignationDropDown" value="{{item.DesignationId}}">{{item.Designation}}</option>
+
+                            </select>
+
+                        </div>
+                        <div class="col-lg-4">
+                            <label for="Address" >Status <span class="Mandatory">*</span></label>
+                            <select class="form-control col-lg-4" name="Status" ng-model="$ctrl.InserUserMaster.Status" tabindex="2">
+                                <option value="">Select</option>
+                                <option value="1"> Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+
+                        </div>
+                       
+                    </div>
+</form>
+            </div>
+            <div class="modal-footer">
+               <!--<input type="submit" value="Submit" ng-click="$ctrl.Submit();" id="btnSubmit" class="btn search-btn" data-toggle="modal" data-target="#myAlert">-->
+                <input type="submit" value="Submit" id="btnSubmit" ng-click="$ctrl.Submit();" class="btn search-btn">
+                <input type="reset" value="ResetMac" ng-click="$ctrl.ResetMac();" id="btnResetMac" class="btn search-btn" >
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="succeess-message-box" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <div class="modal-header" id="success-modal-head">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title success-modal-title">Message</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <img id="success-img-id" style="width: 40px;" src="../../../../../Content/assets/img/success-img.gif" />
+                    <img id="error-img-id" style="width: 28px;" src="../../../../../Content/assets/img/error-img.png" />
+                    <span id="message-text">Data Inserted Successfully</span>
+                </p>
+            </div>
+            <div class="modal-footer message-modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" id="errorclose" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+

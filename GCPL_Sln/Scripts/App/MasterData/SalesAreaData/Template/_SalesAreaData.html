@@ -1,0 +1,229 @@
+﻿<head>
+
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+</head>
+<style>
+</style>
+
+<div id="content">
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <h2 class="page-title">Sales Area Data</h2>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 page-title-right-container text-right">
+            <button id="#myBtnNextMetting" class="btn create-btn" data-toggle="modal" ng-click="$ctrl.Add();" data-target="#myModalAddNew"> Add Sales Area Data </button>
+        </div>
+    </div>
+    <div class="selection-filter-container">
+        <h2 class="section-header-title">Selection Filter</h2>
+        <div id="div-1" class="selection-filter-sub-container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12" style="padding-left:0px">
+                    <!--<div class="box">-->
+                    <form id="validVal">
+                        <div class="col-md-12" style="border-bottom:0px solid black;padding-left:0;padding-bottom:15px;">
+
+                            <div class="col-md-3">
+                                <label>Status</label>
+
+                                <select id="ddlstatus" name="Status" ng-model="$ctrl.SalesareaDataSearch.Status" class="form-control" style="width:100%">
+                                    <option value="">Select</option>
+                                    <option value="1"> Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 selection-filter-btn-col">
+                                <button id="btnSearch" type="button" class="btn search-btn" ng-click="$ctrl.SearchSalesareaDataList();">Search</button>
+                                <button id="btnClear" type="button" class="btn clear-btn" ng-click="$ctrl.Clear();">Clear</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--<h3 class="acco-sub-heading" style="font-size:18px; border-color: #fff;"> Sales Area Data List </h3>-->
+
+    <div class="table-container">
+        <h2 class="section-header-title">Sales Area Data List</h2>
+        <div class="row">
+
+            <div class="col-md-12" id="divlist">
+
+                <div class="table-sub-container">
+                    <div id="div-1" class="body">
+                        <form id="">
+                            <div class="row" style="margin:0px;">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <label class="table-label">Count - {{$ctrl.SalesareaDatalist.length}} </label>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 text-right">
+                                        <label class="table-label">Records/Page - </label>
+                                        <select name="Status" id="DDLStatus" ng-change="$ctrl.Refresh()" ng-model="$ctrl.NoOfRds" class="no-record-dropdown">
+                                            <option value=10>10</option>
+                                            <option value=30>30</option>
+                                            <option value=50>50</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="validation-table table-responsive" style="overflow:auto;">
+                                    <table id="dataTable" class="table table-striped table-bordered customer-list-table">
+                                        <thead class="customer-list-heading">
+                                            <tr>
+                                                <!--<th>Sr.No</th>-->
+                                                <th>Sales Org</th>
+                                                <th>Distribution Channel</th>
+                                                <th>Business Division</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in $ctrl.shownItems">
+                                                <td>{{item.SalesOrg}}</td>
+
+                                                <td>{{item.DistributionChannel}}</td>
+                                                <td>{{item.CustomerDivision}}</td>
+                                                <td>{{item.IsActive}}</td>
+
+                                                <td>
+
+                                                    <span class="edit-table-link" ng-click="$ctrl.Edit(item.SalesAreaID);" data-toggle="modal" data-target="#myModalAddNew"><i class="fa fa-edit"></i></span>
+                                                </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="row nex-prev-container">
+                        <div class="col-lg-12 col-md-12 text-right">
+                            <button ng-show="$ctrl.ShowBack" ng-click="$ctrl.back()" class="btn btn-default">Prev</button>
+                            <button ng-show="$ctrl.ShowNext" ng-click="$ctrl.next()" class="btn btn-default">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Search Loader Started -->
+        <div class="search-loader" id="search-btn-loader">
+            <div class="search-loader-container">
+                <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+            </div>
+        </div>
+        <!-- Search Loader Ended -->
+    </div>
+</div>
+
+<!-- --------------------------------PopUP------------------------------------------------ -->
+
+<div class="modal fade" id="myModalAddNew" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content modal-1">
+            <!-----------------------------Lable----------------------------------------->
+            <div class="modal-header modal-head">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title modal-head-title" id="myModalLabel2">Sales Area Data Management</h3>
+            </div>
+            <div id="div-1" class="modal-body">
+                <form name="userForm" novalidate>
+                    <!-- ----------------------------Text------------------------------->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="Address">Sales Org <span class="Mandatory">*</span></label>
+                                <select id="txtsalorg" name="Sales" class="form-control" ng-model="$ctrl.InsertSalesArea.SalesOrgID" tabindex="2" required>
+                                    <option value="">Select</option>
+                                    <option ng-repeat="item in $ctrl.SalesOrgDD" value="{{item.SalesOrgID}}">{{item.SalesOrg}}</option>
+                                </select>
+                                <!--<p ng-show="(userForm.txtsalorg.$invalid && !userForm.txtsalorg.$pristine)" id="errortitle" class="help-block" style="color:red">Sales Org is required.</p>-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="Address">Distribution Channel <span class="Mandatory">*</span></label>
+
+                                <select id="txtdistribution" class="form-control" name="Distribution" ng-model="$ctrl.InsertSalesArea.DistributionChannelID" tabindex="2" required>
+                                    <option value="">Select</option>
+                                    <option ng-repeat="item in $ctrl.DistributionChannelDD" value="{{item.DistributionChannelID}}">{{item.DistributionChannel}}</option>
+                                </select>
+                                <!--<p ng-show="(userForm.txtdistribution.$invalid && !userForm.txtdistribution.$pristine)" id="errortitle" class="help-block" style="color:red">Distribution Channel is required.</p>-->
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="Address">Business Division <span class="Mandatory">*</span></label>
+
+                                <select id="txtbusiness" class="form-control" name="business" ng-model="$ctrl.InsertSalesArea.CustomerDivisionID" tabindex="2" required>
+                                    <option value="">Select</option>
+                                    <option ng-repeat="item in $ctrl.CustomerDivisionDD" value="{{item.CustomerDivisionID}}">{{item.CustomerDivision}}</option>
+                                </select>
+                                <!--<p ng-show="(userForm.txtbusiness.$invalid && !userForm.txtbusiness.$pristine)" id="errortitle" class="help-block" style="color:red">Business Division is required.</p>-->
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="Address">Status</label>
+
+                                <select name="Status" class="form-control" ng-model="$ctrl.InsertSalesArea.Status" tabindex="2" required>
+                                    <option value="">Select</option>
+                                    <option value="1"> Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Submit" id="btnSubmit" ng-click="$ctrl.Submit();" class="btn search-btn">
+            </div>
+        </div>
+    </div>
+</div>
+<div id="succeess-message-box" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <div class="modal-header" id="success-modal-head">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title success-modal-title">Message</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <img id="success-img-id" style="width: 40px;" src="../../../../../Content/assets/img/success-img.gif" />
+                    <img id="error-img-id" style="width: 28px;" src="../../../../../Content/assets/img/error-img.png" />
+                    <span id="message-text">Data Inserted Successfully</span>
+                </p>
+            </div>
+            <div class="modal-footer message-modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" id="errorclose" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,215 @@
+﻿<head>
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+</head>
+<style>
+    tr:nth-child(even) {
+        background-color: #dadada;
+    }
+</style>
+
+<div id="content" class="container-fluid">
+
+    <!--<div class="outer">-->
+    <!--<div class="inner bg-light lter">-->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="header">
+                <!--<div class="icons"><img src="../../../../../Content/assets/img/App copy.png" style="height:30px" /></div>-->
+                <h2 class="leader-heading">Campaign Leads</h2>
+                <!--<button id="#myBtnNextMetting" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModalAddNew" ng-click="$ctrl.AddnewClare();">Add </button>-->
+
+
+            </div>
+            <hr />
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col-lg-12">
+
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <label>Customer Name</label>
+                                <input id="hfFromDate" type="hidden" name="hfFromDate">
+                                <input name="txtbysearchu" placeholder="Search by Customer Name" input="hfFromDate" data-intro="true" id="txtbysearchu" class="form-control" style="width:100%">
+                            </div>
+
+                          
+
+                            <div class="col-md-3">
+                                <label>Status</label>
+                                <select id="ddlstatus" class="form-control" style="width:100%">
+                                    <option value=""> Select</option>
+                                  
+
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <br />
+                                <input type="submit" name="btnSubmit" value="Search" id="btnSubmit" class="btn search-btn" style="margin-top: 5px;" >
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                           
+                        </div>
+                        <br />
+
+
+                    </div>
+
+
+
+                </div>
+        
+
+                <!--<div id="collapse4" class="body" style="overflow-x:auto">
+                    <table id="dataTable" class="table table-bordered table-condensed table-striped">
+                        <thead>
+                            <tr>
+                               
+                                <th> Sr.No</th>
+                                <th>Manager</th>
+                                <th>Employee</th>
+
+                                <th>Date Created</th>
+                                <th>Status</th>
+                                <th>Action</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Shivam Jaiswal</td>
+                                <td>Sameera Pal</td>
+
+                                <td>14 Sep 2018</td>
+                                <td>Active</td>
+                                <td><button class="btn btn-success" style="background-color:lightblue !important;color:black;font-weight:bold" data-toggle="modal" data-target="#myModalAddNew">Edit</button></td>
+
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Rajeev Kwatra</td>
+                                <td>Shivam Jaiswal</td>
+                                <td>04 Apr 2018</td>
+                                <td>Active</td>
+                                <td><button class="btn btn-success" style="background-color:lightblue !important;color:black;font-weight:bold" data-toggle="modal" data-target="#myModalAddNew">Edit</button></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>-->
+            </div>
+        </div>
+    </div>
+  
+    <!--<div class="col-md-2 pull-right">
+        <div class="col-md-6 pull-right"><button ng-click="$ctrl.next()" class="btn btn-default">Next</button></div>
+        <div class="col-md-6 pull-right"><button ng-click="$ctrl.back()" class="btn btn-default">Prev</button></div>
+    </div>-->
+
+
+</div>
+
+
+<!--<div class="modal fade" id="myModalAddNew" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">
+                    Delegation Matrix
+                </h4>
+
+            </div>
+            <br />
+            <div id="div-1" class="body" style="padding:0 15px;">
+                <form class="form-horizontal" name="userForm" novalidate>
+
+                    <div class="form-group">
+                        <label for="Address" class="control-label col-lg-4">Manager</label>
+                        <div class="col-lg-6" ng-class="{ 'has-error' : (userForm.txtCategory.$invalid && userForm.txtCategory.$pristine) }">
+                            <input type="text" id="txtsalofficemail" name="txtCategory" placeholder="Start typing a Manager Name" class="form-control" required>
+                            <p ng-show="(userForm.txtCategory.$invalid && !userForm.txtCategory.$pristine)" id="errorWOType" class="help-block" style="color:red">Manager name is required.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Address" class="control-label col-lg-4">Employee</label>
+                        <div class="col-lg-6" ng-class="{ 'has-error' : (userForm.txtCategory.$invalid && userForm.txtCategory.$pristine) }">
+                            <input type="text" id="txtsalofficemail" name="txtCategory" placeholder="Start typing a Employee Name" class="form-control" required>
+                            <p ng-show="(userForm.txtCategory.$invalid && !userForm.txtCategory.$pristine)" id="errorWOType" class="help-block" style="color:red">Employee name is required.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="Address" class="control-label col-lg-4">Status</label>
+                        <div class="col-lg-6" ng-class="{ 'has-error' : (userForm.Status.$invalid && userForm.Status.$pristine) }">
+                            <select class="form-control col-lg-4" name="Status" tabindex="2" required>
+                                <option value="">Select</option>
+                                <option value="1"> Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                            <p ng-show="(userForm.Status.$invalid && !userForm.Status.$pristine)" id="errorWOType" class="help-block" style="color:red">Status is required.</p>
+                        </div>
+                    </div>
+
+                    <div class="Row form-group">
+                        <div class="col-lg-10">
+                            <input type="submit" id="btnSubmit" data-toggle="modal" data-target="#myAlert" class="btn btn-primary pull-right" value="Submit" />
+                            
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+
+
+            </div>
+        </div>
+    </div>
+</div>-->
+
+<!--<div ng-if="$ctrl.IsDisplayModalPopup">
+    <bootstrap-basic-modal-box-widget modal-box-id="modalBox" on-popup-close="$ctrl.OnModalBoxClose(item);"></bootstrap-basic-modal-box-widget>
+</div>
+<div ng-if="$ctrl.IsDisplayModalPopupError">
+    <errormessage modal-box-id="modalBox" on-popup-close="$ctrl.OnModalBoxClose(item);"></errormessage>
+</div>-->
+
+
+<div class="modal fade" id="myAlert" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.Close();" aria-hidden="true">&times;</button>
+                <!--<button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.ErrorClose();"  aria-hidden="true">&times;</button>-->
+                <h4 class="modal-title" id="myModalLabel2">Alert</h4>
+
+            </div>
+            <div class="modal-body">
+                <p>{{$ctrl.alert}}</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-toggle="modal" data-dismiss="modal" aria-hidden="true">Close</button>
+                <!--<button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Close</button>-->
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" data-dismiss="modal" id="errorclose">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

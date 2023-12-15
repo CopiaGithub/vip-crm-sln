@@ -1,0 +1,659 @@
+﻿<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <h2 class="page-title">Edit Quotation</h2>
+    </div>
+</div>
+<form>
+    <ul class="validate-lead-list">
+
+        <li>
+            <span data-toggle="collapse" data-target="#acco1" title="Contact Detail" class="acco-tab spl-tab toggle-spl-plus">Opportunity Details</span>
+            <div id="acco1" class="collapse customer-form acco-content transition">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label>Opportunity No</label>
+                            <!--<div class="col-md-3" ng-class="{ 'has-error' : (userForm.txtCustomerName.$invalid && userForm.txtCustomerName.$pristine) }">-->
+                            <input type="text" id="txtSAPID" disabled="disabled" ng-model="$ctrl.InsertContact.SAPID" name="txtSAPID" class="form-control" required>
+                            <!--<p ng-show="(userForm.txtCustomerName.$invalid && !userForm.txtCustomerName.$pristine)" id="errorWOType" class="help-block" style="color:red">Customer Name is required.</p>-->
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="Address">Date</label>
+                            <input id="hfDate" type="hidden" name="hfFromDate">
+                            <input name="txtBirDate" placeholder="DD MMM YYYY" ng-model="$ctrl.InsertContact.BirthDate" input="hfBirDate" data-intro="true" id="txtBirDate" style="width: 108%;" class="form-control" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <!--<div class="form-group">-->
+                        <!--<label class="btn-link pull-right" data-toggle="modal" ng-click="$ctrl.PullContactData(item);">Pull Primary Contact</label>-->
+                        <!--<label>Customer Name</label>-->
+                        <!--<div class="col-md-3" ng-class="{ 'has-error' : (userForm.txtCustomerName.$invalid && userForm.txtCustomerName.$pristine) }">-->
+                        <!--<input type="text" id="txtCustomerName" disabled="disabled" name="txtCustomerName" placeholder="Customer Name" class="form-control" required>
+
+                        </div>-->
+                        <div class="form-group">
+                            <label>Opportunity Status</label>
+                            <select name="Status" disabled="disabled" ng-model="$ctrl.InsertContact.Status" class="form-control">
+                                <option value="">Select</option>
+                                <option value="1"> Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--<div class="col-lg-3">
+                    <div class="form-group">
+                        <label>Customer Phone No</label>
+                        <input type="text" id="txtPhoneNo" disabled="disabled" ng-model="$ctrl.InsertContact.PhoneNo" maxlength="10" name="txtPhoneNo" class="form-control" required>-->
+                    <!--<p ng-show="(userForm.txtMobileNo.$invalid && !userForm.txtMobileNo.$pristine)" id="errorWOType" class="help-block" style="color:red">Mobile Number is required.</p>-->
+                    <!--</div>
+                    </div>-->
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label>Customer Name</label>
+                            <!--<div class="col-md-3" ng-class="{ 'has-error' : (userForm.txtContactPerson.$invalid && userForm.txtContactPerson.$pristine) }">-->
+                            <input type="text" id="txtCustomerPerson" disabled="disabled" ng-model="$ctrl.InsertContact.ContactName" name="txtContactPerson" class="form-control" placeholder="Customer Person(min 5 characters)" min="5" required>
+                            <!--<p ng-show="(userForm.txtContactPerson.$invalid && !userForm.txtContactPerson.$pristine)" id="errorWOType" class="help-block" style="color:red">Contact Person is required.</p>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Contact Name</label>
+                            <!--<div class="col-md-3" ng-class="{ 'has-error' : (userForm.txtContactPerson.$invalid && userForm.txtContactPerson.$pristine) }">-->
+                            <input type="text" id="txtContactPerson" disabled="disabled" ng-model="$ctrl.InsertContact.ContactName" name="txtContactPerson" class="form-control" placeholder="Contact Person(min 5 characters)" min="5" required>
+                            <!--<p ng-show="(userForm.txtContactPerson.$invalid && !userForm.txtContactPerson.$pristine)" id="errorWOType" class="help-block" style="color:red">Contact Person is required.</p>-->
+                        </div>
+                    </div>
+                    <div class="col-md-9 text-right">
+                        <div class="form-group">
+                            <button id="#" style="margin-top:30px;" class="btn create-btn pull-right" data-toggle="modal" data-target="#myModal" ng-click="$ctrl.Add();">Details</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </li>
+        <li class="laed-id-container">
+            <span class="acco-tab spl-tab toggle-spl-plus" id="LeadID" data-toggle="collapse" data-target="#acco10">Item List</span>
+            <div class="collapse" id="acco10">
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-sub-container">
+                            <div id="div-1" class="body" style="overflow:scroll">
+                                <div class="row" style="margin:0px">
+                                    <div class="col-md-12 table-responsive" style="padding:0px;overflow:auto">
+                                        <table id="myTable" cellspacing="0" rules="all" class="table table-bordered table-condensed customer-list-table table-responsive" border="1" style="width:100%;border-collapse:collapse;">
+                                            <thead class="customer-list-heading">
+
+                                                <tr>
+                                                    <!--<td></td>-->
+                                                    <th>Sr. No.</th>
+                                                    <th>Item Description</th>
+                                                    <th>Item Quantity</th>
+                                                    <th>Item Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <!--<td> <input type="checkbox" ng-model="checkboxModel.value1"></td>-->
+                                                    <td>2245</td>
+                                                    <td>Test</td>
+                                                    <td>1</td>
+                                                    <td>Active</td>
+
+                                                    <td>
+                                                        <a href="" class="btn search-btn" title="" data-toggle="modal" data-target="#DeliveyDetailsModel">View</a>
+                                                        <!--<span class="edit-table-link" data-toggle="modal" data-target="#myModalAdds" ng-click="$ctrl.Edit(item.LeadID);"><i class="fa fa-info-circle"></i></span>-->
+                                                        <!--<span class="edit-table-link" data-toggle="modal" data-target="#DeliveyDetailsModel" ng-click="$ctrl.Edit(item.LeadID);"><i class="fa fa-info-circle"></i></span>-->
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </li>
+        <li class="laed-id-container">
+            <div class="selection-filter-container">
+                <h5 data-toggle="collapse" data-target="#div-3" class="section-header-title spl-tab toggle-spl-plus">Terms and Conditions</h5>
+                <div id="div-3" class="selection-filter-sub-container collapse">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+
+                                <!--<label>
+                                    {{$ctrl.EditQuotation.TC1Heading}} <input type="checkbox" class="TC-class" ng-checked="$ctrl.EditQuotation.TC1ID != '0' " id="chkTC1" />
+                                </label>-->
+                                <div>
+
+                                    <textarea class="form-control" rows="3" id="txtTC1">1. The above quoted prices are for the MOQ mentioned against the items and are FOR your locations as provided in the mail below.</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+
+                                <!--<label>{{$ctrl.EditQuotation.TC2Heading}}  <input type="checkbox" class="TC-class" ng-checked="$ctrl.EditQuotation.TC2ID != '0' " id="chkTC2" /></label>-->
+                                <div>
+                                    <textarea class="form-control" rows="3" id="txtTC2">2. Payment Terms: 100% advance along with the Purchase Order.</textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+
+                                <!--<label>{{$ctrl.EditQuotation.TC3Heading}}  <input type="checkbox" class="TC-class" ng-checked="$ctrl.EditQuotation.TC3ID != '0' " id="chkTC3" /></label>-->
+                                <div>
+                                    <textarea class="form-control" rows="3" id="txtTC3">3. Delivery – Shall confirm. As of now, it is starting Mid Dec, if the order can be confirmed by 23rd Nov 2023.</textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+
+                               <!-- <label>{{$ctrl.EditQuotation.TC4Heading}}  <input type="checkbox" class="TC-class" ng-checked="$ctrl.EditQuotation.TC4ID != '0' " id="chkTC4" /></label>-->
+                                <div>
+                                    <textarea class="form-control" rows="3" id="txtTC4">4. The Purchase of the above items does not entitle the client for use of the Brands of VIP Industries Ltd if not given in writing specifically otherwise. The Usage of the brand and its other constituents, if agreed to by VIP Industries Ltd, should be strictly as per standards specified by VIP.</textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+
+                                <!--<label>{{$ctrl.EditQuotation.TC5Heading}}  <input type="checkbox" class="TC-class" ng-checked="$ctrl.EditQuotation.TC5ID != '0' " id="chkTC5" /></label>-->
+                                <div>
+                                    <textarea class="form-control" rows="3" id="txtTC5">5. Customisation – The above prices are inclusive of the customization charges of your Logo to be printed on the Strolley thru suitable process. </textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+
+                               <!-- <label>{{$ctrl.EditQuotation.TC6Heading}}  <input type="checkbox" class="TC-class" ng-checked="$ctrl.EditQuotation.TC6ID != '0' " id="chkTC6" /></label>-->
+                                <div>
+                                    <textarea class="form-control" rows="3" id="txtTC6">6. The above quote is valid for 15 days from this date</textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+
+                               <!-- <label>{{$ctrl.EditQuotation.TC7Heading}}  <input type="checkbox" class="TC-class" ng-checked="$ctrl.EditQuotation.TC7ID != '0' " id="chkTC7" /></label>-->
+                                <div>
+                                    <textarea class="form-control" rows="3" id="txtTC7">7. This transaction shall be governed by the laws applicable in India and the parties hereto agree that all disputes arising under these presents shall be subjects to Mumbai Jurisdiction only.</textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">-->
+
+                               <!-- <label>{{$ctrl.EditQuotation.TC8Heading}}  <input type="checkbox" class="TC-class" ng-checked="$ctrl.EditQuotation.TC8ID != '0' " id="chkTC8" /></label>-->
+                                <!--<div>
+                                    <textarea class="form-control" rows="3" id="txtTC8">{{$ctrl.EditQuotation.TC8}}</textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </li>
+        <li class="laed-id-container">
+            <span class="acco-tab spl-tab toggle-spl-plus" id="LeadID" data-toggle="collapse" data-target="#acco5">Sales Person Details </span>
+            <div class="collapse" id="acco5">
+
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="row">
+                            <div class="col-ld-3 col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Sales Person Name</label>
+                                    <input type="text" placeholder="Sales Person Name" ng-model="$ctrl.AssessmentInfo.CompanyName" id="txtCustomerName" class="form-control" name="customer-name" />
+                                </div>
+                            </div>
+
+
+                            <div class="col-ld-3 col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Mobile No</label>
+                                    <input type="text" ng-model="$ctrl.AssessmentInfo.MobileNo" id="txtCustomerName" class="form-control" name="customer-name" />
+                                </div>
+                            </div>
+
+                            <div class="col-ld-3 col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="text" ng-model="$ctrl.AssessmentInfo.Pincode" id="txtCustomerName" class="form-control" name="customer-name" />
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-3">
+                                <div class="form-group">
+                                    <label for="address" class="form-label">Designation  <span class="Mandatory">*</span></label>
+                                    <input type="text" class="form-control" rows="5" ng-model="$ctrl.AssessmentInfo.Address1" maxlength="40" id="txtAddr1" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <br />
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </li>
+
+
+    </ul>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <div class="form-group">
+                <label class="label-block" style="margin-top: 25px;">&nbsp;</label>
+                <input type="submit" value="Submit" id="btnSubmit" ng-click="$ctrl.Submit();" class="btn search-btn">
+                <!--<input type="submit" value="Submit" id="btnSubmit" style="margin-top: 20px;margin:8px;background-color: #f48c41;border: none;color:black;margin-right: -65px;" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myAlert">-->
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Page Loader Started -->
+    <div class="loader-page" id="pg-load">
+        <div class="search-loader-container">
+            <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+        </div>
+    </div>
+
+</form>
+<div class="modal fade" id="DeliveyDetailsModel" tabindex="-2" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
+    <div class="modal-dialog modal-2">
+        <div class="modal-content " style="position: relative">
+            <div class="modal-header modal-head">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title modal-head-title"> ITEM DETAILS | Sr. No. - {{$ctrl.AssessmentInfo.LeadID}}</h3>
+            </div>
+
+            <div id="div-1" class="modal-body">
+                <form class="form-horizontal" name="userForm" novalidate>
+                    <!--<div class="modal-header">
+                        <div class="row">-->
+                    <!--<div class="col-md-12 text-right">
+                    <a href="/#!/DeliverySchedule" class="btn create-btn pull-right" title="LeadAssessment">Delivery Schedule</a>-->
+                    <!--<input type="submit" id="activity-submit" value="Create Delivery Schedule" ng-click="$ctrl.Submit();" class="btn create-btn pull-right">-->
+                    <!--</div>-->
+                    <!--<div class="col-md-12 text-right ">
+                        <a href="/#!/DeliverySchedule" ng-click="$ctrl.Add();" class="btn create-btn ">Delivery Schedule</a>
+                    </div>-->
+                    <!--</div>
+                    </div>-->
+
+                    <div class="form-group">
+
+                        <div class="col-md-3">
+                            <b>Sr. No.</b>
+
+                            <input type="text" placeholder="Select leadid" ng-model="2245" name="leadid" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>Item Status </b>
+                            <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.AssessmentInfo.LeadStatusId" style="width:100%" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
+                            </select>
+
+                        </div>
+                        <div class="col-md-3">
+                            <b>Sales Office </b>
+                            <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.AssessmentInfo.LeadStatusId" style="width:100%" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
+                            </select>
+
+                        </div>
+                        <div class="col-md-3">
+                            <b>Opportunity Type </b>
+                            <select id="txtLeadType" class="form-control leader-create-dropdown" ng-model="$ctrl.AssessmentInfo.LeadType" name="LeadType" tabindex="2" required disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.LeadTypeDropDown" value={{item.ID}}>{{item.LeadTypeDesc}}</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <b>Opportunity Category </b>
+
+                            <select id="txtLeadCategory" class="form-control leader-create-dropdown" ng-model="$ctrl.AssessmentInfo.LeadCategoryID" name="LeadCategory" tabindex="2" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.LeadCategoryDropDown" value={{item.LeadCategoryID}}>{{item.LeadCategory}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <b>Project Name </b>
+                            <select id="ddlprojectname" class="form-control leader-create-dropdown" name="ProjectName" ng-model="$ctrl.AssessmentInfo.ProjectID" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ProjectNameDD" value={{item.ProjectID}}>{{item.ProjectName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <b>Industry Division </b>
+                            <select class="form-control" ng-model="$ctrl.AssessmentInfo.IndustryDivisionID" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.IndustryDivisionDropDown" value={{item.IndustryDivisionID}}>{{item.IndustryDivision}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <b>Industry Segment </b>
+                            <select class="form-control" ng-model="$ctrl.AssessmentInfo.IndustrialSegmentID" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.IndustrialSegmentDropDown" value={{item.IndustrialSegmentID}}>{{item.IndustrialSegment}}</option>
+                            </select>
+                        </div>
+
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <b>Plan to Purchase Within </b>
+                            <select id="purchaseddl" class="form-control leader-create-dropdown" ng-model="$ctrl.AssessmentInfo.PurchaseTimelineID" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.PurchaseTimlinedd" value={{item.PurchaseTimelineID}}>{{item.Title}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <b>Quantity </b>
+                            <input type="text" placeholder="Select Quantity" ng-model="$ctrl.AssessmentInfo.Quantity" name="quantity" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>Category </b>
+                            <select id="txtCategory" name="Category" ng-model="$ctrl.AssessmentInfo.CategoryID" ng-change="$ctrl.Division();" class="form-control leader-create-dropdown" tabindex="2" required disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.CategoryDropDown" value={{item.CategoryID}}>{{item.Category}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <b>Division </b>
+
+                            <select id="txtDivision" name="Division" ng-model="$ctrl.AssessmentInfo.DivisionID" ng-change="$ctrl.Product();" class="form-control leader-create-dropdown" tabindex="2" required disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.DivisionDropDownP" value={{item.DivisionID}}>{{item.Division}}</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <b>Product </b>
+                            <select id="txtProduct" name="Product" ng-model="$ctrl.AssessmentInfo.ProductID" ng-change="$ctrl.Model();" class="form-control leader-create-dropdown" tabindex="2" required disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <b>Model </b>
+                            <select id="txtModel" name="Model" ng-model="$ctrl.AssessmentInfo.ModelID" class="form-control leader-create-dropdown" tabindex="2" required disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ModelDropDown" value={{item.ModelID}}>{{item.ModelNo}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <b>Channel </b>
+                            <select id="txtChannel" name="txtChannel" ng-model="$ctrl.AssessmentInfo.ChannelID" class="form-control leader-create-dropdown" ng-change="$ctrl.LeadSource();" tabindex="2" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ChannelDD" value="{{item.ID}}">{{item.Channel}}</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <b>Opportunity Source  </b>
+
+                            <select id="ddlleadsource" class="form-control leader-create-dropdown" name="LeadSource" ng-model="$ctrl.AssessmentInfo.LeadSourceID" ng-change="$ctrl.LeadSourceChange();" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.LeadSourcedd" value={{item.LeadSourceID}}>{{item.LeadSource}}</option>
+                            </select>
+                        </div>
+                        <!--<div class="col-md-3">
+                            <b>Sales Area </b>
+                            <select id="txtSales" name="SalesArea" ng-model="$ctrl.AssessmentInfo.SalesAreaID" class="form-control">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.SalesAreaDropDown" value={{item.SalesAreaID}}>{{item.SalesArea}}</option>
+                            </select>
+                        </div>-->
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-md-3">
+                            <b>Comments </b>
+                            <textarea class="form-control" placeholder="Add Comments" ng-model="$ctrl.AssessmentInfo.Comments" rows="3" id="address" disabled></textarea>
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+            <!-- Search Loader Started -->
+            <div class="search-loader" id="ass-btn-loader1" style="display: none;background: rgba(0,0,0,.5)">
+                <div class="search-loader-container">
+                    <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+                </div>
+            </div>
+            <!-- Search Loader Ended -->
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-2" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
+    <div class="modal-dialog modal-2">
+        <div class="modal-content " style="position: relative">
+            <div class="modal-header modal-head">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title modal-head-title"> OPPORTUNITY DETAILS </h3>
+            </div>
+
+            <div id="div-1" class="modal-body">
+                <form class="form-horizontal" name="userForm" novalidate>
+
+                    <div class="form-group">
+
+                        <div class="col-md-3">
+                            <b>Opportunity No </b>
+
+                            <input type="text" placeholder="Select leadid" ng-model="" name="leadid" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>Opportunity Status </b>
+                            <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.AssessmentInfo.LeadStatusId" style="width:100%" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
+                            </select>
+
+                        </div>
+                        <div class="col-md-3">
+                            <b>Description </b>
+                            <textarea style="width:90%;" ng-model="$ctrl.AssessmentInfo.Description" disabled></textarea>
+
+                        </div>
+                        <div class="col-md-3">
+                            <b>Notes </b>
+                            <textarea style="width:90%;" ng-model="$ctrl.AssessmentInfo.Notes" disabled></textarea>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <div class="col-md-12">
+                            <h4><b>Customer Detail</b></h4>
+                            <hr />
+                        </div>
+
+                        <div class="col-md-3">
+                            <b>Customer Name </b>
+                            <input type="text" placeholder="Customer Name" ng-model="$ctrl.AssessmentInfo.CompanyName" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>Mobile No </b>
+                            <input type="text" ng-model="$ctrl.AssessmentInfo.MobileNo" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>Pincode </b>
+                            <input type="text" ng-model="$ctrl.AssessmentInfo.Pincode" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                        </div>
+
+                        <div class="col-md-3">
+                            <b>Address </b>
+                            <input type="text" class="form-control" rows="5" ng-model="$ctrl.AssessmentInfo.Address1" maxlength="40" id="txtAddr1" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-md-3">
+                            <b>Email </b>
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.Email" name="mail" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>Phone No </b>
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>Country </b>
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>State </b>
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <b>District </b>
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>City </b>
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <div class="col-md-12">
+                            <h4><b>Contact Detail</b></h4>
+                            <hr />
+                        </div>
+
+                        <div class="col-md-3">
+                            <b>Contact Person </b>
+                            <input type="text" placeholder="Customer Name" ng-model="$ctrl.AssessmentInfo.CompanyName" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>Mobile No </b>
+                            <input type="text" ng-model="$ctrl.AssessmentInfo.MobileNo" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>Email </b>
+                            <input type="text" ng-model="$ctrl.AssessmentInfo.Pincode" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                        </div>
+
+                        <div class="col-md-3">
+                            <b>Phone No </b>
+                            <input type="text" class="form-control" rows="5" ng-model="$ctrl.AssessmentInfo.Address1" maxlength="40" id="txtAddr1" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-md-3">
+                            <b>Country </b>
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.Email" name="mail" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>State </b>
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>District </b>
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>City </b>
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <b>Pincode </b>
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>Address </b>
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>Designation </b>
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                        </div>
+                        <div class="col-md-3">
+                            <b>Department </b>
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                        </div>
+
+                    </div>
+
+
+                </form>
+            </div>
+            <!-- Search Loader Started -->
+            <div class="search-loader" id="ass-btn-loader1" style="display: none;background: rgba(0,0,0,.5)">
+                <div class="search-loader-container">
+                    <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+                </div>
+            </div>
+            <!-- Search Loader Ended -->
+        </div>
+    </div>
+</div>

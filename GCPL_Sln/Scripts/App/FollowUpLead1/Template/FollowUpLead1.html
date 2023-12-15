@@ -1,0 +1,539 @@
+﻿
+<head>
+    <meta charset="utf-8" />
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+    <title></title>
+</head>
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-lg-6">
+            <div class="header">
+                <h2 class="page-title">Lead-Followup </h2>
+            </div>
+            </div>
+            <div class="col-lg-6 text-right">
+                <a href="/#!/LeadFollowUpList" class="btn search-btn" style="margin-top:15px;" title="Back">Back</a>
+            </div>
+        </div>
+    </div>
+
+<br />
+<form>
+    <ul class="validate-lead-list">
+        <li class="laed-id-container">
+            <span class="acco-tab spl-tab toggle-spl-plus" id="LeadID" data-toggle="collapse" data-target="#acco1">LEAD DETAILS ID - {{$ctrl.InsertValidate.LeadID}} | Model - {{$ctrl.InsertValidate.ModelNo1}} | Product - {{$ctrl.InsertValidate.Product}} | Allocated To -</span>
+            <div class="collapse" id="acco1">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Status<span class="Mandatory">*</span></label>
+                            <select id="leadstatus" class="form-control" ng-model="$ctrl.InsertValidate.LeadStatusID" disabled>
+                                <option value="">Select</option>
+                                <!--<option value="1"></option>-->
+                                <option value="2">Validate</option>
+                                <option value="3">Hold</option>
+                                <option value="4">Invalid</option>
+                                <option value="5">Database</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Industry Division<span class="Mandatory">*</span></label>
+                            <select class="form-control" ng-model="$ctrl.InsertValidate.IndustryDivisionID"disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.IndustryDivisionDropDown" value={{item.IndustryDivisionID}}>{{item.IndustryDivision}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Industry Segment<span class="Mandatory">*</span></label>
+                            <select class="form-control" ng-model="$ctrl.InsertValidate.IndustrySegment" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.IndustrialSegmentDropDown" value={{item.IndustrialSegmentID}}>{{item.IndustrialSegment}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Comments<span class="Mandatory">*</span></label>
+                            <textarea class="form-control" placeholder="Add Comments" ng-model="$ctrl.InsertValidate.Comments" rows="3" id="address" disabled></textarea>
+                        </div>
+                    </div>
+
+                </div>
+                <!--<div class="row" id="trManager">
+                <div class="col-lg-3 col-md-3">
+                    <div class="form-group">
+                        <label class="form-label">Manager Name</label>
+                        <input type="text" id="txtManager" class="form-control" placeholder="Search by User" style="width:100%" />
+                    </div>
+                </div>
+            </div>-->
+
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Lead Type<span class="Mandatory">*</span></label>
+                            <select id="txtLeadType" class="form-control leader-create-dropdown" ng-model="$ctrl.InsertValidate.LeadType" name="LeadType" tabindex="2" required disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.LeadTypeDropDown" value={{item.ID}}>{{item.LeadTypeDesc}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Lead Category</label>
+                            <select id="txtLeadCategory" class="form-control leader-create-dropdown" ng-model="$ctrl.InsertValidate.LeadCategoryID" name="LeadCategory" tabindex="2" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.LeadCategoryDropDown" value={{item.LeadCategoryID}}>{{item.LeadCategory}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Plan to Purchase Within<span class="Mandatory">*</span></label>
+                            <select id="purchaseddl" class="form-control leader-create-dropdown" ng-model="$ctrl.InsertValidate.PurchaseTimelineID" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.PurchaseTimlinedd" value={{item.PurchaseTimelineID}}>{{item.Title}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label for="quantity" class="form-label">Quantity<span class="Mandatory">*</span></label>
+                            <input type="text" placeholder="Select Quantity" ng-model="$ctrl.InsertValidate.Quantity" name="quantity" class="form-control" disabled/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Category<span class="Mandatory">*</span></label>
+                            <select id="txtCategory" name="Category" ng-model="$ctrl.InsertValidate.CategoryID" ng-change="$ctrl.Division();" class="form-control leader-create-dropdown" tabindex="2" required disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.CategoryDropDown" value={{item.CategoryID}}>{{item.Category}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Division<span class="Mandatory">*</span></label>
+                            <select id="txtDivision" name="Division" ng-model="$ctrl.InsertValidate.DivisionID" ng-change="$ctrl.Product();" class="form-control leader-create-dropdown" tabindex="2" required disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.DivisionDropDownP" value={{item.DivisionID}}>{{item.Division}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Product<span class="Mandatory">*</span></label>
+                            <select id="txtProduct" name="Product" ng-model="$ctrl.InsertValidate.ProductID" ng-change="$ctrl.Model();" class="form-control leader-create-dropdown" tabindex="2" required disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Model<span class="Mandatory">*</span></label>
+                            <select id="txtModel" name="Model" ng-model="$ctrl.InsertValidate.ModelID" class="form-control leader-create-dropdown" tabindex="2" required disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ModelDropDown" value={{item.ModelID}}>{{item.ModelNo}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label for="" class="form-label">Channel<span class="Mandatory">*</span></label>
+                            <select id="txtChannel" name="txtChannel" ng-model="$ctrl.InsertValidate.ChannelID" class="form-control leader-create-dropdown" ng-change="$ctrl.LeadSource();" tabindex="2" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ChannelDD" value="{{item.ID}}">{{item.Channel}}</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label for="" class="form-label">Lead Source<span class="Mandatory">*</span></label>
+                            <select id="ddlleadsource" class="form-control leader-create-dropdown" name="LeadSource" ng-model="$ctrl.InsertValidate.LeadSourceID" ng-change="$ctrl.LeadSourceChange();"disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.LeadSourcedd" value={{item.LeadSourceID}}>{{item.LeadSource}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="Campaignfield" style="display:none;">
+                        <div class="col-lg-3 col-md-3">
+                            <div class="form-group">
+                                <label for="quantity" class="form-label">Campaign <span class="Mandatory">*</span></label>
+                                <select id="ddlcampaign" class="form-control leader-create-dropdown" ng-model="$ctrl.InsertValidate.CampaignID" style="width:100%"disabled>
+                                    <option value="">Select</option>
+                                    <option ng-repeat="item in $ctrl.Campaigndd" value={{item.CampaignID}}>{{item.CampaignName}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="UserNamefield" style="display:none;">
+                        <div class="col-lg-3 col-md-3">
+                            <div class="form-group">
+                                <label for="quantity" class="form-label">UserName <span class="Mandatory">*</span></label>
+                                <input type="text" name="user" id="txtUserName" class="form-control" placeholder="User Name" ng-model="$ctrl.InsertValidate.RefUserName" disabled/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label>Sales Area <span class="Mandatory" disabled>*</span></label>
+                            <select id="txtSales" name="SalesArea" ng-model="$ctrl.InsertValidate.SalesAreaID" class="form-control" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.SalesAreaDropDown" value={{item.SalesAreaID}}>{{item.SalesArea}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+
+
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label for="specify" class="form-label" >Want to Specify More</label>
+                            <textarea class="form-control" placeholder="Specify" ng-model="$ctrl.InsertValidate.SpecifyMore" rows="3" id="specify" disabled></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <input type="submit" value="Submit" id="btnFinalSubmit" ng-click="$ctrl.Submit();" class="btn search-btn" data-toggle="modal" data-target="#myAlert">
+                    <button id="btnClear" ng-click="$ctrl.Clear();" type="button" class="btn clear-btn ">Clear</button>
+                </div>
+            </div>
+
+
+
+        </li>
+        <li class="customer-detail-container">
+            <span class="acco-tab spl-tab toggle-spl-plus" data-toggle="collapse" data-target="#acco2">DETAILS</span>
+            <div class="collapse customer-detail-subcontainer" id="acco2">
+                <div class="row">
+                    <div class="col-md-6" style="border-right:2px solid gray;">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h4 style="color:#000000;"><b>Customer Detail</b></h4>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-ld-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Customer Name</label>
+                                    <input type="text" placeholder="Customer Name" ng-model="$ctrl.InsertValidate.CompanyName" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Sales Office <span class="Mandatory">*</span></label>
+                                    <select id="txtSalesoff" name="Sales" ng-model="$ctrl.InsertValidate.SalesOfficeID" class="form-control leader-create-dropdown" disabled>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in $ctrl.SalesOfficeDropDown" value={{item.SalesOfficeID}}>{{item.SalesOffice}}</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="address" class="form-label">Address  <span class="Mandatory">*</span></label>
+                                    <input type="text" class="form-control" rows="5" ng-model="$ctrl.InsertValidate.Address1" maxlength="40" id="txtAddr1" disabled>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="form-group">
+                                    <label for="mail" class="form-label">Email</label>
+                                    <input type="email" id="txtCustEmail" ng-model="$ctrl.InsertValidate.Email" name="mail" class="form-control" disabled />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="mobile" class="form-label">Mobile Number <span class="Mandatory">*</span></label>
+                                    <input type="text" id="txtCustMobile" ng-model="$ctrl.InsertValidate.MobileNo" name="mobile" class="form-control" maxlength="10" disabled />
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="text" id="txtCustPhone" ng-model="$ctrl.InsertValidate.PhoneNo" name="phone" class="form-control" maxlength="10" disabled />
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">City </label>
+                                    <input type="text" id="txtCustCity" ng-model="$ctrl.InsertValidate.City" name="city" class="form-control" disabled />
+                                </div>
+                            </div>
+
+                            <!--<div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            <label for="fax" class="form-label">Fax</label>
+            <input type="text" id="txtCustFax" ng-model="$ctrl.InsertValidate.Fax" name="fax" class="form-control" />
+        </div>
+    </div>-->
+                        </div>
+
+
+                        <div class="row">
+
+
+                            <div class="col-lg-4 col-md-4">
+
+                                <div class="form-group">
+                                    <label class="form-label">Country <span class="Mandatory">*</span></label>
+                                    <!--<select class="form-control" id="txtCustCountry" ng-model="$ctrl.InsertValidate.CountryID" ng-change="$ctrl.State();">
+                <option value="">Select</option>
+                <option ng-repeat="item in $ctrl.CountryDropDown" value={{item.CountryID}}>{{item.Country}}</option>
+            </select>-->
+                                    <input type="text" value="India" disabled class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">State <span class="Mandatory">*</span></label>
+                                    <select class="form-control" id="txtCustState" ng-model="$ctrl.InsertValidate.StateID" ng-change="$ctrl.District();" disabled>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in $ctrl.StateDropDown" value={{item.StateID}}>{{item.State}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">District <span class="Mandatory">*</span></label>
+                                    <select class="form-control" id="txtCustDistrict" ng-model="$ctrl.InsertValidate.DistrictID" ng-change="$ctrl.Region();" disabled>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in $ctrl.DistrictDropDown" value={{item.DistrictID}}>{{item.District}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                          
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Region<span class="Mandatory">*</span></label>
+                                    <select class="form-control" id="txtRegionID" ng-model="$ctrl.InsertValidate.RegionID" disabled>
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in $ctrl.RegionDropDown" value="{{item.RegionID}}">{{item.Region}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-4">
+                                <div class="form-group">
+                                    <label for="pin" class="form-label">Pincode <span class="Mandatory">*</span></label>
+                                    <input type="text" id="txtCustPin" name="pin" ng-model="$ctrl.InsertValidate.Pincode" class="form-control" maxlength="6" disabled />
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <h4 style="color:#000000;"><b>Contact Detail</b></h4>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-ld-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Contact Person</label>
+                                    <input type="text" placeholder="Customer Name" ng-model="$ctrl.InsertValidate.CompanyName" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                                </div>
+                            </div>
+
+
+                            <div class="col-ld-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Department</label>
+                                    <input type="text"  ng-model="$ctrl.InsertValidate.CompanyName" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-ld-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Address</label>
+                                    <input type="text"  ng-model="$ctrl.InsertValidate.CompanyName" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                                </div>
+                            </div>
+
+
+                            <div class="col-ld-6 col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="text"  ng-model="$ctrl.InsertValidate.CompanyName" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-ld-4 col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">District</label>
+                                    <input type="text"  ng-model="$ctrl.InsertValidate.CompanyName" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                                </div>
+                            </div>
+
+
+                            <div class="col-ld-4 col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Mobile No</label>
+                                    <input type="text"  ng-model="$ctrl.InsertValidate.CompanyName" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                    </div>
+                </div>
+                  
+               
+        </li>
+       
+                <!-- Create Contact Modal Ended -->
+                <!-- View Detail Modal Started -->
+
+       
+        <li class="laed-id-container">
+            <span class="acco-tab spl-tab toggle-spl-plus" id="LeadID" data-toggle="collapse" data-target="#acco6">LEAD FOLLOWUP</span>
+            <div class="collapse" id="acco6">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12" >
+                        <div class="col-lg-12 col-md-12" style="padding:10px">
+                           
+                            <div class="modal-sub-container" style="border-color:gray;">
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8">
+                                        <h4 class=" modal-sub-heading">Questions</h4>
+                                        
+                                        <p>
+                                            <div style="margin-top:10px;"> 1) Did our sale Rep meet you?</div>
+                                            <br />
+                                           
+
+                                            <div > 2) Rate Rep behaviour on a scale of 1 to 10, 1 being least satisfactory,10 being most satisfactory.</div>
+                                       <br />
+                                            <div >3) Comments...</div>
+                                        
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <h4 class=" modal-sub-heading">Answers</h4>
+                                        
+                                        <p>
+                                            <div>
+                                                <select class="form-control" placeholder="Select" style="width:30%;margin-top:5px;" ng-model="$ctrl.srhdHeaderModel.darStatus">
+                                                    <option value="">Yes</option>
+                                                    <option value="">No</option>
+
+                                                </select>
+                                            </div>
+                                           
+                                           
+                                            <div style="margin-top:20px;">
+                                                <select class="form-control" placeholder="Select" style="width:30%;margin-top:5px;" ng-model="$ctrl.srhdHeaderModel.darStatus">
+                                                    <option value="">1</option>
+                                                    <option value="">2</option>
+                                                    <option value="">3</option>
+                                                    <option value="">4</option>
+                                                    <option value="">5</option>
+                                                    <option value="">6</option>
+                                                    <option value="">7</option>
+                                                    <option value="">8</option>
+                                                    <option value="">9</option>
+                                                    <option value="">10</option>
+
+                                                </select>
+                                            </div>
+                                            <div style="margin-top:20px;">
+                                                <textarea style="width:100%;height:50%;">Add Comments...</textarea>
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <button id="btnSearch" type="button" style="margin-left:5px;" class="btn clear-btn pull-right">Cancel</button>
+                                                <button id="btnSearch" type="button" class="btn search-btn pull-right">Submit</button>
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                               
+                               
+                               
+                             
+                            </div>
+                        </div>
+                        <!--<div class="row" id="trManager">
+        <div class="col-lg-3 col-md-3">
+            <div class="form-group">
+                <label class="form-label">Manager Name</label>
+                <input type="text" id="txtManager" class="form-control" placeholder="Search by User" style="width:100%" />
+            </div>
+        </div>
+    </div>-->
+                        <!--<div class="row">
+        <div class="text-right">
+            <input type="submit" value="Submit" id="btnFinalSubmit" ng-click="$ctrl.Submit();" class="btn search-btn" data-toggle="modal" data-target="#myAlert">
+            <button id="btnClear" ng-click="$ctrl.Clear();" type="button" class="btn clear-btn ">Clear</button>
+        </div>
+    </div>-->
+                    </div>
+                </div>
+                </div>
+
+
+</li>
+    </ul>
+</form>
+
+<div class="modal fade" id="myAlert" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.Close();" aria-hidden="true">&times;</button>
+                <!--<button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.ErrorClose();"  aria-hidden="true">&times;</button>-->
+                <h4 class="modal-title" id="myModalLabel2">Alert</h4>
+
+            </div>
+            <div class="modal-body">
+                <p>{{$ctrl.alert}}</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-toggle="modal" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" id="errorclose" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

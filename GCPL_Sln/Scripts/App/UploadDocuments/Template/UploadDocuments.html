@@ -1,0 +1,702 @@
+﻿<div class="row">
+    <div class="col-lg-6 col-md-6">
+        <div class="header page-title-container">
+            <h5 class="page-title">Upload Documents</h5>
+        </div>
+    </div>
+</div>
+<!--<div class="selection-filter-container">
+    <h5 class="section-header-title">Selection Filters</h5>-->
+<div class="selection-filter-sub-container">
+    <div class="row">
+        <div class="col-lg-3 col-md-3">
+            <label>Customer Name</label>
+            <input type="text" class="form-control" id="cname" name="name" ng-model="$ctrl.EditDAR.CustomerName" disabled />
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <label>Opportunity No</label>
+            <input type="text" class="form-control" id="oppno" name="name" ng-model="$ctrl.EditDAR.OpportunityNo" disabled />
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <label>Opp Status</label>
+            <input type="text" class="form-control" id="oppstatus" name="name" ng-model="$ctrl.EditDAR.OppStatus" disabled />
+        </div>
+
+        <!--<div class="col-lg-3 col-md-3">
+            <br />
+            <input type="submit" class="btn search-btn" ng-click="$ctrl.search()" name="name" style="margin: 6px;" value="Get Details" />
+        </div>-->
+    </div>
+    <div class="search-loader" id="search-btn-loader1">
+        <div class="search-loader-container">
+            <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+        </div>
+    </div>
+</div>
+<!--</div>-->
+<!-- Msg Box Started -->
+<div class="alert alert-warning" id="err-msg" style="color: #9a7a2f !important">
+    There are no documents available for this customer
+</div>
+<!-- Msg Box End -->
+<!-- Customer Documents Status Table Started -->
+<div class="selection-filter-container" id="c-records">
+    <h5 class="section-header-title">Customer Previous Document Report</h5>
+    <div class="selection-filter-sub-container">
+        <div class="validation-table table-responsive">
+            <table id="dardetails" class="table table-striped table-bordered customer-list-table">
+                <thead class="customer-list-heading">
+                    <tr>
+                        <th>DAR Number</th>
+                        <th>Submited by</th>
+                        <th>Opportunity No</th>
+                        <th>Status</th>
+                        <th>Approved by</th>
+                        <th>Approved Date</th>
+                        <th>Select</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in $ctrl.shownItems">
+                        <td>{{item.DARNo}}</td>
+                        <td>{{item.SubmittedBy}}</td>
+                        <td>{{item.OpportunityID}}</td>
+                        <td>
+                            <a ng-if="item.Status == 'Rejected'" data-toggle="modal" data-target="#rejected-msg" ng-click="$ctrl.Rejected(item.DARNo)">{{item.Status}}</a>
+                            <span ng-if="item.Status == 'Save Only' || item.Status == 'Save and Submit' || item.Status == 'Approved'">{{item.Status}}</span>
+                        </td>
+                        <td>{{item.ApprovedByName}}</td>
+                        <td>{{item.ApprovedDate}}</td>
+
+                        <!--<td><a data-toggle="modal" data-target="#rejected-msg">Rejected</a></td>-->
+                        <td>
+                            <input type="radio" name="DARID" id="messageCheckbox" value="{{item.DARNo}}" />
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="row nex-prev-container">
+            <div class="col-lg-12 col-md-12 text-right">
+                <button ng-show="$ctrl.ShowBack" ng-click="$ctrl.back()" class="btn btn-default">Prev</button>
+                <button ng-show="$ctrl.ShowNext" ng-click="$ctrl.next()" class="btn btn-default">Next</button>
+            </div>
+        </div>
+        <br />
+
+    </div>
+</div>
+<div class="text-right" id="Buttons">
+    <input type="submit" class="btn search-btn" name="name" ng-click="$ctrl.GetDocuments();" id="btnGetDocuments" value="Get Documents" />
+    <input type="submit" ng-click="$ctrl.Add()" value="Create DAR" id="createdar" class="btn search-btn" />
+</div>
+<!-- Customer Documents Status Table Ended -->
+<form id="MainContainer">
+    <div class="selection-filter-container" id="Mandatory">
+        <h5 class="section-header-title">Mandatory Documents</h5>
+        <div class="selection-filter-sub-container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>Application Form</label>
+                        <input type="file" id="input-image-hidden1" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL1();" id="btnUpload1" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container1" target="_blank" href="">
+                                <img id="image-preview1" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment1" style="color:black;"></label>-->
+                        <textarea id="ApplicationForm" cols="50" rows="15" style="display:none;"></textarea>
+                    </div>
+
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>PAN / Form No 16</label>
+                        <input type="file" id="input-image-hidden2" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL2();" id="btnUpload2" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container2" target="_blank" href="">
+                                <img id="image-preview2" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment2" style="color:black;"></label>-->
+                        <textarea id="PanFormNo16" cols="50" rows="15" style="display:none;"></textarea>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>ID and Address Proof</label>
+                        <input type="file" id="input-image-hidden3" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL3();" id="btnUpload3" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container3" target="_blank" href="">
+                                <img id="image-preview3" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                    </div>
+                    <!--<label id="lbltipAddedComment3" style="color:black;"></label>-->
+                    <textarea id="IDAddProof" cols="50" rows="15" style="display:none;"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>Photograph</label>
+                        <input type="file" id="input-image-hidden4" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL4();" id="btnUpload4" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container4" target="_blank" href="">
+                                <img id="image-preview4" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment4" style="color:black;"></label>-->
+                        <textarea id="Photograph" cols="50" rows="15" style="display:none;"></textarea>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>Bank Acc No</label>
+                        <input type="file" id="input-image-hidden5" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL5();" id="btnUpload5" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container5" target="_blank" href="">
+                                <img id="image-preview5" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment5" style="color:black;"></label>-->
+                        <textarea id="BankNo" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>CAT Quotation Ref</label>
+                        <input type="text" class="form-control" id="txtCATQref" name="cname" ng-model="$ctrl.InsertDAR.CatQuoteRef" placeholder="Please Enter Cat Quotation Ref" maxlength="20" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="selection-filter-container" id="Other">
+
+        <h5 class="section-header-title">Other Documents</h5>
+        <div class="selection-filter-sub-container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="file-upload-container">
+                        <label>Document 1</label>
+                        <input type="file" id="input-image-hidden6" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL6();" id="btnUpload6" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container6" target="_blank" href="">
+                                <img id="image-preview6" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment6" style="color:black;"></label>-->
+                        <textarea id="Doc1Pic" cols="50" rows="15" style="display:none;"></textarea>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <textarea rows="4" class="form-control" id="Doc1Text" ng-model="$ctrl.InsertDAR.Doc1Text" placeholder="Please Enter Document 1 Remarks"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="file-upload-container">
+                        <label>Document 2</label>
+                        <input type="file" id="input-image-hidden7" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL7();" id="btnUpload7" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container7" target="_blank" href="">
+                                <img id="image-preview7" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment7" style="color:black;"></label>-->
+                        <textarea id="Doc2Pic" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <textarea rows="4" class="form-control" id="Doc2Text" ng-model="$ctrl.InsertDAR.Doc2Text" placeholder="Please Enter Document 2 Remarks"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="file-upload-container">
+                        <label>Document 3</label>
+                        <input type="file" id="input-image-hidden8" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL8();" id="btnUpload8" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container8" target="_blank" href="">
+                                <img id="image-preview8" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment8" style="color:black;"></label>-->
+                        <textarea id="Doc3Pic" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <textarea rows="4" class="form-control" id="Doc3Text" ng-model="$ctrl.InsertDAR.Doc3Text" placeholder="Please Enter Document 3 Remarks"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 col-md-3">
+            <label>Customer Type <span class="Mandatory">*</span></label>
+            <select class="form-control" id="ctype-dropdown" ng-model="$ctrl.InsertDAR.CustomerType">
+                <option value="">Select</option>
+                <option value="1">Retail / Sub Retails</option>
+                <option value="2">Strategic Customers</option>
+                <option value="3">FTU</option>
+                <option value="4">FTB</option>
+            </select>
+        </div>
+        <div class="col-lg-9 col-md-9 selection-filter-btn-col" id="divsubmit">
+            <input type="submit"  class="btn search-btn" ng-click="$ctrl.customerType()" id="btnCussubmit" name="name" value="Search" />
+            <input type="submit" id="btnreset" class="btn search-btn" ng-click="$ctrl.Reset()" value="Reset"/>
+        </div>
+    </div>
+    <br />
+    <div class="selection-filter-container" id="retail-container">
+
+        <h5 class="section-header-title">Retail / Sub Retails</h5>
+        <div class="selection-filter-sub-container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>Fleet List</label>
+                        <input type="file" id="input-image-hidden9" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL9();" id="btnUpload9" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container9" target="_blank" href="">
+                                <img id="image-preview9" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment9" style="color:black;"></label>-->
+                        <textarea id="FleetList" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>Existing Vehicle Reg Copy</label>
+                        <input type="file" id="input-image-hidden10" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL10();" id="btnUpload10" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container10" target="_blank" href="">
+                                <img id="image-preview10" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment10" style="color:black;"></label>-->
+                        <textarea id="ExistingVehicleReg" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>Existing Loan Schedule and<br /> Repayment Track</label>
+                        <input type="file" id="input-image-hidden11" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL11();" id="btnUpload11" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container11" target="_blank" href="">
+                                <img id="image-preview11" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment11" style="color:black;"></label>-->
+                        <textarea id="ExistingLoanScheduleTrack" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>ITR and Audit Report (CY)</label>
+                        <input type="file" id="input-image-hidden12" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL12();" id="btnUpload12" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container12" target="_blank" href="">
+                                <img id="image-preview12" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment12" style="color:black;"></label>-->
+                        <textarea id="ITRandAuditReport_CY" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>ITR and Audit Report (CY-1)</label>
+                        <input type="file" id="input-image-hidden13" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL13();" id="btnUpload13" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container13" target="_blank" href="">
+                                <img id="image-preview13" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment13" style="color:black;"></label>-->
+                        <textarea id="ITRandAuditReport_CY_1" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>Work Order (If Available)</label>
+                        <input type="file" id="input-image-hidden14" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL14();" id="btnUpload14" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container14" target="_blank" href="">
+                                <img id="image-preview14" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment14" style="color:black;"></label>-->
+                        <textarea id="WorkOrder_IfAvailable" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="selection-filter-container" id="stratigic-container">
+
+        <h5 class="section-header-title">Strategic Customers</h5>
+        <div class="selection-filter-sub-container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>Certificate of Incorporation</label>
+                        <input type="file" id="input-image-hidden15" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL15();" id="btnUpload15" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container15" target="_blank" href="">
+                                <img id="image-preview15" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment15" style="color:black;"></label>-->
+                        <textarea id="CertiIncorp" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>Memorandom and article Assosiation</label>
+                        <input type="file" id="input-image-hidden16" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL16();" id="btnUpload16" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container16" target="_blank" href="">
+                                <img id="image-preview16" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment16" style="color:black;"></label>-->
+                        <textarea id="MemoandArticle" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>Work Order (If Available)</label>
+                        <input type="file" id="input-image-hidden21" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL21();" id="btnUpload21" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container21" target="_blank" href="">
+                                <img id="image-preview21" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment14" style="color:black;"></label>-->
+                        <textarea id="WorkOrder_IfAvailable" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>PAN of the Company</label>
+                        <input type="file" id="input-image-hidden17" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL17();" id="btnUpload17" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container17" target="_blank" href="">
+                                <img id="image-preview17" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment17" style="color:black;"></label>-->
+                        <textarea id="PANofCompany" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>Extract from Register Company</label>
+                        <input type="file" id="input-image-hidden18" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL18();" id="btnUpload18" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container18" target="_blank" href="">
+                                <img id="image-preview18" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment18" style="color:black;"></label>-->
+                        <textarea id="ExtractRegiComp" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>Resolution from board of director</label>
+                        <input type="file" id="input-image-hidden19" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL19();" id="btnUpload19" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container19" target="_blank" href="">
+                                <img id="image-preview19" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment19" style="color:black;"></label>-->
+                        <textarea id="ResolutionBoard" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>Fleet List</label>
+                        <input type="file" id="input-image-hidden22" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL22();" id="btnUpload22" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container22" target="_blank" href="">
+                                <img id="image-preview22" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment9" style="color:black;"></label>-->
+                        <textarea id="FleetList" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>Existing Vehicle Reg copy</label>
+                        <input type="file" id="input-image-hidden25" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL25();" id="btnUpload25" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container25" target="_blank" href="">
+                                <img id="image-preview25" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment10" style="color:black;"></label>-->
+                        <textarea id="ExistingVehicleReg" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>ITR and Audit Report (CY)</label>
+                        <input type="file" id="input-image-hidden23" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL23();" id="btnUpload23" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container23" target="_blank" href="">
+                                <img id="image-preview23" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment12" style="color:black;"></label>-->
+                        <textarea id="ITRandAuditReport_CY" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>ITR and Audit Report (CY-1)</label>
+                        <input type="file" id="input-image-hidden24" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL24();" id="btnUpload24" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container24" target="_blank" href="">
+                                <img id="image-preview24" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment13" style="color:black;"></label>-->
+                        <textarea id="ITRandAuditReport_CY_1" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="file-upload-container">
+                        <label>Legal Suits</label>
+                        <input type="file" id="input-image-hidden20" name="txtPhoto" class="form-control" accept="image/jpeg, image/png, application/pdf" />
+                        <div class="row" style="margin:6px;">
+                            <div class="col-lg-6 col-md-6">
+                                <input type="submit" value="Upload" ng-click="$ctrl.loadImageFileAsURL20();" id="btnUpload20" class="btn search-btn">
+                            </div>
+                            <a class="col-lg-6 col-md-6 text-right" id="img-container20" target="_blank" href="">
+                                <img id="image-preview20" style="display:none;" src="" class="documents-img-container">
+                            </a>
+                        </div>
+                        <!--<label id="lbltipAddedComment20" style="color:black;"></label>-->
+                        <textarea id="LegalSuits" cols="50" rows="15" style="display:none;"></textarea>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="upload-btn-container">
+        <div class="row">
+            <!--<div class="col-lg-3 col-md-3">
+                <label>Opportunity No</label>
+                <select class="form-control">
+                    <option value="value">select</option>
+                </select>
+            </div>-->
+            <div class="col-lg-3 col-md-3" id="ddldarstatus">
+                <label>Status <span class="Mandatory">*</span></label>
+                <select class="form-control" ng-model="$ctrl.InsertDAR.Status">
+                    <option value="">Select</option>
+                    <option value="1">Save Only</option>
+                    <option value="2">Save and Submit</option>
+                </select>
+            </div>
+            <div class="col-lg-3 col-md-3 selection-filter-btn-col">
+                <input type="submit" class="btn search-btn" name="name" value="Submit" ng-click="$ctrl.Submit()" id="btnFinalSubmit"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-loader" id="search-btn-loader">
+        <div class="search-loader-container">
+            <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+        </div>
+    </div>
+    <div class="loader-page" id="pg-load">
+        <div class="search-loader-container">
+            <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+        </div>
+    </div>
+</form>
+<br />
+
+<!-- Rejected Modal -->
+<div id="rejected-msg" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header modal-head">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title modal-head-title">Reasons for Rejected Documents</h4>
+            </div>
+            <div class="modal-body">
+                <ol>
+                    <li>{{$ctrl.Comment.ApproverComments}}</li>
+
+                </ol>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div id="succeess-message-box" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <div class="modal-header" id="success-modal-head">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title success-modal-title">Message</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <img id="success-img-id" style="width: 40px;" src="../../../../../Content/assets/img/success-img.gif" />
+                    <img id="error-img-id" style="width: 28px;" src="../../../../../Content/assets/img/error-img.png" />
+                    <span id="message-text">Data Inserted Successfully</span>
+                </p>
+            </div>
+            <div class="modal-footer message-modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" id="errorclose" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!--<div id="display-container" class="document-display-container">
+    <div class="ddc-header text-right">
+        <button><i class="fa fa-download" aria-hidden="true"></i></button>
+        <button id="close1"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+    <div class="dcc-2">
+        <div class="sub-img-preview" id="img-preview">
+
+        </div>
+    </div>
+</div>-->

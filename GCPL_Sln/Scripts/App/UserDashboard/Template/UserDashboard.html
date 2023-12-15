@@ -1,0 +1,337 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <section class="container-fluid">
+        <h2 class="leader-heading">User Dashboard</h2>
+        <hr />
+        <form action="/" method="post">
+            <div class="row">
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">From Date</label>
+                        <input type="date" class="form-control" name="name" value="" />
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">To Date</label>
+                        <input type="date" class="form-control" name="name" value="" />
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">Zone</label>
+                        <select class="form-control">
+                            <option value="value">Select Zone</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">Sales Office</label>
+                        <select class="form-control">
+                            <option value="value">Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">Sales Rep</label>
+                        <select class="form-control">
+                            <option value="value">Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">Channel</label>
+                        <select class="form-control">
+                            <option value="value">Select</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">Lead Src</label>
+                        <select class="form-control">
+                            <option value="value">Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">Division</label>
+                        <select class="form-control">
+                            <option value="value">Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">Product</label>
+                        <select class="form-control">
+                            <option value="value">Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">Model</label>
+                        <select class="form-control">
+                            <option value="value">Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">Group By</label>
+                        <select class="form-control">
+                            <option value="value">Select</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 text-right">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label class="label-block" style="margin-bottom: 8px;">&nbsp;</label>
+                                <button class="btn search-btn">Search</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 btn-column-update">
+                            <div class="form-group">
+                                <label class="label-block" style="margin-bottom: 8px;">&nbsp;</label>
+                                <input type="button" class="btn search-btn" name="name" value="Clear All" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <hr />
+        <!-- User Dashboard Tiles Started -->
+        <div class="tiles-section">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 tile-col">
+                    <div class="info-container">
+                        <h2 class="tile-title">Allocated Leads</h2>
+                        <p class="tile-count">20</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 tile-col">
+                    <div class="info-container">
+                        <h2 class="tile-title">Opportunities</h2>
+                        <p class="tile-count" >8</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 tile-col">
+                    <div class="info-container">
+                        <h2 class="tile-title">Inquiry</h2>
+                        <p class="tile-count" >2</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 tile-col">
+                    <div class="info-container">
+                        <h2 class="tile-title">Qualification</h2>
+                        <p class="tile-count" >0</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 tile-col">
+                    <div class="info-container">
+                        <h2 class="tile-title">Developement</h2>
+                        <p class="tile-count" >3</p>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 tile-col">
+                    <div class="info-container">
+                        <h2 class="tile-title">Proposal</h2>
+                        <p class="tile-count" >3</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- User Dashboard Tiles Ended -->
+        <hr />
+        <!-- Tables Section Started -->
+        <ul class="accordian">
+            <!-- Leads Table Started -->
+            <li>
+                <span data-toggle="collapse" data-target="#ud1" class="acco-tab spl-tab toggle-spl-plus">Leads</span>
+                <div id="ud1" class="validation-table table-responsive collapse">
+                    <table class="table table-striped table-bordered customer-list-table">
+                        <thead class="customer-list-heading">
+                            <tr>
+                                <th>Zone</th>
+                                <th>Model</th>
+                                <th>Status</th>
+                                <th colspan="2" class="text-center">Sales Channel</th>
+                                <th colspan="2" class="text-center">Marketing Channel</th>
+
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th style="width: 150px">Current Month</th>
+                                <th style="width: 150px">YTD</th>
+                                <th style="width: 150px">Current Month</th>
+                                <th style="width: 150px">YTD</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Zone I</td>
+                                <td>320D SERIES 2</td>
+                                <td>Active</td>
+                                <td>5</td>
+                                <td>100</td>
+                                <td>6</td>
+                                <td>200</td>
+
+                            </tr>
+                            <tr>
+                                <td>Zone I</td>
+                                <td>320D SERIES 2</td>
+                                <td>Active</td>
+                                <td>5</td>
+                                <td>100</td>
+                                <td>6</td>
+                                <td>200</td>
+
+                            </tr>
+                            <tr>
+                                <td>Zone I</td>
+                                <td>320D SERIES 2</td>
+                                <td>Active</td>
+                                <td>5</td>
+                                <td>100</td>
+                                <td>6</td>
+                                <td>200</td>
+
+                            </tr>
+                            <tr>
+                                <td>Zone I</td>
+                                <td>320D SERIES 2</td>
+                                <td>Active</td>
+                                <td>5</td>
+                                <td>100</td>
+                                <td>6</td>
+                                <td>200</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+            <!-- Leads Table Ended -->
+            <!-- Opportunities Table Started -->
+            <li>
+                <span data-toggle="collapse" data-target="#ud2" class="acco-tab spl-tab toggle-spl-plus">Opportunities</span>
+                <div id="ud2" class="validation-table table-responsive collapse">
+                    <table class="table table-striped table-bordered customer-list-table">
+                        <thead class="customer-list-heading">
+                            <tr>
+                                <th>Zone</th>
+                                <th>Model</th>
+                                <th>Status</th>
+                                <th colspan="2" class="text-center">Sales Channel</th>
+                                <th colspan="2" class="text-center">Marketing Channel</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th style="width: 150px">Current Month</th>
+                                <th style="width: 150px">YTD</th>
+                                <th style="width: 150px">Current Month</th>
+                                <th style="width: 150px">YTD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Zone I</td>
+                                <td>320D SERIES 2</td>
+                                <td>Active</td>
+                                <td>5</td>
+                                <td>100</td>
+                                <td>6</td>
+                                <td>200</td>
+
+                            </tr>
+                            <tr>
+                                <td>Zone I</td>
+                                <td>320D SERIES 2</td>
+                                <td>Active</td>
+                                <td>5</td>
+                                <td>100</td>
+                                <td>6</td>
+                                <td>200</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+            <!-- Opportunities Table Ended -->
+            <!-- IQDP Snapshot Table Started -->
+            <li>
+                <span data-toggle="collapse" data-target="#ud3" class="acco-tab spl-tab toggle-spl-plus">IQDP Snapshot</span>
+                <div id="ud3" class="validation-table table-responsive collapse">
+                    <table class="table table-striped table-bordered customer-list-table">
+                        <thead class="customer-list-heading">
+                            <tr>
+                                <th>Zone</th>
+                                <th>Model</th>
+                                <th>Status</th>
+                                <th>I</th>
+                                <th>Q</th>
+                                <th>D</th>
+                                <th>P</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Zone I</td>
+                                <td>320D SERIES 2</td>
+                                <td>Active</td>
+                                <td>10</td>
+                                <td>20</td>
+                                <td>30</td>
+                                <td>40</td>
+                            </tr>
+                            <tr>
+                                <td>Zone I</td>
+                                <td>320D SERIES 2</td>
+                                <td>Active</td>
+                                <td>10</td>
+                                <td>20</td>
+                                <td>30</td>
+                                <td>40</td>
+                            </tr>
+                            <tr>
+                                <td>Zone I</td>
+                                <td>320D SERIES 2</td>
+                                <td>Active</td>
+                                <td>10</td>
+                                <td>20</td>
+                                <td>30</td>
+                                <td>40</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+            <!-- IQDP Snapshot Table Ended -->
+        </ul>
+        <!-- Tables Section Started -->
+    </section>
+</body>
+</html>

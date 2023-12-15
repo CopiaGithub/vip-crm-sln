@@ -1,0 +1,802 @@
+﻿@{
+
+    ViewBag.Title = "Home Page";
+}
+<div>
+
+    <div ng-view>
+        loading...
+    </div>
+</div>
+
+@*MyWidget*@
+<script src="~/Scripts/App/MyWidget/Component/BootstrapModalBox/BootstrapModalBoxComponent.js"></script>
+<script src="~/Scripts/App/MyWidget/Component/BootstrapModalBox/ErrorMessage.js"></script>
+<script src="~/Scripts/App/MyWidget/Component/BootstrapModalBox/NotSubscribed.js"></script>
+<script src="~/Scripts/App/MyWidget/Component/BootstrapModalBox/DeletedMessage.js"></script>
+
+@*Menu*@
+<script src="~/Scripts/App/Menu/Model/MenuModel.js"></script>
+<script src="~/Scripts/App/Menu/Component/MenuComponent.js"></script>
+<script src="~/Scripts/App/Menu/Service/MenuService.js"></script>
+
+@*Logout*@
+<script src="~/Scripts/App/Logout/Controller/LogoutController.js"></script>
+
+
+@*Login*@
+<script src="~/Scripts/App/Login/Model/LoginPageModel.js"></script>
+<script src="~/Scripts/App/Login/Controller/LoginPageController.js"></script>
+<script src="~/Scripts/App/Login/Component/LoginPageComponent.js"></script>
+<script src="~/Scripts/App/Login/Service/LoginPageService.js"></script>
+
+@*ChangePassword*@
+
+<script src="~/Scripts/App/Otp/Model/OtpModel.js"></script>
+<script src="~/Scripts/App/Otp/Component/OtpComponent.js"></script>
+<script src="~/Scripts/App/Otp/Controller/OtpController.js"></script>
+<script src="~/Scripts/App/Otp/Service/OtpService.js"></script>
+
+@*OTP*@
+<script src="~/Scripts/App/OTP/Component/OTPComponent.js"></script>
+<script src="~/Scripts/App/OTP/Service/OTPService.js"></script>
+@*add this at top of page*@
+<script src="~/Scripts/App/Utility/ImageUploadService.js"></script>
+
+@* landing *@
+<script src="~/Scripts/App/Home/Model/HomeModel.js"></script>
+<script src="~/Scripts/App/Home/Controller/HomeController.js"></script>
+<script src="~/Scripts/App/Home/Component/HomeComponent.js"></script>
+<script src="~/Scripts/App/Home/Service/BaseHomeService.js"></script>
+<script src="~/Scripts/App/Home/Component/UsernameComponent.js"></script>
+<script src="~/Scripts/App/Home/Component/MenutoggleComponent.js"></script>
+
+@*added by shweta*@
+
+<script src="~/Scripts/App/FaultyLead/Model/FaultyLeadModel.js"></script>
+<script src="~/Scripts/App/FaultyLead/Component/FaultyLeadComponent.js"></script>
+<script src="~/Scripts/App/FaultyLead/Controller/FaultyLeadController.js"></script>
+<script src="~/Scripts/App/FaultyLead/Service/FaultyLeadService.js"></script>
+
+<script src="~/Scripts/App/FaultyLeadManagement/Model/FaultyLeadManagementModel.js"></script>
+<script src="~/Scripts/App/FaultyLeadManagement/Component/FaultyLeadManagementComponent.js"></script>
+<script src="~/Scripts/App/FaultyLeadManagement/Controller/FaultyLeadManagementController.js"></script>
+<script src="~/Scripts/App/FaultyLeadManagement/Service/FaultyLeadManagementService.js"></script>
+
+<script src="~/Scripts/App/BulkUpload/CampaignMaster/Model/CampaignMasterModel.js"></script>
+<script src="~/Scripts/App/BulkUpload/CampaignMaster/Component/CampaignMasterComponent.js"></script>
+<script src="~/Scripts/App/BulkUpload/CampaignMaster/Controller/CampaignMasterController.js"></script>
+<script src="~/Scripts/App/BulkUpload/CampaignMaster/Service/CampaignMasterService.js"></script>
+
+<script src="~/Scripts/App/MasterData/CategoryMaster/Model/CategoryMasterModel.js"></script>
+<script src="~/Scripts/App/MasterData/CategoryMaster/Component/CategoryMasterComponent.js"></script>
+<script src="~/Scripts/App/MasterData/CategoryMaster/Controller/CategoryMasterController.js"></script>
+<script src="~/Scripts/App/MasterData/CategoryMaster/Service/CategoryMasterService.js"></script>
+
+<script src="~/Scripts/App/MasterData/ProductMaster/Model/ProductMasterModel.js"></script>
+<script src="~/Scripts/App/MasterData/ProductMaster/Component/ProductMasterComponent.js"></script>
+<script src="~/Scripts/App/MasterData/ProductMaster/Controller/ProductMasterController.js"></script>
+<script src="~/Scripts/App/MasterData/ProductMaster/Service/ProductMasterService.js"></script>
+
+<script src="~/Scripts/App/MasterData/ModelMaster/Model/ModelMasterModel.js"></script>
+<script src="~/Scripts/App/MasterData/ModelMaster/Component/ModelMasterComponent.js"></script>
+<script src="~/Scripts/App/MasterData/ModelMaster/Controller/ModelMasterController.js"></script>
+<script src="~/Scripts/App/MasterData/ModelMaster/Service/ModelMasterService.js"></script>
+
+<script src="~/Scripts/App/MasterData/DivisionMaster/Model/DivisionMasterModel.js"></script>
+<script src="~/Scripts/App/MasterData/DivisionMaster/Component/DivisionMasterComponent.js"></script>
+<script src="~/Scripts/App/MasterData/DivisionMaster/Controller/DivisionMasterController.js"></script>
+<script src="~/Scripts/App/MasterData/DivisionMaster/Service/DivisionMasterService.js"></script>
+
+<script src="~/Scripts/App/MasterData/IndustryDivision/Model/IndustryDivisionModel.js"></script>
+<script src="~/Scripts/App/MasterData/IndustryDivision/Component/IndustryDivisionComponent.js"></script>
+<script src="~/Scripts/App/MasterData/IndustryDivision/Controller/IndustryDivisionController.js"></script>
+<script src="~/Scripts/App/MasterData/IndustryDivision/Service/IndustryDivisionService.js"></script>
+
+<script src="~/Scripts/App/MasterData/AccountTypeMaster/Model/AccountTypeMasterModel.js"></script>
+<script src="~/Scripts/App/MasterData/AccountTypeMaster/Component/AccountTypeMasterComponent.js"></script>
+<script src="~/Scripts/App/MasterData/AccountTypeMaster/Controller/AccountTypeMasterController.js"></script>
+<script src="~/Scripts/App/MasterData/AccountTypeMaster/Service/AccountTypeMasterService.js"></script>
+
+<script src="~/Scripts/App/MasterData/IndustrialSegmentMaster/Model/IndustrialSegmentMasterModel.js"></script>
+<script src="~/Scripts/App/MasterData/IndustrialSegmentMaster/Component/IndustrialSegmentMasterComponent.js"></script>
+<script src="~/Scripts/App/MasterData/IndustrialSegmentMaster/Controller/IndustrialSegmentMasterController.js"></script>
+<script src="~/Scripts/App/MasterData/IndustrialSegmentMaster/Service/IndustrialSegmentMasterService.js"></script>
+
+<script src="~/Scripts/App/MasterData/CatMachines/Model/CatMachinesModel.js"></script>
+<script src="~/Scripts/App/MasterData/CatMachines/Component/CatMachinesComponent.js"></script>
+<script src="~/Scripts/App/MasterData/CatMachines/Controller/CatMachinesController.js"></script>
+<script src="~/Scripts/App/MasterData/CatMachines/Service/CatMachinesService.js"></script>
+
+<script src="~/Scripts/App/MasterData/OtherMachine/Model/OtherMachineModel.js"></script>
+<script src="~/Scripts/App/MasterData/OtherMachine/Component/OtherMachineComponent.js"></script>
+<script src="~/Scripts/App/MasterData/OtherMachine/Controller/OtherMachineController.js"></script>
+<script src="~/Scripts/App/MasterData/OtherMachine/Service/OtherMachineService.js"></script>
+
+<script src="~/Scripts/App/MasterData/CatMerchandise/Model/CatMerchandiseModel.js"></script>
+<script src="~/Scripts/App/MasterData/CatMerchandise/Component/CatMerchandiseComponent.js"></script>
+<script src="~/Scripts/App/MasterData/CatMerchandise/Controller/CatMerchandiseController.js"></script>
+<script src="~/Scripts/App/MasterData/CatMerchandise/Service/CatMerchandiseService.js"></script>
+
+<script src="~/Scripts/App/MasterData/CatProduct/Model/CatProductModel.js"></script>
+<script src="~/Scripts/App/MasterData/CatProduct/Component/CatProductComponent.js"></script>
+<script src="~/Scripts/App/MasterData/CatProduct/Controller/CatProductController.js"></script>
+<script src="~/Scripts/App/MasterData/CatProduct/Service/CatProductService.js"></script>
+
+<script src="~/Scripts/App/MasterData/CatLocations/Model/CatLocationsModel.js"></script>
+<script src="~/Scripts/App/MasterData/CatLocations/Component/CatLocationsComponent.js"></script>
+<script src="~/Scripts/App/MasterData/CatLocations/Controller/CatLocationsController.js"></script>
+<script src="~/Scripts/App/MasterData/CatLocations/Service/CatLocationsService.js"></script>
+
+<script src="~/Scripts/App/MasterData/SalesAreaData/Model/SalesAreaDataModel.js"></script>
+<script src="~/Scripts/App/MasterData/SalesAreaData/Component/SalesAreaDataComponent.js"></script>
+<script src="~/Scripts/App/MasterData/SalesAreaData/Controller/SalesAreaDataController.js"></script>
+<script src="~/Scripts/App/MasterData/SalesAreaData/Service/SalesAreaDataService.js"></script>
+
+<script src="~/Scripts/App/MasterData/SalesOrg/Model/SalesOrgModel.js"></script>
+<script src="~/Scripts/App/MasterData/SalesOrg/Component/SalesOrgComponent.js"></script>
+<script src="~/Scripts/App/MasterData/SalesOrg/Controller/SalesOrgController.js"></script>
+<script src="~/Scripts/App/MasterData/SalesOrg/Service/SalesOrgService.js"></script>
+
+<script src="~/Scripts/App/MasterData/DistributionChannel/Model/DistributionChannelModel.js"></script>
+<script src="~/Scripts/App/MasterData/DistributionChannel/Component/DistributionChannelComponent.js"></script>
+<script src="~/Scripts/App/MasterData/DistributionChannel/Controller/DistributionChannelController.js"></script>
+<script src="~/Scripts/App/MasterData/DistributionChannel/Service/DistributionChannelService.js"></script>
+
+<script src="~/Scripts/App/MasterData/CustomerDivision/Model/CustomerDivisionModel.js"></script>
+<script src="~/Scripts/App/MasterData/CustomerDivision/Component/CustomerDivisionComponent.js"></script>
+<script src="~/Scripts/App/MasterData/CustomerDivision/Controller/CustomerDivisionController.js"></script>
+<script src="~/Scripts/App/MasterData/CustomerDivision/Service/CustomerDivisionService.js"></script>
+
+<script src="~/Scripts/App/MasterData/RegionMaster/Model/RegionMasterModel.js"></script>
+<script src="~/Scripts/App/MasterData/RegionMaster/Component/RegionMasterComponent.js"></script>
+<script src="~/Scripts/App/MasterData/RegionMaster/Controller/RegionMasterController.js"></script>
+<script src="~/Scripts/App/MasterData/RegionMaster/Service/RegionMasterService.js"></script>
+
+<script src="~/Scripts/App/MasterData/LeadSource/Model/LeadSourceModel.js"></script>
+<script src="~/Scripts/App/MasterData/LeadSource/Component/LeadSourceComponent.js"></script>
+<script src="~/Scripts/App/MasterData/LeadSource/Controller/LeadSourceController.js"></script>
+<script src="~/Scripts/App/MasterData/LeadSource/Service/LeadSourceService.js"></script>
+
+<script src="~/Scripts/App/MasterData/SubSource/Model/SubSourceModel.js"></script>
+<script src="~/Scripts/App/MasterData/SubSource/Component/SubSourceComponent.js"></script>
+<script src="~/Scripts/App/MasterData/SubSource/Controller/SubSourceController.js"></script>
+<script src="~/Scripts/App/MasterData/SubSource/Service/SubSourceService.js"></script>
+
+<script src="~/Scripts/App/MasterData/Subsource2/Model/Subsource2Model.js"></script>
+<script src="~/Scripts/App/MasterData/Subsource2/Component/Subsource2Component.js"></script>
+<script src="~/Scripts/App/MasterData/Subsource2/Controller/Subsource2Controller.js"></script>
+<script src="~/Scripts/App/MasterData/Subsource2/Service/Subsource2Service.js"></script>
+
+<script src="~/Scripts/App/MasterData/LeadCategory/Model/LeadCategoryModel.js"></script>
+<script src="~/Scripts/App/MasterData/LeadCategory/Component/LeadCategoryComponent.js"></script>
+<script src="~/Scripts/App/MasterData/LeadCategory/Controller/LeadCategoryController.js"></script>
+<script src="~/Scripts/App/MasterData/LeadCategory/Service/LeadCategoryService.js"></script>
+
+<script src="~/Scripts/App/MasterData/ContactMaster/Model/ContactMasterModel.js"></script>
+<script src="~/Scripts/App/MasterData/ContactMaster/Component/ContactMasterComponent.js"></script>
+<script src="~/Scripts/App/MasterData/ContactMaster/Controller/ContactMasterController.js"></script>
+<script src="~/Scripts/App/MasterData/ContactMaster/Service/ContactMasterService.js"></script>
+
+<script src="~/Scripts/App/MasterData/CreateContact/Model/CreateContactModel.js"></script>
+<script src="~/Scripts/App/MasterData/CreateContact/Component/CreateContactComponent.js"></script>
+<script src="~/Scripts/App/MasterData/CreateContact/Controller/CreateContactController.js"></script>
+<script src="~/Scripts/App/MasterData/CreateContact/Service/CreateContactService.js"></script>
+
+<script src="~/Scripts/App/DeliverySchedule/Model/DeliveryScheduleModel.js"></script>
+<script src="~/Scripts/App/DeliverySchedule/Component/DeliveryScheduleComponent.js"></script>
+<script src="~/Scripts/App/DeliverySchedule/Controller/DeliveryScheduleController.js"></script>
+<script src="~/Scripts/App/DeliverySchedule/Service/DeliveryScheduleService.js"></script>
+
+<script src="~/Scripts/App/ItemDetails/Model/ItemDetailsModel.js"></script>
+<script src="~/Scripts/App/ItemDetails/Component/ItemDetailsComponent.js"></script>
+<script src="~/Scripts/App/ItemDetails/Controller/ItemDetailsController.js"></script>
+<script src="~/Scripts/App/ItemDetails/Service/ItemDetailsService.js"></script>
+
+
+<script src="~/Scripts/App/MasterData/CustomerMaster/Model/CustomerMasterModel.js"></script>
+<script src="~/Scripts/App/MasterData/CustomerMaster/Component/CustomerMasterComponent.js"></script>
+<script src="~/Scripts/App/MasterData/CustomerMaster/Controller/CustomerMasterController.js"></script>
+<script src="~/Scripts/App/MasterData/CustomerMaster/Service/CustomerMasterService.js"></script>
+
+<script src="~/Scripts/App/MasterData/CreateCustomer/Model/CreateCustomerModel.js"></script>
+<script src="~/Scripts/App/MasterData/CreateCustomer/Component/CreateCustomerComponent.js"></script>
+<script src="~/Scripts/App/MasterData/CreateCustomer/Controller/CreateCustomerController.js"></script>
+<script src="~/Scripts/App/MasterData/CreateCustomer/Service/CreateCustomerService.js"></script>
+
+<script src="~/Scripts/App/BulkUpload/UploadCampaignExcel/Model/UploadExcelModel.js"></script>
+<script src="~/Scripts/App/BulkUpload/UploadCampaignExcel/Component/UploadExcelComponent.js"></script>
+<script src="~/Scripts/App/BulkUpload/UploadCampaignExcel/Controller/UploadExcelController.js"></script>
+<script src="~/Scripts/App/BulkUpload/UploadCampaignExcel/Service/UploadExcelService.js"></script>
+
+
+@*added by shubham*@
+<script src="~/Scripts/App/CreateLead/Model/CreateLeadModel.js"></script>
+<script src="~/Scripts/App/CreateLead/Component/CreateLeadComponent.js"></script>
+<script src="~/Scripts/App/CreateLead/Controller/CreateLeadController.js"></script>
+<script src="~/Scripts/App/CreateLead/Service/CreateLeadService.js"></script>
+
+<script src="~/Scripts/App/CreateLeadForm/Model/CreateLeadFormModel.js"></script>
+<script src="~/Scripts/App/CreateLeadForm/Component/CreateLeadFormComponent.js"></script>
+<script src="~/Scripts/App/CreateLeadForm/Controller/CreateLeadFormController.js"></script>
+<script src="~/Scripts/App/CreateLeadForm/Service/CreateLeadFormService.js"></script>
+
+<script src="~/Scripts/App/ValidateLead/Model/ValidateLeadModel.js"></script>
+<script src="~/Scripts/App/ValidateLead/Component/ValidateLeadComponent.js"></script>
+<script src="~/Scripts/App/ValidateLead/Controller/ValidateLeadController.js"></script>
+<script src="~/Scripts/App/ValidateLead/Service/ValidateLeadService.js"></script>
+
+
+<script src="~/Scripts/App/ReAllocateLead/Model/ReAllocateLeadModel.js"></script>
+<script src="~/Scripts/App/ReAllocateLead/Component/ReAllocateLeadComponent.js"></script>
+<script src="~/Scripts/App/ReAllocateLead/Controller/ReAllocateLeadController.js"></script>
+<script src="~/Scripts/App/ReAllocateLead/Service/ReAllocateLeadService.js"></script>
+
+<script src="~/Scripts/App/ValidateLeadForm/Model/ValidateLeadFormModel.js"></script>
+<script src="~/Scripts/App/ValidateLeadForm/Component/ValidateLeadFormComponent.js"></script>
+<script src="~/Scripts/App/ValidateLeadForm/Controller/ValidateLeadFormController.js"></script>
+<script src="~/Scripts/App/ValidateLeadForm/Service/ValidateLeadFormService.js"></script>
+
+<script src="~/Scripts/App/AssessmentMaster/Model/AssessmentMasterModel.js"></script>
+<script src="~/Scripts/App/AssessmentMaster/Component/AssessmentMasterComponent.js"></script>
+<script src="~/Scripts/App/AssessmentMaster/Controller/AssessmentMasterController.js"></script>
+<script src="~/Scripts/App/AssessmentMaster/Service/AssessmentMasterService.js"></script>
+
+<script src="~/Scripts/App/OpportunityUpdate/Model/OpportunityUpdateModel.js"></script>
+<script src="~/Scripts/App/OpportunityUpdate/Component/OpportunityUpdateComponent.js"></script>
+<script src="~/Scripts/App/OpportunityUpdate/Controller/OpportunityUpdateController.js"></script>
+<script src="~/Scripts/App/OpportunityUpdate/Service/OpportunityUpdateService.js"></script>
+
+<script src="~/Scripts/App/AllLead/Model/AllLeadModel.js"></script>
+<script src="~/Scripts/App/AllLead/Component/AllLeadComponent.js"></script>
+<script src="~/Scripts/App/AllLead/Controller/AllLeadController.js"></script>
+<script src="~/Scripts/App/AllLead/Service/AllLeadService.js"></script>
+
+<script src="~/Scripts/App/AllActivities/Model/AllActivitiesModel.js"></script>
+<script src="~/Scripts/App/AllActivities/Component/AllActivitiesComponent.js"></script>
+<script src="~/Scripts/App/AllActivities/Controller/AllActivitiesController.js"></script>
+<script src="~/Scripts/App/AllActivities/Service/AllActivitiesService.js"></script>
+
+<script src="~/Scripts/App/AllocationOverride/Model/AllocationOverrideModel.js"></script>
+<script src="~/Scripts/App/AllocationOverride/Component/AllocationOverrideComponent.js"></script>
+<script src="~/Scripts/App/AllocationOverride/Controller/AllocationOverrideController.js"></script>
+<script src="~/Scripts/App/AllocationOverride/Service/AllocationOverrideService.js"></script>
+
+<script src="~/Scripts/App/DuplicateLead/Model/DuplicateLeadModel.js"></script>
+<script src="~/Scripts/App/DuplicateLead/Component/DuplicateLeadComponent.js"></script>
+<script src="~/Scripts/App/DuplicateLead/Controller/DuplicateLeadController.js"></script>
+<script src="~/Scripts/App/DuplicateLead/Service/DuplicateLeadService.js"></script>
+
+<script src="~/Scripts/App/FaultySAPLeads/Model/FaultySAPLeadsModel.js"></script>
+<script src="~/Scripts/App/FaultySAPLeads/Component/FaultySAPLeadsComponent.js"></script>
+<script src="~/Scripts/App/FaultySAPLeads/Controller/FaultySAPLeadsController.js"></script>
+<script src="~/Scripts/App/FaultySAPLeads/Service/FaultySAPLeadsService.js"></script>
+
+<script src="~/Scripts/App/OpportunityValidationList/Model/OpportunityValidationListModel.js"></script>
+<script src="~/Scripts/App/OpportunityValidationList/Component/OpportunityValidationListComponent.js"></script>
+<script src="~/Scripts/App/OpportunityValidationList/Controller/OpportunityValidationListController.js"></script>
+<script src="~/Scripts/App/OpportunityValidationList/Service/OpportunityValidationListService.js"></script>
+
+<script src="~/Scripts/App/KitListView/Model/KitListViewModel.js"></script>
+<script src="~/Scripts/App/KitListView/Component/KitListViewComponent.js"></script>
+<script src="~/Scripts/App/KitListView/Controller/KitListViewController.js"></script>
+<script src="~/Scripts/App/KitListView/Service/KitListViewService.js"></script>
+
+<script src="~/Scripts/App/KitListViewTrasfer/Model/KitListViewTrasferModel.js"></script>
+<script src="~/Scripts/App/KitListViewTrasfer/Component/KitListViewTrasferComponent.js"></script>
+<script src="~/Scripts/App/KitListViewTrasfer/Controller/KitListViewTrasferController.js"></script>
+<script src="~/Scripts/App/KitListViewTrasfer/Service/KitListViewTrasferService.js"></script>
+
+<script src="~/Scripts/App/KitTrasferApproval/Model/KitTrasferApprovalModel.js"></script>
+<script src="~/Scripts/App/KitTrasferApproval/Component/KitTrasferApprovalComponent.js"></script>
+<script src="~/Scripts/App/KitTrasferApproval/Controller/KitTrasferApprovalController.js"></script>
+<script src="~/Scripts/App/KitTrasferApproval/Service/KitTrasferApprovalService.js"></script>
+
+<script src="~/Scripts/App/KitListViewSalesRep/Model/KitListViewSalesRepModel.js"></script>
+<script src="~/Scripts/App/KitListViewSalesRep/Component/KitListViewSalesRepComponent.js"></script>
+<script src="~/Scripts/App/KitListViewSalesRep/Controller/KitListViewSalesRepController.js"></script>
+<script src="~/Scripts/App/KitListViewSalesRep/Service/KitListViewSalesRepService.js"></script>
+
+<script src="~/Scripts/App/KitListViewCoustomer/Model/KitListViewCoustomerModel.js"></script>
+<script src="~/Scripts/App/KitListViewCoustomer/Component/KitListViewCoustomerComponent.js"></script>
+<script src="~/Scripts/App/KitListViewCoustomer/Controller/KitListViewCoustomerController.js"></script>
+<script src="~/Scripts/App/KitListViewCoustomer/Service/KitListViewCoustomerService.js"></script>
+
+<script src="~/Scripts/App/MyLeads/Model/MyLeadsModel.js"></script>
+<script src="~/Scripts/App/MyLeads/Component/MyLeadsComponent.js"></script>
+<script src="~/Scripts/App/MyLeads/Controller/MyLeadsController.js"></script>
+<script src="~/Scripts/App/MyLeads/Service/MyLeadsService.js"></script>
+
+<script src="~/Scripts/App/TeamLead/Model/TeamLeadModel.js"></script>
+<script src="~/Scripts/App/TeamLead/Component/TeamLeadComponent.js"></script>
+<script src="~/Scripts/App/TeamLead/Controller/TeamLeadController.js"></script>
+<script src="~/Scripts/App/TeamLead/Service/TeamLeadService.js"></script>
+
+<script src="~/Scripts/App/UserDashboard/Model/UserDashboardModel.js"></script>
+<script src="~/Scripts/App/UserDashboard/Component/UserDashboardComponent.js"></script>
+<script src="~/Scripts/App/UserDashboard/Controller/UserDashboardController.js"></script>
+<script src="~/Scripts/App/UserDashboard/Service/UserDashboardService.js"></script>
+
+<script src="~/Scripts/App/ManagerDashboard/Model/ManagerDashboardModel.js"></script>
+<script src="~/Scripts/App/ManagerDashboard/Component/ManagerDashboardComponent.js"></script>
+<script src="~/Scripts/App/ManagerDashboard/Controller/ManagerDashboardController.js"></script>
+<script src="~/Scripts/App/ManagerDashboard/Service/ManagerDashboardService.js"></script>
+
+<script src="~/Scripts/App/OverallDashboard/Model/OverallDashboardModel.js"></script>
+<script src="~/Scripts/App/OverallDashboard/Component/OverallDashboardComponent.js"></script>
+<script src="~/Scripts/App/OverallDashboard/Controller/OverallDashboardController.js"></script>
+<script src="~/Scripts/App/OverallDashboard/Service/OverallDashboardService.js"></script>
+
+<script src="~/Scripts/App/FaultySAPLeadsResubmit/Model/FaultySAPLeadsResubmitModel.js"></script>
+<script src="~/Scripts/App/FaultySAPLeadsResubmit/Component/FaultySAPLeadsResubmitComponent.js"></script>
+<script src="~/Scripts/App/FaultySAPLeadsResubmit/Controller/FaultySAPLeadsResubmitController.js"></script>
+<script src="~/Scripts/App/FaultySAPLeadsResubmit/Service/FaultySAPLeadsResubmitService.js"></script>
+
+<script src="~/Scripts/App/OpportunityValidation/Model/OpportunityValidationModel.js"></script>
+<script src="~/Scripts/App/OpportunityValidation/Component/OpportunityValidationComponent.js"></script>
+<script src="~/Scripts/App/OpportunityValidation/Controller/OpportunityValidationController.js"></script>
+<script src="~/Scripts/App/OpportunityValidation/Service/OpportunityValidationService.js"></script>
+
+<script src="~/Scripts/App/MyLeadsDashboard/Model/MyLeadsDashboardModel.js"></script>
+<script src="~/Scripts/App/MyLeadsDashboard/Component/MyLeadsDashboardComponent.js"></script>
+<script src="~/Scripts/App/MyLeadsDashboard/Controller/MyLeadsDashboardController.js"></script>
+<script src="~/Scripts/App/MyLeadsDashboard/Service/MyLeadsDashboardService.js"></script>
+
+<script src="~/Scripts/App/MyTeamsLeadDashboard/Model/MyTeamsLeadDashboardModel.js"></script>
+<script src="~/Scripts/App/MyTeamsLeadDashboard/Component/MyTeamsLeadDashboardComponent.js"></script>
+<script src="~/Scripts/App/MyTeamsLeadDashboard/Controller/MyTeamsLeadDashboardController.js"></script>
+<script src="~/Scripts/App/MyTeamsLeadDashboard/Service/MyTeamsLeadDashboardService.js"></script>
+
+<script src="~/Scripts/App/OpportunityList/Model/OpportunityListModel.js"></script>
+<script src="~/Scripts/App/OpportunityList/Component/OpportunityListComponent.js"></script>
+<script src="~/Scripts/App/OpportunityList/Controller/OpportunityListController.js"></script>
+<script src="~/Scripts/App/OpportunityList/Service/OpportunityListService.js"></script>
+
+<script src="~/Scripts/App/Ratio/Model/RatioModel.js"></script>
+<script src="~/Scripts/App/Ratio/Component/RatioComponent.js"></script>
+<script src="~/Scripts/App/Ratio/Controller/RatioController.js"></script>
+<script src="~/Scripts/App/Ratio/Service/RatioService.js"></script>
+
+<script src="~/Scripts/App/Ratio/Model/RatioModel.js"></script>
+<script src="~/Scripts/App/Ratio/Component/RatioComponent.js"></script>
+<script src="~/Scripts/App/Ratio/Controller/RatioController.js"></script>
+<script src="~/Scripts/App/Ratio/Service/RatioService.js"></script>
+
+<script src="~/Scripts/App/MyOpportunities/Model/MyOpportunitiesModel.js"></script>
+<script src="~/Scripts/App/MyOpportunities/Component/MyOpportunitiesComponent.js"></script>
+<script src="~/Scripts/App/MyOpportunities/Controller/MyOpportunitiesController.js"></script>
+<script src="~/Scripts/App/MyOpportunities/Service/MyOpportunitiesService.js"></script>
+
+<script src="~/Scripts/App/TeamOpportunities/Model/TeamOpportunitiesModel.js"></script>
+<script src="~/Scripts/App/TeamOpportunities/Component/TeamOpportunitiesComponent.js"></script>
+<script src="~/Scripts/App/TeamOpportunities/Controller/TeamOpportunitiesController.js"></script>
+<script src="~/Scripts/App/TeamOpportunities/Service/TeamOpportunitiesService.js"></script>
+
+<script src="~/Scripts/App/ActivityOverride/Model/ActivityOverrideModel.js"></script>
+<script src="~/Scripts/App/ActivityOverride/Component/ActivityOverrideComponent.js"></script>
+<script src="~/Scripts/App/ActivityOverride/Controller/ActivityOverrideController.js"></script>
+<script src="~/Scripts/App/ActivityOverride/Service/ActivityOverrideService.js"></script>
+
+<script src="~/Scripts/App/LeadOverride/Model/LeadOverrideModel.js"></script>
+<script src="~/Scripts/App/LeadOverride/Component/LeadOverrideComponent.js"></script>
+<script src="~/Scripts/App/LeadOverride/Controller/LeadOverrideController.js"></script>
+<script src="~/Scripts/App/LeadOverride/Service/LeadOverrideService.js"></script>
+
+<script src="~/Scripts/App/LeadOverrideResubmit/Model/LeadOverrideResubmitModel.js"></script>
+<script src="~/Scripts/App/LeadOverrideResubmit/Component/LeadOverrideResubmitComponent.js"></script>
+<script src="~/Scripts/App/LeadOverrideResubmit/Controller/LeadOverrideResubmitController.js"></script>
+<script src="~/Scripts/App/LeadOverrideResubmit/Service/LeadOverrideResubmitService.js"></script>
+
+<script src="~/Scripts/App/KitRecive/Model/KitReciveModel.js"></script>
+<script src="~/Scripts/App/KitRecive/Component/KitReciveComponent.js"></script>
+<script src="~/Scripts/App/KitRecive/Controller/KitReciveController.js"></script>
+<script src="~/Scripts/App/KitRecive/Service/KitReciveService.js"></script>
+
+<script src="~/Scripts/App/KitTransfer/Model/KitTransferModel.js"></script>
+<script src="~/Scripts/App/KitTransfer/Component/KitTransferComponent.js"></script>
+<script src="~/Scripts/App/KitTransfer/Controller/KitTransferController.js"></script>
+<script src="~/Scripts/App/KitTransfer/Service/KitTransferService.js"></script>
+
+<script src="~/Scripts/App/KitApproval/Model/KitApprovalModel.js"></script>
+<script src="~/Scripts/App/KitApproval/Component/KitApprovalComponent.js"></script>
+<script src="~/Scripts/App/KitApproval/Controller/KitApprovalController.js"></script>
+<script src="~/Scripts/App/KitApproval/Service/KitApprovalService.js"></script>
+
+<script src="~/Scripts/App/KitAllocationSalesRep/Model/KitAllocationSalesRepModel.js"></script>
+<script src="~/Scripts/App/KitAllocationSalesRep/Component/KitAllocationSalesRepComponent.js"></script>
+<script src="~/Scripts/App/KitAllocationSalesRep/Controller/KitAllocationSalesRepController.js"></script>
+<script src="~/Scripts/App/KitAllocationSalesRep/Service/KitAllocationSalesRepService.js"></script>
+
+<script src="~/Scripts/App/KitCustomer/Model/KitCustomerModel.js"></script>
+<script src="~/Scripts/App/KitCustomer/Component/KitCustomerComponent.js"></script>
+<script src="~/Scripts/App/KitCustomer/Controller/KitCustomerController.js"></script>
+<script src="~/Scripts/App/KitCustomer/Service/KitCustomerService.js"></script>
+
+<script src="~/Scripts/App/KitAdjestment/Model/KitAdjestmentModel.js"></script>
+<script src="~/Scripts/App/KitAdjestment/Component/KitAdjestmentComponent.js"></script>
+<script src="~/Scripts/App/KitAdjestment/Controller/KitAdjestmentController.js"></script>
+<script src="~/Scripts/App/KitAdjestment/Service/KitAdjestmentService.js"></script>
+
+<script src="~/Scripts/App/KitAdjustApproval/Model/KitAdjustApprovalModel.js"></script>
+<script src="~/Scripts/App/KitAdjustApproval/Component/KitAdjustApprovalComponent.js"></script>
+<script src="~/Scripts/App/KitAdjustApproval/Controller/KitAdjustApprovalController.js"></script>
+<script src="~/Scripts/App/KitAdjustApproval/Service/KitAdjustApprovalService.js"></script>
+
+<script src="~/Scripts/App/EmailLeadDetailDelayed/Model/EmailLeadDetailDelayedModel.js"></script>
+<script src="~/Scripts/App/EmailLeadDetailDelayed/Component/EmailLeadDetailDelayedComponent.js"></script>
+<script src="~/Scripts/App/EmailLeadDetailDelayed/Controller/EmailLeadDetailDelayedController.js"></script>
+<script src="~/Scripts/App/EmailLeadDetailDelayed/Service/EmailLeadDetailDelayedService.js"></script>
+
+<script src="~/Scripts/App/EmployeeBroadcastMaster/Model/EmployeeBroadcastMasterModel.js"></script>
+<script src="~/Scripts/App/EmployeeBroadcastMaster/Component/EmployeeBroadcastMasterComponent.js"></script>
+<script src="~/Scripts/App/EmployeeBroadcastMaster/Controller/EmployeeBroadcastMasterController.js"></script>
+<script src="~/Scripts/App/EmployeeBroadcastMaster/Service/EmployeeBroadcastMasterService.js"></script>
+
+<script src="~/Scripts/App/CustomerBroadcastMaster/Model/CustomerBroadcastMasterModel.js"></script>
+<script src="~/Scripts/App/CustomerBroadcastMaster/Component/CustomerBroadcastMasterComponent.js"></script>
+<script src="~/Scripts/App/CustomerBroadcastMaster/Controller/CustomerBroadcastMasterController.js"></script>
+<script src="~/Scripts/App/CustomerBroadcastMaster/Service/CustomerBroadcastMasterService.js"></script>
+
+<script src="~/Scripts/App/RegistrationContact/Model/RegistrationContactModel.js"></script>
+<script src="~/Scripts/App/RegistrationContact/Component/RegistrationContactComponent.js"></script>
+<script src="~/Scripts/App/RegistrationContact/Controller/RegistrationContactController.js"></script>
+<script src="~/Scripts/App/RegistrationContact/Service/RegistrationContactService.js"></script>
+
+<script src="~/Scripts/App/RegistrationContactNew/Model/RegistrationContactNewModel.js"></script>
+<script src="~/Scripts/App/RegistrationContactNew/Component/RegistrationContactNewComponent.js"></script>
+<script src="~/Scripts/App/RegistrationContactNew/Controller/RegistrationContactNewController.js"></script>
+<script src="~/Scripts/App/RegistrationContactNew/Service/RegistrationContactNewService.js"></script>
+
+<script src="~/Scripts/App/RegistrationContactUpdate/Model/RegistrationContactUpdateModel.js"></script>
+<script src="~/Scripts/App/RegistrationContactUpdate/Component/RegistrationContactUpdateComponent.js"></script>
+<script src="~/Scripts/App/RegistrationContactUpdate/Controller/RegistrationContactUpdateController.js"></script>
+<script src="~/Scripts/App/RegistrationContactUpdate/Service/RegistrationContactUpdateService.js"></script>
+
+<script src="~/Scripts/App/LeadSummaryEmails/Model/LeadSummaryEmailsModel.js"></script>
+<script src="~/Scripts/App/LeadSummaryEmails/Component/LeadSummaryEmailsComponent.js"></script>
+<script src="~/Scripts/App/LeadSummaryEmails/Controller/LeadSummaryEmailsController.js"></script>
+<script src="~/Scripts/App/LeadSummaryEmails/Service/LeadSummaryEmailsService.js"></script>
+
+<script src="~/Scripts/App/ShowDuplicateLeads/Model/ShowDuplicateLeadsModel.js"></script>
+<script src="~/Scripts/App/ShowDuplicateLeads/Component/ShowDuplicateLeadsComponent.js"></script>
+<script src="~/Scripts/App/ShowDuplicateLeads/Controller/ShowDuplicateLeadsController.js"></script>
+<script src="~/Scripts/App/ShowDuplicateLeads/Service/ShowDuplicateLeadsService.js"></script>
+
+@*added by sangita*@
+
+<script src="~/Scripts/App/UploadCampaignData/Model/UploadCampaignDataModel.js"></script>
+<script src="~/Scripts/App/UploadCampaignData/Component/UploadCampaignDataComponent.js"></script>
+<script src="~/Scripts/App/UploadCampaignData/Controller/UploadCampaignDataContoller.js"></script>
+<script src="~/Scripts/App/UploadCampaignData/Service/UploadCampaignDataSevice.js"></script>
+
+<script src="~/Scripts/App/OpportunityStatus/Model/OpportunityStatusModel.js"></script>
+<script src="~/Scripts/App/OpportunityStatus/Component/OpportunityStatusComponent.js"></script>
+<script src="~/Scripts/App/OpportunityStatus/Controller/OpportunityStatusController.js"></script>
+<script src="~/Scripts/App/OpportunityStatus/Service/OpportunityStatusService.js"></script>
+
+
+<script src="~/Scripts/App/TrackMeConfig/Model/TrackMeConfigModel.js"></script>
+<script src="~/Scripts/App/TrackMeConfig/Component/TrackMeConfigComponent.js"></script>
+<script src="~/Scripts/App/TrackMeConfig/Controller/TrackMeConfigController.js"></script>
+<script src="~/Scripts/App/TrackMeConfig/Service/TrackMeConfigService.js"></script>
+
+<script src="~/Scripts/App/StateRegionMatrix/Model/StateRegionMatrixModel.js"></script>
+<script src="~/Scripts/App/StateRegionMatrix/Component/StateRegionMatrixComponent.js"></script>
+<script src="~/Scripts/App/StateRegionMatrix/Controller/StateRegionMatrixController.js"></script>
+<script src="~/Scripts/App/StateRegionMatrix/Service/StateRegionMatrixService.js"></script>
+
+<script src="~/Scripts/App/SalesOffice/Model/SalesOfficeModel.js"></script>
+<script src="~/Scripts/App/SalesOffice/Component/SalesOfficeComponent.js"></script>
+<script src="~/Scripts/App/SalesOffice/Controller/SalesOfficeController.js"></script>
+<script src="~/Scripts/App/SalesOffice/Service/SalesOfficeService.js"></script>
+
+<script src="~/Scripts/App/SalesAreaDetermination/Model/SalesAreaDeterminationModel.js"></script>
+<script src="~/Scripts/App/SalesAreaDetermination/Component/SalesAreaDeterminationComponent.js"></script>
+<script src="~/Scripts/App/SalesAreaDetermination/Controller/SalesAreaDeterminationController.js"></script>
+<script src="~/Scripts/App/SalesAreaDetermination/Service/SalesAreaDeterminationService.js"></script>
+
+<script src="~/Scripts/App/AccessModuleMaster/Model/AccessModuleMasterModel.js"></script>
+<script src="~/Scripts/App/AccessModuleMaster/Component/AccessModuleMasterComponent.js"></script>
+<script src="~/Scripts/App/AccessModuleMaster/Controller/AccessModuleMasterController.js"></script>
+<script src="~/Scripts/App/AccessModuleMaster/Service/AccessModuleMasterService.js"></script>
+
+<script src="~/Scripts/App/RoleMaster/Model/RoleMasterModel.js"></script>
+<script src="~/Scripts/App/RoleMaster/Component/RoleMasterComponent.js"></script>
+<script src="~/Scripts/App/RoleMaster/Controller/RoleMasterController.js"></script>
+<script src="~/Scripts/App/RoleMaster/Service/RoleMasterService.js"></script>
+
+<script src="~/Scripts/App/RoleAccessManagement/Model/RoleAccessManagementModel.js"></script>
+<script src="~/Scripts/App/RoleAccessManagement/Component/RoleAccessManagementComponent.js"></script>
+<script src="~/Scripts/App/RoleAccessManagement/Controller/RoleAccessManagementController.js"></script>
+<script src="~/Scripts/App/RoleAccessManagement/Service/RoleAccessManagementService.js"></script>
+
+<script src="~/Scripts/App/UserProductConfig/Model/UserProductConfigModel.js"></script>
+<script src="~/Scripts/App/UserProductConfig/Component/UserProductConfigComponent.js"></script>
+<script src="~/Scripts/App/UserProductConfig/Controller/UserProductConfigController.js"></script>
+<script src="~/Scripts/App/UserProductConfig/Service/UserProductConfigService.js"></script>
+
+<script src="~/Scripts/App/DelegationMatrix/Model/DelegationMatrixModel.js"></script>
+<script src="~/Scripts/App/DelegationMatrix/Component/DelegationMatrixComponent.js"></script>
+<script src="~/Scripts/App/DelegationMatrix/Controller/DelegationMatrixController.js"></script>
+<script src="~/Scripts/App/DelegationMatrix/Service/DelegationMatrixService.js"></script>
+
+<script src="~/Scripts/App/UserLog/Model/UserLogModel.js"></script>
+<script src="~/Scripts/App/UserLog/Component/UserLogComponent.js"></script>
+<script src="~/Scripts/App/UserLog/Controller/UserLogController.js"></script>
+<script src="~/Scripts/App/UserLog/Service/UserLogService.js"></script>
+
+<script src="~/Scripts/App/SparePartRequest/Model/SparePartRequestModel.js"></script>
+<script src="~/Scripts/App/SparePartRequest/Component/SparePartRequestComponent.js"></script>
+<script src="~/Scripts/App/SparePartRequest/Controller/SparePartRequestController.js"></script>
+<script src="~/Scripts/App/SparePartRequest/Service/SparePartRequestService.js"></script>
+
+<script src="~/Scripts/App/LMSSOSAdmin/Model/LMSSOSAdminModel.js"></script>
+<script src="~/Scripts/App/LMSSOSAdmin/Component/LMSSOSAdminComponent.js"></script>
+<script src="~/Scripts/App/LMSSOSAdmin/Controller/LMSSOSAdminController.js"></script>
+<script src="~/Scripts/App/LMSSOSAdmin/Service/LMSSOSAdminService.js"></script>
+
+<script src="~/Scripts/App/UpdatePartReqStatus/Model/UpdatePartReqStatusModel.js"></script>
+<script src="~/Scripts/App/UpdatePartReqStatus/Component/UpdatePartReqStatusComponent.js"></script>
+<script src="~/Scripts/App/UpdatePartReqStatus/Controller/UpdatePartReqStatusController.js"></script>
+<script src="~/Scripts/App/UpdatePartReqStatus/Service/UpdatePartReqStatusService.js"></script>
+
+<script src="~/Scripts/App/TrackMe/Model/TrackMeModel.js"></script>
+<script src="~/Scripts/App/TrackMe/Component/TrackMeComponent.js"></script>
+<script src="~/Scripts/App/TrackMe/Controller/TrackMeController.js"></script>
+<script src="~/Scripts/App/TrackMe/Service/TrackMeService.js"></script>
+
+<script src="~/Scripts/App/CreateSparePartRequest/Model/CreateSparePartRequestModel.js"></script>
+<script src="~/Scripts/App/CreateSparePartRequest/Component/CreateSparePartRequestComponent.js"></script>
+<script src="~/Scripts/App/CreateSparePartRequest/Controller/CreateSparePartRequestController.js"></script>
+<script src="~/Scripts/App/CreateSparePartRequest/Service/CreateSparePartRequestService.js"></script>
+
+<script src="~/Scripts/App/CampaignLeads/Model/CampaignLeadsModel.js"></script>
+<script src="~/Scripts/App/CampaignLeads/Component/CampaignLeadsComponent.js"></script>
+<script src="~/Scripts/App/CampaignLeads/Controller/CampaignLeadsController.js"></script>
+<script src="~/Scripts/App/CampaignLeads/Service/CampaignLeadsService.js"></script>
+
+<script src="~/Scripts/App/ForgotPasswordRequest/Model/ForgotPasswordRequestModel.js"></script>
+<script src="~/Scripts/App/ForgotPasswordRequest/Component/ForgotPasswordRequestComponent.js"></script>
+<script src="~/Scripts/App/ForgotPasswordRequest/Controller/ForgotPasswordRequestController.js"></script>
+<script src="~/Scripts/App/ForgotPasswordRequest/Service/ForgotPasswordRequestService.js"></script>
+
+<script src="~/Scripts/App/UserMaster/Model/UserMasterModel.js"></script>
+<script src="~/Scripts/App/UserMaster/Component/UserMasterComponent.js"></script>
+<script src="~/Scripts/App/UserMaster/Controller/UserMasterController.js"></script>
+<script src="~/Scripts/App/UserMaster/Service/UserMasterService.js"></script>
+
+<script src="~/Scripts/App/MobileApps/NewContactRegistration/Model/NewContactRegistrationModel.js"></script>
+<script src="~/Scripts/App/MobileApps/NewContactRegistration/Component/NewContactRegistrationComponent.js"></script>
+<script src="~/Scripts/App/MobileApps/NewContactRegistration/Controller/NewContactRegistrationController.js"></script>
+<script src="~/Scripts/App/MobileApps/NewContactRegistration/Service/NewContactRegistrationService.js"></script>
+
+<script src="~/Scripts/App/MobileApps/CreateNewContactRegistration/Model/CreateNewContactRegistrationModel.js"></script>
+<script src="~/Scripts/App/MobileApps/CreateNewContactRegistration/Component/CreateNewContactRegistrationComponent.js"></script>
+<script src="~/Scripts/App/MobileApps/CreateNewContactRegistration/Controller/CreateNewContactRegistrationController.js"></script>
+<script src="~/Scripts/App/MobileApps/CreateNewContactRegistration/Service/CreateNewContactRegistrationService.js"></script>
+
+<script src="~/Scripts/App/WinLossHeatReport/Model/WinLossHeatModel.js"></script>
+<script src="~/Scripts/App/WinLossHeatReport/Component/WinLossHeatComponent.js"></script>
+<script src="~/Scripts/App/WinLossHeatReport/Controller/WinLossHeatController.js"></script>
+<script src="~/Scripts/App/WinLossHeatReport/Service/WinLossHeatService.js"></script>
+
+<script src="~/Scripts/App/IQDPDashboard/Model/IQDPDashboardModel.js"></script>
+<script src="~/Scripts/App/IQDPDashboard/Component/IQDPDashboardComponent.js"></script>
+<script src="~/Scripts/App/IQDPDashboard/Controller/IQDPDashboardController.js"></script>
+<script src="~/Scripts/App/IQDPDashboard/Service/IQDPDashboardService.js"></script>
+
+
+<script src="~/Scripts/App/TargetList/Model/TargetListModel.js"></script>
+<script src="~/Scripts/App/TargetList/Component/TargetListComponent.js"></script>
+<script src="~/Scripts/App/TargetList/Controller/TargetListController.js"></script>
+<script src="~/Scripts/App/TargetList/Service/TargetListService.js"></script>
+
+<script src="~/Scripts/App/LeadDashboard/Model/LeadDashboardModel.js"></script>
+<script src="~/Scripts/App/LeadDashboard/Component/LeadDashboardComponent.js"></script>
+<script src="~/Scripts/App/LeadDashboard/Controller/LeadDashboardController.js"></script>
+<script src="~/Scripts/App/LeadDashboard/Service/LeadDashboardService.js"></script>
+
+<script src="~/Scripts/App/SalesRepProductivityDashboard/Model/SalesRepProductivityDashboardModel.js"></script>
+<script src="~/Scripts/App/SalesRepProductivityDashboard/Component/SalesRepProductivityDashboardComponent.js"></script>
+<script src="~/Scripts/App/SalesRepProductivityDashboard/Controller/SalesRepProductivityDashboardController.js"></script>
+<script src="~/Scripts/App/SalesRepProductivityDashboard/Service/SalesRepProductivityDashboardService.js"></script>
+
+
+<script src="~/Scripts/App/CreateQuotation/Model/CreateQuotationModel.js"></script>
+<script src="~/Scripts/App/CreateQuotation/Component/CreateQuotationComponent.js"></script>
+<script src="~/Scripts/App/CreateQuotation/Controller/CreateQuotationController.js"></script>
+<script src="~/Scripts/App/CreateQuotation/Service/CreateQuotationService.js"></script>
+
+<script src="~/Scripts/App/QuotationList/Model/QuotationListModel.js"></script>
+<script src="~/Scripts/App/QuotationList/Component/QuotationListComponent.js"></script>
+<script src="~/Scripts/App/QuotationList/Controller/QuotationListController.js"></script>
+<script src="~/Scripts/App/QuotationList/Service/QuotationListService.js"></script>
+
+<script src="~/Scripts/App/EditQuotation/Model/EditQuotationModel.js"></script>
+<script src="~/Scripts/App/EditQuotation/Component/EditQuotationComponent.js"></script>
+<script src="~/Scripts/App/EditQuotation/Controller/EditQuotationController.js"></script>
+<script src="~/Scripts/App/EditQuotation/Service/EditQuotationService.js"></script>
+
+<script src="~/Scripts/App/QuotationReport/Model/QuotationReportModel.js"></script>
+<script src="~/Scripts/App/QuotationReport/Component/QuotationReportComponent.js"></script>
+<script src="~/Scripts/App/QuotationReport/Controller/QuotationReportController.js"></script>
+<script src="~/Scripts/App/QuotationReport/Service/QuotationReportService.js"></script>
+
+<script src="~/Scripts/App/IQDPDashboard1/Model/IQDPDashboard1Model.js"></script>
+<script src="~/Scripts/App/IQDPDashboard1/Component/IQDPDashboard1Component.js"></script>
+<script src="~/Scripts/App/IQDPDashboard1/Controller/IQDPDashboard1Controller.js"></script>
+<script src="~/Scripts/App/IQDPDashboard1/Service/IQDPDashboard1Service.js"></script>
+
+<script src="~/Scripts/App/IQDPDashboard2/Model/IQDPDashboard2Model.js"></script>
+<script src="~/Scripts/App/IQDPDashboard2/Component/IQDPDashboard2Component.js"></script>
+<script src="~/Scripts/App/IQDPDashboard2/Controller/IQDPDashboard2Controller.js"></script>
+<script src="~/Scripts/App/IQDPDashboard2/Service/IQDPDashboard2Service.js"></script>
+
+<script src="~/Scripts/App/DisplayDocuments/Model/DisplayDocumentsModel.js"></script>
+<script src="~/Scripts/App/DisplayDocuments/Component/DisplayDocumentsComponent.js"></script>
+<script src="~/Scripts/App/DisplayDocuments/Controller/DisplayDocumentsController.js"></script>
+<script src="~/Scripts/App/DisplayDocuments/Service/DisplayDocumentsService.js"></script>
+
+<script src="~/Scripts/App/UploadDocuments/Model/UploadDocumentsModel.js"></script>
+<script src="~/Scripts/App/UploadDocuments/Component/UploadDocumentsComponent.js"></script>
+<script src="~/Scripts/App/UploadDocuments/Controller/UploadDocumentsController.js"></script>
+<script src="~/Scripts/App/UploadDocuments/Service/UploadDocumentsService.js"></script>
+
+<script src="~/Scripts/App/SalesRepDocumentList/Model/SalesRepDocumentListModel.js"></script>
+<script src="~/Scripts/App/SalesRepDocumentList/Component/SalesRepDocumentListComponent.js"></script>
+<script src="~/Scripts/App/SalesRepDocumentList/Controller/SalesRepDocumentListController.js"></script>
+<script src="~/Scripts/App/SalesRepDocumentList/Service/SalesRepDocumentListService.js"></script>
+
+<script src="~/Scripts/App/LeadFollowUpList/Model/fLeadFollowUpListModel.js"></script>
+<script src="~/Scripts/App/LeadFollowUpList/Component/LeadFollowUpListComponent.js"></script>
+<script src="~/Scripts/App/LeadFollowUpList/Controller/LeadFollowUpListController.js"></script>
+<script src="~/Scripts/App/LeadFollowUpList/Service/LeadFollowUpListService.js"></script>
+
+
+<script src="~/Scripts/App/FollowUpLead1/Model/FollowUpLead1Model.js"></script>
+<script src="~/Scripts/App/FollowUpLead1/Component/FollowUpLead1Component.js"></script>
+<script src="~/Scripts/App/FollowUpLead1/Controller/FollowUpLead1Controller.js"></script>
+<script src="~/Scripts/App/FollowUpLead1/Service/FollowUpLead1Service.js"></script>
+
+<script src="~/Scripts/App/OpportunityFollowUpList/Model/OpportunityFollowUpListModel.js"></script>
+<script src="~/Scripts/App/OpportunityFollowUpList/Component/OpportunityFollowUpListComponent.js"></script>
+<script src="~/Scripts/App/OpportunityFollowUpList/Controller/OpportunityFollowUpListController.js"></script>
+<script src="~/Scripts/App/OpportunityFollowUpList/Service/OpportunityFollowUpListService.js"></script>
+
+<script src="~/Scripts/App/FollowUpOpp/Model/FollowUpOppModel.js"></script>
+<script src="~/Scripts/App/FollowUpOpp/Component/FollowUpOppComponent.js"></script>
+<script src="~/Scripts/App/FollowUpOpp/Controller/FollowUpOppController.js"></script>
+<script src="~/Scripts/App/FollowUpOpp/Service/FollowUpOppService.js"></script>
+
+<script src="~/Scripts/App/LeadAssessment/Model/LeadAssessmentModel.js"></script>
+<script src="~/Scripts/App/LeadAssessment/Component/LeadAssessmentComponent.js"></script>
+<script src="~/Scripts/App/LeadAssessment/Controller/LeadAssessmentController.js"></script>
+<script src="~/Scripts/App/LeadAssessment/Service/LeadAssessmentService.js"></script>
+
+<script src="~/Scripts/App/Opportunity/Model/OpportunityModel.js"></script>
+<script src="~/Scripts/App/Opportunity/Component/OpportunityComponent.js"></script>
+<script src="~/Scripts/App/Opportunity/Controller/OpportunityController.js"></script>
+<script src="~/Scripts/App/Opportunity/Service/OpportunityService.js"></script>
+
+<script src="~/Scripts/App/CreateOpp/Model/CreateOppModel.js"></script>
+<script src="~/Scripts/App/CreateOpp/Component/CreateOppComponent.js"></script>
+<script src="~/Scripts/App/CreateOpp/Controller/CreateOppController.js"></script>
+<script src="~/Scripts/App/CreateOpp/Service/CreateOppService.js"></script>
+
+<script src="~/Scripts/App/LeadAssessmentList/Model/LeadAssessmentListModel.js"></script>
+<script src="~/Scripts/App/LeadAssessmentList/Component/LeadAssessmentListComponent.js"></script>
+<script src="~/Scripts/App/LeadAssessmentList/Controller/LeadAssessmentListController.js"></script>
+<script src="~/Scripts/App/LeadAssessmentList/Service/LeadAssessmentListService.js"></script>
+
+<script src="~/Scripts/App/ActivitiesList/Model/ActivitiesListModel.js"></script>
+<script src="~/Scripts/App/ActivitiesList/Component/ActivitiesListComponent.js"></script>
+<script src="~/Scripts/App/ActivitiesList/Controller/ActivitiesListController.js"></script>
+<script src="~/Scripts/App/ActivitiesList/Service/ActivitiesListService.js"></script>
+
+
+<script src="~/Scripts/App/LeadFollowUp/Model/LeadFollowUpModel.js"></script>
+<script src="~/Scripts/App/LeadFollowUp/Component/LeadFollowUpComponent.js"></script>
+<script src="~/Scripts/App/LeadFollowUp/Controller/LeadFollowUpController.js"></script>
+<script src="~/Scripts/App/LeadFollowUp/Service/LeadFollowUpService.js"></script>
+
+<script src="~/Scripts/App/OpportunityFollowUpReport/Model/OpportunityFollowUpReportModel.js"></script>
+<script src="~/Scripts/App/OpportunityFollowUpReport/Component/OpportunityFollowUpReportComponent.js"></script>
+<script src="~/Scripts/App/OpportunityFollowUpReport/Controller/OpportunityFollowUpReportController.js"></script>
+<script src="~/Scripts/App/OpportunityFollowUpReport/Service/OpportunityFollowUpReportService.js"></script>
+
+<script src="~/Scripts/App/CalendarPage/Model/CalendarPageModel.js"></script>
+<script src="~/Scripts/App/CalendarPage/Component/CalendarPageComponent.js"></script>
+<script src="~/Scripts/App/CalendarPage/Controller/CalendarPageController.js"></script>
+<script src="~/Scripts/App/CalendarPage/Service/CalendarPageService.js"></script>
+
+<script src="~/Scripts/App/PARTargets/Model/PARTargetModel.js"></script>
+<script src="~/Scripts/App/PARTargets/Component/PARTargetComponent.js"></script>
+<script src="~/Scripts/App/PARTargets/Controller/PARTargetController.js"></script>
+<script src="~/Scripts/App/PARTargets/Service/PARTargetService.js"></script>
+
+<script src="~/Scripts/App/PARTargetReport/Model/PARTargetReportModel.js"></script>
+<script src="~/Scripts/App/PARTargetReport/Component/PARTargetReportComponent.js"></script>
+<script src="~/Scripts/App/PARTargetReport/Controller/PARTargetReportController.js"></script>
+<script src="~/Scripts/App/PARTargetReport/Service/PARTargetReportService.js"></script>
+
+<script src="~/Scripts/App/UploadPARTargetExcel/Model/UploadPARTargetExcelModel.js"></script>
+<script src="~/Scripts/App/UploadPARTargetExcel/Component/UploadPARTargetExcelComponent.js"></script>
+<script src="~/Scripts/App/UploadPARTargetExcel/Controller1/UploadPARTargetController1.js"></script>
+<script src="~/Scripts/App/UploadPARTargetExcel/Service/UploadPARTargetExcelService.js"></script>
+
+<script src="~/Scripts/App/ProjectTracker/Model/ProjectTrackerModel.js"></script>
+<script src="~/Scripts/App/ProjectTracker/Component/ProjectTrackerComponent.js"></script>
+<script src="~/Scripts/App/ProjectTracker/Controller/ProjectTrackerController.js"></script>
+<script src="~/Scripts/App/ProjectTracker/Service/ProjectTrackerService.js"></script>
+
+<script src="~/Scripts/App/ProjectTrackerList/Model/ProjectTrackerListModel.js"></script>
+<script src="~/Scripts/App/ProjectTrackerList/Component/ProjectTrackerListComponent.js"></script>
+<script src="~/Scripts/App/ProjectTrackerList/Controller/ProjectTrackerListController.js"></script>
+<script src="~/Scripts/App/ProjectTrackerList/Service/ProjectTrackerListService.js"></script>
+
+<script src="~/Scripts/App/ProjectList/Model/ProjectListModel.js"></script>
+<script src="~/Scripts/App/ProjectList/Component/ProjectListComponent.js"></script>
+<script src="~/Scripts/App/ProjectList/Controller/ProjectListController.js"></script>
+<script src="~/Scripts/App/ProjectList/Service/ProjectListService.js"></script>
+
+<script src="~/Scripts/App/CreateProjectTracker/Model/CreateProjectModel.js"></script>
+<script src="~/Scripts/App/CreateProjectTracker/Component/CreateProjectComponent.js"></script>
+<script src="~/Scripts/App/CreateProjectTracker/Controller/CreateProjectController.js"></script>
+<script src="~/Scripts/App/CreateProjectTracker/Service/CreateProjectService.js"></script>
+
+<script src="~/Scripts/App/LeadChangeList/Model/LeadChangeListModel.js"></script>
+<script src="~/Scripts/App/LeadChangeList/Component/LeadChangeListComponent.js"></script>
+<script src="~/Scripts/App/LeadChangeList/Controller/LeadChangeListController.js"></script>
+<script src="~/Scripts/App/LeadChangeList/Service/LeadChangeListService.js"></script>
+
+<script src="~/Scripts/App/LeadChange/Model/LeadChangeModel.js"></script>
+<script src="~/Scripts/App/LeadChange/Component/LeadChangeComponent.js"></script>
+<script src="~/Scripts/App/LeadChange/Controller/LeadChangeController.js"></script>
+<script src="~/Scripts/App/LeadChange/Service/LeadChangeService.js"></script>
+
+<script src="~/Scripts/App/ProjectTrackerDashboard/Model/ProjectTrackerDashboardModel.js"></script>
+<script src="~/Scripts/App/ProjectTrackerDashboard/Component/ProjectTrackerDashboardComponent.js"></script>
+<script src="~/Scripts/App/ProjectTrackerDashboard/Controller/ProjectTrackerDashboardController.js"></script>
+<script src="~/Scripts/App/ProjectTrackerDashboard/Service/ProjectTrackerDashboardService.js"></script>
+
+<script src="~/Scripts/App/ProjectTrackerZoneWise/Model/ProjectTrackerZoneWiseModel.js"></script>
+<script src="~/Scripts/App/ProjectTrackerZoneWise/Component/ProjectTrackerZoneWiseComponent.js"></script>
+<script src="~/Scripts/App/ProjectTrackerZoneWise/Controller/ProjectTrackerZoneWiseController.js"></script>
+<script src="~/Scripts/App/ProjectTrackerZoneWise/Service/ProjectTrackerZoneWiseService.js"></script>
+
+<script src="~/Scripts/App/AllModelsandServices/Model/AllModels.js"></script>
+<script src="~/Scripts/App/AllModelsandServices/Service/AllServices.js"></script>
+
+<script src="~/Scripts/App/RewardReport/Model/RewardReportModel.js"></script>
+<script src="~/Scripts/App/RewardReport/Component/RewardReportComponent.js"></script>
+<script src="~/Scripts/App/RewardReport/Controller/RewardReportController.js"></script>
+<script src="~/Scripts/App/RewardReport/Service/RewardReportService.js"></script>
+
+<script src="~/Scripts/App/MobileApps/EmitraAppRequest/Model/EmitraAppRequestModel.js"></script>
+<script src="~/Scripts/App/MobileApps/EmitraAppRequest/Component/EmitraAppRequestComponent.js"></script>
+<script src="~/Scripts/App/MobileApps/EmitraAppRequest/Controller/EmitraAppRequestController.js"></script>
+<script src="~/Scripts/App/MobileApps/EmitraAppRequest/Service/EmitraAppRequestService.js"></script>
+
+<script src="~/Scripts/App/SAPCustomer/Model/SAPCustomerModel.js"></script>
+<script src="~/Scripts/App/SAPCustomer/Component/SAPCustomerComponent.js"></script>
+<script src="~/Scripts/App/SAPCustomer/Controller/SAPCustomerController.js"></script>
+<script src="~/Scripts/App/SAPCustomer/Service/SAPCustomerService.js"></script>
+
+<script src="~/Scripts/App/SAPContact/Modal/SAPContactModel.js"></script>
+<script src="~/Scripts/App/SAPContact/Component/SAPContactComponent.js"></script>
+<script src="~/Scripts/App/SAPContact/Controller/SAPContactController.js"></script>
+<script src="~/Scripts/App/SAPContact/Service/SAPContactService.js"></script>
+
+<script src="~/Scripts/App/LeadMTTRReport/Model/LeadMTTRReportModel.js"></script>
+<script src="~/Scripts/App/LeadMTTRReport/Component/LeadMTTRReportComponent.js"></script>
+<script src="~/Scripts/App/LeadMTTRReport/Controller/LeadMTTRReportController.js"></script>
+<script src="~/Scripts/App/LeadMTTRReport/Service/LeadMTTRReportService.js"></script>
+
+@*<script src="~/Scripts/App/MobileApps/CreateNewContactRegistration/Service/CreateNewContactRegistrationService.js"></script>*@
+
+
+@*<script src="~/Bundle/bundle.js"></script>
+    <script src="~/Bundle/bundle2.js"></script>*@
+
+@*<script src="~/Bundle/bundle.min.js"></script>
+    <script src="~/Bundle/bundle2.min.js"></script>*@

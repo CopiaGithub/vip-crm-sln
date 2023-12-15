@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html lang=en>
+<head>
+    <title>Login</title>
+    <meta charset=UTF-8>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <link rel=icon type="image/png" href="../../../../Content/login/images/icons/favicon.ico" />
+    <link rel=stylesheet type="text/css" href="../../../../Content/login/vendor/animate/animate.css">
+    <link rel=stylesheet type="text/css" href="../../../../Content/login/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel=stylesheet href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="../../../../Content/assets/shubham_css/style.css" rel=stylesheet />
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=JRbNmJbybCXSjw1bGl0ykpWvQVdB1uzL8rIBcbz0JUm2Ka2C9gs_mjTfiiA6s2pyPHV3RqLAQ0u14vlJRC3R29_sT5KwM3Me3TdSkzA_l_er2Ixy0aNIxgVXBUriN8DhK5TUEJCrTdgsLBCG_mM1I7TlPMveDk67k6lXx7-TnhyAWcuJpNFjzaL9ngiYtkQB" charset="UTF-8"></script>
+    <script src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=UWmouXtJV-Ts84dyAco9n-IA9VSEHvrnPqrAXghBtoJYjmb1ldPjWdiARJBK9vooc5FDrcSV0gct2x27oGW8ahgMjMmUzx5LONAWqRl4zEses9-xAfctiqc_1QGFkVdTviYAHaFsn1L0jOLyrNf159aO7ba5QhJflzcJSyT5PAWefErnzADvt5mjmgk6ba-6" charset=UTF-8></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class=overlay>
+        <header>
+            <div class="container-fluid wrapper">
+                <div class=row>
+                    <div>
+                        <br />
+                        <br />
+                    <div class="col-lg-3 col-md-3 col-sm-3 copia-logo-container">
+                        <!--<div class=copia-logo>
+                            <img src="../../../../Content/assets/img/newgainwellogo.jpg" alt=copia-logo />
+                        </div>--> <!--Commented by Pratima Yadav-->
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 copia-title-container">
+                        <h2 class=header-heading>Lead Management System</h2>
+                        <!--<p class=header-sub-heading>Connecting Customers - Digitally</p>-->  <!--Commented by Pratima Yadav-->
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <section class=container-fluid>
+                <div class=form-container>
+                    <div class=row>
+                        <div class="col-lg-3 col-md-3 col-sm-3 image-part text-center">
+                            <!--<div class=copia-image>
+                                <img src="../../../../Content/assets/img/LoginImages.png" alt=copia-image />
+                            </div>-->
+                        </div>       <!--Commented by Pratima Yadav-->
+                        <div class="col-lg-6 col-md-6 col-sm-6 login-form-part text-center">
+                            <div class=login-form id=login-panel>
+                                <form>
+                                    <div class="form-group form-group-update">
+                                        <input placeholder="Enter Your Email" class=login-field id=username name=email ng-model="$ctrl.LoginForm.UserName" />
+                                    </div>
+                                    <div class="form-group form-group-update">
+                                        <input type=Password placeholder="Enter Your Password" class=login-field id=password ng-model="$ctrl.LoginForm.Password" name=pass />
+                                    </div>
+                                    <div class="form-group form-group-update">
+                                        <label class=remember-label><input type=checkbox id=remember name=remember-me> Remember me</label>
+                                    </div>
+                                    <div class=form-group>
+                                        <input type=submit class=login-btn ng-click="$ctrl.Submit();" id=myButton1 value=LOGIN />
+                                    </div>
+                                </form>
+                                <div class=login-loader id=login-id-loader>
+                                    <img src="../../../../Content/assets/img/login-loader.gif" />
+                                </div>
+                                <a href="#FIXME" class=forgot-label id=forgot-password-link title="Forgot Password">Forgot Password ?</a>
+                                <a href="#FIXME" class=forgot-label id=CRM-Cordinator-link title="CRM Login">CRM Login</a>
+                                <!--<a href="#FIXME" class=powered-by-container>
+                                    <span>Powered By</span>
+                                    <<div class=powered-by-image>
+                                        <img src="../../../../Content/assets/img/copia.png" alt=copia />
+                                    </div>
+                                    <p class=powered-by-line>Copia Consultancy Services</p>
+                                </a>-->          <!--Commented by Pratima Yadav-->
+                            </div>
+                            <div class=forgot-otp id=otp-panel style="display:none;">
+                                <form action="/" method=post>
+                                    <div class="form-group form-group-update">
+                                        <input placeholder="Enter Email Address" class=login-field id=txtEmAILotp name="" />
+                                    </div>
+                                    <div class=form-group>
+                                        <input type=button class=login-btn id=get-otp-btn value="GET OTP" ng-click="$ctrl.GetOTP();" />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class=crm-cordinator id=crm-panel style="display:none;">
+                                <form action="/" method=post>
+                                    <div class="form-group form-group-update">
+                                        <input placeholder="Enter Email Address" class=login-field id=txtCorEmail name="" style="width:60%" />
+                                    </div>
+                                    <div class=form-group>
+                                        <input type=button class=login-btn id=get-crm-btn value="Submit" ng-click="$ctrl.GetValidCRMLogin();" />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class=reset-password id=reset-panel style="display:none;">
+                                <form action="/" method=post>
+                                    <div class="form-group form-group-update">
+                                        <input type=password placeholder="Enter Otp" class=login-field id=TxtreOTP name="" />
+                                    </div>
+                                    <div class="form-group form-group-update">
+                                        <input type=password placeholder="Enter New Password" class=login-field id=txtPwdNew name="" />
+                                    </div>
+                                    <div class="form-group form-group-update">
+                                        <input type=password placeholder="Enter Confirm Password" class=login-field id=txtPwdNewCnf name="" />
+                                    </div>
+                                    <div class=form-group>
+                                        <input type=button class=login-btn id=reset-password-btn value="RESET PASSWORD" ng-click="$ctrl.ChangePassword();" />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class=chk-crm id=crmlogin-panel style="display:none;">
+                                <form action="/" method=post>
+                                    <div class="form-group form-group-update">
+                                        <label class="form-label" style="font-size:15px;letter-spacing:.5px;color:#131212a1">User</label>
+                                        <select ng-model="$ctrl.CRMUser.UserID" id="txtChildUser" name="txtChildUser" class="form-control" style="width:60%;background-color: #f0ad4e05;margin-left:20%">
+                                            <option value="">Select</option>
+                                            <option ng-repeat="item in $ctrl.SalesRepDropDown" value="{{item.UserID}}">{{item.UserName}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group form-group-update">
+                                        <input type="text" ng-model="$ctrl.CRMUser.UserName" style="width:60%" placeholder="Enter Email" class=login-field id=txtParentUserEmail name="" />
+                                    </div>
+                                    <div class="form-group form-group-update">
+                                        <input type="password" ng-model="$ctrl.CRMUser.Password" style="width:60%" placeholder="Enter Password" class=login-field id=txtParentUserPass name="" />
+                                    </div>
+                                    <div class="form-group form-group-update">
+                                        <input type="text" ng-model="$ctrl.CRMUser.Comment" style="width:60%" placeholder="Login Reasons " class=login-field id=txtParentComment name="" />
+                                    </div>
+                                    <div class=form-group>
+                                        <input type=button class=login-btn id=myButton2 value="LOGIN" ng-click="$ctrl.CRMLogin();" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="../../../../Content/login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="../../../../Content/login/vendor/bootstrap/js/popper.js"></script>
+    <script src="../../../../Content/login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../../../../Content/login/vendor/select2/select2.min.js"></script>
+    <script src="../../../../Content/login/vendor/tilt/tilt.jquery.min.js"></script>
+    <script>$('.js-tilt').tilt({ scale: 1.1 })</script>
+</body>
+</html>

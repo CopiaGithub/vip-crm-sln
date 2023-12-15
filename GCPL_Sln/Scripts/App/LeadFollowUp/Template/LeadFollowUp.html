@@ -1,0 +1,197 @@
+﻿<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <h2 class="page-title">Lead FollowUp Report</h2>
+    </div>
+</div>
+<div class="selection-filter-container">
+    <h5 class="section-header-title">Selection Filter</h5>
+    <div class="selection-filter-sub-container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="form-group">
+                    <label class="form-label">From Date</label>
+                    <input id="hfFromDate" type="hidden" name="hfFromDate">
+                    <input name="txtFromDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" id="txtFromDate" class="form-control">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="form-group">
+                    <label class="form-label">To Date</label>
+                    <input id="hfFromDate" type="hidden" name="hfFromDate">
+                    <input name="txtToDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" id="txtToDate" class="form-control">
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <label>Lead No</label>
+                <input type="text" id="txtLead" class="form-control" ng-model="$ctrl.SearchList.LeadID" name="LeadID" />
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <label>Customer SAPID</label>
+                <input type="text" id="txtCustomerSAPID" class="form-control" ng-model="$ctrl.SearchList.BusinessPartnerNo" name="LeadID" />
+            </div>
+          </div>
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <label>Mobile No</label>
+                <input type="text" id="txtPhoneNo" ng-model="$ctrl.SearchList.PhoneNo" class="form-control" name="QuotationNo" />
+            </div>
+            
+            <!--<div class="col-lg-3 col-md-3">
+
+                <label class="form-label">Lead Status</label>
+                <select id="txtleadstatus" name="Status" class="form-control" ng-model="$ctrl.SearchList.LeadStatusID" style="width:100%">
+                    <option value="">Select</option>
+                    <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
+                </select>
+
+            </div>-->
+        </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 text-right selection-filter-btn-col">
+                    <button id="btnSearch" type="button" class="btn search-btn" ng-click="$ctrl.Search()">Search</button>
+                    <button id="btnClear" type="button" class="btn clear-btn" ng-click="$ctrl.Clear()">Clear</button>
+                    <button id="btnDownload" ng-click="$ctrl.exportTableToCSV('LeadFollowUp.csv')" type="button" class="btn download-btn">Download Excel</button>
+                </div>
+            </div>
+        </div>
+</div>
+
+<div class="row">
+    <div class="col-llg-12 col-md-12">
+        <div class="table-container">
+            <h2 class="section-header-title">Lead FollowUp Report List</h2>
+            <div class="row">
+                <div class="col-md-12" id="divlist">
+                    <div class="table-sub-container">
+                        <div id="div-1" class="body">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <label class="table-label">Count - {{$ctrl.List.length}}</label>
+                                </div>
+                                <div class="col-lg-6 col-md-6 text-right">
+                                    <label class="table-label">Records/Page - </label>
+                                    <select name="Status" id="DDLStatus" ng-change="$ctrl.Refresh()" ng-model="$ctrl.NoOfRds" class="no-record-dropdown">
+                                        <option value=10>10</option>
+                                        <option value=30>30</option>
+                                        <option value=50>50</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="validation-table table-responsive" style="overflow:auto;">
+                                <table id="dataTable" class="table table-striped table-bordered customer-list-table">
+                                    <thead class="customer-list-heading">
+                                        <tr>
+                                            <th>Lead No</th>
+                                            <th>Customer SAPID</th>
+                                            <th>Contact Name</th>
+                                            <th>Mobile No</th>
+                                            <th>Followup Status</th>
+                                            <th>follow-up comments</th>
+                                            <th>Followup By</th>
+                                            <th>Answer1</th>
+                                            <th>Answer2</th>
+                                            <th>Answer3</th>
+                                            <th>Answer4</th>
+                                            <th>Answer5</th>
+                                            <th>Answer6</th>
+                                            <th>Followup Date </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in $ctrl.shownItems">
+                                            <td>{{item.LeadID}}</td>
+                                            <td>{{item.BusinessPartnerNo}}</td>
+                                            <td>{{item.SpokeTo}}</td>
+                                            <td>{{item.PhoneNo}}</td>
+                                            <td>{{item.FollowupStatus}}</td>
+                                            <td>{{item.AnswerText}}</td>
+                                            <td>{{item.FollowupBy}}</td>
+                                            <td>{{item.Answer1}}</td>
+                                            <td>{{item.Answer2}}</td>
+                                            <td>{{item.Answer3}}</td>
+                                            <td>{{item.Answer4}}</td>
+                                            <td>{{item.Answer5}}</td>
+                                            <td>{{item.Answer6}}</td>
+                                            <td>{{item.FollowupDate}}</td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+
+                                </table>
+
+                                <table id="excelDownload" style="display:none;">
+                                    <thead class="customer-list-heading">
+                                        <tr>
+                                            <th>Lead No</th>
+                                            <th>Customer SAPID</th>
+                                            <th>Contact Name</th>
+                                            <th>Mobile No</th>
+                                            <th>Followup Status</th>
+                                            <th>follow-up comments</th>
+                                            <th>Followup By</th>
+                                            <th>Answer1</th>
+                                            <th>Answer2</th>
+                                            <th>Answer3</th>
+                                            <th>Answer4</th>
+                                            <th>Answer5</th>
+                                            <th>Answer6</th>
+                                            <th>Followup Date </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in $ctrl.List">
+                                            <td>{{item.LeadID}}</td>
+                                            <td>{{item.BusinessPartnerNo}}</td>
+                                            <td>{{item.SpokeTo}}</td>
+                                            <td>{{item.PhoneNo}}</td>
+                                            <td>{{item.FollowupStatus}}</td>
+                                            <td>{{item.AnswerText}}</td>
+                                            <td>{{item.FollowupBy}}</td>
+                                            <td>{{item.Answer1}}</td>
+                                            <td>{{item.Answer2}}</td>
+                                            <td>{{item.Answer3}}</td>
+                                            <td>{{item.Answer4}}</td>
+                                            <td>{{item.Answer5}}</td>
+                                            <td>{{item.Answer6}}</td>
+                                            <td>{{item.FollowupDate}}</td>
+                                        </tr>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <div id="nullDataDiv" style="display: none;">
+                                <div class="mdl-grid jumbotron">
+                                    <h3 class="page-header" style="color: brown; margin-left: 33%">
+                                        <i class="fa fa-exclamation-triangle">
+                                        </i>&nbsp; No Data available
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row nex-prev-container">
+                            <div class="col-lg-12 col-md-12 text-right">
+                                <button ng-show="$ctrl.ShowBack" ng-click="$ctrl.back()" class="btn btn-default">Prev</button>
+                                <button ng-show="$ctrl.ShowNext" ng-click="$ctrl.next()" class="btn btn-default">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="search-loader" id="search-btn-loader">
+                <div class="search-loader-container">
+                    <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

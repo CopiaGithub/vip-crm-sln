@@ -1,0 +1,281 @@
+﻿<head>
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="header">
+            <h2 class="page-title">Project Tracker Report</h2>
+        </div>
+    </div>
+</div>
+<div class="selection-filter-container">
+    <h2 class="section-header-title">Selection Filter</h2>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="selection-filter-sub-container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label>Project Name </label>
+                            <input type="text" name="txtProjectName" id="txtProjectName" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label>Project No </label>
+                            <input type="text" id="txtProjectNo" class="form-control" name="txtProjectNo" />
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label>Project Type</label>
+                            <select id="ddlProjectType" name="ProjectType" class="form-control col-lg-4" ng-model="$ctrl.ProjectListSearch.ProjectType" style="width:100%">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ProjectTypeDD" value={{item.ProjectTypeID}}>{{item.ProjectType}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label>Zone</label>
+                            <select id="txtZone" name="Product" ng-model="$ctrl.ProjectListSearch.ZoneID" class="form-control" style="width:100%">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ZoneDD" value="{{item.ID}}">{{item.ZoneName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label>Project Stage </label>
+                            <select id="ddlProjectStage" name="ProjectStage" class="form-control col-lg-4" ng-model="$ctrl.ProjectListSearch.ProjectStage" style="width:100%">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ProjectStageDD" value={{item.ProjectStageID}}>{{item.ProjectStage}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label>Project Source </label>
+                            <select id="ddlProjectOwnership" name="ProjectStage" class="form-control col-lg-4" ng-model="$ctrl.ProjectListSearch.ProjectSource" style="width:100%">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ProjectSourceDD" value={{item.ProjectSourceID}}>{{item.ProjectSource}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">Start Date</label>
+                            <input id="hfFromDate" type="hidden" name="hfFromDate">
+                            <input name="txtFromDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" id="txtFromDate" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">End Date</label>
+                            <input id="hfFromDate" type="hidden" name="hfFromDate">
+                            <input name="txtToDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" id="txtToDate" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 text-right">
+                            <button id="btnSearch" type="button" ng-click="$ctrl.SearchProject();" class="btn search-btn">Search</button>
+                            <button id="btnClear" type="button" ng-click="$ctrl.Clear();" class="btn clear-btn">Clear</button>
+                            <input type="submit" name="btnSubmit" value="Download Excel" id="btnSubmit" ng-click="$ctrl.exportTableToCSV('ProjectTrackerReport.csv')" class="btn download-btn">
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<div class="table-container">
+    <h2 class="section-header-title">Project Tracker List</h2>
+    <div class="row">
+        <div class="col-md-12" id="divlist">
+            <div class="table-sub-container">
+                <div id="div-1" class="body">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <label class="table-label">Count : {{$ctrl.ProjectListReport.length}} </label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 text-right">
+                            <label class="table-label">No of Records Display : </label>
+                            <select name="Status" id="DDLStatus" ng-change="$ctrl.Refresh()" ng-model="$ctrl.NoOfRds" class="no-record-dropdown">
+                                <option value=10>10</option>
+                                <option value=30>30</option>
+                                <option value=50>50</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="validation-table table-responsive" style=" overflow:auto;">
+                        <table id="dataTable" class="table table-striped table-bordered customer-list-table">
+                            <thead class="customer-list-heading">
+                                <tr>
+                                    <th style="display:none">ProjectID</th>
+                                    <th>Project No</th>
+                                    <th>Project Name</th>
+                                    <th>Project Type</th>
+                                    <th>Project Stage</th>
+                                    <th>Cost</th>
+                                    <th>Ownership</th>
+                                    <th>Project Owner</th>
+                                    <th>Project Manager</th>
+                                    <th>Assign To</th>
+                                    <th>Zone</th>
+                                    <th>Project StartDate</th>
+                                    <th>Completion Date</th>
+                                    <th>Project Source</th>
+                                    <th>Project Description</th>
+                                    <th>Industry</th>
+                                    <th>CustomerType</th>
+                                    <th>Customer Name</th>
+                                    <th>Customer SAPID</th>
+                                    <th>MobileNo</th>
+                                    <!--<th>Address1</th>
+                                    <th>Address2</th>
+                                    <th>State</th>
+                                    <th>District</th>
+                                    <th>City</th>-->
+                                    <th>Contact Name</th>
+                                    <th>Contact SAPID</th>
+                                    <th>Contact MobileNo</th>
+                                    <th>Department</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in $ctrl.shownItems">
+                                    <td style="display:none">{{item.ProjectID}}</td>
+                                    <td>{{item.ProjectNo}}</td>
+                                    <td>{{item.ProjectName}}</td>
+                                    <td>{{item.ProjectType}}</td>
+                                    <td>{{item.ProjectStage}}</td>
+                                    <td>{{item.Cost}}</td>
+                                    <td>{{item.ProjectOwnership}}</td>
+                                    <td>{{item.ProjectOwner}}</td>
+                                    <td>{{item.ProjectManager}}</td>
+                                    <td>{{item.AssignTo}}</td>
+                                    <td>{{item.ZoneName}}</td>
+                                    <td>{{item.ProjectStartDate}}</td>
+                                    <td>{{item.CompletionDate}}</td>
+                                    <td>{{item.ProjectSource}}</td>
+                                    <td>{{item.Comments}}</td>
+                                    <td>{{item.ProjectIndustry}}</td>
+                                    <td>{{item.CustomerType}}</td>
+                                    <td>{{item.CompanyName}}</td>
+                                    <td>{{item.BusinessPartnerNo}}</td>
+                                    <td>{{item.MobileNo}}</td>
+                                    <!--<td>{{item.Address1}}</td>
+                                    <td>{{item.Address2}}</td>
+                                    <td>{{item.State}}</td>
+                                    <td>{{item.District}}</td>
+                                    <td>{{item.City}}</td>-->
+                                    <td>{{item.ContactName}}</td>
+                                    <td>{{item.ContactSAPID}}</td>
+                                    <td>{{item.ContactMobileNo}}</td>
+                                    <td>{{item.Department}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <table id="excelDownload" style="display:none;">
+                        <thead class="customer-list-heading">
+                            <tr>
+                                <th>Project No</th>
+                                <th>Project Name</th>
+                                <th>Project Type</th>
+                                <th>Project Stage</th>
+                                <th>Cost</th>
+                                <th>Ownership</th>
+                                <th>Project Owner</th>
+                                <th>Project Manager</th>
+                                <th>Assign To</th>
+                                <th>Zone</th>
+                                <th>Project StartDate</th>
+                                <th>Completion Date</th>
+                                <th>Project Source</th>
+                                <th>Project Description</th>
+                                <th>Industry</th>
+                                <th>CustomerType</th>
+                                <th>Customer Name</th>
+                                <th>Customer SAPID</th>
+                                <th>MobileNo</th>
+                                <!--<th>Address1</th>
+                                <th>Address2</th>
+                                <th>State</th>
+                                <th>District</th>
+                                <th>City</th>-->
+                                <th>Contact Name</th>
+                                <th>Contact SAPID</th>
+                                <th>Contact MobileNo</th>
+                                <th>Department</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in $ctrl.ProjectListReport">
+                                <td>{{item.ProjectNo}}</td>
+                                <td>{{item.ProjectName}}</td>
+                                <td>{{item.ProjectType}}</td>
+                                <td>{{item.ProjectStage}}</td>
+                                <td>{{item.Cost}}</td>
+                                <td>{{item.ProjectOwnership}}</td>
+                                <td>{{item.ProjectOwner}}</td>
+                                <td>{{item.ProjectManager}}</td>
+                                <td>{{item.AssignTo}}</td>
+                                <td>{{item.ZoneName}}</td>
+                                <td>{{item.ProjectStartDate}}</td>
+                                <td>{{item.CompletionDate}}</td>
+                                <td>{{item.ProjectSource}}</td>
+                                <td>{{item.Comments}}</td>
+                                <td>{{item.ProjectIndustry}}</td>
+                                <td>{{item.CustomerType}}</td>
+                                <td>{{item.CompanyName}}</td>
+                                <td>{{item.BusinessPartnerNo}}</td>
+                                <td>{{item.MobileNo}}</td>
+                                <!--<td>{{item.Address1}}</td>
+                                <td>{{item.Address2}}</td>
+                                <td>{{item.State}}</td>
+                                <td>{{item.District}}</td>
+                                <td>{{item.City}}</td>-->
+                                <td>{{item.ContactName}}</td>
+                                <td>{{item.ContactSAPID}}</td>
+                                <td>{{item.ContactMobileNo}}</td>
+                                <td>{{item.Department}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div id="nullDataDiv" style="display: none;">
+                        <br />
+                        <div class="mdl-grid jumbotron">
+                            <h3 class="page-header" style="color: brown; margin-left: 33%">
+                                <i class="fa fa-exclamation-triangle">
+                                </i>&nbsp; No Data available
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row nex-prev-container">
+                    <div class="col-lg-12 col-md-12 text-right">
+                        <button ng-show="$ctrl.ShowBack" ng-click="$ctrl.back()" class="btn btn-default">Prev</button>
+                        <button ng-show="$ctrl.ShowNext" ng-click="$ctrl.next()" class="btn btn-default">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--<div class="search-loader" id="search-btn-loader">
+        <div class="search-loader-container">
+            <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+        </div>
+    </div>-->
+</div>

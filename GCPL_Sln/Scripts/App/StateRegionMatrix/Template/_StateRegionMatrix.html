@@ -1,0 +1,269 @@
+﻿<head>
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+</head>
+<style>
+
+</style>
+<div id="content" class="container-fluid">
+
+    
+    <div class="row">
+        <div class="col-lg-10 col-md-10">
+            <h2 class="leader-heading">State-Region Matrix </h2>
+        </div>
+        <div class="col-lg-2 col-md-2 text-right">
+            <button style="margin-top: 7px;" id="#myBtnNextMetting" class="btn create-btn pull-right" data-toggle="modal" data-target="#myModalAddNew">Add </button>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+
+        <div class="col-lg-12">
+
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="row">
+
+                            <div class="col-md-3">
+                                <label>Region or State</label>
+                                <input id="hfFromDate" type="hidden" name="hfFromDate">
+                                <input name="txtbysearch" placeholder="Search by region or state" input="hfFromDate" data-intro="true" id="txtbysearch" class="form-control" style="width:100%">
+                            </div>
+
+
+
+                            <div class="col-md-3">
+                                <label>Status</label>
+                                <select id="ddlstatus" class="form-control" style="width:100%">
+                                    <option value=""> Select</option>
+                                    <option>Active</option>
+                                    <option>Inactive</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="label-block">&nbsp;</label>
+                                <input type="submit" name="btnSubmit" value="Search" id="btnSubmit" class="btn search-btn">
+                            </div>
+                            <div class="col-md-2">
+                            </div>
+                           
+                        </div>
+                        <br />
+
+
+                    </div>
+
+
+
+                </div>
+                <!--<h3 class="acco-sub-heading" style="font-size:20px;">State-Region Matrix List</h3>-->
+              
+                <!--<div class="row">
+                    <div class="col-md-4">
+                        <h5 style="font-size:13px;color: red;font-weight:600" :>Count:-2 </h5>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="col-sm-9 col-md-9">
+                            <h5 style="font-size:13px;text-align:right;font-weight:600; color: #333">No of Records Display:</h5>
+                        </div>
+                        <div class="col-md-2">
+                            <select name="Status" id="" style="padding-left:0px;padding-right:0px;" ng-change="$ctrl.Refresh()" class="form-control">
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                            </select>
+                        </div>
+                        <br />
+                    </div>
+                </div>-->
+                <hr />
+                <div id="collapse4" class="validation-table table-responsive collapse in">
+                    <table id="dataTable" class="table table-striped table-bordered customer-list-table">
+                        <thead class="customer-list-heading">
+                            <tr>
+                                <!--<th>CategoryID</th>-->
+                                <th> Sr.No</th>
+                                <th>Region</th>
+                                <th>State</th>
+                                <th>District</th>
+                                <th>Date Created</th>
+                                <th>Status</th>
+                                <th>Action</th>
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>West</td>
+                                <td>West Bengal</td>
+                                <td>Raghunathpur</td>
+                                <td>10 Sep 2018</td>
+                                <td>Active</td>
+                                <td><button class="btn create-btn" data-toggle="modal" data-target="#myModalAddNew">Edit</button></td>
+
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>North</td>
+                                <td>Uttarakhand</td>
+                                <td>Almora</td>
+                                <td>27 Jul 2018</td>
+                                <td>Active</td>
+                                <td><button class="btn create-btn" data-toggle="modal" data-target="#myModalAddNew">Edit</button></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-md-2 pull-right">
+        <div class="col-md-6 pull-right"><button ng-click="$ctrl.next()" class="btn btn-default">Next</button></div>
+        <div class="col-md-6 pull-right"><button ng-click="$ctrl.back()" class="btn btn-default">Prev</button></div>
+    </div>-->
+
+
+</div>
+
+
+
+<div class="modal fade" id="myModalAddNew" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content" style="width: 70%; margin: 0 auto;">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel2">
+                    State-Region Matrix
+                </h4>
+
+            </div>
+            <div id="div-1" class="modal-body" >
+                <form name="userForm" novalidate>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="Address">Region</label>
+                                    
+                                        <select class="form-control"name="Status" tabindex="2" required>
+                                            <option value="">Select</option>
+
+                                        </select>
+                                        <!--<p ng-show="(userForm.txtCategory.$invalid && !userForm.txtCategory.$pristine)" id="errorWOType" class="help-block" style="color:red">Region is required.</p>-->
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="Address" >State </label>
+                                
+                                    <select class="form-control" name="Status" tabindex="2" required>
+                                        <option value="">Select</option>
+
+                                    </select>
+                                    <!--<p ng-show="(userForm.txtDescription.$invalid && !userForm.txtDescription.$pristine)" id="errorWOType" class="help-block" style="color:red">State is required.</p>-->
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="Address">District</label>
+                                
+                                    <select ng-model="$ctrl.InsertCategory.IsActive" class="form-control" name="Status" tabindex="2" required>
+                                        <option value="">Select</option>
+
+                                    </select>
+                                    <!--<p ng-show="(userForm.Status.$invalid && !userForm.Status.$pristine)" id="errorWOType" class="help-block" style="color:red">District is required.</p>-->
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="Address">Status</label>
+                               
+                                    <select class="form-control" name="Status" tabindex="2" required>
+                                        <option value="">Select</option>
+                                        <option value="1"> Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                    <!--<p ng-show="(userForm.Status.$invalid && !userForm.Status.$pristine)" id="errorWOType" class="help-block" style="color:red">Status is required.</p>-->
+                               
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                
+                                    <input type="submit" id="btnSubmit" data-toggle="modal" data-target="#myAlert" class="btn search-btn pull-right" value="Submit" />
+
+                             
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                </form>
+            </div>
+            <div class="modal-footer" style="padding:3px;">
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div ng-if="$ctrl.IsDisplayModalPopup">
+    <bootstrap-basic-modal-box-widget modal-box-id="modalBox" on-popup-close="$ctrl.OnModalBoxClose(item);"></bootstrap-basic-modal-box-widget>
+</div>
+<div ng-if="$ctrl.IsDisplayModalPopupError">
+    <errormessage modal-box-id="modalBox" on-popup-close="$ctrl.OnModalBoxClose(item);"></errormessage>
+</div>-->
+
+
+<div class="modal fade" id="myAlert" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.Close();" aria-hidden="true">&times;</button>
+                <!--<button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.ErrorClose();"  aria-hidden="true">&times;</button>-->
+                <h4 class="modal-title" id="myModalLabel2">Alert</h4>
+
+            </div>
+            <div class="modal-body">
+                <p>{{$ctrl.alert}}</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-toggle="modal" data-dismiss="modal" aria-hidden="true">Close</button>
+                <!--<button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Close</button>-->
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" data-dismiss="modal" id="errorclose">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

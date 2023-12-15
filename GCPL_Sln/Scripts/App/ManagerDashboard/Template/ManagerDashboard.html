@@ -1,0 +1,313 @@
+﻿<head>
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<!-- ================================================ New Code Started ================================================ -->
+<body>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="header">
+                <h2 class="page-title">Dashboard</h2>
+            </div>
+        </div>
+    </div>
+    <!-- Tile Code Started -->
+    <div class="main-container">
+        <h4 class="graph-title">Opportunities</h4>
+        <div class="graph-table-container">
+
+            <div>
+                <div class="dashboard-col-update">
+                    <div class="dashboard-tile one-tile">
+                        <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
+                        <input name="txtTotalLead" type="text" id="txtAllocatedLead" ng-model="$ctrl.getManagerLeadCount.Allocated" class="dashboard-tile-inputdata" style="width:100%" disabled>
+                        <p class="dashboard-sugession">Allocated</p>
+                    </div>
+                </div>
+                <div class="dashboard-col-update">
+                    <div class="dashboard-tile two-tile">
+                        <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
+                        <input name="txtTotalLead" type="text" id="txtDelayedLead" ng-model="$ctrl.getManagerLeadCount.Delayed" class="dashboard-tile-inputdata" style="width:100%" disabled>
+                        <p class="dashboard-sugession">Delayed</p>
+                    </div>
+                </div>
+                <div class="dashboard-col-update">
+                    <div class="dashboard-tile one-tile">
+                        <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
+                        <input name="txtTotalLead" type="text" id="txtDeferredLead" ng-model="$ctrl.getManagerLeadCount.Deferred" class="dashboard-tile-inputdata" style="width:100%" disabled>
+                        <p class="dashboard-sugession">Deferred</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-col-update">
+                    <div class="dashboard-tile one-tile">
+                        <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
+                        <input name="txtTotalLead" type="text" id="txtInprocessLead" ng-model="$ctrl.getManagerLeadCount.Inprocess" class="dashboard-tile-inputdata" style="width:100%" disabled>
+                        <p class="dashboard-sugession">Inprocess</p>
+                    </div>
+                </div>
+                <div class="dashboard-col-update">
+                    <div class="dashboard-tile one-tile">
+                        <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
+                        <input name="txtTotalLead" type="text" id="txtTotalLead" ng-model="$ctrl.getManagerLeadCount.ActivityCreated" class="dashboard-tile-inputdata" style="width:100%" disabled>
+                        <p class="dashboard-sugession">Activity Created</p>
+                    </div>
+                </div>
+                <div class="dashboard-col-update">
+                    <div class="dashboard-tile one-tile">
+                        <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
+                        <input name="txtTotalLead" type="text" id="txtTotalLead" ng-model="$ctrl.getManagerLeadCount.ActivityCompleted" class="dashboard-tile-inputdata" style="width:100%" disabled>
+                        <p class="dashboard-sugession">Activity Complete</p>
+                    </div>
+                </div>
+                <div class="dashboard-col-update">
+                    <div class="dashboard-tile one-tile">
+                        <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
+                        <input name="txtTotalLead" type="text" id="txtConvertedLead" ng-model="$ctrl.getManagerLeadCount.Converted" class="dashboard-tile-inputdata" style="width:100%" disabled>
+                        <p class="dashboard-sugession">Converted-(<span id="date"></span>)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="graph-table-container">
+            <div class="row">
+                <div class="col-lg-7 col-md-7">
+                    <h4 class="graph-title">Open</h4>
+                    <div class="open-col-update">
+                        <div class="dashboard-tile three-tile">
+                            <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
+                            <input name="txtTotalLead" type="text" id="txtConvertedLead" ng-model="$ctrl.getManagerOppCount.Identification" class="dashboard-tile-inputdata" style="width:100%" disabled>
+                            <p class="dashboard-sugession">Identification</p>
+                        </div>
+                    </div>
+                    <div class="open-col-update">
+                        <div class="dashboard-tile four-tile">
+                            <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
+                            <input name="txtTotalLead" type="text" id="txtConvertedLead" ng-model="$ctrl.getManagerOppCount.Qualification" class="dashboard-tile-inputdata" style="width:100%" disabled>
+                            <p class="dashboard-sugession">Qualification</p>
+                        </div>
+                    </div>
+                    <div class="open-col-update">
+                        <div class="dashboard-tile five-tile">
+                            <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
+                            <input name="txtTotalLead" type="text" id="txtConvertedLead" ng-model="$ctrl.getManagerOppCount.Development" class="dashboard-tile-inputdata" style="width:100%" disabled>
+                            <p class="dashboard-sugession">Development</p>
+                        </div>
+                    </div>
+                    <div class="open-col-update">
+                        <div class="dashboard-tile six-tile">
+                            <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
+                            <input name="txtTotalLead" type="text" id="txtConvertedLead" ng-model="$ctrl.getManagerOppCount.Proposal" class="dashboard-tile-inputdata" style="width:100%" disabled>
+                            <p class="dashboard-sugession">Proposal</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5">
+                    <h4 class="graph-title">Closed-(<span id="date1"></span>)</h4>
+                    <div class="close-col-update">
+                        <div class="dashboard-tile six-tile">
+                            <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
+                            <input name="txtTotalLead" type="text" id="txtConvertedLead" ng-model="$ctrl.getManagerOppCount.Won" class="dashboard-tile-inputdata" style="width:100%" disabled>
+                            <p class="dashboard-sugession">Won</p>
+                        </div>
+                    </div>
+                    <div class="close-col-update">
+                        <div class="dashboard-tile two-tile">
+                            <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
+                            <input name="txtTotalLead" type="text" id="txtConvertedLead" ng-model="$ctrl.getManagerOppCount.Lost" class="dashboard-tile-inputdata" style="width:100%" disabled>
+                            <p class="dashboard-sugession">Lost</p>
+                        </div>
+                    </div>
+                    <div class="close-col-update">
+                        <div class="dashboard-tile seven-tile">
+                            <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
+                            <input name="txtTotalLead" type="text" id="txtConvertedLead" ng-model="$ctrl.getManagerOppCount.NoDeal" class="dashboard-tile-inputdata" style="width:100%" disabled>
+                            <p class="dashboard-sugession">No Deal</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Tile Code Ended -->
+    <br />
+    <!-- Chart Section Started -->
+    <div class="main-container">
+        <h4 class="graph-title">Graph Section</h4>
+        <div class="table-sub-container" style="background: #fff;">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="form-group">
+                        <label>Opportunity Type</label>
+                        <select id="txtLeadType" name="LeadSource" class="form-control" ng-model="$ctrl.AllLeadChannel.LeadTypeID" ng-change="$ctrl.Division();">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.LeadTypeDropDown" value={{item.ID}}>{{item.LeadTypeDesc}}</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="form-group">
+                        <label>SBU</label>
+                        <select id="txtLeadDivision" name="Status" class="form-control" ng-change="$ctrl.Product();" ng-model="$ctrl.AllLeadChannel.DivisionID" style="width:100%">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.DivisionDropDown" value={{item.DivisionID}}>{{item.Division}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="form-group">
+                        <label>Product</label>
+                        <select id="txtProduct" name="Product" class="form-control" ng-model="$ctrl.AllLeadChannel.ProductID" ng-change="$ctrl.Model1();">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="form-group">
+                        <label>Model</label>
+                        <select id="txtModel" name="Model" ng-model="$ctrl.AllLeadChannel.ModelID" class="form-control" tabindex="2">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.ModelDropDown1" value={{item.ModelID}}>{{item.ModelNo}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="form-group">
+                        <label>From Date</label>
+                        <input id="hfFromDate" type="hidden" name="hfFromDate">
+                        <input name="txtFromDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" id="txtFromDate" class="form-control">
+                        <!--<input type="date" id="txtFromDate" ng-model="$ctrl.AllLeadChannel.FromDate"  class="form-control"/>-->
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="form-group">
+                        <label>To Date</label>
+                        <input id="hfFromDate" type="hidden" name="hfFromDate">
+                        <input name="txtToDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" id="txtToDate" class="form-control">
+                        <!--<input type="date" id="txtToDate" ng-model="$ctrl.AllLeadChannel.ToDate"  class="form-control"/>-->
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div class="form-group">
+                        <input type="submit" name="btnSubmit" value="Search" style="margin-top:24px;padding-top: 3px;" ng-click="$ctrl.Search()" id="btnSubmit" class="btn search-btn">
+                        <input type="submit" name="btnClear" value="Clear" style="margin-top:24px;padding-top: 3px;" ng-click="$ctrl.ClearChannel()" id="btnClear" class="btn search-btn">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="main-container">
+                    <h4 class="graph-title">Opportunity Analytics by Channel</h4>
+                    <div class="graph-table-container">
+                        <div class="graph-one-subcontainer c-container" id="c-id-container">
+                            <ul class="chart-detail" id="c1-detail"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="main-container">
+                    <h4 class="graph-title">Opportunities Analytics by Source</h4>
+                    <div class="graph-table-container">
+                        <div class="graph-one-subcontainer" id="c1-id-container">
+                            <div class="c1-container">
+                                <ul class="chart1-detail" id="c2-detail"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Chart Section Ended -->
+    <br />
+    <!-- Second Layer Started -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+
+            <div class="main-container">
+                <h4 class="graph-title">Top 10 Opportunities - Proposal Stage </h4>
+                <div class="graph-table-container">
+                    <div class="graph-one-subcontainer">
+                        <div class="validation-table table-responsive">
+                            <table id="dataTable1" class="table table-bordered customer-list-table">
+                                <thead class="customer-list-heading">
+                                    <tr>
+                                        <th>Opp Type</th>
+                                        <th>SAP ID</th>
+                                        <th>Customer Name</th>
+                                        <th>Sales Rep</th>
+                                        <th>Model</th>
+                                        <th>Quantity</th>
+                                        <th>Exp End Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in $ctrl.OppList">
+
+                                        <td>{{item.OpportunityType}}</td>
+                                        <td>{{item.OpportunitySAPNo}}</td>
+                                        <td>{{item.CustomerName}}</td>
+                                        <td>{{item.SalesRep}}</td>
+                                        <td>{{item.Model}}</td>
+                                        <td>{{item.Quantity}}</td>
+                                        <td>{{item.ExpEndDate}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Second Layer Ended -->
+    <br />
+    <!-- Third Layer Started -->
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="main-container">
+                <h4 class="graph-title">Top Delayed Opportunities</h4>
+                <div class="graph-table-container">
+                    <div class="graph-one-subcontainer">
+                        <div class="validation-table table-responsive">
+                            <table id="dataTable" class="table table-bordered customer-list-table table-striped">
+                                <thead class="customer-list-heading">
+                                    <tr>
+                                        <th>Lead Type</th>
+                                        <th>Lead Id</th>
+                                        <th>Customer Name</th>
+                                        <th>Sales Rep</th>
+                                        <th>Model</th>
+                                        <th>Quantity</th>
+                                        <th>Age Old(Days)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in $ctrl.LeadList">
+                                        <td>{{item.LeadType}}</td>
+                                        <td>{{item.LeadID}}</td>
+                                        <td>{{item.CustomerName}}</td>
+                                        <td>{{item.SalesRep}}</td>
+                                        <td>{{item.Model}}</td>
+                                        <td>{{item.Quantity}}</td>
+                                        <td>{{item.AgeOldDays}}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Third Layer Ended -->
+    <!--<canvas id="chartContainer" class="chart-container" style="width: 100%"></canvas>
+    <canvas id="donut" width="400" height="400"></canvas>-->
+    <!--<canvas id="myChart"></canvas>-->
+</body>
+<!-- ================================================ New Code Ended ================================================ -->

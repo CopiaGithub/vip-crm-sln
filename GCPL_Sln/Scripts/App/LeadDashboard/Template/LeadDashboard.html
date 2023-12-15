@@ -1,0 +1,526 @@
+﻿<body>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <h2 class="page-title">Opportunity Dashboard</h2>
+        </div>
+    </div>
+    <div class="selection-filter-container">
+        <h5 data-toggle="collapse" data-target="#div1" class="section-header-title spl-tab toggle-spl-minus">Selection Filter</h5>
+        <div id="div1" class="selection-filter-sub-container">
+            <div class="row">
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">From Date</label>
+                        <input id="hfFromDate" type="hidden" name="hfFromDate">
+                        <input name="txtFromDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" id="txtFromDate" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label class="form-label">To Date</label>
+                        <input id="hfFromDate" type="hidden" name="hfFromDate">
+                        <input name="txtToDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" id="txtToDate" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label>Opportunity Type</label>
+                        <select id="txtLeadType" class="form-control" ng-model="$ctrl.LeadSearch.LeadTypeID" ng-change="$ctrl.Division();" name="LeadType" required>
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.LeadTypeDropDown" value={{item.ID}}>{{item.LeadTypeDesc}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label>Division</label>
+                        <select id="txtLeadDivision" name="Status" class="form-control" ng-model="$ctrl.LeadSearch.DivisionID" ng-change="$ctrl.Product();">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.DivisionDropDown" value={{item.DivisionID}}>{{item.Division}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label>Product</label>
+                        <select id="txtProduct" name="Product" ng-model="$ctrl.LeadSearch.ProductID" ng-change="$ctrl.Model();" class="form-control">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label>Model</label>
+                        <select id="txtModel" name="Model" ng-model="$ctrl.LeadSearch.ModelID" class="form-control">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.ModelDropDown" value={{item.ModelID}}>{{item.ModelNo}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-lg-2 col-md-2">
+
+
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select id="txtLeadDivision" name="Status" class="form-control" ng-model="$ctrl.LeadSearch.Status">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label>Region</label>
+                        <select class="form-control" name="Status" ng-model="$ctrl.LeadSearch.Region" ng-change="$ctrl.State();">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.RegionDropDown" value="{{item.RegionID}}">{{item.Region}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label>State</label>
+                        <select id="txtState" name="State" class="form-control" ng-model="$ctrl.LeadSearch.State" ng-change="$ctrl.District();">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.StateRegion" value="{{item.StateID}}">{{item.State}}</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label>District</label>
+                        <select id="txtDistrict" name="District" class="form-control" ng-model="$ctrl.LeadSearch.District">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.DistrictDropDown" value="{{item.DistrictID}}">{{item.District}}</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label>Channel</label>
+                        <select id="txtChannel" name="txtChannel" ng-model="$ctrl.LeadSearch.Channel" class="form-control" ng-change="$ctrl.LeadSource();">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.ChannelDD" value="{{item.ID}}">{{item.Channel}}</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label>Opportunity Source</label>
+                        <select id="ddlleadsource" class="form-control" name="LeadSource" ng-model="$ctrl.LeadSearch.LeadSource" required>
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.LeadSourcedd" value={{item.LeadSourceID}}>{{item.LeadSource}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label>Zone</label>
+                        <select id="txtProduct" name="Product" ng-model="$ctrl.LeadSearch.Zone" ng-change="$ctrl.SalesOffice();" class="form-control">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.ZoneDD" value="{{item.ID}}">{{item.ZoneName}}</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label>Sales Office</label>
+                        <select id="txtState" name="State" class="form-control" ng-model="$ctrl.LeadSearch.SalesOffice">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.SalesOfficewDropDown" value="{{item.SalesOfficeID}}">{{item.SalesOffice}}</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group">
+                        <label>Sales Rep</label>
+                        <select id="txtSalesRep" name="SalesRep" class="form-control" ng-model="$ctrl.LeadSearch.SalesRep">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.SalesRepDropDown" value="{{item.UserID}}">{{item.UserName}}</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 selection-filter-btn-col">
+                    <button type="button" class="btn search-btn" name="name" ng-click="$ctrl.Search();">Search</button>
+                    <button type="button" class="btn clear-btn" ng-click="$ctrl.Clear();" name="name">Clear</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+   
+    <div class="table-container">
+        <h2 data-toggle="collapse" data-target="#div2" class="section-header-title spl-tab toggle-spl-plus">Opportunities Breakup</h2>
+        <div id="div2" class="table-sub-container collapse">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="row ">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="lead-chart-container">
+                                <h3 class="tile-title-1 text-center">By Division Wise</h3>
+                                <div class="row lead-chart-row">
+                                    <div class="col-lg-5 col-md-5 lead-chart-left-col" id="c4-id-container">
+                                    </div>
+                                    <div class="col-lg-7 col-md-7">
+                                        <ul id="c1-detail" class="lead-chart-sub-container"></ul>
+                                    </div>
+                                </div>
+                                <div class="chart-count">
+                                    <label>Count : </label>
+                                    <span id="d-count">20</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="lead-chart-container">
+                                <h3 class="tile-title-1 text-center">By Region Wise</h3>
+                                <div class="row lead-chart-row">
+                                    <div class="col-lg-5 col-md-5 lead-chart-left-col" id="c5-id-container">
+                                    </div>
+                                    <div class="col-lg-7 col-md-7">
+                                        <ul id="c2-detail" class="lead-chart-sub-container"></ul>
+                                    </div>
+                                </div>
+                                <div class="chart-count">
+                                    <label>Count : </label>
+                                    <span id="r-count">20</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="lead-chart-container">
+                                <h3 class="tile-title-1 text-center">By Channel Wise</h3>
+                                <div class="row lead-chart-row">
+                                    <div class="col-lg-5 col-md-5 lead-chart-left-col" id="c7-id-container">
+                                    </div>
+                                    <div class="col-lg-7 col-md-7">
+                                        <ul id="c4-detail" class="lead-chart-sub-container"></ul>
+                                    </div>
+                                </div>
+                                <div class="chart-count">
+                                    <label>Count : </label>
+                                    <span id="c-count">20</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="lead-chart-container">
+                                <h3 class="tile-title-1 text-center">By Zone Wise</h3>
+                                <div class="row lead-chart-row">
+                                    <div class="col-lg-5 col-md-5 lead-chart-left-col" id="c6-id-container">
+                                    </div>
+                                    <div class="col-lg-7 col-md-7">
+                                        <ul id="c3-detail" class="lead-chart-sub-container"></ul>
+                                    </div>
+                                </div>
+                                <div class="chart-count">
+                                    <label>Count : </label>
+                                    <span id="z-count">20</span>
+                                </div>
+                            </div>
+                        </div>
+                      
+
+
+                    </div>
+                    <br />
+                    <!--<br />
+
+
+
+
+    <!--<label for="chkPassport">
+        <input type="checkbox" id="chkPassport" />
+        Do you have Passport?
+    </label>
+    <hr />
+    <div id="dvPassport" style="display: none">
+        Passport Number:
+        <input type="text" id="txtPassportNumber" />
+    </div>
+    <div id="AddPassport">
+        Add New Password
+    </div>-->
+                    <!--Checkbox: <input type="checkbox" id="myCheck" onclick="myFunction()">
+
+    <p id="text" style="display:none">Checkbox is CHECKED!</p>-->
+
+
+
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="col-lg-2 col-md-2 text-right">
+                                <h4 style="margin-top:8px;color:#56688A;"><b>More Graphs  -  </b></h4>
+                            </div>
+
+                            <div class="col-lg-10 col-md-10" style="margin-top:8px;">
+                                <input type="checkbox" class="chkLead" > Lead Source Wise
+                                <input type="checkbox" class="chkproduct" style="margin-left:17px;"> Product Wise
+                                <input type="checkbox" class="chkState" style="margin-left:17px;"> State Wise
+                                <input type="checkbox" class="chkSales" style="margin-left:17px;"> Sales Rep Wise
+                                <input type="checkbox" class="chkSaleoff" style="margin-left:17px;"> Sales Office Wise
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="dropdown">
+        <button class="btn search1-btn dropdown-toggle" type="button" data-toggle="dropdown">
+            Dropdown
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li> <input type="checkbox" class="chkzone Lead" style="margin-left:4px;"> Zone Wise</li>
+            <li> <input type="checkbox" class="chkLead" style="margin-left:4px;"> Lead Source Wise</li>
+            <li> <input type="checkbox" class="chkproduct" style="margin-left:4px;"> Product Wise</li>
+            <li> <input type="checkbox" class="chkState" style="margin-left:4px;"> State Wise</li>
+            <li> <input type="checkbox" class="chkSales" style="margin-left:4px;"> Sales Rep Wise</li>
+            <li> <input type="checkbox" class="chkSaleoff" style="margin-left:4px;"> Sales Office Wise</li>
+
+        </ul>
+    </div>-->
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 dvLead" style="display: none">
+                            <div class="lead-chart-container">
+                                <h3 class="tile-title-1 text-center">By Lead Source Wise</h3>
+                                <div class="row lead-chart-row">
+                                    <div class="col-lg-3 col-md-3 lead-chart-left-col" id="c8-id-container">
+                                    </div>
+                                    <div class="col-lg-9 col-md-9">
+                                        <ul id="c5-detail" class="lead-chart-sub-container"></ul>
+                                    </div>
+                                </div>
+                                <div class="chart-count">
+                                    <label>Count : </label>
+                                    <span id="l-count">20</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 dvproduct" style="display: none">
+                            <div class="lead-chart-container">
+                                <h3 class="tile-title-1 text-center">By Product Wise</h3>
+                                <div class="row lead-chart-row">
+                                    <div class="col-lg-3 col-md-3 lead-chart-left-col" id="c9-id-container">
+                                    </div>
+                                    <div class="col-lg-9 col-md-9">
+                                        <ul id="c6-detail" class="lead-chart-sub-container"></ul>
+                                    </div>
+                                </div>
+                                <div class="chart-count">
+                                    <label>Count : </label>
+                                    <span id="p-count">20</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 dvState" style="display: none">
+                            <div class="lead-chart-container">
+                                <h3 class="tile-title-1 text-center">By State Wise</h3>
+                                <div class="row lead-chart-row">
+                                    <div class="col-lg-3 col-md-3 lead-chart-left-col" id="c10-id-container">
+                                    </div>
+                                    <div class="col-lg-9 col-md-9">
+                                        <ul id="c7-detail" class="lead-chart-sub-container"></ul>
+                                    </div>
+                                </div>
+                                <div class="chart-count">
+                                    <label>Count : </label>
+                                    <span id="sw-count">20</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 dvSales" style="display: none">
+                            <div class="lead-chart-container">
+                                <h3 class="tile-title-1 text-center">By Sales Rep Wise</h3>
+                                <div class="row lead-chart-row">
+                                    <div class="col-lg-3 col-md-3 lead-chart-left-col" id="c11-id-container">
+                                    </div>
+                                    <div class="col-lg-9 col-md-9">
+                                        <ul id="c8-detail" class="lead-chart-sub-container"></ul>
+                                    </div>
+                                </div>
+                                <div class="chart-count">
+                                    <label>Count : </label>
+                                    <span id="sr-count">20</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 dvSaleoff" style="display: none">
+                            <div class="lead-chart-container">
+                                <h3 class="tile-title-1 text-center">By Sales Office Wise</h3>
+                                <div class="row lead-chart-rows">
+                                    <div class="col-lg-3 col-md-3 lead-chart-left-col" id="c12-id-container">
+                                    </div>
+                                    <div class="col-lg-9 col-md-9">
+                                        <ul id="c9-detail" class="lead-chart-sub-container"></ul>
+                                    </div>
+                                </div>
+                                <div class="chart-count">
+                                    <label>Count : </label>
+                                    <span id="so-count">20</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+
+    <div class="table-container">
+        <!--<div class="col-lg-6 col-md-6 selection-filter-btn-col">
+            <button type="button" class="btn search-btn" name="name" ng-click="$ctrl.Search();">Search</button>
+        </div>
+        <br />-->
+        <h5 data-toggle="collapse" data-target="#div3" class="section-header-title spl-tab toggle-spl-plus">
+            List
+
+        </h5>
+
+
+        <div id="div3" class="table-sub-container collapse">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <label>Total Count : <span id="t-count"></span></label>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <button type="button" class="btn search-btn pull-right" ng-click="$ctrl.SearchData();">View</button>
+                </div>
+            </div>
+            <form class="form-inline" action="/action_page.php">
+                <div class="form-group">
+                    <label><input id="region" type="checkbox" name="remember"> Region</label>
+                </div>
+                <div class="form-group lead-check-container">
+                    <label><input id="zone" type="checkbox" name="remember"> Zone</label>
+                </div>
+                <div class="form-group lead-check-container">
+                    <label><input id="status-chk" type="checkbox" name="remember"> Status</label>
+                </div>
+                <div class="form-group lead-check-container">
+                    <label><input id="division" type="checkbox" name="remember"> Division</label>
+                </div>
+                <div class="form-group lead-check-container">
+                    <label><input id="product" type="checkbox" name="remember"> Product</label>
+                </div>
+                <div class="form-group lead-check-container">
+                    <label><input id="model" type="checkbox" name="remember"> Model</label>
+                </div>
+                <div class="form-group lead-check-container">
+                    <label><input id="channel" type="checkbox" name="remember"> Channel</label>
+                </div>
+                <div class="form-group lead-check-container">
+                    <label><input id="lead-source" type="checkbox" name="remember"> Opportunity Source</label>
+                </div>
+                <div class="form-group lead-check-container">
+                    <label><input id="lead-type" type="checkbox" name="remember"> Lead Type</label>
+                </div>
+                <div class="form-group lead-check-container">
+                    <label><input id="sales-office" type="checkbox" name="remember"> Sales Office</label>
+                </div>
+                <div class="form-group lead-check-container">
+                    <label><input id="sales-rep" type="checkbox" name="remember"> Sales Resp</label>
+                </div>
+            </form>
+            <br />
+
+            <div class="table-responsive">
+
+                <table id="dataTable" style="display: none !important;" class="table table-bordered customer-list-table">
+
+                    <thead class="customer-list-heading">
+                        <tr>
+                            <th class="region-col">Region</th>
+                            <th class="division-col">Division</th>
+                            <th class="status-col">Status</th>
+                            <th class="zone-col">Zone</th>
+                            <th class="channel-col">Channel</th>
+                            <th class="username-col">Username</th>
+                            <th class="product-col">Product</th>
+                            <th class="model-col">Model No</th>
+                            <th class="lead-source-col">Lead Source</th>
+                            <th class="lead-type-col">Lead Type Desc</th>
+                            <th class="sales-office-col">Sales Office</th>
+                            <th class="count-col">Count</th>
+                            <th class="percent-col">Percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in $ctrl.shownItems">
+                            <td class="region-col" ng-hide="item.Region == null">{{item.Region}}</td>
+                            <td class="division-col" ng-hide="item.Division == null">{{item.Division}}</td>
+                            <td class="status-col" ng-hide="item.Status == null">{{item.Status}}</td>
+                            <td class="zone-col" ng-hide="item.ZoneName == null">{{item.ZoneName}}</td>
+                            <td class="channel-col" ng-hide="item.Channel == null">{{item.Channel}}</td>
+                            <td class="username-col" ng-hide="item.SalesRep == null">{{item.SalesRep}}</td>
+                            <td class="product-col" ng-hide="item.Product == null">{{item.Product}}</td>
+                            <td class="model-col" ng-hide="item.ModelNo == null">{{item.ModelNo}}</td>
+                            <td class="lead-source-col" ng-hide="item.LeadSource == null">{{item.LeadSource}}</td>
+                            <td class="lead-type-col" ng-hide="item.LeadTypeDesc == null">{{item.LeadTypeDesc}}</td>
+                            <td class="sales-office-col" ng-hide="item.SalesOffice == null">{{item.SalesOffice}}</td>
+                            <td class="count-col" ng-hide="item.LeadCount == null">{{item.LeadCount}}</td>
+                            <td class="percent-col" ng-hide="item.LeadPer == null">{{item.LeadPer | number:2}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="row nex-prev-container">
+                <div class="col-lg-12 col-md-12 text-right">
+                    <button ng-show="$ctrl.ShowBack" ng-click="$ctrl.back()" class="btn btn-default">Prev</button>
+                    <button ng-show="$ctrl.ShowNext" ng-click="$ctrl.next()" class="btn btn-default">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="myAlert" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.Close();" aria-hidden="true">&times;</button>
+                    <!--<button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.ErrorClose();"  aria-hidden="true">&times;</button>-->
+                    <h4 class="modal-title" id="myModalLabel2">Alert</h4>
+
+                </div>
+                <div class="modal-body">
+                    <p>{{$ctrl.alert}}</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-toggle="modal" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <!--<button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Close</button>-->
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" data-dismiss="modal" id="errorclose">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

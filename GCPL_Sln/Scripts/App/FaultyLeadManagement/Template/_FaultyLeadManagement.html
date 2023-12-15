@@ -1,0 +1,160 @@
+﻿<head>
+
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+</head>
+
+<style>
+    .header {
+        background: #555;
+        color: #f1f1f1;
+        text-align: center;
+    }
+</style>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <!--<div class="header" id="myHeader">
+            <h5 style="font-size:20px;margin:0px;padding:15px">Faulty Lead Management</h5>
+        </div>-->
+        <div class="box dark">
+
+            <!--<button type="button" class="btn btn-success pull-right" style="margin: 0 8px">Cancel</button>-->
+
+
+            <header>
+
+                <div class="icons"><!--<img src="../../../../../Content/assets/img/App copy.png" style="height:30px" />--></div>
+                <h5 class="leader-heading">Faulty Lead Management</h5>
+                <a href="/#!/FaultyLead" class="btn search-btn pull-right" style="margin:8px;border: none;color:black;">Go to List</a>
+                
+                <div class="toolbar">
+
+                </div>
+            </header><br /><br />
+            <br/>
+            <br/>
+            <form class="form-horizontal" name="userForm" novalidate>
+                
+                <div id="div-1" class="body">
+
+                    <div class="Row form-group">
+                        <div id="Cust">
+                            <label for="Address" class="control-label col-md-2">Customer Name</label>
+                            <div class="col-md-4" ng-class="{ 'has-error' : (userForm.txtCustomerName.$invalid && userForm.txtCustomerName.$pristine) }">
+                                <input type="text" id="txtCustomerName" name="txtCustomerName" placeholder="Customer Name" class="form-control" required>
+                                <p ng-show="(userForm.txtCustomerName.$invalid && !userForm.txtCustomerName.$pristine)" id="errorWOType" class="help-block" style="color:red">Customer Name is required.</p>
+                            </div>
+                        </div>
+
+                        <label for="Address" class="control-label col-md-2">Contact Person</label>
+                        <div class="col-md-4" ng-class="{ 'has-error' : (userForm.txtContactPerson.$invalid && userForm.txtContactPerson.$pristine) }">
+                            <input type="text" id="txtContactPerson" name="txtContactPerson" class="form-control" placeholder="Contact Person" required>
+                            <p ng-show="(userForm.txtContactPerson.$invalid && !userForm.txtContactPerson.$pristine)" id="errorWOType" class="help-block" style="color:red">Contact Person is required.</p>
+                        </div>
+                    </div>
+                   
+                    <div class="Row form-group">
+                        <label for="Address" class="control-label col-md-2">Designation</label>
+                        <div class="col-md-4">
+                            <input type="text" id="txtDesg" name="txtDesg" placeholder="Designation" class="form-control">
+                            <p ng-show="(userForm.txtEmail.$invalid && !userForm.txtEmail.$pristine)" id="errorWOType" class="help-block" style="color:red">Email is required.</p>
+                        </div>
+
+                        <label for="Address" class="control-label col-md-2">Email</label>
+                        <div class="col-md-4">
+                            <input type="text" id="txtEmail" name="txtEmail" placeholder="Email" class="form-control">
+                            <p ng-show="(userForm.txtEmail.$invalid && !userForm.txtEmail.$pristine)" id="errorWOType" class="help-block" style="color:red">Email is required.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="Row form-group">
+
+                        <label for="Address" class="control-label col-md-2">Mobile No.</label>
+                        <div class="col-md-4" ng-class="{ 'has-error' : (userForm.txtMobileNo.$invalid && userForm.txtMobileNo.$pristine) }">
+                            <input type="text" id="txtMobileNo" name="txtMobileNo" placeholder="Mobile No." maxlength="10" class="form-control" required>
+                            <p ng-show="(userForm.txtMobileNo.$invalid && !userForm.txtMobileNo.$pristine)" id="errorWOType" class="help-block" style="color:red">Mobile Number is required.</p>
+                        </div>
+
+                        <label for="Address" class="control-label col-md-2">District</label>
+                        <div class="col-md-4" ng-class="{ 'has-error' : (userForm.txtDist.$invalid && userForm.txtDist.$pristine) }">
+                            <input type="text" id="txtDist" name="txtDist" placeholder="District" class="form-control" required>
+                            <p ng-show="(userForm.txtDist.$invalid && !userForm.txtDist.$pristine)" id="errorWOType" class="help-block" style="color:red">District is required.</p>
+                        </div>
+                    </div>
+                  
+
+                    <div class="Row form-group">
+
+                        <label for="Address" class="control-label col-md-2">Address</label>
+                        <div class="col-md-4">
+                            <input type="text" id="txtLandLineNo" placeholder="Address" class="form-control">
+                        </div>
+                        <label for="limiter" class="control-label col-md-2">Pin Code</label>
+                        <div class="col-md-4">
+                            <input type="text" id="txtPinCode" placeholder="Pin Code" class="form-control" maxlength="6">
+                        </div>
+                    </div>
+                    
+                    <div class="Row form-group">
+
+                        <label for="limiter" class="control-label col-md-2">Model Name</label>
+                        <div class="col-md-4">
+                            <input type="text" id="txtModel" placeholder="Model Name" class="form-control" maxlength="6">
+                        </div>
+                        <label for="limiter" class="control-label col-md-2">Plan  To Purchase </label>
+                        <div class="col-md-4">
+                            <input type="text" id="txtPlan" placeholder="Plan  To Purchase " class="form-control">
+                        </div>
+
+                    </div>
+                    
+                    <div class="Row form-group">
+
+
+                        <label for="limiter" class="control-label col-md-2">Specify More</label>
+                        <div class="col-md-4">
+                            <input type="text" id="txtSpecify" placeholder="Specify More" class="form-control">
+                        </div>
+                        <br /><br />
+                        <div class="col-md-12">
+
+                            <input type="submit" value="Submit" id="btnSubmit" class="btn search-btn pull-right" style="margin:8px;border: none;color:black;" data-toggle="modal" data-target="#myAlert">
+
+                        </div>
+
+                    </div>
+                    <br />
+                </div>
+            </form>
+
+        </div>
+
+
+     
+    </div>
+</div>
+
+
+<div class="modal fade" id="myAlert" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.Close();" aria-hidden="true">&times;</button>
+                <!--<button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.ErrorClose();"  aria-hidden="true">&times;</button>-->
+                <h4 class="modal-title" id="myModalLabel2">Alert</h4>
+
+            </div>
+            <div class="modal-body">
+                <p>{{$ctrl.alert}}</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" id="errorclose" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,363 @@
+﻿<head>
+    <link href="../../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+</head>
+<div id="content">
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="header">
+                <h2 class="page-title">Campaign Management</h2>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 page-title-right-container text-right">
+            <button id="#myBtnNextMetting" class="btn create-btn pull-right" ng-click="$ctrl.Add();" data-toggle="modal" data-target="#myModalAddNew"> Add New Campaign </button>
+        </div>
+    </div>
+    <div class="selection-filter-container">
+        <h2 class="section-header-title">Selection Filter</h2>
+        <div id="div-1" class="selection-filter-sub-container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12" style="padding-left:0px">
+                    <!--<div class="box">-->
+                    <form id="validVal" class="container-fluid">
+                        <div class="col-md-12" style="border-bottom:0px solid black; padding-left: 0; padding-bottom:15px;">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label class="form-label">Lead Source</label>
+                                    <select id="txtLeadSource" name="LeadSource" class="form-control" ng-model="$ctrl.CampaignSearch.LeadSourceID">
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in $ctrl.LeadSourceDropDown" value="{{item.LeadSourceID}}">{{item.LeadSource}}</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label">Campaign Name</label>
+                                    <input id="txtCampaign" class="form-control" type="text" ng-model="$ctrl.CampaignSearch.SearchText"
+                                           placeholder="Search by Campaign Name" style="width:100%" />
+                                </div>
+                                <div class="col-md-2">
+                                    <label>Status</label>
+                                    <select id="txtstatus" class="form-control" ng-model="$ctrl.CampaignSearch.StatusID" style="width:100%">
+                                        <option value="">Select</option>
+                                        <option value="1"> Active</option>
+                                        <option value="0">Inactive</option>
+
+                                    </select>
+                                </div>
+                                <div class="col-md-4 selection-filter-bt-ncol" style="margin-top:24px;">
+                                    <button id="btnSearch" style="margin-top:4px;" ng-click="$ctrl.SearchCampaignList();" type="button" class="btn search-btn">Search</button>
+                                    <button id="btnClear" style="margin-top:4px;" ng-click="$ctrl.Clear();" type="button" class="btn clear-btn">Clear</button>
+                                    <button id="btnDownload" ng-click="$ctrl.exportTableToCSV('CampaignReport.csv')" type="button" class="btn download-btn" style="margin-top: 5px;">Download Excel</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <!--</div>-->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--<h3 class="acco-sub-heading" style="font-size: 18px; border-color: #fff"> Campaign Lists </h3>-->
+    <div class="table-container">
+        <h2 class="section-header-title">Campaign Management List</h2>
+        <div class="row">
+            <div class="col-md-12" id="divlist">
+                <div class="table-sub-container">
+                    <div id="div-1" class="body">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <label class="table-label">Count - {{$ctrl.CampaignList.length}} </label>
+                            </div>
+                            <div class="col-lg-6 col-md-6 text-right">
+                                <label class="table-label">Records/Page - </label>
+                                <select name="Status" id="DDLStatus" ng-change="$ctrl.Refresh()" ng-model="$ctrl.NoOfRds" class="no-record-dropdown">
+                                    <option value=10>10</option>
+                                    <option value=30>30</option>
+                                    <option value=50>50</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="validation-table table-responsive" style="overflow:auto;">
+                            <table id="dataTable" class="table table-bordered customer-list-table">
+                                <thead class="customer-list-heading">
+                                    <tr>
+                                        <!--<th>Campaign ID</th>-->
+                                        <th>Campaign Name</th>
+                                        <th>SAP ID</th>
+                                        <th>Description</th>
+                                        <th>Lead Source</th>
+                                        <th>Date Created</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Targeted Leads</th>
+                                        <th>Estimated Cost</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in $ctrl.shownItems">
+
+                                        <td>{{item.CampaignName}}</td>
+                                        <td>{{item.SAPID}}</td>
+                                        <td>{{item.Description}}</td>
+                                        <td>{{item.LeadSource}}</td>
+                                        <td>{{item.WhenEntered}}</td>
+                                        <td>{{item.StartDate}}</td>
+                                        <td>{{item.EndDate}}</td>
+                                        <td>{{item.TargetedLeads}}</td>
+                                        <td>{{item.EstimatedCost}}</td>
+                                        <td>{{item.Status}}</td>
+                                        <td>
+
+                                            <span class="edit-table-link" ng-click="$ctrl.Edit(item.CampaignID);" style="border-color:lightblue;" data-toggle="modal" data-target="#myModalAddNew"><i class="fa fa-edit"></i></span>
+                                        </td>
+
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table id="excelDownload" style="display:none;">
+                                <thead>
+                                    <tr>
+                                        <th>Campaign Name</th>
+                                        <th>SAP ID</th>
+                                        <th>Description</th>
+                                        <th>Lead Source</th>
+                                        <th>Date Created</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                        <th>Targeted Leads</th>
+                                        <th>Estimated Cost</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in $ctrl.CampaignList">
+                                        <td>{{item.CampaignName}}</td>
+                                        <td>{{item.SAPID}}</td>
+                                        <td>{{item.Description}}</td>
+                                        <td>{{item.LeadSource}}</td>
+                                        <td>{{item.WhenEntered}}</td>
+                                        <td>{{item.StartDate}}</td>
+                                        <td>{{item.EndDate}}</td>
+                                        <td>{{item.TargetedLeads}}</td>
+                                        <td>{{item.EstimatedCost}}</td>
+                                        <td>{{item.Status}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    <div id="nullDataDiv" style="display: none;">
+                        <br />
+                        <div class="mdl-grid jumbotron">
+                            <h3 class="page-header" style="color: brown; margin-left: 33%">
+                                <i class="fa fa-exclamation-triangle">
+                                </i>&nbsp; No Data available
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="row nex-prev-container">
+                        <div class="col-md-12 text-right">
+                            <button ng-show="$ctrl.ShowBack" ng-click="$ctrl.back()" class="btn btn-default">Prev</button>
+                            <button ng-show="$ctrl.ShowNext" ng-click="$ctrl.next()" class="btn btn-default">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Search Loader Started -->
+        <div class="search-loader" id="search-btn-loader">
+            <div class="search-loader-container">
+                <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+            </div>
+        </div>
+        <!-- Search Loader Ended -->
+    </div>
+    <!-- ==================================================== Table Section Ended =============================================== -->
+</div>
+
+
+
+<!-- --------------------------------PopUP------------------------------------------------ -->
+
+<div class="modal fade" id="myModalAddNew" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-4">
+
+        <div class="modal-content">
+            <!-----------------------------Lable----------------------------------------->
+            <div class="modal-header modal-head">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title modal-head-title" id="myModalLabel2">Campaign Management</h3>
+            </div>
+
+            <br />
+            <div id="div-1" class="modal-body">
+                <form name="userForm" novalidate>
+                    <!-- ----------------------------Text------------------------------->
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="Address" class="control-label">LeadSource <span class="Mandatory">*</span></label>
+                                <div>
+                                    <select id="txtLead" name="LeadSource" ng-model="$ctrl.InsertCampaign.LeadSourceID" class="form-control" tabindex="2" >
+                                        <option value="">Select</option>
+                                        <option ng-repeat="item in $ctrl.LeadSourceDD" value="{{item.LeadSourceID}}">{{item.LeadSource}}</option>
+                                    </select>
+                                    <!--<p ng-show="(userForm.txtLead.$invalid && !userForm.txtLead.$pristine)" id="errortitle" class="help-block" style="color:red">LeadSource is .</p>-->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="Address" class="control-label">Campaign Name <span class="Mandatory">*</span></label>
+                                <div>
+                                    <input type="text" id="txtCampaignnm" name="txtCampaignnm" ng-model="$ctrl.InsertCampaign.CampaignName" class="form-control" >
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="Address" class="control-label">Campaign Description <span class="Mandatory">*</span></label>
+                                <div>
+                                    <textarea rows="1" id="txtCampaignDesc" ng-model="$ctrl.InsertCampaign.Description" name="txtCampaignDesc" class="form-control" >
+                            </textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="Address" class="control-label">Campaign SAP ID <span class="Mandatory">*</span></label>
+                                <div>
+                                    <input type="text" id="txtCampaignSAP" ng-model="$ctrl.InsertCampaign.SAPID" name="txtCampaignSAP" class="form-control" >
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="Address" class="control-label">Start Date <span class="Mandatory">*</span></label>
+                                <div>
+                                    <input id="hfFromDate" type="hidden" name="hfFromDate">
+                                    <input name="txtFromDate" placeholder="DD MMM YYYY" ng-model="$ctrl.InsertCampaign.StartDate" input="hfFromDate" data-intro="true" id="txtFromDate" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="Address" class="control-label col-lg-4">End Date <span class="Mandatory">*</span></label>
+                                <div>
+                                    <input id="hfToDate" type="hidden" name="hfToDate">
+                                    <input name="txtToDate" id="txtToDate" placeholder="DD MMM YYYY" ng-model="$ctrl.InsertCampaign.EndDate" input="hfToDate" data-intro="true" class="form-control ">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="Address" class="control-label">Targeted Leads <span class="Mandatory">*</span></label>
+                                <div>
+                                    <input type="text" id="txtTargetedLeads" ng-model="$ctrl.InsertCampaign.TargetedLeads" name="txtTargetedLeads" class="form-control">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="Address" class="control-label">Estimated Cost of Campaign <span class="Mandatory">*</span></label>
+                                <div>
+                                    <input type="text" id="txtEstimatedCost" ng-model="$ctrl.InsertCampaign.EstimatedCost" name="txtEstimatedCost" class="form-control" >
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <div class="form-group">
+                                <label for="Address" class="control-label">Status <span class="Mandatory">*</span></label>
+                                <div>
+                                    <select name="Status" ng-model="$ctrl.InsertCampaign.Status" class="form-control" tabindex="2" >
+                                        <option value="">Select</option>
+                                        <option value="1"> Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                    <!--<p ng-show="(userForm.txtStatus.$invalid && !userForm.txtStatus.$pristine)" id="errortitle" class="help-block" style="color:red">Status is .</p>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <!--<input type="submit" id="btnSubmit" ng-click="$ctrl.InsertSegment1();" data-toggle="modal" data-target="#myModalAddNew" class="btn btn-primary pull-right">-->
+                <!--<input type="submit" id="btnSubmit" data-target="#myAlert" value="Clear"
+                data-toggle="modal" class="btn search-btn pull-right">-->
+                <input type="submit" id="btnSubmit" ng-click="$ctrl.Submit();" style="margin-right: 5px;"
+                       class="btn search-btn pull-right">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="succeess-message-box" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <div class="modal-header" id="success-modal-head">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title success-modal-title">Message</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <img id="success-img-id" style="width: 40px;" src="../../../../../Content/assets/img/success-img.gif" />
+                    <img id="error-img-id" style="width: 28px;" src="../../../../../Content/assets/img/error-img.png" />
+                    <span id="message-text">Data Inserted Successfully</span>
+                </p>
+            </div>
+            <div class="modal-footer message-modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" id="errorclose" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function mydate() {
+        //alert("");
+        document.getElementById("dt").hidden = false;
+        document.getElementById("ndt").hidden = true;
+    }
+    function mydate1() {
+        d = new Date(document.getElementById("dt").value);
+        dt = d.getDate();
+        mn = d.getMonth();
+        mn++;
+        yy = d.getFullYear();
+        document.getElementById("ndt").value = dt + "/" + mn + "/" + yy
+        document.getElementById("ndt").hidden = false;
+        document.getElementById("dt").hidden = true;
+    }
+</script>

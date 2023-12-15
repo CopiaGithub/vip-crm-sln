@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2047
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GCPL_Sln", "GCPL_Sln\GCPL_Sln.csproj", "{15C016F5-C53B-4CAB-8EF9-87C66D49460C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15C016F5-C53B-4CAB-8EF9-87C66D49460C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15C016F5-C53B-4CAB-8EF9-87C66D49460C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15C016F5-C53B-4CAB-8EF9-87C66D49460C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15C016F5-C53B-4CAB-8EF9-87C66D49460C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3273364E-3325-49A8-9067-18F506C28230}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://copiacs.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = GCPL_Sln\\GCPL_Sln.csproj
+		SccProjectName1 = GCPL_Sln
+		SccLocalPath1 = GCPL_Sln
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,312 @@
+﻿
+<div class="row">
+    <div class="col-lg-6">
+        <div class="header">
+            <h2 class="page-title">Target List</h2>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 page-title-right-container text-right">
+        <button id="#myBtnNextMetting" class="btn create-btn pull-right" data-toggle="modal" data-target="#myModalAddNew" ng-click="$ctrl.Add();">Add New</button>
+    </div>
+</div>
+<div class="selection-filter-container">
+    <h2 class="section-header-title">Selection Filter</h2>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="selection-filter-sub-container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3">                                  
+                        <div class="form-group">
+                            <label>Opportunity Type</label>
+                            <select id="txtLeadType" name="Model" ng-model="$ctrl.TargetSearch.ID" ng-change="$ctrl.Division();" class="form-control col-lg-4" tabindex="2">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.LeadTypeDropDown" value={{item.ID}}>{{item.LeadTypeDesc}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label>SBU</label>
+                            <select id="txtLeadDivision" name="Status" class="form-control col-lg-4" ng-model="$ctrl.TargetSearch.DivisionID" ng-change="$ctrl.Product();" style="width:100%">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.DivisionDropDown" value={{item.DivisionID}}>{{item.Division}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label>Family</label>
+                            <select id="txtProduct" name="Product" ng-model="$ctrl.TargetSearch.ProductID" ng-change="$ctrl.Model();" class="form-control col-lg-4">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label>Model</label>
+                            <select id="txtModel" name="Model" ng-model="$ctrl.TargetSearch.ModelID" class="form-control col-lg-4" tabindex="2">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ModelDropDown" value={{item.ModelID}}>{{item.ModelNo}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label>SR Zone</label>
+                            <select id="txtZone" name="Zone" class="form-control col-lg-4" ng-model="$ctrl.TargetSearch.ZoneID" ng-change="$ctrl.ZoneWiseUser();">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ZoneDD" value={{item.ID}}>{{item.ZoneName}}</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label>Emp Name</label>
+                            <select id="ddlUserName" name="UserName" class="form-control col-lg-4" ng-model="$ctrl.TargetSearch.UserID">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.UserDropDown" value={{item.UserID}}>{{item.FirstName}}</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <!--<div class="col-lg-3 col-md-3">
+                    <div class="form-group">
+                        <label>Emp Code</label>-->
+                    <!--<input id="#txtUserName" type="text" class="form-control" name="name" ng-model="$ctrl.TargetSearch.UserID" />-->
+                    <!--<input type="text" name="user" id="txtUserName" class="form-control" placeholder="User Name" />
+                        </div>
+                    </div>-->
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label>Year</label>
+                            <select class="form-control" ng-model="$ctrl.TargetSearch.Year" id="txtYear">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.YearDropdown" value="{{item.YearID}}">{{item.Year}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                        <div class="form-group">
+                            <label>Month</label>
+                            <select class="form-control" ng-model="$ctrl.TargetSearch.Month">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.MonthDropdown" value="{{item.MonthID}}">{{item.Month}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 text-right">
+                        <button id="btnSearch" type="button" ng-click="$ctrl.SearchTargetList();" class="btn search-btn">Search</button>
+                        <button id="btnClear" type="button" ng-click="$ctrl.Clear();" class="btn clear-btn">Clear</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-container">
+    <h2 class="section-header-title">Target List</h2>
+    <div class="table-sub-container">
+        <div id="div-1" class="body">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <label class="table-label">Count - {{$ctrl.TargetList.length}} </label> ,
+                    <label class="table-label">Sum Of Units - {{$ctrl.TOT}} </label>
+                   
+                </div>
+                <div class="col-lg-6 col-md-6 text-right">
+                    <label class="table-label">Records/Page - </label>
+                    <select name="Status" id="DDLStatus" ng-change="$ctrl.Refresh()" ng-model="$ctrl.NoOfRds" class="no-record-dropdown">
+                        <option value=10>10</option>
+                        <option value=30>30</option>
+                        <option value=50>50</option>
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="validation-table table-responsive" style="overflow:auto;">
+                <table id="dataTable" class="table table-bordered customer-list-table">
+                    <thead class="customer-list-heading">
+                        <tr>
+                            <th>Opportunity Type</th>
+                            <th>SBU</th>
+                            <th>Family</th>
+                            <th>Model</th>
+                            <th>Zone</th>
+                            <th> Emp Code</th>
+                            <th>Emp Name</th>
+                            <th>Year</th>
+                            <th>Month</th>
+                            <th>Units</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in $ctrl.shownItems">
+                            <td>{{item.LeadTypeDesc}}</td>
+                            <td>{{item.Division}}</td>
+                            <td>{{item.Product}}</td>
+                            <td>{{item.ModelNo}}</td>
+                            <td>{{item.Zone}}</td>
+                            <td>{{item.EmpCode}}</td>
+                            <td>{{item.FirstName}}</td>
+                            <td>{{item.Year}}</td>
+                            <td>{{item.Month}}</td>
+                            <td>{{item.Quantity}}</td>
+                            <td>
+                                <span class="edit-table-link" ng-click="$ctrl.Edit(item.TargetID);" data-toggle="modal" data-target="#myModalAddNew"><i class="fa fa-edit"></i></span>
+                                <a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.DeleteTarget(item.TargetID);"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div id="nullDataDiv" style="display: none;">
+                <br />
+                <div class="mdl-grid jumbotron">
+                    <h3 class="page-header" style="color: brown; margin-left: 33%">
+                        <i class="fa fa-exclamation-triangle">
+                        </i>&nbsp; No Data available
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="row nex-prev-container">
+            <div class="col-lg-12 col-md-12 text-right">
+                <button ng-show="$ctrl.ShowBack" ng-click="$ctrl.back()" class="btn btn-default">Prev</button>
+                <button ng-show="$ctrl.ShowNext" ng-click="$ctrl.next()" class="btn btn-default">Next</button>
+            </div>
+        </div>
+    </div>
+    <!-- Search Loader Started -->
+    <div class="search-loader" id="search-btn-loader">
+        <div class="search-loader-container">
+            <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+        </div>
+    </div>
+    <!-- Search Loader Ended -->
+</div>
+
+<div class="modal fade" id="myModalAddNew" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog modal-2">
+        <div class="modal-content ">
+            <div class="modal-header modal-head">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 class="modal-title modal-head-title"> Target Management</h3>
+            </div>
+            <div id="div-1" class="modal-body">
+                <form class="form-horizontal" name="userForm" novalidate>
+                    <div class="form-group">
+                        <div class="col-lg-4">
+                            <label>Opportunity Type <span class="Mandatory">*</span></label>
+                            <select id="OppType" name="Model" ng-model="$ctrl.InsertTarget.ID" class="form-control" tabindex="2">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.LeadTypeDropDown" value={{item.ID}}>{{item.LeadTypeDesc}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>SBU <span class="Mandatory">*</span></label>
+                            <select id="SBU" name="Status" class="form-control" ng-model="$ctrl.InsertTarget.DivisionID" ng-change="$ctrl.Product1($ctrl.InsertTarget.DivisionID);" style="width:100%">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.DivisionDropDown1" value={{item.DivisionID}}>{{item.Division}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Family <span class="Mandatory">*</span></label>
+                            <select id="Family" name="Product" ng-model="$ctrl.InsertTarget.ProductID" ng-change="$ctrl.Model1($ctrl.InsertTarget);" class="form-control">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ProductDropDown1" value={{item.ProductID}}>{{item.Product}}</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4">
+                            <label>Model <span class="Mandatory">*</span></label>
+                            <select id="Model" name="Model" ng-model="$ctrl.InsertTarget.ModelID" class="form-control" tabindex="2">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ModelDropDown1" value={{item.ModelID}}>{{item.ModelNo}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label>SR Zone <span class="Mandatory">*</span></label>
+                            <select id="Zone" name="Zone" class="form-control" ng-model="$ctrl.InsertTarget.ZoneID" ng-change="$ctrl.ZoneWiseUser1();">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ZoneDD" value={{item.ID}}>{{item.ZoneName}}</option>
+
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Emp Name <span class="Mandatory">*</span></label>
+                            <select id="UserName" name="User" class="form-control" ng-model="$ctrl.InsertTarget.UserID">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.UserDropDown1" value={{item.UserID}}>{{item.FirstName}}</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-4">
+                            <label>Year <span class="Mandatory">*</span></label>
+                            <select id="Year" class="form-control" ng-model="$ctrl.InsertTarget.Year">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.YearDropdown" value="{{item.YearID}}">{{item.Year}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Month <span class="Mandatory">*</span></label>
+                            <select id="Month" class="form-control" ng-model="$ctrl.InsertTarget.Month">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.MonthDropdown" value="{{item.MonthID}}">{{item.Month}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Unit <span class="Mandatory">*</span></label>
+                            <input id="txtQuantity" type="text" class="form-control" name="name" ng-model="$ctrl.InsertTarget.Quantity" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Submit" ng-click="$ctrl.Submit();" id="btnSubmit" class="btn search-btn">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="succeess-message-box" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <div class="modal-header" id="success-modal-head">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title success-modal-title">Message</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <img id="success-img-id" style="width: 40px;" src="../../../../../Content/assets/img/success-img.gif" />
+                    <img id="error-img-id" style="width: 28px;" src="../../../../../Content/assets/img/error-img.png" />
+                    <span id="message-text">Data Inserted Successfully</span>
+                </p>
+            </div>
+            <div class="modal-footer message-modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" id="errorclose" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+
+    </div>
+</div>

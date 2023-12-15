@@ -1,0 +1,701 @@
+﻿<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <h2 class="page-title">View Quotation</h2>
+    </div>
+</div>
+<div class="selection-filter-container">
+    <h5 data-toggle="collapse" data-target="#div-1" class="section-header-title spl-tab toggle-spl-plus">Scope of Supplier<span>(Opportunity No : {{$ctrl.OpportunityNo}})</span></h5>
+    <div id="div-1" class="selection-filter-sub-container collapse">
+
+        <div class="table-responsive">
+            <table class="table table-condensed customer-list-table table-bordered table-striped cq-table " style="table-layout:fixed; width:100%">
+                <thead class="customer-list-heading">
+                    <tr>
+                        <th></th>
+                        <th style="width: 500px;"></th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody id="table-bdy">
+                    <tr>
+                        <td>Model</td>
+                        <td><span id="txtModel">{{$ctrl.ViewQuote.ModelNo}} - {{$ctrl.ViewQuote.ModelDescription}}</span></td>
+                        <td><input type="text" class="form-control" name="name" ng-model="$ctrl.ViewQuote.Quantity" disabled /></td>
+                        <td><input type="text" class="form-control" name="name" ng-model="$ctrl.ViewQuote.Price" disabled /></td>
+                    </tr>
+                    <tr>
+                        <td>Std Configuration</td>
+                        <td><textarea style="font-size: 12px; background: #fff; line-height: 19px;" rows="5" cols="67" disabled>{{$ctrl.ViewQuote.StdConfig}}</textarea></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <td>Accessories</td>
+                        <td>
+
+                            <select class="quotation-dropdown" ng-model="$ctrl.ViewQuote.Accessory1ID" ng-change="$ctrl.GetOption1();" disabled="disabled">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.Accessory1DropDown" value={{item.Accessory1ID}}>{{item.Accessory1Name}}</option>
+                            </select>
+                            <select class="quotation-dropdown" ng-model="$ctrl.ViewQuote.Option1ID" disabled="disabled">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.Option1DropDown" value={{item.Option1ID}}>{{item.Option1Name}}</option>
+                            </select>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+
+                            <select class="quotation-dropdown" ng-model="$ctrl.ViewQuote.Accessory2ID" ng-change="$ctrl.GetOption2();"disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.Accessory2DropDown" value={{item.Accessory2ID}}>{{item.Accessory2Name}}</option>
+                            </select>
+                            <select class="quotation-dropdown" ng-model="$ctrl.ViewQuote.Option2ID"disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.Option2DropDown" value={{item.Option2ID}}>{{item.Option2Name}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+
+                            <select class="quotation-dropdown" ng-model="$ctrl.ViewQuote.Accessory3ID" ng-change="$ctrl.GetOption3();"disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.Accessory3DropDown" value={{item.Accessory3ID}}>{{item.Accessory3Name}}</option>
+                            </select>
+                            <select class="quotation-dropdown" ng-model="$ctrl.ViewQuote.Option3ID"disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.Option3DropDown" value={{item.Option3ID}}>{{item.Option3Name}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+
+                            <select class="quotation-dropdown" ng-model="$ctrl.ViewQuote.Accessory4ID" ng-change="$ctrl.GetOption4();"disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.Accessory4DropDown" value={{item.Accessory4ID}}>{{item.Accessory4Name}}</option>
+                            </select>
+                            <select class="quotation-dropdown" ng-model="$ctrl.ViewQuote.Option4ID"disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.Option4DropDown" value={{item.Option4ID}}>{{item.Option4Name}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+
+                            <select class="quotation-dropdown" ng-model="$ctrl.ViewQuote.Accessory5ID" ng-change="$ctrl.GetOption5();"disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.Accessory5DropDown" value={{item.Accessory5ID}}>{{item.Accessory5Name}}</option>
+                            </select>
+                            <select class="quotation-dropdown" ng-model="$ctrl.ViewQuote.Option5ID"disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.Option5DropDown" value={{item.Option5ID}}>{{item.Option5Name}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+
+                            <select class="quotation-dropdown" ng-model="$ctrl.ViewQuote.Accessory6ID" ng-change="$ctrl.GetOption6();"disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.Accessory6DropDown" value={{item.Accessory6ID}}>{{item.Accessory6Name}}</option>
+                            </select>
+                            <select class="quotation-dropdown" ng-model="$ctrl.ViewQuote.Option6ID"disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.Option6DropDown" value={{item.Option6ID}}>{{item.Option6Name}}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>GST</td>
+                        <td>
+                            <input type="text" id="txtGST" class="form-control" ng-model="$ctrl.ViewQuote.GSTRate" disabled />
+                        </td>
+                        <td>GST Amount:</td>
+                        <td><input type="text" class="form-control" name="name" ng-model="$ctrl.ViewQuote.GSTAmount" disabled /></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>Total Invoice:</td>
+                        <td><input type="text" class="form-control" name="name" ng-model="$ctrl.ViewQuote.TotalInvestment" disabled /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--<br />
+        <form class="form-horizontal" action="/action_page.php">
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="email">Comments:</label>
+                <div class="col-sm-10">
+                    <textarea placeholder="Enter Comments..." class="form-control" rows="2"></textarea>
+                </div>
+            </div>
+        </form>-->
+    </div>
+</div>
+<div class="selection-filter-container">
+    <h5 data-toggle="collapse" data-target="#div-2" class="section-header-title spl-tab toggle-spl-plus">Covering Letter <span>(Opportunity No : {{$ctrl.OpportunityNo}})</span></h5>
+    <div id="div-2" class="selection-filter-sub-container collapse">
+        <!-- Letter Section Started  -->
+        <div class="letter-section">
+
+            <div class="first-letter-section text-right">
+                <div class="letter-logo">
+                    <img src="../../../../Content/assets/img/newgainwellogo.jpg" />
+                </div>
+                <div class="first-letter-section-address text-left">
+                    <h2 class="first-letter-section-name">Gainwell Commosales Private Limited</h2>
+                    <p class="bold-text" style="margin: 0">(Formerly Tractors India Private Limited)</p>
+                    <p style="margin: 0">CIN: U74900WB2014PTC204347  </p>
+                    <label class="d-block">Website - <span>www.gainwellindia.com</span></label>
+                    <br />
+                    <p style="margin: 0">{{$ctrl.ViewQuote.SOAddress1}}</p>
+                    <p style="margin: 0">{{$ctrl.ViewQuote.SOAddress2}}</p>
+                    <p style="margin: 0">{{$ctrl.ViewQuote.SOAddress3}}</p>
+                    <p style="margin: 0">{{$ctrl.ViewQuote.SOAddress4}}</p>
+                    <br />
+                    <br />
+                    <!-- <label class="d-block">Phone No - <span class="normal-text">+ 91 120 6659000 </span></label>-->
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6 text-left"><label>Quotation Ref : {{$ctrl.ViewQuote.QuotationRefernce}}</label></div>
+                    <div class="col-md-6 text-right">
+                        <label class="text-left">
+                            Date :
+                            <input id="hfFromDate" type="hidden" name="hfFromDate">
+                            <input name="txtFromDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" ng-model="$ctrl.ViewQuote.QuotationDate" id="txtFromDate" class="form-control" disabled>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="second-letter-section text-left">
+                <div class="second-letter-sub-section">
+                    <div><label class="bold-text">To :</label></div>
+                    <input type="text" ng-model="$ctrl.ViewQuote.ContactName" style="border:none;" />
+                    <div>{{$ctrl.ViewQuote.CompanyName}}</div>
+                    <textarea style="font-size: 12px; background: #fff; line-height: 19px; border:none;" rows="2" cols="25" ng-model="$ctrl.ViewQuote.Address"></textarea>
+
+                </div>
+                <br />
+                <div class="letter-subject text-left">
+                    <label class="bold-text">Subject :</label>
+                    <span>Your Requirement For  {{$ctrl.ViewQuote.Subject}}</span>
+
+                </div>
+            </div>
+            <br />
+            <div class="third-letter-section">
+                <p class="bold-text">Dear Sir,</p>
+                <p>This has reference to your discussion with us regarding your requirement ofConstruction Equipment for your project.</p>
+                <br />
+                <p>
+                    Gainwell is pleased to offer you CATERPILLAR brand of Products which will help you to complete your Project on time every time. Caterpillar Products are known for their Productivity, reliability and fuel efficiency. Gainwell as a Dealer is committed to support you 24x7 .
+                </p>
+                <br />
+                <p>
+                    We trust you will find the offer in line with your requirement.  Looking forward to have a fruitful discussion with you and finalize your requirement at the earliest.
+                </p>
+                <br />
+                <p>
+                    Thanking you and assuring you of our best attention at all times.
+                </p>
+                <br />
+            </div>
+            <br />
+            <div class="forth-section text-left">
+                <p class="bold-text">Regards ,</p>
+                <div class="first-letter-section-address text-left" style="margin-left: 0">
+                    <label><!--Name :--></label>
+                    <!--<input type="text" class=" letter-text-width form-control" name="name" ng-model="$ctrl.ViewCOL.UserName" style="width:auto;" disabled/>-->
+                    <label class="d-block">{{$ctrl.ViewQuote.UserName}}</label>
+                    <br />
+                    <label class="d-block">{{$ctrl.ViewQuote.Role}}</label>
+                    <br />
+                    <!--<input type="text" class=" letter-text-width form-control" name="name" ng-model="$ctrl.ViewCOL.Role" style="width:auto;" disabled />-->
+
+                    <label class="d-block">Email - {{$ctrl.ViewQuote.Email}}</label>
+                    <br />
+                    <label class="d-block">Phone No - {{$ctrl.ViewQuote.PhoneNo}}</label>
+                    <br />
+                </div>
+            </div>
+        </div>
+        <!-- Letter Section Ended  -->
+    </div>
+</div>
+<div class="selection-filter-container">
+    <h5 data-target="#div-5" data-toggle="collapse" class="section-header-title spl-tab toggle-spl-plus">Product Features</h5>
+    <div id="div-5" class="selection-filter-sub-container collapse">
+        <div class="row" id="PF1">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.PF1Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.PF1Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.PF1Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="row" id="PF2">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.PF2Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.PF2Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.PF2Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="row" id="PF3">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.PF3Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.PF3Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.PF3Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="row" id="PF4">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.PF4Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.PF4Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.PF4Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="row" id="PF5">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.PF5Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.PF5Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.PF5Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="row" id="PF6">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.PF6Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.PF6Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.PF6Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="row" id="PF7">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.PF7Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.PF7Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.PF7Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="selection-filter-container">
+    <h5 data-toggle="collapse" data-target="#div-3" class="section-header-title spl-tab toggle-spl-plus">Terms and Conditions</h5>
+    <div id="div-3" class="selection-filter-sub-container collapse">
+        <div class="row" id="TC1">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+
+                    <label>{{$ctrl.ViewQuote.TC1Heading}}</label>
+                    <div>
+                        <textarea class="form-control" rows="3" disabled>{{$ctrl.ViewQuote.TC1}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="TC2">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+
+                    <label>{{$ctrl.ViewQuote.TC2Heading}}</label>
+                    <div>
+                        <textarea class="form-control" rows="3" disabled>{{$ctrl.ViewQuote.TC2}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="TC3">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+
+                    <label>{{$ctrl.ViewQuote.TC3Heading}}</label>
+                    <div>
+                        <textarea class="form-control" rows="3" disabled>{{$ctrl.ViewQuote.TC3}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="TC4">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+
+                    <label>{{$ctrl.ViewQuote.TC4Heading}}</label>
+                    <div>
+                        <textarea class="form-control" rows="3" disabled>{{$ctrl.ViewQuote.TC4}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="TC5">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+
+                    <label>{{$ctrl.ViewQuote.TC5Heading}}</label>
+                    <div>
+                        <textarea class="form-control" rows="3" disabled>{{$ctrl.ViewQuote.TC5}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="TC6">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+
+                    <label>{{$ctrl.ViewQuote.TC6Heading}}</label>
+                    <div>
+                        <textarea class="form-control" rows="3" disabled>{{$ctrl.ViewQuote.TC6}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="TC7">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+
+                    <label>{{$ctrl.ViewQuote.TC7Heading}}</label>
+                    <div>
+                        <textarea class="form-control" rows="3" disabled>{{$ctrl.ViewQuote.TC7}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="TC8">
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+
+                    <label>{{$ctrl.ViewQuote.TC8Heading}}</label>
+                    <div>
+                        <textarea class="form-control" rows="3" disabled>{{$ctrl.ViewQuote.TC8}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="selection-filter-container">
+    <h5 data-toggle="collapse" data-target="#div-8" class="section-header-title spl-tab toggle-spl-plus">Offering</h5>
+    <div id="div-8" class="selection-filter-sub-container collapse">
+        <div class="row" id="OF1">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.OF1Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.OF1Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.OF1Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="row" id="OF2">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.OF2Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.OF2Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.OF2Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+            </div>
+
+        </div>
+        <div class="row" id="OF3">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.OF3Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.OF3Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.OF3Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+            </div>
+
+        </div>
+        <div class="row" id="OF4">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.OF4Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.OF4Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.OF4Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+            </div>
+
+        </div>
+        <div class="row" id="OF5">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.OF5Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.OF5Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.OF5Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+            </div>
+
+        </div>
+        <div class="row" id="OF6">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.OF6Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.OF6Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.OF6Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="selection-filter-container">
+    <h5 data-toggle="collapse" data-target="#div-9" class="section-header-title spl-tab toggle-spl-plus">Capabilities</h5>
+    <div id="div-9" class="selection-filter-sub-container collapse">
+        <div class="row" id="C1">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.C1Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.C1Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.C1Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+            </div>
+
+        </div>
+        <div class="row" id="C2">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.C2Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.C2Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.C2Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+            </div>
+
+        </div>
+        <div class="row" id="C3">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.C3Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.C3Heading}} :</label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.C3Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+
+        </div>
+        <div class="row" id="C4">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.C4Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.C4Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.C4Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+
+        </div>
+        <div class="row" id="C5">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.C5Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.C5Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.C5Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+
+        </div>
+        <div class="row" id="C6">
+            <div class="col-lg-12 col-md-12">
+                <div class="row product-main-container">
+                    <div class="col-md-2 text-center product-main-container-left">
+                        <img class="img-responsive" src="../../../../Content/assets/img/{{$ctrl.ViewQuote.C6Pic}}" />
+                    </div>
+                    <div class="col-md-10 pull-right product-main-container-right">
+                        <label>{{$ctrl.ViewQuote.C6Heading}} : </label>
+                        <div class="text-left selection-filter-sub-container" style="padding: 0; border: none;">
+                            <p>{{$ctrl.ViewQuote.C6Desc}}</p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="selection-filter-container">
+    <h5 data-toggle="collapse" data-target="#div-4" class="section-header-title spl-tab toggle-spl-plus">Gainwell Network</h5>
+    <div id="div-4" class="selection-filter-sub-container collapse">
+
+        <img class="img-responsive" style="margin: 0 auto" src="../../../../Content/assets/img/Gainwell-Map18-12-18.png" />
+    </div>
+</div>
+
+
+<div class="modal fade" id="myAlert" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.Close();" aria-hidden="true">&times;</button>
+                <!--<button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.ErrorClose();"  aria-hidden="true">&times;</button>-->
+                <h4 class="modal-title" id="myModalLabel2">Alert</h4>
+
+            </div>
+            <div class="modal-body">
+                <p>{{$ctrl.alert}}</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-toggle="modal" data-dismiss="modal" aria-hidden="true">Close</button>
+                <!--<button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Close</button>-->
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" data-dismiss="modal" id="errorclose">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

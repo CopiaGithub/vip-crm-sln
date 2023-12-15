@@ -1,0 +1,551 @@
+﻿ <head>
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+    <title>Lead Re-allocate</title>
+</head>
+<div class="row">
+    <div class="col-lg-6">
+        <div class="header">
+            <h2 class="page-title">Lead Re-Allocate</h2>
+        </div>
+    </div>
+</div>
+
+<div class="selection-filter-container">
+    <h2 class="section-header-title">Selection Filter</h2>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="selection-filter-sub-container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <form>
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Lead ID</label>
+                                        <input type="text" id="txtLeadId" class="form-control" name="lead-id" placeholder="Search by Lead ID" ng-model="$ctrl.ReallocateSearch.LeadID" style="width:100%" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="form-group">
+                                        <label class="form-label">Customer Name</label>
+                                        <input type="text" id="txtCustomer" class="form-control" name="customer-name" placeholder="Search by Customer Name" style="width:100%" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-md-5">
+                                    <div class="form-group">
+                                        <button id="btnSearch" ng-click="$ctrl.SearchRealloacteLeadList();" style="margin-top:30px;" type="button" class="btn search-btn">Search</button>
+                                        <button id="btnClear" ng-click="$ctrl.Clear();" style="margin-top:30px;" type="button" class="btn clear-btn">Clear</button>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-llg-12 col-md-12">
+        <div class="table-container">
+            <h2 class="section-header-title">Lead Re-Allocate List</h2>
+            <div class="row">
+                <div class="col-md-12" id="divlist">
+                    <div class="table-sub-container">
+                        <div id="div-1" class="body">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <label class="table-label">Count - {{$ctrl.RealloacteLeadList.length}} </label>
+                                </div>
+                                <div class="col-lg-6 col-md-6 text-right">
+                                    <label class="table-label">Records/Page - </label>
+                                    <select name="Status" id="DDLStatus" ng-change="$ctrl.Refresh()" ng-model="$ctrl.NoOfRds" class="no-record-dropdown">
+                                        <option value=10>10</option>
+                                        <option value=30>30</option>
+                                        <option value=50>50</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="validation-table table-responsive" style="overflow:auto;">
+                                <table id="dataTable" class="table table-striped table-bordered customer-list-table">
+                                    <thead class="customer-list-heading">
+                                        <tr>
+                                            <th>Lead Type</th>
+                                            <th>Lead ID</th>
+                                            <th>Customer Name</th>
+                                            <th>Product</th>
+                                            <th>Model</th>
+                                            <th>Purchase Within</th>
+                                            <th>Mobile</th>
+                                            <th>Created By</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in $ctrl.shownItems">
+                                            <td>{{item.LeadType}}</td>
+                                            <td>{{item.LeadID}}</td>
+                                            <td>{{item.Companyname}}</td>
+                                            <td>{{item.Product}}</td>
+                                            <td>{{item.ModelNo}}</td>
+                                            <td>{{item.Title}}</td>
+                                            <td>{{item.MobileNo}}</td>
+                                            <td>{{item.FirstName}}</td>
+                                            <td>{{item.Status}}</td>
+                                            <td>{{item.WhenEntered}}</td>
+                                            <td>
+                                                <button data-toggle="modal" ng-click="$ctrl.Validate(item.LeadID);" data-target="#re-allocate" class="btn search-btn" title="Reallocate">Reallocate</button>
+                                                <span class="edit-table-link" data-toggle="modal" ng-click="$ctrl.Validate(item.LeadID);" data-target="#reAllocateModal" title="View Detail"><i class="fa fa-info-circle"></i></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            <div id="nullDataDiv" style="display: none;">
+                                <br />
+                                <div class="mdl-grid jumbotron">
+                                    <h3 class="page-header" style="color: brown; margin-left: 33%">
+                                        <i class="fa fa-exclamation-triangle">
+                                        </i>&nbsp; No Data available
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row nex-prev-container">
+                            <div class="col-lg-12 col-md-12 text-right">
+                                <button ng-show="$ctrl.ShowBack" ng-click="$ctrl.back()" class="btn btn-default">Prev</button>
+                                <button ng-show="$ctrl.ShowNext" ng-click="$ctrl.next()" class="btn btn-default">Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Search Loader Started -->
+            <div class="search-loader" id="search-btn-loader">
+                <div class="search-loader-container">
+                    <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+                </div>
+            </div>
+            <!-- Search Loader Ended -->
+        </div>
+    </div>
+</div>
+<!--------------- Reallocate popup----------------------------->
+<div class="modal fade" id="re-allocate" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Update Modal content-->
+        <div class="modal-content modal-1">
+            <form>
+                <div class="modal-header modal-head">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title modal-head-title">Lead Re-Allocate <span>( Lead ID - {{$ctrl.CustomerView.LeadID}} )</span></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">User</label>
+                                <input type="text" placeholder="Enter User Name" id="txtUserName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Employee Code</label>
+                                <input type="text" placeholder="Employee Code" id="txtEmpCode" disabled="disabled" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn search-btn" ng-click="$ctrl.Submit();" name="name" value="Submit" />
+                    <button type="button" class="btn search-btn" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div id="reAllocateModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-3">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header modal-head">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title modal-head-title">Leads Detail <span for="Address">( LeadID - {{$ctrl.CustomerView.LeadID}} )</span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <h3 class="modal-sub-heading">Customer Detail</h3>
+                        <div class="modal-sub-container">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3">
+                                    <label class="form-label">Name</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9">
+                                    <span id="txtCustName">{{$ctrl.CustomerView.CompanyName}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3">
+                                    <label class="form-label">Email</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9">
+                                    <span id="txtCustEmail">{{$ctrl.CustomerView.Email}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3">
+                                    <label class="form-label">Mobile No</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9">
+                                    <span id="txtCustMobile">{{$ctrl.CustomerView.MobileNo}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3">
+                                    <label class="form-label">Phone No</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9">
+                                    <span id="txtCustPhone">{{$ctrl.CustomerView.PhoneNo}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3">
+                                    <label class="form-label">Address</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9">
+                                    <span id="txtCustAddress">
+                                        {{$ctrl.CustomerView.Address1}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <h3 class="modal-sub-heading">Contact Detail</h3>
+                        <div class="modal-sub-container">
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5">
+                                    <label class="form-label">Name -</label>
+                                </div>
+                                <div class="col-lg-7 col-md-7">
+                                    <span id="txtConName">{{$ctrl.CustomerView.ContactName}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5">
+                                    <label class="form-label">Email -</label>
+                                </div>
+                                <div class="col-lg-7 col-md-7">
+                                    <span id="txtConEmail">{{$ctrl.CustomerView.ConEmail}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5">
+                                    <label class="form-label">Mobile No -</label>
+                                </div>
+                                <div class="col-lg-7 col-md-7">
+                                    <span id="txtConMobile">{{$ctrl.CustomerView.ConMobileNo}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5">
+                                    <label class="form-label">Phone No -</label>
+                                </div>
+                                <div class="col-lg-7 col-md-7">
+                                    <span id="txtConPhone">{{$ctrl.CustomerView.ConPhoneNo}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5">
+                                    <label class="form-label">Address -</label>
+                                </div>
+                                <div class="col-lg-7 col-md-7">
+                                    <span id="txtConAddress">{{$ctrl.CustomerView.Address}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <h3 class="modal-sub-heading">Lead Detail</h3>
+                        <div class="modal-sub-container">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3">
+                                    <label class="form-label">Model</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9">
+                                    <span id="txtmodel">
+                                        {{$ctrl.CustomerView.ModelNo}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3">
+                                    <label class="form-label">Purchase Within</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9">
+                                    <span id="txtpurchase">
+                                        {{$ctrl.CustomerView.Title}}
+
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3">
+                                    <label class="form-label">Lead Category</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9">
+                                    <span id="txtleadcat">{{$ctrl.CustomerView.LeadCategory}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-4">
+                                    <label class="form-label">Project Name: </label>
+                                </div>
+                                <div class="col-lg-8 col-md-8">
+                                    <span id="txtProjectName" style="font-size: 13px;">{{$ctrl.CustomerView.ProjectName}}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3">
+                                    <label class="form-label">Specify More</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9">
+                                    <span id="txtspeci">{{$ctrl.CustomerView.CreateComment}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <h3 class="modal-sub-heading">Lead Timeline</h3>
+                        <div class="modal-sub-container">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3">
+                                    <h4 class="modal-sub-heading">Lead Creation</h4>
+                                    <div class="modal-sub-container">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3">
+                                                <label class="form-label">Created By</label>
+                                            </div>
+                                            <div class="col-lg-9 col-md-9">
+                                                <span id="txtcreate">{{$ctrl.CustomerView.CreatedBy}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3">
+                                                <label class="form-label">Date Created</label>
+                                            </div>
+                                            <div class="col-lg-9 col-md-9">
+                                                <span id="txtwhen">{{$ctrl.CustomerView.WhenCreated}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3">
+                                                <label class="form-label">Source</label>
+                                            </div>
+                                            <div class="col-lg-9 col-md-9">
+                                                <span id="txtsource">{{$ctrl.CustomerView.SourceID}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3">
+                                                <label class="form-label">Comments</label>
+                                            </div>
+                                            <div class="col-lg-9 col-md-9">
+                                                <span id="txtcomm">{{$ctrl.CustomerView.Comments}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <h4 class="modal-sub-heading">Lead Validation</h4>
+                                    <div class="modal-sub-container">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3">
+                                                <label class="form-label">Validated By</label>
+                                            </div>
+                                            <div class="col-lg-9 col-md-9">
+                                                <span id="txtvalid">{{$ctrl.CustomerView.ValidatedBy}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3">
+                                                <label class="form-label">Date Validated</label>
+                                            </div>
+                                            <div class="col-lg-9 col-md-9">
+                                                <span id="txtvaliddate">{{$ctrl.CustomerView.WhenValidated}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3">
+                                                <label class="form-label">Validation Comment</label>
+                                            </div>
+                                            <div class="col-lg-9 col-md-9">
+                                                <span id="txtvalidcomm">{{$ctrl.CustomerView.ValidComment}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <h4 class="modal-sub-heading">Lead Allocation</h4>
+                                    <div class="modal-sub-container">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3">
+                                                <label class="form-label">Allocated To</label>
+                                            </div>
+                                            <div class="col-lg-9 col-md-9">
+                                                <span id="txtalloc">{{$ctrl.CustomerView.Allocated}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3">
+                                                <label class="form-label">Date Allocated</label>
+                                            </div>
+                                            <div class="col-lg-9 col-md-9">
+                                                <span id="txtdateallo">
+                                                    {{$ctrl.CustomerView.WhenAllocated}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3">
+                                    <h4 class="modal-sub-heading">Lead Assessment</h4>
+                                    <div class="modal-sub-container">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4">
+                                                <label class="form-label">Assessment Date</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8">
+                                                <span id="txtasses">
+                                                    {{$ctrl.CustomerView.AssessmentDate}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4">
+                                                <label class="form-label">Less than 90 days</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8">
+                                                <span id="txtless">
+                                                    {{$ctrl.CustomerView.IsLess}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4">
+                                                <label class="form-label">Met Customer</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8">
+                                                <span id="txtmet">
+                                                    {{$ctrl.CustomerView.IsMeet}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4">
+                                                <label class="form-label">Assessment Comments</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8">
+                                                <span id="txtasscomments">
+                                                    {{$ctrl.CustomerView.AssessmentComment}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4">
+                                                <label class="form-label">Lead Status</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8">
+                                                <span id="txtleadstatus">
+                                                    {{$ctrl.CustomerView.Status}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4">
+                                                <label class="form-label">Return By</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8">
+                                                <span id="txtReturnBy">
+                                                    {{$ctrl.CustomerView.ReturnUserName}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4">
+                                                <label class="form-label">Return Comments</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8">
+                                                <span id="txtReturnComment">
+                                                    {{$ctrl.CustomerView.ReturnComment}}
+
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4">
+                                                <label class="form-label">Date Lead Return</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8">
+                                                <span id="txtDateReturn">
+                                                    {{$ctrl.CustomerView.DateReturn}}
+
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn search-btn" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    <!-- View Detail Modal Ended -->
+</div>
+
+<div id="succeess-message-box" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <div class="modal-header" id="success-modal-head">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title success-modal-title">Message</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <img id="success-img-id" style="width: 40px;" src="../../../../../Content/assets/img/success-img.gif" />
+                    <img id="error-img-id" style="width: 28px;" src="../../../../../Content/assets/img/error-img.png" />
+                    <span id="message-text">Data Inserted Successfully</span>
+                </p>
+            </div>
+            <div class="modal-footer message-modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" id="errorclose" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+

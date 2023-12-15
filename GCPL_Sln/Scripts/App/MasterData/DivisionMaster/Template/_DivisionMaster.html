@@ -1,0 +1,263 @@
+﻿<head>
+
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+</head>
+
+<div id="content">
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <h2 class="page-title">Division Management</h2>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 page-title-right-container text-right">
+            <button id="#myBtnNextMetting" class="btn create-btn" data-toggle="modal" ng-click="$ctrl.Add();" data-target="#myModalAddNew"> Add Division </button>
+        </div>
+    </div>
+    <div class="selection-filter-container">
+        <h2 class="section-header-title">Selection Filter</h2>
+        <div id="div-1" class="selection-filter-sub-container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12" style="padding-left:0px">
+                    <!--<div class="box">-->
+                    <form id="validVal">
+                        <div class="col-md-12" style="border-bottom:0px solid black;padding-left:0;padding-bottom:15px;">
+                            <div class="col-md-3">
+                                <label>Category</label>
+                                <select id="txtCat" name="CategorySearch" ng-model="$ctrl.DivisionSearch.Category" class="form-control" tabindex="2" required>
+                                    <option value="">Select</option>
+                                    <option ng-repeat="item in $ctrl.CategoryDropDown" value={{item.CategoryID}}>{{item.Category}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label>Search By</label>
+                                <input id="txtDivision" class="form-control" type="text" ng-model="$ctrl.DivisionSearch.SearchText"
+                                       placeholder="Search by Division Name " style="width:100%" />
+
+                            </div>
+                            <div class="col-md-3">
+                                <label>Status</label>
+
+                                <select id="txtStatus" name="Status" ng-model="$ctrl.DivisionSearch.Status" class="validate[required,custom[date]] form-control" style="width:100%">
+                                    <option value="">Select</option>
+                                    <option value="1"> Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 selection-filter-btn-col">
+                                <button id="btnSearch" type="button" ng-click="$ctrl.SearchDivisionList();" class="btn search-btn">Search</button>
+                                <button id="btnClear" type="button" ng-click="$ctrl.Clear();" class="btn clear-btn">Clear</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--<h3 class="acco-sub-heading" style="font-size: 18px; border-color: #fff"> Division Master List </h3>-->
+    <div class="table-container">
+        <h2 class="section-header-title">Division Master List</h2>
+        <div class="row">
+            <div class="col-md-12" id="divlist">
+                <div class="table-sub-container">
+                    <div id="div-1" class="body">
+                        <form id="" class="form-inline">
+                            <!--<div class="row" style="margin:0px;">
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                        <div class="col-md-7">
+
+                                            <h5 style="font-size:15px;color:red;font-weight:600;margin-left: -16px;">Count:- 2</h5>{{$ctrl.ContactPersonList.length}}
+                                        </div>
+
+                                    <div class="col-md-4 pull-right">
+
+                                        <div class="col-md-9">
+                                            <h5 style="font-size:15px;text-align:right;font-weight:600">No of Records Display:-</h5>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <select name="Status" id="DDLStatus" ng-change="$ctrl.Refresh()" ng-model="$ctrl.NoOfRds" class="form-control">
+                                                <option value=10>10</option>
+                                                <option value=11>11</option>
+                                                <option value=12>12</option>
+                                                <option value=13>13</option>
+                                                <option value=14>14</option>
+                                                <option value=15>15</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->
+                            <div class="validation-table table-responsive" style="overflow:auto;">
+                                <table id="dataTable" class="table table-striped table-bordered customer-list-table">
+                                    <thead class="customer-list-heading">
+                                        <tr>
+
+                                            <th>Category</th>
+                                            <th>Division</th>
+                                            <th>SAP ID</th>
+                                            <th>Description</th>
+                                            <!--<th>Quote Prefix</th>
+                                            <th>No Range Series</th>-->
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in $ctrl.Divisionlist">
+                                            <td>{{item.Category}}</td>
+                                            <td>{{item.Division}}</td>
+                                            <td>{{item.DivisionSAPID}}</td>
+                                            <td>{{item.Description}}</td>
+                                            <!--<td>{{item.QuotePrefix}}</td>
+                                            <td>{{item.NoRangeSeries}}</td>-->
+                                            <td>{{item.IsActive}}</td>
+                                            <td>
+                                                <span class="edit-table-link" data-toggle="modal" ng-click="$ctrl.Edit(item.DivisionID);" data-target="#myModalAddNew"><i class="fa fa-edit"></i></span>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                        <div id="nullDataDiv" style="display: none;">
+                            <br />
+                            <div class="mdl-grid jumbotron">
+                                <h3 class="page-header" style="color: brown; margin-left: 33%">
+                                    <i class="fa fa-exclamation-triangle">
+                                    </i>&nbsp; No Data available
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="row nex-prev-container">
+                        <div class="col-lg-12 col-md-12 text-right">
+                            <button ng-show="$ctrl.ShowBack" ng-click="$ctrl.back()" class="btn btn-default">Prev</button>
+                            <button ng-show="$ctrl.ShowNext" ng-click="$ctrl.next()" class="btn btn-default">Next</button>
+                        </div>
+                    </div>-->
+                </div>
+
+            </div>
+        </div>
+        <!-- Search Loader Started -->
+        <div class="search-loader" id="search-btn-loader">
+            <div class="search-loader-container">
+                <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+            </div>
+        </div>
+        <!-- Search Loader Ended -->
+    </div>
+</div>
+<!-- --------------------------------PopUP------------------------------------------------ -->
+
+<div class="modal fade" id="myModalAddNew" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content modal-1">
+            <!-----------------------------Lable----------------------------------------->
+            <div class="modal-header modal-head">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h5 class="modal-title modal-head-title" id="myModalLabel2">Division Management</h5>
+            </div>
+            <div id="div-1" class="modal-body">
+                <form name="userForm" novalidate>
+                    <!-- ----------------------------Text------------------------------->
+                    <div class="form-group">
+                        <label for="Address" class="control-label">Category <span class="Mandatory">*</span></label>
+                        <div ng-class="{ 'has-error' : (userForm.txtCategory.$invalid && userForm.txtCategory.$pristine) }">
+                            <select id="txtCategory" name="Category" ng-model="$ctrl.InsertDivision.CategoryID" class="form-control" tabindex="2" required>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.CategoryDropDown" value={{item.CategoryID}}>{{item.Category}}</option>
+                            </select>
+                            <p ng-show="(userForm.txtCategory.$invalid && !userForm.txtCategory.$pristine)" id="errortitle" class="help-block" style="color:red">Category is required.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Address" class="control-label">Division <span class="Mandatory">*</span></label>
+                        <div ng-class="{ 'has-error' : (userForm.txtDivision.$invalid && userForm.txtDivision.$pristine) }">
+                            <input type="text" id="txtDivision" name="Division" ng-model="$ctrl.InsertDivision.Division" class="form-control" required>
+                            <p ng-show="(userForm.txtDivision.$invalid && !userForm.txtDivision.$pristine)" id="errortitle" class="help-block" style="color:red">Division is required.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Address" class="control-label">Division SAP ID <span class="Mandatory">*</span></label>
+                        <div ng-class="{ 'has-error' : (userForm.txtSAPID.$invalid && userForm.txtSAPID.$pristine) }">
+                            <input type="text" id="txtSAPID" name="SAPID" ng-model="$ctrl.InsertDivision.divisionSAPID" class="form-control" required>
+                            <p ng-show="(userForm.txtSAPID.$invalid && !userForm.txtSAPID.$pristine)" id="errortitle" class="help-block" style="color:red">SAPID is required.</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Address" class="control-label">Description</label>
+                        <div ng-class="{ 'has-error' : (userForm.txtDesc.$invalid && userForm.txtDesc.$pristine) }">
+                            <textarea rows="1" id="txtDesc" ng-model="$ctrl.InsertDivision.Description" name="txtDesc" class="form-control" required>
+                            </textarea>
+                            <p ng-show="(userForm.txtDesc.$invalid && !userForm.txtDesc.$pristine)" id="errortitle" class="help-block" style="color:red">Description is required.</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Address" class="control-label">Quote Prefix <span class="Mandatory">*</span></label>
+                        <div ng-class="{ 'has-error' : (userForm.txtQuotePrefix.$invalid && userForm.txtQuotePrefix.$pristine) }">
+                            <input type="text" id="txtQuotePrefix" name="QuotePrefix" ng-model="$ctrl.InsertDivision.QuotePrefix" class="form-control" required>
+                            <p ng-show="(userForm.txtQuotePrefix.$invalid && !userForm.txtQuotePrefix.$pristine)" id="errortitle" class="help-block" style="color:red">Quote Prefix is required.</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Address" class="control-label">No Range Series <span class="Mandatory">*</span></label>
+                        <div ng-class="{ 'has-error' : (userForm.txtNoRangeSeries.$invalid && userForm.txtNoRangeSeries.$pristine) }">
+                            <input type="text" id="txtNoRangeSeries" name="NoRangeSeries" ng-model="$ctrl.InsertDivision.NoRangeSeries" class="form-control" required>
+                            <p ng-show="(userForm.txtNoRangeSeries.$invalid && !userForm.txtNoRangeSeries.$pristine)" id="errortitle" class="help-block" style="color:red">No Range Series is required.</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="Address" class="control-label">Status <span class="Mandatory">*</span></label>
+                        <div ng-class="{ 'has-error' : (userForm.txtStatus.$invalid && userForm.txtStatus.$pristine) }">
+                            <select name="Status" ng-model="$ctrl.InsertDivision.Status" class="form-control" tabindex="2" required>
+                                <option value="">Select</option>
+                                <option value="1"> Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                            <p ng-show="(userForm.txtStatus.$invalid && !userForm.txtStatus.$pristine)" id="errortitle" class="help-block" style="color:red">Status is required.</p>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer" style="padding-top:0px;">
+                <!--<input type="submit" id="btnSubmit" ng-click="$ctrl.InsertSegment1();" data-toggle="modal" data-target="#myModalAddNew" class="btn btn-primary pull-right">-->
+                <input type="submit" ng-click="$ctrl.Submit();" value="Submit" id="btnSubmit" class="btn search-btn">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="succeess-message-box" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+
+        <div class="modal-content">
+            <div class="modal-header" id="success-modal-head">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title success-modal-title">Message</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <img id="success-img-id" style="width: 40px;" src="../../../../../Content/assets/img/success-img.gif" />
+                    <img id="error-img-id" style="width: 28px;" src="../../../../../Content/assets/img/error-img.png" />
+                    <span id="message-text">Data Inserted Successfully</span>
+                </p>
+            </div>
+            <div class="modal-footer message-modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" id="errorclose" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+
+    </div>
+</div>

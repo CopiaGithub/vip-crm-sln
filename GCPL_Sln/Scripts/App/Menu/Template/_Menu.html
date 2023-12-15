@@ -1,0 +1,53 @@
+﻿<head>
+
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+</head>
+<group-name groupname="$ctrl.name"></group-name>
+
+<div id="left">
+    <div class="media user-media bg-dark dker">
+        <div class="user-media-toggleHover">
+            <span class="fa fa-user"></span>
+        </div>
+    </div>
+
+    <!-- #menu -->
+
+    <ul id="menu" class="bg-light dker">
+        <!--<li class="nav-header">Menu</li>-->
+        <li class="nav-divider"></li>
+        <!--<li class="">
+            <a href="#!/home">
+                <i class="fa fa-dashboard"></i><span class="link-title">&nbsp;Dashboard</span>
+            </a>
+        </li>-->
+        <li class="" ng-repeat="item in $ctrl.MenuGroup" ng-click="$ctrl.abc($index);">
+            <a href="javascript:;">
+                <i class="fa fa-building"></i>
+                <span class="link-title">{{item.GroupName}}</span>
+                <span class="fa fa-angle-right main-menu-icon"></span>
+            </a>
+            <ul ng-show="(($ctrl.mainmenuindex==$index) && ($ctrl.submenushow==true))">
+                <li ng-repeat="sub in item.objSubmenu">
+
+                    <a href="/#!/{{sub.PageUrl}}">
+                        <i class="fa fa-angle-right"></i>&nbsp; {{sub.ModuleName}}
+                    </a>
+
+                    <ul>
+                        <li ng-repeat="child in sub.ThirdLevelMenu">
+                            <a href="/#!/{{child.Url}}">
+                                <i class="fa fa-angle-right"></i>&nbsp; {{child.PageName}}
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+            </ul>
+        </li>
+
+
+    </ul>
+    <!-- /#menu -->
+</div>

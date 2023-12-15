@@ -1,0 +1,681 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+
+
+<body>
+    <div id="content">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="header">
+                    <h2 class="page-title">MyTeam Opprtunity Dashboard</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="selection-filter-container">
+            <h2 class="section-header-title">Selection Filter</h2>
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="selection-filter-sub-container">
+                        <form method="post">
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">From Date</label>
+                                        <input id="hfFromDate" type="hidden" name="hfFromDate">
+                                        <input name="txtFromDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" id="txtFromDate" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">To Date</label>
+                                        <input id="hfFromDate" type="hidden" name="hfFromDate">
+                                        <input name="txtToDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" id="txtToDate" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Customer Name</label>
+                                        <input type="text" placeholder="Enter Customer Name" ng-model="$ctrl.TeamLeadsHeaderModel.CustomerName" class="form-control" name="name" value="" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Created By</label>
+                                        <input type="text" placeholder="Search Created By" ng-model="$ctrl.TeamLeadsHeaderModel.Createdby" class="form-control" name="name" value="" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Lead Id</label>
+                                        <input type="text" placeholder="Search by Lead Id" ng-model="$ctrl.TeamLeadsHeaderModel.LeadID" class="form-control" name="name" value="" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Mobile No</label>
+                                        <input type="text" placeholder="Search Mobile No" ng-model="$ctrl.TeamLeadsHeaderModel.CustomerMobile" class="form-control" name="name" value="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Status</label>
+                                        <select id="txtLeadDivision" name="Status" class="form-control" ng-model="$ctrl.TeamLeadsHeaderModel.StatusID" style="width:100%">
+                                            <option value="">Select</option>
+                                            <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Division</label>
+                                        <select id="txtLeadDivision" name="Status" class="form-control" ng-model="$ctrl.TeamLeadsHeaderModel.DivisionID" ng-change="$ctrl.Product();" style="width:100%">
+                                            <option value="">Select</option>
+                                            <option ng-repeat="item in $ctrl.DivisionDropDown" value={{item.DivisionID}}>{{item.Division}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Product</label>
+                                        <select id="txtProduct" name="Product" ng-model="$ctrl.TeamLeadsHeaderModel.ProductID" ng-change="$ctrl.Model();" class="form-control">
+                                            <option value="">Select</option>
+                                            <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Model</label>
+                                        <select id="txtModel" name="Model" ng-model="$ctrl.TeamLeadsHeaderModel.ModelId" class="form-control col-lg-4" tabindex="2">
+                                            <option value="">Select</option>
+                                            <option ng-repeat="item in $ctrl.ModelDropDown" value={{item.ModelID}}>{{item.ModelNo}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Region</label>
+                                        <select class="form-control col-lg-4" name="Status" ng-model="$ctrl.TeamLeadsHeaderModel.RegionID" tabindex="2">
+                                            <option value="">Select</option>
+                                            <option ng-repeat="item in $ctrl.RegionDropDown" value="{{item.RegionID}}">{{item.Region}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">State</label>
+                                        <select id="txtState" name="State" class="form-control col-lg-4" ng-model="$ctrl.TeamLeadsHeaderModel.StateIDs" ng-change="$ctrl.District();">
+                                            <option value="">Select</option>
+                                            <option ng-repeat="item in $ctrl.StateDropDown" value="{{item.StateID}}">{{item.State}}</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">District</label>
+                                        <select id="txtDistrict" name="District" class="form-control col-lg-4" ng-model="$ctrl.TeamLeadsHeaderModel.DistrictID">
+                                            <option value="">Select</option>
+                                            <option ng-repeat="item in $ctrl.DistrictDropDown" value="{{item.DistrictID}}">{{item.District}}</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Lead Source</label>
+                                        <select id="txtLeadSource" name="LeadSource" class="form-control col-lg-4" ng-model="$ctrl.TeamLeadsHeaderModel.LeadSourceID">
+                                            <option value="">Select</option>
+                                            <option ng-repeat="item in $ctrl.LeadSourceDropDown" value="{{item.LeadSourceID}}">{{item.LeadSource}}</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Lead Origin</label>
+                                        <select class="form-control" ng-model="$ctrl.TeamLeadsHeaderModel.LeadOrigin">
+                                            <option value="">Select</option>
+                                            <option value="1">LMS Web</option>
+                                            <option value="2">Employee App</option>
+                                            <option value="3">Customer App</option>
+                                            <option value="4">Campaign</option>
+                                            <option value="5">LMS Web</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Allocated To</label>
+
+                                        <input type="text" id="txtSalesRep1" name="txtemployeename" placeholder="Start typing a User Name" class="form-control">
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Campaign</label>
+
+                                        <input type="text" id="txtCampaign" name="txtCampaignname" placeholder="Start typing a Campaign Name" class="form-control">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 text-right">
+                                    <input type="submit" name="btnSubmit" value="Search" ng-click="$ctrl.Search()" id="btnSubmit" class="btn search-btn" style="margin-top: 5px;">
+                                    <input type="submit" name="btnSubmit" value="Clear" ng-click="$ctrl.Clear()" id="btnSubmit" class="btn clear-btn" style="margin-top: 5px;">
+                                    <input type="submit" name="btnSubmit" value="Excel Download" id="btnSubmit" ng-click="$ctrl.exportTableToCSV('TeamLeadReport.csv')" class="btn download-btn" style="margin-top: 5px;">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- My Leads Tiles Started -->
+    <!-- My Leads Tiles Started -->
+    <!-- My Leads Tiles Ended -->
+    <br />
+    <!-- My Leads Tiles Ended -->
+    <!-- Table Started -->
+    <div class="row">
+        <div class="col-llg-12 col-md-12">
+            <div class="table-container">
+                <h2 class="section-header-title">My Team Lead List</h2>
+                <div class="row">
+                    <div class="col-md-12" id="divlist">
+                        <div class="table-sub-container">
+                            <div id="div-1" class="body">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <label class="table-label">Count - {{$ctrl.FillTeamLeadsSGrid.length}} </label>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 text-right">
+                                        <label class="table-label">Records/Page - </label>
+                                        <select name="Status" id="DDLStatus" ng-change="$ctrl.Refresh()" ng-model="$ctrl.NoOfRds" class="no-record-dropdown">
+                                            <option value=10>10</option>
+                                            <option value=30>30</option>
+                                            <option value=50>50</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br />
+
+                                <div class="validation-table table-responsive" style="overflow:auto;">
+                                    <table id="dataTable" class="table table-striped table-bordered customer-list-table">
+                                        <thead class="customer-list-heading">
+                                            <tr>
+                                                <th>Lead Id</th>
+                                                <th>Opportunity No</th>
+                                                <th>Customer Name</th>
+                                                <th>Customer MobileNo</th>
+                                                <th>ContactPersonName</th>
+                                                <th>Contact MobileNo</th>
+                                                <th>Product</th>
+                                                <th>Model</th>
+                                                <th>Purchase Within</th>
+                                                <th>Region</th>
+                                                <th>Created By</th>
+                                                <th>Created Date</th>
+                                                <th>Validated By</th>
+                                                <th>Allocated To</th>
+                                                <th>Status</th>
+                                                <th>Assessment Date</th>
+                                                <th>Lead Source</th>
+                                                <th>Detail</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <tr ng-repeat="item in $ctrl.shownItems">
+
+                                                <td>{{item.LeadID}}</td>
+                                                <td>{{item.OpportunityNo}}</td>
+                                                <td>{{item.CompanyName }}</td>
+                                                <td>{{item.CustMobNo}}</td>
+                                                <td>{{item.ContactPerName}}</td>
+                                                <td>{{item.ContactPerMob}}</td>
+                                                <td>{{item.Product}}</td>
+                                                <td>{{item.ModelNo}}</td>
+                                                <td>{{item.PurchaseWithin}}</td>
+                                                <td>{{item.Region}}</td>
+                                                <td>{{item.CreatedBy}}</td>
+                                                <td>{{item.CreatedDate}}</td>
+                                                <td>{{item.ValidatedBy}}</td>
+                                                <td>{{item.AllocatedTo}}</td>
+                                                <td>{{item.Status}}</td>
+                                                <td>{{item.AssessmentDate}}</td>
+                                                <td>{{item.LeadSource}}</td>
+                                                <td>
+                                                    <span data-toggle="modal" ng-click="$ctrl.ViewDetails(item.LeadID);" data-target="#detailModal" class="edit-table-link" title="Update"><i class="fa fa-info-circle"></i></span>
+                                                    <span class="edit-table-link" title="Update"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                                                </td>
+                                            </tr>
+
+
+                                        </tbody>
+                                    </table>
+
+                                    <table id="excelDownload" style="display:none;">
+                                        <thead>
+                                            <tr>
+                                                <th>Lead Id</th>
+                                                <th>Opportunity No</th>
+                                                <th>Customer Name</th>
+                                                <th>Customer MobileNo</th>
+                                                <th>ContactPersonName</th>
+                                                <th>Contact MobileNo</th>
+                                                <th>Product</th>
+                                                <th>Model</th>
+                                                <th>Purchase Within</th>
+                                                <th>Region</th>
+                                                <th>Created By</th>
+                                                <th>Created Date</th>
+                                                <th>Validated By</th>
+                                                <th>Allocated To</th>
+                                                <th>Status</th>
+                                                <th>Assessment Date</th>
+                                                <th>Lead Source</th>
+
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in $ctrl.FillTeamLeadsSGrid">
+                                                <td>{{item.LeadID}}</td>
+                                                <td>{{item.OpportunityNo}}</td>
+                                                <td>{{item.CompanyName }}</td>
+                                                <td>{{item.CustMobNo}}</td>
+                                                <td>{{item.ContactPerName}}</td>
+                                                <td>{{item.ContactPerMob}}</td>
+                                                <td>{{item.Product}}</td>
+                                                <td>{{item.ModelNo}}</td>
+                                                <td>{{item.PurchaseWithin}}</td>
+                                                <td>{{item.Region}}</td>
+                                                <td>{{item.CreatedBy}}</td>
+                                                <td>{{item.CreatedDate}}</td>
+                                                <td>{{item.ValidatedBy}}</td>
+                                                <td>{{item.AllocatedTo}}</td>
+                                                <td>{{item.Status}}</td>
+                                                <td>{{item.AssessmentDate}}</td>
+                                                <td>{{item.LeadSource}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                                <div id="nullDataDiv" style="display: none;">
+                                    <div class="mdl-grid jumbotron">
+                                        <h3 class="page-header" style="color: brown; margin-left: 33%">
+                                            <i class="fa fa-exclamation-triangle">
+                                            </i>&nbsp; No Data available
+                                        </h3>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row nex-prev-container">
+                                <div class="col-lg-12 col-md-12 text-right">
+                                    <button ng-show="$ctrl.ShowBack" ng-click="$ctrl.back()" class="btn btn-default">Prev</button>
+                                    <button ng-show="$ctrl.ShowNext" ng-click="$ctrl.next()" class="btn btn-default">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Search Loader Started -->
+                <div class="search-loader" id="search-btn-loader">
+                    <div class="search-loader-container">
+                        <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+                    </div>
+                </div>
+                <!-- Search Loader Ended -->
+            </div>
+        </div>
+    </div>
+
+
+        <!-- View Modal Started -->
+        <div id="detailModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-3">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header modal-head">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title modal-head-title ">Leads Detail</h4>
+                    </div>
+                    <div class="modal-body modal-body-update">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4">
+                                <h3 class="modal-sub-heading">Customer Detail</h3>
+                                <div class="modal-sub-container">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label class="form-label">Name</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9">
+                                            <span id="txtCustName">{{$ctrl.LeadReportView.CustName}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label class="form-label">Email</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9">
+                                            <span id="txtCustEmail">{{$ctrl.LeadReportView.CustEmail}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label class="form-label">Mobile No</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9">
+                                            <span id="txtCustMobNo">{{$ctrl.LeadReportView.CustMobNo}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label class="form-label">Phone No</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9">
+                                            <span id="txtCustPhnNo">{{$ctrl.LeadReportView.CustPhnNo}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label class="form-label">Address</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9">
+                                            <span id="txtCustAddress">{{$ctrl.LeadReportView.CustAddress}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <h3 class="modal-sub-heading">Contact Detail</h3>
+                                <div class="modal-sub-container">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label class="form-label">Name</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9">
+                                            <span id="txtContName">{{$ctrl.LeadReportView.ContName}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label class="form-label">Email</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9">
+                                            <span id="txtContEmail">{{$ctrl.LeadReportView.ContEmail}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label class="form-label">Mobile No</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9">
+                                            <span id="txtContMobNo">{{$ctrl.LeadReportView.ContMobNo}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label class="form-label">Phone No</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9">
+                                            <span id="txtContPhnNo">{{$ctrl.LeadReportView.ContPhnNo}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label class="form-label">Address</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9">
+                                            <span id="txtContAddress">{{$ctrl.LeadReportView.ContAddress}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <h3 class="modal-sub-heading">Lead Detail</h3>
+                                <div class="modal-sub-container">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label class="form-label">Model</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9">
+                                            <span id="txtLeadModel">{{$ctrl.LeadReportView.LeadModel}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label class="form-label">Purchase Within</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9">
+                                            <span id="txtPurchaseWithin">{{$ctrl.LeadReportView.PurchaseWithin}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label class="form-label">Specify More</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9">
+                                            <span id="txtSpecifyMore">{{$ctrl.LeadReportView.SpecifyMore}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <label class="form-label">Quantity</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9">
+                                            <span id="txtQuantity">{{$ctrl.LeadReportView.Quantity}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <h3 class="modal-sub-heading">Lead Timeline</h3>
+                                <div class="modal-sub-container">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3">
+                                            <h4 class="modal-sub-heading">Lead Creation</h4>
+                                            <div class="modal-sub-container">
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <label class="form-label">Created By</label>
+                                                    </div>
+                                                    <div class="col-lg-9 col-md-9">
+                                                        <span id="txtCreatedBy">{{$ctrl.LeadReportView.CreatedBy}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <label class="form-label">Date Created</label>
+                                                    </div>
+                                                    <div class="col-lg-9 col-md-9">
+                                                        <span id="txtCreatedDate">{{$ctrl.LeadReportView.CreatedDate}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <label class="form-label">Source</label>
+                                                    </div>
+                                                    <div class="col-lg-9 col-md-9">
+                                                        <span id="txtSource">{{$ctrl.LeadReportView.Source}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <label class="form-label">Campaign</label>
+                                                    </div>
+                                                    <div class="col-lg-9 col-md-9">
+                                                        <span id="txtCampaign">{{$ctrl.LeadReportView.Campaign}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <label class="form-label">Comments</label>
+                                                    </div>
+                                                    <div class="col-lg-9 col-md-9">
+                                                        <span id="txtLeadCreationComments">{{$ctrl.LeadReportView.LeadCreationComments}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                            <h4 class="modal-sub-heading">Lead Validation</h4>
+                                            <div class="modal-sub-container">
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <label class="form-label">Validated By</label>
+                                                    </div>
+                                                    <div class="col-lg-9 col-md-9">
+                                                        <span id="txtValidatedBy">{{$ctrl.LeadReportView.ValidatedBy}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <label class="form-label">Date Validated</label>
+                                                    </div>
+                                                    <div class="col-lg-9 col-md-9">
+                                                        <span id="txtDateValidated">{{$ctrl.LeadReportView.DateValidated}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <label class="form-label">Validation Comment</label>
+                                                    </div>
+                                                    <div class="col-lg-9 col-md-9">
+                                                        <span id="txtValidationComment">{{$ctrl.LeadReportView.ValidationComment}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                            <h4 class="modal-sub-heading">Lead Allocation</h4>
+                                            <div class="modal-sub-container">
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <label class="form-label">Allocated To</label>
+                                                    </div>
+                                                    <div class="col-lg-9 col-md-9">
+                                                        <span id="txtAllocatedTo">{{$ctrl.LeadReportView.AllocatedTo}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <label class="form-label">Date Allocated</label>
+                                                    </div>
+                                                    <div class="col-lg-9 col-md-9">
+                                                        <span id="txtAllocatedDate">{{$ctrl.LeadReportView.AllocatedDate}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                            <h4 class="modal-sub-heading">Lead Assessment</h4>
+                                            <div class="modal-sub-container">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <label class="form-label">Assessment Date</label>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8">
+                                                        <span id="txtAssessmentDate">{{$ctrl.LeadReportView.AssessmentDate}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <label class="form-label">Less than 90 days</label>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8">
+                                                        <span id="txtLessthan90days">{{$ctrl.LeadReportView.Lessthan90days}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <label class="form-label">Met Customer</label>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8">
+                                                        <span id="txtMetCustomer">{{$ctrl.LeadReportView.MetCustomer}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <label class="form-label">Assessment Comments</label>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8">
+                                                        <span id="txtAssessmentComments">{{$ctrl.LeadReportView.AssessmentComments}}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4">
+                                                        <label class="form-label">Lead Status</label>
+                                                    </div>
+                                                    <div class="col-lg-8 col-md-8">
+                                                        <span id="txtLeadStatus">{{$ctrl.LeadReportView.LeadStatus}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn search-btn" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        </section>
+
+</body>
+</html>
+
+<div class="modal fade" id="myAlert" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.Close();" aria-hidden="true">&times;</button>
+                <!--<button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.ErrorClose();"  aria-hidden="true">&times;</button>-->
+                <h4 class="modal-title" id="myModalLabel2">Alert</h4>
+
+            </div>
+            <div class="modal-body">
+                <p>{{$ctrl.alert}}</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-toggle="modal" data-dismiss="modal" aria-hidden="true">Close</button>
+                <!--<button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Close</button>-->
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" data-dismiss="modal" id="errorclose">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

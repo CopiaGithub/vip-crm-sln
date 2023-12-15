@@ -1,0 +1,304 @@
+﻿
+<head>
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <h2 class="page-title">WinLoss Heat Report</h2>
+    </div>
+</div>
+<div class="selection-filter-container">
+    <h5 class="section-header-title">Selection Filter</h5>
+    <div class="selection-filter-sub-container">
+        <div class="row">
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group">
+                    <label class="form-label">From Date</label>
+                    <input id="hfFromDate" type="hidden" name="hfFromDate">
+                    <input name="txtFromDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" id="txtFromDate" class="form-control">
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group">
+                    <label class="form-label">To Date</label>
+                    <input id="hfFromDate" type="hidden" name="hfFromDate">
+                    <input name="txtToDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" id="txtToDate" class="form-control">
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group">
+                    <label class="form-label">Opportunity Type</label>
+                    <select id="txtModel" name="Model" ng-model="$ctrl.WinLossHeatHeaderModel.LeadTypeID" ng-change="$ctrl.Division();" class="form-control col-lg-4" tabindex="2">
+                        <option value="">Select</option>
+                        <option ng-repeat="item in $ctrl.OppTypeDropDown" value={{item.ID}}>{{item.OpportunityType}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group">
+                    <label class="form-label">Division</label>
+                    <select id="txtLeadDivision" name="Status" class="form-control" ng-model="$ctrl.WinLossHeatHeaderModel.DivisionID" ng-change="$ctrl.Product();" style="width:100%">
+                        <option value="">Select</option>
+                        <option ng-repeat="item in $ctrl.DivisionDropDown" value={{item.DivisionID}}>{{item.Division}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group">
+                    <label class="form-label">Product</label>
+                    <select id="txtProduct" name="Product" ng-model="$ctrl.WinLossHeatHeaderModel.ProductID" ng-change="$ctrl.Model();" class="form-control">
+                        <option value="">Select</option>
+                        <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group">
+                    <label class="form-label">Model</label>
+                    <select id="txtModel" name="Model" ng-model="$ctrl.WinLossHeatHeaderModel.ModelID" class="form-control col-lg-4" tabindex="2">
+                        <option value="">Select</option>
+                        <option ng-repeat="item in $ctrl.ModelDropDown" value={{item.ModelID}}>{{item.ModelNo}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        <div class="row">
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group">
+                    <label class="form-label">State</label>
+                    <select id="txtState" name="State" class="form-control col-lg-4" ng-model="$ctrl.WinLossHeatHeaderModel.State" ng-change="$ctrl.District();">
+                        <option value="">Select</option>
+                        <option ng-repeat="item in $ctrl.StateDropDown" value="{{item.StateID}}">{{item.State}}</option>
+
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group">
+                    <label class="form-label">District</label>
+                    <select id="txtLeadDivision" name="Status" class="form-control" ng-model="$ctrl.WinLossHeatHeaderModel.District" style="width:100%">
+                        <option value="">Select</option>
+                        <option ng-repeat="item in $ctrl.DistrictDropDown" value="{{item.DistrictID}}">{{item.District}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group">
+                    <label class="form-label">Channel</label>
+                    <select id="txtModel" name="Model" ng-model="$ctrl.WinLossHeatHeaderModel.Channel" ng-change="$ctrl.LeadSource();" class="form-control col-lg-4" tabindex="2">
+                        <option value="">Select</option>
+                        <option ng-repeat="item in $ctrl.DistributionChannelDD" value="{{item.DistributionChannelID}}">{{item.DistributionChannel}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group">
+                    <label class="form-label">Opportunity Source</label>
+                    <select id="txtLeadSource" name="LeadSource" class="form-control col-lg-4" ng-model="$ctrl.WinLossHeatHeaderModel.LeadSource">
+                        <option value="">Select</option>
+                        <option ng-repeat="item in $ctrl.LeadSourceDropDown" value="{{item.LeadSourceID}}">{{item.LeadSource}}</option>
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group">
+                    <label class="form-label">Zone</label>
+                    <select id="txtProduct" name="Product" ng-model="$ctrl.WinLossHeatHeaderModel.Zone" ng-change="$ctrl.SalesOffice();" class="form-control">
+                        <option value="">Select</option>
+                        <option ng-repeat="item in $ctrl.ZoneDD" value="{{item.ID}}">{{item.ZoneName}}</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group">
+                    <label class="form-label">Sales Office</label>
+                    <select id="txtState" name="State" class="form-control col-lg-4" ng-change="$ctrl.SalesRep();" ng-model="$ctrl.WinLossHeatHeaderModel.SalesOffice">
+                        <option value="">Select</option>
+                        <option ng-repeat="item in $ctrl.SalesOfficewDropDown" value="{{item.SalesOfficeID}}">{{item.SalesOffice}}</option>
+
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group">
+                    <label class="form-label">Sales Rep</label>
+                    <select id="txtSalesRep" name="SalesRep" class="form-control col-lg-4" ng-model="$ctrl.WinLossHeatHeaderModel.Salesrep">
+                        <option value="">Select</option>
+                        <option ng-repeat="item in $ctrl.SalesRepwDropDown" value="{{item.UserID}}">{{item.UserName}}</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-8 selection-filter-btn-col">
+                <input type="submit" name="btnSubmit" value="Search" ng-click="$ctrl.Search()" id="btnSubmit" class="btn search-btn" style="margin-top: 5px;">
+                <input type="submit" name="btnSubmit" value="Clear" ng-click="$ctrl.Clear()" id="btnSubmit" class="btn search-btn" style="margin-top: 5px;">
+                <input type="submit" name="btnSubmit" value="Excel Download" id="btnSubmit" ng-click="$ctrl.exportTableToCSV('AllLeadsReport.csv')" class="btn search-btn" style="margin-top: 5px;">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Table Started -->
+<div class="table-container">
+    <h5 class="section-header-title">WinLoss Heat Report List</h5>
+    <div class="table-sub-container">
+        <div id="div-1" class="body">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <label class="table-label">Count : {{$ctrl.FillWinLossGrid.length}} </label>
+                </div>
+                <div class="col-lg-6 col-md-6 text-right">
+                    <label class="table-label">No of Records Display : </label>
+                    <select name="Status" id="DDLStatus" ng-change="$ctrl.Refresh()" ng-model="$ctrl.NoOfRds" class="no-record-dropdown">
+                        <option value=10>10</option>
+                        <option value=30>30</option>
+                        <option value=50>50</option>
+                    </select>
+                </div>
+            </div>
+            <br />
+            <div class="validation-table table-responsive" style="overflow:auto;">
+                <table id="dataTable" class="table table-bordered customer-list-table">
+                    <thead class="customer-list-heading">
+                        <tr>
+                            <th>Opportunity Type</th>
+                            <th>State</th>
+                            <th>District</th>
+                            <th>Zone</th>
+                            <th>Sales Office</th>
+                            <th>Model</th>
+                            <th>Channel</th>
+                            <th>Opportunity Source</th>
+                            <th>No.of Leads</th>
+                            <th>No.of Opportunities</th>
+                            <th>WON</th>
+                            <th>Lost</th>
+                            <th>No Deal</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr ng-repeat="item in $ctrl.shownItems">
+                            <td>{{item.LeadType}}</td>
+                            <td>{{item.State}}</td>
+                            <td>{{item.District}}</td>
+                            <td>{{item.Zone }}</td>
+                            <td>{{item.SalesOffice}}</td>
+                            <td>{{item.Model}}</td>
+                            <td>{{item.Channel}}</td>
+                            <td>{{item.LeadSource}}</td>
+                            <td>{{item.NoOfLeads}}</td>
+                            <td>{{item.NoOfOpportunities}}</td>
+                            <td>{{item.Won}}</td>
+                            <td>{{item.Lost}}</td>
+                            <td>{{item.NoDeal}}</td>
+
+
+                        </tr>
+
+
+                    </tbody>
+                </table>
+                <table id="excelDownload" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>State</th>
+                            <th>District</th>
+                            <th>Zone</th>
+                            <th>Sales Office</th>
+                            <th>Lead Type</th>
+                            <th>Model</th>
+                            <th>Channel</th>
+                            <th>Model</th>
+                            <th>Lead Source</th>
+                            <th>No.of Leads</th>
+                            <th>No.of Opportunities</th>
+                            <th>WON</th>
+                            <th>Lost</th>
+                            <th>No Deal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in $ctrl.FillWinLossGrid">
+                            <td>{{item.State}}</td>
+                            <td>{{item.District}}</td>
+                            <td>{{item.Zone }}</td>
+                            <td>{{item.SalesOffice}}</td>
+                            <td>{{item.LeadType}}</td>
+                            <td>{{item.Model}}</td>
+                            <td>{{item.Channel}}</td>
+                            <td>{{item.LeadSource}}</td>
+                            <td>{{item.NoofLeads}}</td>
+                            <td>{{item.NoofOpportunities}}</td>
+                            <td>{{item.WON}}</td>
+                            <td>{{item.Lost}}</td>
+                            <td>{{item.NoDeal}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="nullDataDiv" style="display: none;">
+                <br />
+                <div class="mdl-grid jumbotron">
+                    <h3 class="page-header" style="color: brown; margin-left: 33%">
+                        <i class="fa fa-exclamation-triangle">
+                        </i>&nbsp; No Data available
+                    </h3>
+                </div>
+            </div>
+        </div>
+        <div class="row nex-prev-container">
+            <div class="col-lg-12 col-md-12 text-right">
+                <button ng-show="$ctrl.ShowBack" ng-click="$ctrl.back()" class="btn btn-default">Prev</button>
+                <button ng-show="$ctrl.ShowNext" ng-click="$ctrl.next()" class="btn btn-default">Next</button>
+            </div>
+        </div>
+        <!-- View Modal Started -->
+    </div>
+</div>
+
+
+
+
+<div class="modal fade" id="myAlert" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.Close();" aria-hidden="true">&times;</button>
+                <!--<button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.ErrorClose();"  aria-hidden="true">&times;</button>-->
+                <h4 class="modal-title" id="myModalLabel2">Alert</h4>
+
+            </div>
+            <div class="modal-body">
+                <p>{{$ctrl.alert}}</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-toggle="modal" data-dismiss="modal" aria-hidden="true">Close</button>
+                <!--<button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Close</button>-->
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" data-dismiss="modal" id="errorclose">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

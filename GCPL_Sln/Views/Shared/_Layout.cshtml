@@ -1,0 +1,618 @@
+﻿<!DOCTYPE html>
+<html ng-app="GCPLApp">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title -GCPL</title>
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <title>GCPL</title>
+    <!-- Font Awesome -->
+
+    <script>
+        less = {
+            env: "development",
+            relativeUrls: false,
+            rootpath: "/assets/"
+        };
+    </script>
+
+    <script src="~/Scripts/App/UIDesignLibrary.js"></script>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-cookies.min.js"></script>
+    <script src="~/Scripts/angular-route.js"></script>
+    <script src="~/Scripts/App/Utility/AjaxUtility.js"></script>
+    <script src="~/Scripts/App/MyRoutes.js"></script>
+    <script src="~/Scripts/App/App.js"></script>
+    <script src="~/Scripts/App/BaseService.js"></script>
+    <script src="~/Scripts/App/CoockiesBaseController.js"></script>
+    <script src="~/Scripts/App/Constatnt.js"></script>
+    @*<script src="~/Scripts/Chart.js"></script>*@
+    <script src="~/Scripts/Chart.min.js"></script>
+    <script src="~/Scripts/angular-chart.js"></script>
+    @*<script src="~/Scripts/angular-chart.min.js"></script>*@
+
+
+    @*<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>*@
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    @*<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">*@
+    <link href="~/Content/CSS/jquery-ui.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">*@
+    <script src="https://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.6.0/fullcalendar.css" rel="stylesheet" />
+
+    <script src="~/Scripts/angular-fusioncharts.js"></script>
+    <link href="~/Content/assets/css/loader.css" rel="stylesheet" />
+    <link href="~/Content/CSS/datepicker/jquery.datepick.css" rel="stylesheet" />
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
+    <link href="~/Content/assets/css/Landing.css" rel="stylesheet" />
+    <link href="~/Content/assets/css/Temp.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <link rel="stylesheet" href="~/Content/assets/lib/metismenu/metisMenu.css" />
+    <link rel="stylesheet" href="~/Content/assets/lib/animate.css/animate.css" />
+    <link href="~/Content/assets/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/assets/lib/inputlimiter/jquery.inputlimiter.css" />
+    <link rel="stylesheet" href="~/Content/assets/lib/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+    <link href="~/Content/assets/lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/assets/lib/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/assets/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/assets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+
+    <link href="~/Content/assets/css/AdminLTE.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/assets/css/main.css" />
+    <link href="~/Content/assets/jvectormap/jquery-jvectormap.css" rel="stylesheet" />
+    <link href="~/Content/assets/morris.js/morris.css" rel="stylesheet" />
+    <link href="~/Content/assets/Ionicons/css/ionicons.min.css" rel="stylesheet" />
+    <script src="~/Content/assets/js/adminlte.min.js"></script>
+
+    <link rel="stylesheet" href="~/Content/assets/css/style-switcher.css" />
+    <link rel="stylesheet/less" type="text/css" href="../Content/assets/less/theme.less" />
+
+
+
+    <script type="text/javascript">
+
+        $(window).on('load', function () { // makes sure the whole site is loaded
+            $('#status').fadeOut(); // will first fade out the loading animation
+            $('#preloader').delay(350).fadeOut('slow'); // will fade out the white DIV that covers the website.
+            $('body').delay(350).css({ 'overflow': 'visible' });
+        })
+
+    </script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function (event) {
+
+            var element = document.getElementById("page-loading");
+            element.parentNode.removeChild(element);
+            /* OR WITH jQuery*/
+            $('#page-loading')
+                .fadeOut('slow');
+        });
+    </script>
+
+    <script type="text/javascript">
+        function mydate() {
+            //alert("");
+            document.getElementById("dt").hidden = false;
+            document.getElementById("ndt").hidden = true;
+        }
+        function mydate1() {
+            d = new Date(document.getElementById("dt").value);
+            dt = d.getDate();
+            mn = d.getMonth();
+            mn++;
+            yy = d.getFullYear();
+            document.getElementById("ndt").value = dt + "/" + mn + "/" + yy
+            document.getElementById("ndt").hidden = false;
+            document.getElementById("dt").hidden = true;
+        }
+    </script>
+
+
+    <script>
+        function myFunction() {
+            var input, filter, table, tr, td, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+
+    <script>
+        function myFunction1() {
+            var input, filter, table, tr, td, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        function myFunction2() {
+            var input, filter, table, tr, td, i;
+            input = document.getElementById("myInput1");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable1");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        #page-loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #fff; /* change if the mask should be a color other than white */
+            z-index: 100000; /* makes sure it stays on top */
+            opacity: 1;
+        }
+    </style>
+
+    <script src="~/Content/assets/js/mybiskitappdate.js"></script>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+
+    <script type="text/javascript">
+        function getTime(date) {
+            date_obj = date;
+            date_obj_hours = date_obj.getHours();
+            date_obj_mins = date_obj.getMinutes();
+            if (date_obj_mins < 10) { date_obj_mins = "0" + date_obj_mins; }
+
+            if (date_obj_hours > 11) {
+                date_obj_hours = date_obj_hours - 12;
+                date_obj_am_pm = " PM";
+            } else {
+                date_obj_am_pm = " AM";
+            }
+            return date_obj_time = "'" + date_obj_hours + ":" + date_obj_mins + date_obj_am_pm + "'";
+        }
+    </script>
+
+
+
+    <!--Vertical Tabs-->
+    @*<script src="~/Content/assets/lib/jquery/jquery.js"></script>*@
+    <script src="~/Content/assets/js/less.js"></script>
+    <script src="~/Content/assets/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/assets/js/jquery.tablesorter.min.js"></script>
+    @*<script src="~/Scripts/jquery-ui.js"></script>*@
+    <!--Bootstrap -->
+    <script src="~/Content/assets/lib/bootstrap/js/bootstrap.js"></script>
+    <!-- MetisMenu -->
+    <script src="~/Content/assets/lib/metismenu/metisMenu.js"></script>
+    <!-- Screenfull -->
+    <script src="~/Content/assets/lib/screenfull/screenfull.js"></script>
+    <script src="~/Content/assets/lib/inputlimiter/jquery.inputlimiter.js"></script>
+    <script src="~/Content/assets/lib/validVal/js/jquery.validVal.min.js"></script>
+    <script src="~/Content/assets/lib/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- Metis core scripts -->
+    <script src="~/Content/assets/js/core.js"></script>
+    <!-- Metis demo scripts -->
+    <script src="~/Content/assets/js/app.js"></script>
+    @*<script src="~/Content/assets/js/style-switcher.js"></script>*@
+    <script src="~/Content/scripts/datepicker/jquery.plugin.js"></script>
+    <script src="~/Content/scripts/datepicker/jquery.datepick.js"></script>
+    @*<script src="~/Content/scripts/clockpicker/jquery-clockpicker.min.js"></script>*@
+
+
+</head>
+
+
+<body ng-controller="MainController">
+    <div id="page-loading">
+        <img style="display:block; margin:25% 50%;" src="~/Content/assets/img/loader.gif" height="50">
+    </div>
+    <div ng-if="IsDisplayLoginView">
+
+        <login-component></login-component>
+
+    </div>
+
+
+    <div class="bg-dark dk" id="wrap" ng-if="!IsDisplayLoginView">
+        @*ng-if="!IsDisplayLoginView"*@
+        @*<div id="preloader">
+                <div id="status">&nbsp;</div>
+            </div>*@
+        <div id="top">
+            <!-- .navbar -->
+            <nav class="navbar navbar-inverse navbar-static-top">
+                <div class="container-fluid">
+                    <div class="col-md-2">
+                        <header class="navbar-header">
+
+                            @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>*@
+                            @*<a href="#!/Home" class="navbar-brand" style="margin-top: 8px;"><img src="~/Content/assets/img/Gainwell-logo-with-TM-sign.png" style="width:150px; height:35px; background-color: #fff; padding:6px" alt=""></a>*@
+                            @*<a href="#!/Home" class="navbar-brand" style="margin-top: 8px;"><img src="~/Content/assets/img/Gainwell-logo-with-R-sign.png" style="width:150px; height:35px; background-color: #fff; padding:6px" alt=""></a>*@
+                            <span>@*IsCookieExpired:{{IsDisplayLoginView}}*@</span>
+
+
+                        </header>
+                    </div>
+                    <div class="col-md-10">
+                        @*<div class="btn-group" style="color:#fff">
+                                <h3>BKMIST</h3>
+                            </div>*@
+                        <div class="topnav">
+
+                            <div class="btn-group">
+                                <a data-placement="bottom" data-original-title="Fullscreen" data-toggle="tooltip"
+                                   class="btn btn-default btn-sm" id="toggleFullScreen">
+                                    <i class="glyphicon glyphicon-fullscreen"></i>
+                                </a>
+                            </div>
+                            <div class="btn-group">
+                                @*<a data-placement="bottom" data-original-title="E-mail" data-toggle="tooltip"
+                                       class="btn btn-default btn-sm">
+                                        <i class="fa fa-envelope"></i>
+                                        <span class="label label-warning">5</span>
+                                    </a>*@
+                                <a data-placement="bottom" data-original-title="MyAccount" href="#!/MyAccount" data-toggle="tooltip"
+                                   class="btn btn-default btn-sm">
+                                    <i class="fa fa-user" aria-hidden="true"></i>&nbsp; My Account
+                                    @*<span class="label label-danger">4</span>*@
+                                </a>
+                                @*<a data-toggle="modal" data-original-title="Help" data-placement="bottom"
+                                       class="btn btn-default btn-sm"
+                                       href="#helpModal">
+                                        <i class="fa fa-question"></i>
+                                    </a>*@
+                            </div>
+                            <div class="btn-group">
+                                <a href="#!/logout" data-toggle="tooltip" data-original-title="Logout" data-placement="bottom"
+                                   class="btn btn-metis-1 btn-sm">
+                                    <i class="fa fa-power-off"></i>
+                                </a>
+                            </div>
+                            <div class="btn-group">
+                                @*<a data-placement="bottom" data-original-title="Show / Hide Left" data-toggle="tooltip"
+                                       class="btn btn-primary btn-sm toggle-left" id="menu-toggle">
+                                        <i class="fa fa-bars"></i>
+                                    </a>
+                                    <a data-placement="bottom" data-original-title="Show / Hide Right" data-toggle="tooltip"
+                                       class="btn btn-default btn-sm toggle-right">
+                                        <span class="glyphicon glyphicon-comment"></span>
+                                    </a>*@
+                                <menutoggle></menutoggle>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </nav>
+            <!-- /.navbar -->
+
+
+        </div>
+        <div id="left">
+            <div class="media user-media bg-dark dker">
+                <div class="user-media-toggleHover">
+                    <span class="fa fa-user"></span>
+                </div>
+                <div class="user-wrapper bg-dark">
+                    @*<a class="user-link" href="">
+                            <img class="media-object img-thumbnail user-img" alt="User Picture" src="~/Content/assets/img/user_male.png" style="height:80px;margin-left:20px">
+                            <span class="label label-danger user-label">16</span>
+                        </a>*@
+
+                    <div class="media-body" style="color:#fff">
+                        @*<h5 class="media-heading">MyBiskit</h5>*@
+                        @*<ul class="list-unstyled user-info">
+                                <li><a href="">Admin</a></li>
+                                <li>
+                                    Last Access : <br>
+                                    <small><i class="fa fa-calendar"></i>&nbsp;16 Mar 16:32</small>
+                                </li>
+                            </ul>*@
+                        @*<h4 id="User" style="background:#fff; color:#000; padding:6px;border-radius:1em; font-size:14px;">Admin</h4>
+                            <p id="User" style="background:#fff; color:#000; padding:6px;border-radius:1em; font-size:14px;">Last Access - <i class="fa fa-calendar"></i> 16 Mar 16:32</p>*@
+
+                        <username></username>
+                    </div>
+                </div>
+            </div>
+
+            <!-- #menu -->
+            <menucomponent></menucomponent>
+            <!-- /#menu -->
+        </div>
+
+        @*<div id="content">*@
+        @RenderBody()
+        @*</div>*@
+
+
+    </div>
+    @*<div class="Footer"></div>*@
+
+    <script type="text/javascript">
+        (function ($) {
+            $(document).ready(function () {
+                $('.list-inline li > a').click(function () {
+                    var activeForm = $(this).attr('href') + ' > form';
+                    //console.log(activeForm);
+                    $(activeForm).addClass('animated fadeIn');
+                    //set timer to 1 seconds, after that, unload the animate animation
+                    setTimeout(function () {
+                        $(activeForm).removeClass('animated fadeIn');
+                    }, 1000);
+                });
+            });
+        })(jQuery);
+    </script>
+
+
+
+    @*clockpicker*@
+
+    <link href="~/Content/CSS/clockpicker/bootstrap-clockpicker.css" rel="stylesheet" />
+    @*<script src="~/Content/assets/lib/bootstrap/js/jquery.min.js"></script>*@
+    @*<script src="~/Content/assets/lib/bootstrap/js/bootstrap.min.js"></script>*@
+    <script src="~/Content/scripts/clockpicker/bootstrap-clockpicker.js"></script>
+
+    @*<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <script type="text/javascript">
+            // Load google charts
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            // Draw the chart and set the chart values
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['Work', 8],
+                    ['Eat', 2],
+                    ['TV', 4],
+                    ['Gym', 2],
+                    ['Sleep', 8]
+                ]);
+
+                // Optional; add a title and set the width and height of the chart
+                var options = { 'title': 'My Average Day', 'width': 550, 'height': 400 };
+
+                // Display the chart inside the <div> element with id="piechart"
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+            }
+        </script>*@
+
+    @*<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>*@
+
+    @*<script type="text/javascript">
+
+            window.onload = function () {
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    theme: "theme1",//theme1
+                    title: {
+                        text: "Basic Column Chart - CanvasJS"
+                    },
+                    animationEnabled: false,   // change to true
+                    data: [
+                        {
+                            // Change type to "bar", "area", "spline", "pie",etc.
+                            type: "column",
+                            dataPoints: [
+                                { label: "apple", y: 10 },
+                                { label: "orange", y: 15 },
+                                { label: "banana", y: 25 },
+                                { label: "mango", y: 30 },
+                                { label: "grape", y: 28 }
+                            ]
+                        }
+                    ]
+                });
+                chart.render();
+            }
+        </script>*@
+
+    @*<script type="text/javascript">
+            // Load the Visualization API and the corechart package.
+            google.charts.load('current', { 'packages': ['corechart', 'bar'] });
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.charts.setOnLoadCallback(tcinfo);
+            // Callback that creates and populates a data table,
+            // instantiates the pie chart, passes in the data and
+            // draws it.
+            function tcinfo() {
+                // Create the data table.
+                /////////////////////////////////////////////////////////////////////////////////////////
+                var chartdata = google.visualization.arrayToDataTable([
+                    ['Month', 'Count'],
+                    ['Jan16', 10],
+                    ['Feb16', 35],
+                    ['Mar16', 24],
+                    ['Apr16', 94],
+                    ['May16', 35]
+                ]);
+                var chartoptions = {
+                    title: 'Analysis',
+                    legend: { position: 'bottom' }
+                };
+                var chart = new google.visualization.LineChart(document.getElementById('chart_analysis'));
+                chart.draw(chartdata, chartoptions);
+            }
+        </script>*@
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script type="text/javascript">
+        // Load google charts
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        // Draw the chart and set the chart values
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Task', 'Total Leads Created'],
+                ['WON', 8],
+                ['LOST', 2],
+                ['Inprocess', 4],
+                ['NoDeal', 2],
+                ['Abandoned', 8]
+            ]);
+
+            // Optional; add a title and set the width and height of the chart
+            var options = { 'title': 'Total Leads Created', 'width': 550, 'height': 400 };
+
+            // Display the chart inside the <div> element with id="piechart"
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+        }
+    </script>
+
+    @*<script type="text/javascript">
+            // Load google charts
+            google.charts.load('current', { 'packages': ['corechart'] });
+            google.charts.setOnLoadCallback(drawChart);
+
+            // Draw the chart and set the chart values
+            function drawChart() {
+                var data = google.visualization.arrayToDataTable([
+                    ['Task', '5'],
+                    ['WON', 2],
+                    ['LOST', 2],
+                    ['Inprocess', 6],
+                    ['NoDeal', 4],
+                    ['Abandoned', 8]
+                ]);
+
+                // Optional; add a title and set the width and height of the chart
+                var options = { 'title': 'Total Leads Created', 'width': 550, 'height': 400 };
+
+                // Display the chart inside the <div> element with id="piechart"
+                var chart = new google.visualization.PieChart(document.getElementById('piechartt'));
+                chart.draw(data, options);
+            }
+        </script>*@
+
+    @* bar chart *@
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script>
+        window.onload = function () {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                theme: "light2", // "light1", "light2", "dark1", "dark2"
+                title: {
+                    text: "Bar Graph"
+                },
+                axisY: {
+                    title: ""
+                },
+                data: [{
+                    type: "column",
+                    showInLegend: true,
+                    legendMarkerColor: "grey",
+                    legendText: "MMbbl = Billing Amount",
+
+                    dataPoints: [
+                        { y: 300878, label: "Total Leads Created" },
+                        { y: 266455, label: "Valid Leads" },
+                        { y: 300878, label: "Allocated" },
+                        { y: 266455, label: "Inprocess" },
+                        { y: 266455, label: " WON" },
+                    ]
+                }]
+
+
+
+            });
+            chart.render();
+
+        }
+    </script>
+
+    <script>
+        window.onload = function () {
+
+            var chart = new CanvasJS.Chart("chartContainerr", {
+                animationEnabled: true,
+                theme: "light2", // "light1", "light2", "dark1", "dark2"
+                title: {
+                    text: "Bar Graph"
+                },
+                axisY: {
+                    title: ""
+                },
+                data: [{
+                    type: "column",
+                    showInLegend: true,
+                    legendMarkerColor: "grey",
+                    legendText: "MMbbl = Billing Amount",
+
+                    dataPoints: [
+                        { y: 300878, label: "Total Leads Created" },
+                        { y: 266455, label: "Inquiry" },
+                        { y: 300878, label: "Qualification" },
+                        { y: 266455, label: "Devlopment" },
+                        { y: 266455, label: " Proposal" },
+                    ]
+                }]
+
+
+
+            });
+            chart.render();
+
+        }
+    </script>
+
+
+</body>
+
+</html>

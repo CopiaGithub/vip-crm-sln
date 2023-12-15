@@ -1,0 +1,202 @@
+﻿
+<head>
+    <meta charset="utf-8" />
+    <link href="../../../../Content/assets/shubham_css/style.css" rel="stylesheet" />
+    <title></title>
+</head>
+<!--<div class="row">
+    <div class="col-lg-12">
+     
+            <div class="header">
+                <h2 class="page-title">Opportunity Edit List</h2>
+            </div>
+            </div>
+            
+        </div>-->
+<div class="row">
+    <div class="col-lg-6">
+        <div class="header" style="margin-top:12px;">
+            <h2 class="page-title">Opportunity List</h2>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 page-title-right-container text-right">
+        <a href="/#!/CreateLeadForm" ng-click="$ctrl.Add();" class="btn create-btn pull-right" data-target="#myModalAddNew">Create Opportunity</a>
+
+    </div>
+</div>
+
+<!-- Page Content Section Started -->
+
+<div class="selection-filter-container">
+    <h2 class="section-header-title">Selection Filter</h2>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="selection-filter-sub-container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form>
+                            <div class="row">
+
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Opportunity No</label>
+                                        <input type="text" id="txtLeadID" name="txtCustomerName" placeholder="Opportunity No" ng-model="$ctrl.AssessmentSearch.LeadID" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Customer Name</label>
+                                        <input type="text" id="txtCustomerName" name="txtCustomerName" placeholder="Customer Name" ng-model="$ctrl.AssessmentSearch.SearchInput" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+
+                                        <label class="form-label">Opportunity Status</label>
+                                        <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.AssessmentSearch.StatusID" style="width:100%">
+                                            <option value="">Select</option>
+                                            <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3">
+                                    <button id="btnSearch" ng-click="$ctrl.SearchAssessmentList();" style="margin-top:30px;padding-top: 5px;" type="button" class="btn search-btn">Search</button>
+                                    <button id="btnClear" ng-click="$ctrl.Clear();" type="button" style="margin-top:30px;padding-top: 5px;" class="btn clear-btn">Clear</button>
+                                </div>
+
+                            </div>
+                           
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Validation table Started -->
+<!--<h2 class="acco-sub-heading">Lead Validation List</h2>-->
+<div class="row">
+    <div class="col-llg-12 col-md-12">
+        <div class="table-container">
+            <h2 class="section-header-title">Opportunity List</h2>
+            <div class="row">
+                <div class="col-md-12" id="divlist">
+                    <div class="table-sub-container">
+                        <div id="div-1" class="body">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <label class="table-label">Count - {{$ctrl.Assessmentlist.length}} </label>
+                                </div>
+                                <div class="col-lg-6 col-md-6 text-right">
+                                    <label class="table-label">Records/Page - </label>
+                                    <select name="Status" id="DDLStatus" ng-change="$ctrl.Refresh()" ng-model="$ctrl.NoOfRds" class="no-record-dropdown">
+                                        <option value=10>10</option>
+                                        <option value=30>30</option>
+                                        <option value=50>50</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <br />
+                            <div id="collapse4" class="table-responsive" style="overflow-x:auto">
+                                <table id="dataTable" class="table table-striped table-bordered customer-list-table">
+                                    <thead class="customer-list-heading">
+                                        <tr>
+                                            <th href="" ng-click="orderByField='LeadID'; reverseSort = !reverseSort">Opportunity No</th>
+                                            <th href="" ng-click="orderByField='Companyname'; reverseSort = !reverseSort">Customer Name</th>
+                                            
+                                            <th href="" ng-click="orderByField='ModelNo'; reverseSort = !reverseSort">Model</th>
+                                          
+                                            <th href="" ng-click="orderByField='AllocatedTo'; reverseSort = !reverseSort">Allocated To</th>
+                                            <th href="" ng-click="orderByField='Status'; reverseSort = !reverseSort">Opportunity Status</th>
+                                      
+                                            <th href="" ng-click="orderByField='CreatedDate'; reverseSort = !reverseSort">Creation Date</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in $ctrl.shownItems | filter: searchKeyword | orderBy:orderByField:reverseSort">
+
+                                            <td>{{item.LeadID}}</td>
+                                            <td>{{item.CompanyName}}</td>
+                                            <td>{{item.ModelNo}}</td>
+                                            <td>{{item.AllocatedTo}}</td>
+                                            <td>{{item.StatusID}}</td>
+                                            <td>{{item.WhenEntered}}</td>
+                                            
+                                            <td>
+                                               
+                                                <a href="/#!/LeadAssessment?LeadID={{item.LeadID}}" class="btn search-btn" title="LeadAssessment">Edit</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="nullDataDiv" style="display: none;">
+                                <br />
+                                <div class="mdl-grid jumbotron">
+                                    <h3 class="page-header" style="color: brown; margin-left: 33%">
+                                        <i class="fa fa-exclamation-triangle">
+                                        </i>&nbsp; No Data available
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row nex-prev-container">
+                            <div class="col-lg-12 col-md-12 text-right">
+                                <button ng-show="$ctrl.ShowBack" ng-click="$ctrl.back()" class="btn btn-default">Prev</button>
+                                <button ng-show="$ctrl.ShowNext" ng-click="$ctrl.next()" class="btn btn-default">Next</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- Search Loader Started -->
+            <div class="search-loader" id="search-btn-loader">
+                <div class="search-loader-container">
+                    <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+                </div>
+            </div>
+            <!-- Search Loader Ended -->
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Validation table Ended -->
+<!-- Page Content Section Ended -->
+
+
+
+<div class="modal fade" id="myAlert" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.Close();" aria-hidden="true">&times;</button>
+                <!--<button type="button" class="close" data-dismiss="modal" ng-click="$ctrl.ErrorClose();"  aria-hidden="true">&times;</button>-->
+                <h4 class="modal-title" id="myModalLabel2">Alert</h4>
+
+            </div>
+            <div class="modal-body">
+                <p>{{$ctrl.alert}}</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-toggle="modal" data-dismiss="modal" aria-hidden="true">Close</button>
+                <!--<button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Close</button>-->
+                <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" data-dismiss="modal" id="errorclose">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
