@@ -593,17 +593,17 @@
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Product<span class="Mandatory">*</span></label>
-                                <select id="txtProduct" name="Product" ng-model="$ctrl.InsertLead.ProductID" class="form-control leader-create-dropdown" tabindex="2" required>
+                                <select id="txtProduct" name="Product" ng-model="$ctrl.InsertLead.ProductID" class="form-control leader-create-dropdown" tabindex="2" required disabled>
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
 
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-3">
+                        <div class="col-lg-4 col-md-4">
                             <div class="form-group">
-                                <label for="quantity" class="form-label">Product Description<span class="Mandatory">*</span></label>
-                                <input type="text" placeholder="Select Quantity" ng-model="$ctrl.InsertLead.Quantity" name="quantity" class="form-control" maxlength="2" />
+                                <label>Product Description<span class="Mandatory">*</span></label>
+                                <input type="text" id="txtProductDesc" name="txtProductDesc" ng-change="$ctrl.Product()"; placeholder="Enter Customer Name" class="form-control" />
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3">
@@ -663,7 +663,7 @@
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Category<span class="Mandatory">*</span></label>
-                                <select id="txtCategory" name="Category" ng-model="$ctrl.InsertLead.CategoryID" ng-change="$ctrl.Division();" class="form-control leader-create-dropdown" tabindex="2" required>
+                                <select id="txtCategory" name="Category" ng-model="$ctrl.InsertLead.CategoryID" class="form-control leader-create-dropdown" tabindex="2" required>
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.CategoryDropDown" value={{item.CategoryID}}>{{item.Category}}</option>
                                 </select>
@@ -672,7 +672,7 @@
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
                                 <label class="form-label">Division<span class="Mandatory">*</span></label>
-                                <select id="txtDivision" name="Division" ng-model="$ctrl.InsertLead.DivisionID" ng-change="$ctrl.Product();" class="form-control leader-create-dropdown" tabindex="2" required>
+                                <select id="txtDivision" name="Division" ng-model="$ctrl.InsertLead.DivisionID" class="form-control leader-create-dropdown" tabindex="2" required>
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.DivisionDropDownP" value={{item.DivisionID}}>{{item.Division}}</option>
                                 </select>

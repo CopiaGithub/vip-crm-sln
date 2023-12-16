@@ -11,7 +11,7 @@ var GCPL;
             var CustomerMaster = GCPL.Model.InsertCustomerMaster;
             var ContactMaster = GCPL.Model.InsertContactMaster;
             var CreateLeadFormController = /** @class */ (function () {
-                function CreateLeadFormController(_CountryService, _StateDDService, _DistrictService, _IndustrialSegmentService, _IndustryDivisionService, _SalesOfficeService, _DepartmentService, _DesignationService, _LeadTypeService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _getAutoSalesrep1, _LeadSourceDDService, _ProjectNameService, CustClassService, _RegionService, _CampaignDDService, _InsertService, _PurchaseTimlineDDService, _LeadCategoryService, _CustomerSapAutofill, _CustomerInfoService, _ContactService, _ContactInfoService, _InsertCustomerService, _InsertContactService, _cookieStore, _LeadCustomerDetails, _CustomerService, _getAutoUser, _ShowMobileService, _LeadCustomerDetails1, _LeadDetailsService, _LeadCategotyWPDDService) {
+                function CreateLeadFormController(_CountryService, _StateDDService, _DistrictService, _IndustrialSegmentService, _IndustryDivisionService, _SalesOfficeService, _DepartmentService, _DesignationService, _LeadTypeService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _getAutoSalesrep1, _LeadSourceDDService, _ProjectNameService, CustClassService, _RegionService, _CampaignDDService, _InsertService, _PurchaseTimlineDDService, _LeadCategoryService, _CustomerSapAutofill, _ProductDescAutofill, _CustomerInfoService, _ContactService, _ContactInfoService, _InsertCustomerService, _InsertContactService, _cookieStore, _LeadCustomerDetails, _CustomerService, _getAutoUser, _ShowMobileService, _LeadCustomerDetails1, _LeadDetailsService, _LeadCategotyWPDDService) {
                     this._cookieStore = _cookieStore;
                     this.numRecords = 10;
                     this.page = 0;
@@ -99,6 +99,7 @@ var GCPL;
                     this.PurchaseTimlineDDService = _PurchaseTimlineDDService;
                     this.LeadCategoryService = _LeadCategoryService;
                     this.CustomerSapAutofill = _CustomerSapAutofill;
+                    this.ProductDescAutofill = _ProductDescAutofill;
                     this.CustomerInfoService = _CustomerInfoService;
                     this.ContactService = _ContactService;
                     this.ContactInfoService = _ContactInfoService;
@@ -173,6 +174,12 @@ var GCPL;
                     this.CategoryDropDown = this.CategoryService.Find().then((function (response) {
                         _this.CategoryDropDown = _this.CategoryService.GetCategoryName(response.data.Result);
                     }));
+                    this.DivisionDropDownP = this.DivisionPService.Find(0).then((function (response) {
+                        _this.DivisionDropDownP = _this.DivisionPService.GetDivisionDDP(response.data.Result);
+                    }));
+                    this.ProductDropDown = this.ProductService.Find(0).then((function (response) {
+                        _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
+                    }));
                     this.LeadTypeDropDown = this.LeadTypeService.Find().then((function (response) {
                         _this.LeadTypeDropDown = _this.LeadTypeService.GetLeadTypeName(response.data.Result);
                         _this.InsertLead.LeadType = "5";
@@ -233,6 +240,32 @@ var GCPL;
                         change: function () {
                         }
                     });
+                    $("#txtProductDesc").autocomplete({
+                        //  source:['1a0','anjali','archana'],
+                        source: function (request, res) {
+                            that.ProductDescAutofill.FilterAutoComplete(request).then((function (response) {
+                                var data = that.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
+                                res($.map(data, function (item, index) {
+                                    return {
+                                        label: item.ProductDesc,
+                                        value: item.ProductDesc,
+                                        id: item.ProductID
+                                    };
+                                }));
+                            }));
+                        },
+                        minLength: 2,
+                        focus: function (event, ui) {
+                            // Don't populate input field with selected value (pxid)
+                            event.preventDefault();
+                        },
+                        select: function (e, ui) {
+                            that.InsertLead.CustomerID = ui.item.id;
+                            that.Search(ui.item.id);
+                        },
+                        change: function () {
+                        }
+                    });
                     $("#txtCustomerName").autocomplete({
                         //  source:['1a0','anjali','archana'],
                         source: function (request, res) {
@@ -272,6 +305,9 @@ var GCPL;
                         }));
                     });
                 };
+                CreateLeadFormController.prototype.Product = function () {
+                    this.InsertLead.ProductID == "" ? "" : $("#txtProductDesc option:selected").text();
+                };
                 CreateLeadFormController.prototype.AddCustDistrict = function () {
                     var _this = this;
                     this.AddCustDistrictDropDown = this.DistrictService.Find(this.InsertCustomer.StateID).then((function (response) {
@@ -290,24 +326,22 @@ var GCPL;
                         _this.AddConDistrictDropDown = _this.DistrictService.GetDistrictName(response.data.Result);
                     }));
                 };
-                CreateLeadFormController.prototype.Division = function () {
-                    var _this = this;
-                    this.DivisionDropDownP = this.DivisionPService.Find(this.InsertLead.CategoryID).then((function (response) {
-                        _this.DivisionDropDownP = _this.DivisionPService.GetDivisionDDP(response.data.Result);
-                    }));
-                };
+                //Division(): void {
+                //    this.DivisionDropDownP = this.DivisionPService.Find(this.InsertLead.CategoryID).then((response => {
+                //        this.DivisionDropDownP = this.DivisionPService.GetDivisionDDP(response.data.Result);
+                //    }));
+                //}
                 CreateLeadFormController.prototype.LeadCategory = function () {
                     this.InsertLead.CategoryID = "";
                     this.InsertLead.DivisionID = "";
                     this.InsertLead.ProductID = "";
                     this.InsertLead.ModelID = "";
                 };
-                CreateLeadFormController.prototype.Product = function () {
-                    var _this = this;
-                    this.ProductDropDown = this.ProductService.Find(this.InsertLead.DivisionID).then((function (response) {
-                        _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
-                    }));
-                };
+                //Product(): void {
+                //    this.ProductDropDown = this.ProductService.Find(this.InsertLead.DivisionID).then((response => {
+                //        this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
+                //    }));
+                //}
                 //Model(): void {
                 //   // this.InsertLead.LeadType = this.LeadTypeDropDown[0].ID;
                 //    this.ModelDropDown = this.ModelService.Find(this.InsertLead).then((response => {
@@ -811,7 +845,7 @@ var GCPL;
                 };
                 CreateLeadFormController.$inject = ["CountryService", "StateDDService", "DistrictddService", "IndustrialSegmentService", "IndustryDivisionService", "SalesOfficeService", "DepartmentService", "DesignationService",
                     "LeadTypeddService", "CategoryddService", "DivisionDDPService", "ProductddService", "LeadTypeProductService1", "ChannelDDService", "EmployeeAtofillService", "LeadSourceDetailsService", "ProjectNameService", "CustomerClassService", "RegionddService",
-                    "CampaignDetailsService", "InsertLeadDetailsService", "PurchaseTimelineService", "LeadCategoryDDService", "CustomerSapIdAutoFillService", "LeadCustomerDetailsService", "ContactInfoService",
+                    "CampaignDetailsService", "InsertLeadDetailsService", "PurchaseTimelineService", "LeadCategoryDDService", "CustomerSapIdAutoFillService", "ProductDescAutoFillService", "LeadCustomerDetailsService", "ContactInfoService",
                     "LeadContactDetailsService", "InsertLeadCustomerService", "InsertContactService", "$cookieStore", "LeadCustomerGetDetailsService", "GetCustomerNewDetailsService", "UserCodeAutoFillService", "ShowSimilarService", "LeadCustomerGetDetails1Service", "LeadDetailsService", "LeadCategotyWPDDService"];
                 return CreateLeadFormController;
             }());

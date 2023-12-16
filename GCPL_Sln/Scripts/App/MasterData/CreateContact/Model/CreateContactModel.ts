@@ -58,6 +58,13 @@
         CustomerID: number;
         CompanyName: string;
     }
+    export class ProductAutoModel {
+        constructor() {
+        }
+        ProductID: number;
+        Product: string;
+        ProductDesc: string;
+    }
     export class CustomersapAutoModel {
         constructor() {
         }

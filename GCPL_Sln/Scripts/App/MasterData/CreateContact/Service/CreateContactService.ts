@@ -372,6 +372,62 @@ namespace GCPL.Service {
     app.AddService("CustomerSapIdAutoFillService", CustomerSapIdAutoFillService);
 }
 
+/// autofill productDesc
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IProductDescAutoFillService {
+        FilterAutoComplete(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        GetAutoProductDesc(data: any): Array<model.ProductAutoModel>;
+    }
+    export class ProductDescAutoFillService extends GCPL.Service.BaseService implements IProductDescAutoFillService {
+        private apiUrl: string = "";
+        private Cookie: any = null;
+        static $inject = ["$http", "$q", "$cookieStore"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService, private _cookieStore: any) {
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"FillProductDescription"}`;
+            this.Cookie = _cookieStore;
+        }
+        FilterAutoComplete(data): ng.IPromise<Utility.Ajax.IResponse> {
+            var url = this.apiUrl + "/FillProductDescription";
+
+            let config = {
+                params: {
+                    Input: data.term
+
+                }
+            };
+            return this.ajaXUtility.Get({
+                Url: url,
+                Config: config
+            });
+        }
+
+        GetAutoProductDesc(data: any): Array<model.ProductAutoModel> {
+
+            let list = Array<model.ProductAutoModel>();
+
+
+            for (let item of data) {
+                list.push({
+                    ProductID: item.ProductID.toString(),
+                    Product: item.Product,
+                    ProductDesc: item.ProductDesc
+
+                });
+            }
+            return list;
+        }
+
+    }
+    //inject service
+    app.AddService("ProductDescAutoFillService", ProductDescAutoFillService);
+}
+
+
 namespace GCPL.Service {
     import app = GCPL.app;
     import model = GCPL.Model;
