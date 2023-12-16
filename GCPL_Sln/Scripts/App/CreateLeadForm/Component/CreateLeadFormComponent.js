@@ -264,7 +264,7 @@ var GCPL;
                             event.preventDefault();
                         },
                         select: function (e, ui) {
-                            that.InsertLead.CustomerID = ui.item.id;
+                            that.InsertLead.ProductID = ui.item.id;
                             that.Search(ui.item.id);
                         },
                         change: function () {
@@ -309,6 +309,15 @@ var GCPL;
                         }));
                     });
                 };
+<<<<<<< HEAD
+=======
+                //Product(ProductID): void {
+                //    console.log(ProductID, "ProductID11111");
+                //    this.ProductValue = this.ProductDescAutofill.FindProduct(ProductID).then((response => {
+                //        this.ProductValue = this.ProductDescAutofill.GetProduct(response.data.Result);
+                //    }));
+                //}
+>>>>>>> develop-anuja
                 CreateLeadFormController.prototype.AddCustDistrict = function () {
                     var _this = this;
                     this.AddCustDistrictDropDown = this.DistrictService.Find(this.InsertCustomer.StateID).then((function (response) {
