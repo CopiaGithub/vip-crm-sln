@@ -154,6 +154,7 @@
         private RegionService: Service.IRegionddService;
         private CampaignDDService: Service.ICampaignDetailsService;
         private InsertService: Service.IInsertLeadDetailsService;
+        private InsertServiceItem: Service.IInsertItemDetailsService;
         private PurchaseTimlineDDService: Service.IPurchaseTimelineService;
         private LeadCategoryService: Service.ILeadCategoryDDService;
         private CustomerSapAutofill: Service.ICustomerSapIdAutoFillService;
@@ -183,7 +184,7 @@
             _IndustryDivisionService: Service.IIndustryDivisionService, _SalesOfficeService: Service.ISalesOfficeService, _DepartmentService: Service.IDepartmentService, _DesignationService: Service.IDesignationService,
             _LeadTypeService: Service.ILeadTypeddService, _CategoryService: Service.ICategoryddService, _DivisionPService: Service.IDivisionDDPService,
             _ProductService: Service.IProductddService, _ModelService: Service.ILeadTypeProductService1, _ChannelDDService: Service.IChannelDDService, _getAutoSalesrep1: Service.IEmployeeAtofillService,
-            _LeadSourceDDService: Service.ILeadSourceDetailsService, _ProjectNameService: Service.IProjectNameService, CustClassService: Service.ICustomerClassService, _RegionService: Service.IRegionddService, _CampaignDDService: Service.ICampaignDetailsService, _InsertService: Service.IInsertLeadDetailsService,
+            _LeadSourceDDService: Service.ILeadSourceDetailsService, _ProjectNameService: Service.IProjectNameService, CustClassService: Service.ICustomerClassService, _RegionService: Service.IRegionddService, _CampaignDDService: Service.ICampaignDetailsService, _InsertService: Service.IInsertLeadDetailsService, _InsertServiceItem: Service.IInsertItemDetailsService,
             _PurchaseTimlineDDService: Service.IPurchaseTimelineService, _LeadCategoryService: Service.ILeadCategoryDDService, _CustomerSapAutofill: Service.ICustomerSapIdAutoFillService, _ProductDescAutofill: Service.IProductDescAutoFillService,
             _CustomerInfoService: Service.ILeadCustomerDetailsService, _ContactService: Service.IContactInfoService, _ContactInfoService: Service.ILeadContactDetailsService,
             _InsertCustomerService: Service.IInsertLeadCustomerService, _InsertContactService: Service.IInsertContactService, private _cookieStore: any, _LeadCustomerDetails: Service.ILeadCustomerGetDetailsService,
@@ -210,6 +211,7 @@
             this.RegionService = _RegionService;
             this.CampaignDDService = _CampaignDDService;
             this.InsertService = _InsertService;
+            this.InsertServiceItem = _InsertServiceItem;
             this.InsertLead = new Lead();
             this.InsertToCart = new AddToCart();
             this.PurchaseTimlineDDService = _PurchaseTimlineDDService;
@@ -480,11 +482,7 @@
             });
         }
 
-        Product(): void {
-            this.ProductValue = this.ProductDescAutofill.FilterAutoComplete(request).then((response => {
-                this.ProductValue = this.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
-            }));
-        }
+        
 
 
         AddCustDistrict(): void {
@@ -694,9 +692,11 @@
         }
 
        
-        Submit(): void
-        {
+        Submit(): void {
             debugger;
+            var flag = 0;
+            var failureCount = 0;
+            var SuccessCount = 0;
             if (this.InsertCust.CompanyName == undefined || this.InsertCust.CompanyName == null || this.InsertCust.CompanyName == "") {
                 this.HideShow();
                 this.popupMessage("Please Enter Customer Name", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
@@ -800,7 +800,11 @@
             }
 
             else {
-                debugger;
+                if (this.TotalItemList == null || this.TotalItemList == undefined) {
+                    this.HideShow();
+                    this.popupMessage("Please add atleast one timesheet to list!", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                } else {
+                    debugger;
                 this.InsertLead.ContactID = $('#messageCheckbox:checked').val();
                 this.InsertLead.CustomerID = this.InsertCust.CustomerID;
                 this.InsertLead.CompanyName = this.InsertCust.CompanyName;
@@ -821,8 +825,8 @@
                 this.InsertLead.IndustrialSegmentID = this.InsertCust.IndustrialSegmentID;
                 this.InsertLead.CustomerRatingID = this.InsertCust.CustomerRatingID;
                 this.InsertLead.RegionID = this.InsertCust.RegionID;
-            
-    
+
+
 
                 if (this.UserID != null || this.UserID != "") {
 
@@ -838,6 +842,30 @@
                         $("#errorclose").hide();
                         $("#close").show();
                         this.popupMessage("LeadID - " + response.data.Result + " created successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                        for (var i = 0; i < this.TotalItemList.length; i++) {
+                            this.InsertLead = this.TotalItemList[i];
+                            this.InsertServiceItem.PostItem(this.InsertLead).then((response => {
+                                if (response.data == "Success") {
+                                    flag = 0;
+                                    SuccessCount++;
+
+                                } else {
+                                    flag = 1;
+                                    failureCount++;
+
+                                }
+
+                                if (flag == 0) {                                  
+                                    $("#errorclose").hide();
+                                    $("#close").show();
+                                    this.popupMessage("Successfully Inserted " + SuccessCount.toString() + " Records!", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                                } else {
+                                    this.HideShow();
+                                    this.popupMessage("Error Occured for " + failureCount + "Records! Please Try again.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                                }
+                                
+                            }));
+                        }
                     }
                     else {
                         this.HideShow();
@@ -849,6 +877,7 @@
 
 
             }
+        }
         }
         SubmitCustomer(): void {
 
