@@ -345,56 +345,6 @@ var GCPL;
         app.AddService("CustomerSapIdAutoFillService", CustomerSapIdAutoFillService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
-/// autofill productDesc
-(function (GCPL) {
-    var Service;
-    (function (Service) {
-        var app = GCPL.app;
-        var ProductDescAutoFillService = /** @class */ (function (_super) {
-            __extends(ProductDescAutoFillService, _super);
-            function ProductDescAutoFillService($http, $q, _cookieStore) {
-                var _this = _super.call(this, $http, $q) || this;
-                _this.$http = $http;
-                _this.$q = $q;
-                _this._cookieStore = _cookieStore;
-                _this.apiUrl = "";
-                _this.Cookie = null;
-                _this.apiUrl = _this.url + "/" + "FillProductDescription";
-                _this.Cookie = _cookieStore;
-                return _this;
-            }
-            ProductDescAutoFillService.prototype.FilterAutoComplete = function (data) {
-                var url = this.apiUrl + "/FillProductDescription";
-                var config = {
-                    params: {
-                        Input: data.term
-                    }
-                };
-                return this.ajaXUtility.Get({
-                    Url: url,
-                    Config: config
-                });
-            };
-            ProductDescAutoFillService.prototype.GetAutoProductDesc = function (data) {
-                var list = Array();
-                for (var _i = 0, data_5 = data; _i < data_5.length; _i++) {
-                    var item = data_5[_i];
-                    list.push({
-                        ProductID: item.ProductID.toString(),
-                        Product: item.Product,
-                        ProductDesc: item.ProductDesc
-                    });
-                }
-                return list;
-            };
-            ProductDescAutoFillService.$inject = ["$http", "$q", "$cookieStore"];
-            return ProductDescAutoFillService;
-        }(GCPL.Service.BaseService));
-        Service.ProductDescAutoFillService = ProductDescAutoFillService;
-        //inject service
-        app.AddService("ProductDescAutoFillService", ProductDescAutoFillService);
-    })(Service = GCPL.Service || (GCPL.Service = {}));
-})(GCPL || (GCPL = {}));
 (function (GCPL) {
     var Service;
     (function (Service) {

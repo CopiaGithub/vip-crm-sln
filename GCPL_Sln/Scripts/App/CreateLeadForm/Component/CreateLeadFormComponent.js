@@ -70,6 +70,7 @@ var GCPL;
                     this.LeadSearch = null;
                     this.EMAIL_REGEXP = null;
                     this.ProjectNameDD = null;
+                    this.ProductValue = null;
                     this.CustClassDropDown = null;
                     this.RegionDropDown = null;
                     this.Cookie = null;
@@ -260,7 +261,7 @@ var GCPL;
                             event.preventDefault();
                         },
                         select: function (e, ui) {
-                            that.InsertLead.CustomerID = ui.item.id;
+                            that.InsertLead.ProductID = ui.item.id;
                             that.Search(ui.item.id);
                         },
                         change: function () {
@@ -305,9 +306,12 @@ var GCPL;
                         }));
                     });
                 };
-                CreateLeadFormController.prototype.Product = function () {
-                    this.InsertLead.ProductID == "" ? "" : $("#txtProductDesc option:selected").text();
-                };
+                //Product(ProductID): void {
+                //    console.log(ProductID, "ProductID11111");
+                //    this.ProductValue = this.ProductDescAutofill.FindProduct(ProductID).then((response => {
+                //        this.ProductValue = this.ProductDescAutofill.GetProduct(response.data.Result);
+                //    }));
+                //}
                 CreateLeadFormController.prototype.AddCustDistrict = function () {
                     var _this = this;
                     this.AddCustDistrictDropDown = this.DistrictService.Find(this.InsertCustomer.StateID).then((function (response) {

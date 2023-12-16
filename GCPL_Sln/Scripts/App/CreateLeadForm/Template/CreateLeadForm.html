@@ -188,18 +188,18 @@
 
                                     <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
-                                            <label for="mobile" class="form-label">Mobile Number <span class="Mandatory">*</span></label>
+                                            <label for="mobile">Mobile Number <span class="Mandatory">*</span></label>
                                             <input type="text" id="txtCustMobile" ng-model="$ctrl.InsertCust.MobileNo" name="mobile" maxlength="10" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
-                                            <label for="pin" class="form-label">Pincode <span class="Mandatory">*</span></label>
+                                            <label for="pin">Pincode <span class="Mandatory">*</span></label>
                                             <input type="text" id="txtCustPin" name="pin" maxlength="6" ng-model="$ctrl.InsertCust.Pincode" class="form-control" />
                                         </div>
                                     </div>
                                     <!--<div class="form-group">
-                                        <label for="sapid" class="form-label">SAP ID</label>
+                                        <label for="sapid">SAP ID</label>
                                         <input type="text" id="txtSapId" ng-model="$ctrl.InsertCust.BusinessPartnerNo" name="sapid" class="form-control" disabled />
                                     </div>-->
 
@@ -210,19 +210,19 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
-                                            <label for="mail" class="form-label">Email </label>
+                                            <label for="mail">Email </label>
                                             <input type="email" id="txtCustEmail" ng-model="$ctrl.InsertCust.Email" name="mail" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
-                                            <label for="phone" class="form-label">Phone Number</label>
+                                            <label for="phone">Phone Number</label>
                                             <input type="text" id="txtCustPhone" ng-model="$ctrl.InsertCust.PhoneNo" maxlength="10" name="phone" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
-                                            <label for="address" class="form-label">Address <span class="Mandatory">*</span></label>
+                                            <label for="address">Address <span class="Mandatory">*</span></label>
                                             <input type="text" class="form-control" rows="5" ng-model="$ctrl.InsertCust.Address1" maxlength="30" id="address1" />
                                         </div>
                                     </div>
@@ -232,7 +232,7 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">Country <span class="Mandatory">*</span></label>
+                                            <label>Country <span class="Mandatory">*</span></label>
                                             <select class="form-control leader-create-dropdown" id="txtCustCountry" ng-model="$ctrl.InsertCust.CountryID" disabled="disabled">
                                                 <option value="">India</option>
                                                 <option ng-repeat="item in $ctrl.CustCountryDropDown" value={{item.CountryID}}>{{item.Country}}</option>
@@ -241,7 +241,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">State <span class="Mandatory">*</span></label>
+                                            <label>State <span class="Mandatory">*</span></label>
                                             <select class="form-control leader-create-dropdown" id="txtCustState" ng-model="$ctrl.InsertCust.StateID" ng-change="$ctrl.CustDistrict();">
                                                 <option value="">Select</option>
                                                 <option ng-repeat="item in $ctrl.CustStateDropDown" value={{item.StateID}}>{{item.State}}</option>
@@ -250,7 +250,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">District <span class="Mandatory">*</span></label>
+                                            <label>District <span class="Mandatory">*</span></label>
                                             <select class="form-control leader-create-dropdown" id="txtCustDistrict" ng-model="$ctrl.InsertCust.DistrictID">
                                                 <option value="">Select</option>
                                                 <option ng-repeat="item in $ctrl.CustDistrictDropDown" value={{item.DistrictID}}>{{item.District}}</option>
@@ -263,7 +263,7 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">City </label>
+                                            <label>City </label>
                                             <input type="text" id="txtCustCity" ng-model="$ctrl.InsertCust.City" name="city" class="form-control" />
                                         </div>
                                     </div>
@@ -280,7 +280,7 @@
 
                                     <div class="col-lg-4 col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">Region<span class="Mandatory">*</span></label>
+                                            <label>Region<span class="Mandatory">*</span></label>
                                             <select class="form-control" id="txtRegionID" ng-model="$ctrl.InsertCust.RegionID;">
                                                 <option value="">Select</option>
                                                 <option ng-repeat="item in $ctrl.RegionDropDown" value="{{item.RegionID}}">{{item.Region}}</option>
@@ -445,7 +445,7 @@
 
                                             <div class="col-lg-3 col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Contact Name <span class="Mandatory">*</span></label>
+                                                    <label>Contact Name <span class="Mandatory">*</span></label>
 
                                                     <div id="divtxtContactname">
                                                         <input type="text" id="txtContactName" ng-model="$ctrl.InsertContact.ContactName" class="form-control" placeholder="Contact name">
@@ -454,14 +454,14 @@
                                             </div>
                                             <div class="col-lg-3 col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Mobile Number <span class="Mandatory">*</span></label>
+                                                    <label>Mobile Number <span class="Mandatory">*</span></label>
                                                     <input type="text" class="form-control" ng-model="$ctrl.InsertContact.MobileNo" maxlength="10" name="name" value="" />
                                                 </div>
                                             </div>
 
                                             <div class="col-lg-3 col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Email </label>
+                                                    <label>Email </label>
                                                     <input type="email" class="form-control" ng-model="$ctrl.InsertContact.Email" name="name" value="" />
                                                 </div>
                                             </div>
@@ -472,13 +472,13 @@
 
                                             <div class="col-lg-3 col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Phone Number</label>
+                                                    <label>Phone Number</label>
                                                     <input type="text" class="form-control" ng-model="$ctrl.InsertContact.PhoneNo" maxlength="10" name="name" value="" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-3 col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Country</label>
+                                                    <label>Country</label>
                                                     <select id="txtCountry" name="Country" ng-model="$ctrl.InsertContact.CountryID" class="form-control" disabled="disabled">
                                                         <option value="">India</option>
                                                         <option ng-repeat="item in $ctrl.AddConCountryDropDown" value={{item.CountryID}}>{{item.Country}}</option>
@@ -487,7 +487,7 @@
                                             </div>
                                             <div class="col-lg-3 col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">State </label>
+                                                    <label>State </label>
                                                     <select id="txtState" name="State" ng-change="$ctrl.AddConDistrict();" ng-model="$ctrl.InsertContact.StateID" class="form-control">
                                                         <option value="">Select</option>
                                                         <option ng-repeat="item in $ctrl.AddConStateDropDown" value={{item.StateID}}>{{item.State}}</option>
@@ -497,7 +497,7 @@
 
                                             <div class="col-lg-3 col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">District </label>
+                                                    <label>District </label>
                                                     <select id="txtDistrict" name="District" class="form-control" ng-model="$ctrl.InsertContact.DistrictID">
                                                         <option value="">Select</option>
                                                         <option ng-repeat="item in $ctrl.AddConDistrictDropDown" value={{item.DistrictID}}>{{item.District}}</option>
@@ -510,25 +510,25 @@
 
                                             <div class="col-lg-3 col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">City </label>
+                                                    <label>City </label>
                                                     <input type="text" class="form-control" ng-model="$ctrl.InsertContact.City" name="name" value="" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-3 col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Pincode</label>
+                                                    <label>Pincode</label>
                                                     <input type="text" class="form-control" name="name" maxlength="6" ng-model="$ctrl.InsertContact.PostalCode" value="" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-3 col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Address</label>
+                                                    <label>Address</label>
                                                     <input type="text" class="form-control" ng-model="$ctrl.InsertContact.Address" maxlength="30" />
                                                 </div>
                                             </div>
                                             <div class="col-lg-3 col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Designation <span class="Mandatory">*</span></label>
+                                                    <label>Designation <span class="Mandatory">*</span></label>
                                                     <select id="txtDesignation" name="Designation" class="form-control" ng-model="$ctrl.InsertContact.FOPID">
                                                         <option value="">Select</option>
                                                         <option ng-repeat="item in $ctrl.DesignationDropDown" value={{item.FOPID}}>{{item.FOP}}</option>
@@ -541,7 +541,7 @@
 
                                             <div class="col-lg-3 col-md-3">
                                                 <div class="form-group">
-                                                    <label class="form-label">Department<span class="Mandatory">*</span></label>
+                                                    <label>Department<span class="Mandatory">*</span></label>
                                                     <select id="txtDepartment" name="Department" class="form-control" ng-model="$ctrl.InsertContact.DepartmentID">
                                                         <option value="">Select</option>
                                                         <option ng-repeat="item in $ctrl.DepartmentDropDown" value={{item.DepartmentID}}>{{item.Department}}</option>
@@ -575,14 +575,14 @@
                     <div class="row">
                         <!--<div class="col-lg-3 col-md-3">
         <div class="form-group">
-            <label for="quantity" class="form-label">Item No<span class="Mandatory">*</span></label>
+            <label for="quantity">Item No<span class="Mandatory">*</span></label>
             <input type="text" placeholder="" ng-model="" name="leadid" class="form-control" />
         </div>
     </div>-->
 
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Opportunity Type<span class="Mandatory">*</span></label>
+                                <label>Opportunity Type<span class="Mandatory">*</span></label>
                                 <select id="txtLeadType" class="form-control leader-create-dropdown" ng-model="$ctrl.InsertLead.LeadType" ng-change="$ctrl.LeadCategory();" name="LeadType" tabindex="2" required disabled>
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.LeadTypeDropDown" value={{item.ID}} selected>{{item.LeadTypeDesc}}</option>
@@ -592,7 +592,7 @@
 
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Product<span class="Mandatory">*</span></label>
+                                <label>Product<span class="Mandatory">*</span></label>
                                 <select id="txtProduct" name="Product" ng-model="$ctrl.InsertLead.ProductID" class="form-control leader-create-dropdown" tabindex="2" required disabled>
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
@@ -600,21 +600,21 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-md-4">
+                        <div class="col-lg-3 col-md-3">
                             <div class="form-group">
                                 <label>Product Description<span class="Mandatory">*</span></label>
-                                <input type="text" id="txtProductDesc" name="txtProductDesc" ng-change="$ctrl.Product()"; placeholder="Enter Customer Name" class="form-control" />
+                                <input type="text" id="txtProductDesc" name="txtProductDesc" ng-model="$ctrl.InsertLead.ProductDesc" ng-change="$ctrl.Product($ctrl.InsertLead.ProductID)"; placeholder="Enter Customer Name" class="form-control" />
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label for="quantity" class="form-label">Quantity<span class="Mandatory">*</span></label>
+                                <label for="quantity">Quantity<span class="Mandatory">*</span></label>
                                 <input type="text" placeholder="Select Quantity" ng-model="$ctrl.InsertLead.Quantity" name="quantity" class="form-control" maxlength="2" />
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Opportunity Category<span class="Mandatory">*</span></label>
+                                <label>Opportunity Category<span class="Mandatory">*</span></label>
                                 <select id="txtLeadCategory" class="form-control leader-create-dropdown" ng-model="$ctrl.InsertLead.LeadCategoryID" name="LeadCategory" tabindex="2">
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.LeadCategoryDropDown" value={{item.LeadCategoryID}}>{{item.LeadCategory}}</option>
@@ -623,7 +623,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Industry Division<span class="Mandatory">*</span></label>
+                                <label>Industry Division<span class="Mandatory">*</span></label>
                                 <select id="txtIndustryDivision" class="form-control" ng-model="$ctrl.InsertCust.IndustryDivisionID">
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.IndustryDivisionDropDown" value={{item.IndustryDivisionID}}>{{item.IndustryDivision}}</option>
@@ -632,7 +632,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Industry Segment<span class="Mandatory">*</span></label>
+                                <label>Industry Segment<span class="Mandatory">*</span></label>
                                 <select id="txtIndustrySegment" class="form-control" ng-model="$ctrl.InsertCust.IndustrialSegmentID">
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.IndustrialSegmentDropDown" value={{item.IndustrialSegmentID}}>{{item.IndustrialSegment}}</option>
@@ -642,7 +642,7 @@
 
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Plan to Purchase Within<span class="Mandatory">*</span></label>
+                                <label>Plan to Purchase Within<span class="Mandatory">*</span></label>
                                 <select id="purchaseddl" class="form-control leader-create-dropdown" ng-model="$ctrl.InsertLead.PurchaseTimelineID">
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.PurchaseTimlinedd" value={{item.PurchaseTimelineID}}>{{item.Title}}</option>
@@ -652,7 +652,7 @@
 
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label for="" class="form-label">Channel<span class="Mandatory">*</span></label>
+                                <label for="">Channel<span class="Mandatory">*</span></label>
                                 <select id="txtChannel" name="txtChannel" ng-model="$ctrl.InsertLead.ChannelID" class="form-control leader-create-dropdown" ng-change="$ctrl.LeadSource();" tabindex="2">
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.ChannelDD" value="{{item.ID}}">{{item.Channel}}</option>
@@ -662,7 +662,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Category<span class="Mandatory">*</span></label>
+                                <label>Category<span class="Mandatory">*</span></label>
                                 <select id="txtCategory" name="Category" ng-model="$ctrl.InsertLead.CategoryID" class="form-control leader-create-dropdown" tabindex="2" required>
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.CategoryDropDown" value={{item.CategoryID}}>{{item.Category}}</option>
@@ -671,7 +671,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Division<span class="Mandatory">*</span></label>
+                                <label>Division<span class="Mandatory">*</span></label>
                                 <select id="txtDivision" name="Division" ng-model="$ctrl.InsertLead.DivisionID" class="form-control leader-create-dropdown" tabindex="2" required>
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.DivisionDropDownP" value={{item.DivisionID}}>{{item.Division}}</option>
@@ -681,7 +681,7 @@
 
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Model<span class="Mandatory">*</span></label>
+                                <label>Model<span class="Mandatory">*</span></label>
                                 <select id="txtModel" name="Model" ng-model="$ctrl.InsertLead.ModelID" class="form-control leader-create-dropdown" tabindex="2" required>
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.ModelDropDown" value={{item.ModelID}}>{{item.ModelNo}}</option>
@@ -692,7 +692,7 @@
 
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label for="" class="form-label">Opportunity Source<span class="Mandatory">*</span></label>
+                                <label for="">Opportunity Source<span class="Mandatory">*</span></label>
                                 <select id="ddlleadsource" class="form-control leader-create-dropdown" name="LeadSource" ng-model="$ctrl.InsertLead.LeadSourceID" ng-change="$ctrl.LeadSourceChange();">
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.LeadSourcedd" value={{item.LeadSourceID}}>{{item.LeadSource}}</option>
@@ -702,7 +702,7 @@
                         <!--<div id="Campaignfield" style="display:none;">
         <div class="col-lg-3 col-md-3">
             <div class="form-group">
-                <label for="quantity" class="form-label">Campaign</label>
+                <label for="quantity">Campaign</label>
                 <select id="ddlcampaign" class="form-control leader-create-dropdown" ng-model="$ctrl.InsertLead.CampaignID" style="width:100%;">
                     <option value="">Select</option>
                     <option ng-repeat="item in $ctrl.Campaigndd" value={{item.CampaignID}}>{{item.CampaignName}}</option>
@@ -713,14 +713,14 @@
     <div id="UserNamefield" style="display:none;">
         <div class="col-lg-3 col-md-3">
             <div class="form-group">
-                <label for="quantity" class="form-label">UserName</label>
+                <label for="quantity">UserName</label>
                 <input type="text" name="user" id="txtUserName" class="form-control" placeholder="User Name" />
             </div>
         </div>
     </div>-->
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label class="form-label">Sales Office<span class="Mandatory">*</span></label>
+                                <label>Sales Office<span class="Mandatory">*</span></label>
                                 <select id="txtSalesoff" name="Sales" ng-model="$ctrl.InsertCust.SalesOfficeID" class="form-control leader-create-dropdown">
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.LeadSalesOfficeDropDown" value={{item.SalesOfficeID}}>{{item.SalesOffice}}</option>
@@ -730,7 +730,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label for="" class="form-label">Project Name</label>
+                                <label for="">Project Name</label>
                                 <select id="ddlprojectname" class="form-control leader-create-dropdown" name="ProjectName" ng-model="$ctrl.InsertLead.ProjectID">
                                     <option value="">Select</option>
                                     <option ng-repeat="item in $ctrl.ProjectNameDD" value={{item.ProjectID}}>{{item.ProjectName}}</option>
@@ -739,7 +739,7 @@
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label for="specify" class="form-label">Comments</label>
+                                <label for="specify">Comments</label>
                                 <textarea class="form-control" placeholder="Specify" ng-model="$ctrl.InsertLead.Comments" rows="4" id="specify"></textarea>
                             </div>
                         </div>

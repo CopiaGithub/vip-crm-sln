@@ -413,8 +413,6 @@
 
                             }
                         }));
-                        console.log(data, "data1111");
-                        //this.InsertLead.ProductID = data.;
                     }));
 
                 },
@@ -424,7 +422,7 @@
                     event.preventDefault();
                 },
                 select: function (e, ui) {
-                    that.InsertLead.CustomerID = ui.item.id;
+                    that.InsertLead.ProductID = ui.item.id;
                     that.Search(ui.item.id);
                 },
                 change: function () {
@@ -480,11 +478,12 @@
             });
         }
 
-        Product(): void {
-            this.ProductValue = this.ProductDescAutofill.FilterAutoComplete(request).then((response => {
-                this.ProductValue = this.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
-            }));
-        }
+        //Product(ProductID): void {
+        //    console.log(ProductID, "ProductID11111");
+        //    this.ProductValue = this.ProductDescAutofill.FindProduct(ProductID).then((response => {
+        //        this.ProductValue = this.ProductDescAutofill.GetProduct(response.data.Result);
+        //    }));
+        //}
 
 
         AddCustDistrict(): void {

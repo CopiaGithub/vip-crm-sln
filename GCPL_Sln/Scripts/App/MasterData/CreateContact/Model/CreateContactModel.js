@@ -32,6 +32,12 @@ var GCPL;
             return ProductAutoModel;
         }());
         Model.ProductAutoModel = ProductAutoModel;
+        var ProductModel = /** @class */ (function () {
+            function ProductModel() {
+            }
+            return ProductModel;
+        }());
+        Model.ProductModel = ProductModel;
         var CustomersapAutoModel = /** @class */ (function () {
             function CustomersapAutoModel() {
             }

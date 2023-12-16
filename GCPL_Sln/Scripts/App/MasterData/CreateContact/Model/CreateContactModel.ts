@@ -65,6 +65,12 @@
         Product: string;
         ProductDesc: string;
     }
+    export class ProductModel {
+        constructor() {
+        }
+        ProductID: number;
+        Product: string;
+    }
     export class CustomersapAutoModel {
         constructor() {
         }
