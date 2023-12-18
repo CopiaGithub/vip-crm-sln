@@ -256,6 +256,42 @@ namespace GCPL.Service {
 }
 
 
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IInsertItemDetailsService {
+        PostItem(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+    }
+    export class InsertItemDetailsService extends GCPL.Service.BaseService implements IInsertItemDetailsService {
+
+
+        private apiUrl: string = "";
+        private Cookie: any = null;
+        static $inject = ["$http", "$q", "$cookieStore"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService, private _cookieStore: any) {
+            super($http, $q);
+
+
+            this.apiUrl = `${this.url}/${"InsertItemDetails"}`;
+            this.Cookie = _cookieStore;
+        }
+        Find(): ng.IPromise<Utility.Ajax.IResponse> {
+
+            return this.ajaXUtility.Get({ Url: this.apiUrl });
+
+        }
+        PostItem(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+            let url = this.apiUrl;
+            // console.log(url);
+            return this.ajaXUtility.Post({ Url: url, data: data });
+        }
+    }
+
+    app.AddService("InsertItemDetailsService", InsertItemDetailsService);
+}
+
+
 //Insert
 namespace GCPL.Service {
     import app = GCPL.app;

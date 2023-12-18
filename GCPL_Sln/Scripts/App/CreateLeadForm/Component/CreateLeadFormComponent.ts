@@ -154,6 +154,7 @@
         private RegionService: Service.IRegionddService;
         private CampaignDDService: Service.ICampaignDetailsService;
         private InsertService: Service.IInsertLeadDetailsService;
+        private InsertItemService: Service.IInsertItemDetailsService;
         private PurchaseTimlineDDService: Service.IPurchaseTimelineService;
         private LeadCategoryService: Service.ILeadCategoryDDService;
         private CustomerSapAutofill: Service.ICustomerSapIdAutoFillService;
@@ -173,9 +174,9 @@
         private LeadCategotyWPDDService: Service.ILeadCategotyWPDDService;
 
 
-        static $inject = ["CountryService", "StateDDService", "DistrictddService", "IndustrialSegmentService", "IndustryDivisionService", "SalesOfficeService","DepartmentService", "DesignationService",
-            "LeadTypeddService", "CategoryddService", "DivisionDDPService", "ProductddService", "LeadTypeProductService1", "ChannelDDService", "EmployeeAtofillService", "LeadSourceDetailsService", "ProjectNameService", "CustomerClassService","RegionddService",
-            "CampaignDetailsService", "InsertLeadDetailsService", "PurchaseTimelineService", "LeadCategoryDDService", "CustomerSapIdAutoFillService", "ProductDescAutoFillService","LeadCustomerDetailsService", "ContactInfoService",
+        static $inject = ["CountryService", "StateDDService", "DistrictddService", "IndustrialSegmentService", "IndustryDivisionService", "SalesOfficeService", "DepartmentService", "DesignationService",
+            "LeadTypeddService", "CategoryddService", "DivisionDDPService", "ProductddService", "LeadTypeProductService1", "ChannelDDService", "EmployeeAtofillService", "LeadSourceDetailsService", "ProjectNameService", "CustomerClassService", "RegionddService",
+            "CampaignDetailsService", "InsertLeadDetailsService", "InsertItemDetailsService", "PurchaseTimelineService", "LeadCategoryDDService", "CustomerSapIdAutoFillService", "ProductDescAutoFillService", "LeadCustomerDetailsService", "ContactInfoService",
             "LeadContactDetailsService", "InsertLeadCustomerService", "InsertContactService", "$cookieStore", "LeadCustomerGetDetailsService", "GetCustomerNewDetailsService", "UserCodeAutoFillService", "ShowSimilarService", "LeadCustomerGetDetails1Service", "LeadDetailsService", "LeadCategotyWPDDService"];
 
 
@@ -183,7 +184,7 @@
             _IndustryDivisionService: Service.IIndustryDivisionService, _SalesOfficeService: Service.ISalesOfficeService, _DepartmentService: Service.IDepartmentService, _DesignationService: Service.IDesignationService,
             _LeadTypeService: Service.ILeadTypeddService, _CategoryService: Service.ICategoryddService, _DivisionPService: Service.IDivisionDDPService,
             _ProductService: Service.IProductddService, _ModelService: Service.ILeadTypeProductService1, _ChannelDDService: Service.IChannelDDService, _getAutoSalesrep1: Service.IEmployeeAtofillService,
-            _LeadSourceDDService: Service.ILeadSourceDetailsService, _ProjectNameService: Service.IProjectNameService, CustClassService: Service.ICustomerClassService, _RegionService: Service.IRegionddService, _CampaignDDService: Service.ICampaignDetailsService, _InsertService: Service.IInsertLeadDetailsService,
+            _LeadSourceDDService: Service.ILeadSourceDetailsService, _ProjectNameService: Service.IProjectNameService, CustClassService: Service.ICustomerClassService, _RegionService: Service.IRegionddService, _CampaignDDService: Service.ICampaignDetailsService, _InsertService: Service.IInsertLeadDetailsService, _InsertItemService: Service.IInsertItemDetailsService,
             _PurchaseTimlineDDService: Service.IPurchaseTimelineService, _LeadCategoryService: Service.ILeadCategoryDDService, _CustomerSapAutofill: Service.ICustomerSapIdAutoFillService, _ProductDescAutofill: Service.IProductDescAutoFillService,
             _CustomerInfoService: Service.ILeadCustomerDetailsService, _ContactService: Service.IContactInfoService, _ContactInfoService: Service.ILeadContactDetailsService,
             _InsertCustomerService: Service.IInsertLeadCustomerService, _InsertContactService: Service.IInsertContactService, private _cookieStore: any, _LeadCustomerDetails: Service.ILeadCustomerGetDetailsService,
@@ -210,6 +211,7 @@
             this.RegionService = _RegionService;
             this.CampaignDDService = _CampaignDDService;
             this.InsertService = _InsertService;
+            this.InsertItemService = _InsertItemService;
             this.InsertLead = new Lead();
             this.InsertToCart = new AddToCart();
             this.PurchaseTimlineDDService = _PurchaseTimlineDDService;
@@ -347,9 +349,9 @@
                 this.ProjectNameDD = this.ProjectNameService.GetProjectNameDD(response.data.Result);
             }));
 
-             this.CustClassDropDown = this.CustClassService.Find().then((response => {
+            this.CustClassDropDown = this.CustClassService.Find().then((response => {
                 this.CustClassDropDown = this.CustClassService.GetCustomerClass(response.data.Result);
-             }));
+            }));
 
             this.RegionDropDown = this.RegionService.Find().then((response => {
                 this.RegionDropDown = this.RegionService.GetRegion(response.data.Result);
@@ -478,12 +480,7 @@
             });
         }
 
-        //Product(ProductID): void {
-        //    console.log(ProductID, "ProductID11111");
-        //    this.ProductValue = this.ProductDescAutofill.FindProduct(ProductID).then((response => {
-        //        this.ProductValue = this.ProductDescAutofill.GetProduct(response.data.Result);
-        //    }));
-        //}
+
 
 
         AddCustDistrict(): void {
@@ -530,9 +527,9 @@
         //}
 
         //Model(): void {
-           
+
         //   // this.InsertLead.LeadType = this.LeadTypeDropDown[0].ID;
-            
+
         //    this.ModelDropDown = this.ModelService.Find(this.InsertLead).then((response => {
         //        this.ModelDropDown = this.ModelService.GetLeadTypeProduct(response.data.Result);
         //    }));
@@ -554,6 +551,13 @@
         ItemCart(): void {
             debugger;
             console.log(this.InsertLead.LeadCategoryID, "this.InsertLead.LeadCategoryID");
+            this.InsertToCart = [];
+            var err = 0;
+            if (this.InsertToCart == undefined || this.TotalItemList == null) {
+
+            } else {
+                this.InsertToCart = this.TotalItemList;
+            }
 
             if (this.InsertCust.SalesOfficeID == undefined || this.InsertCust.SalesOfficeID == null || this.InsertCust.SalesOfficeID == "") {
                 this.HideShow();
@@ -607,14 +611,14 @@
                 this.HideShow();
                 this.popupMessage("Please Select Channel", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
             }
-            else if (this.InsertLead.LeadSourceID == undefined || this.InsertLead.LeadSourceID == null || this.InsertLead.LeadSourceID == "") {
-                this.HideShow();
-                this.popupMessage("Please Select Opportunity Source", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-            }
+            //else if (this.InsertLead.LeadSourceID == undefined || this.InsertLead.LeadSourceID == null || this.InsertLead.LeadSourceID == "") {
+            //    this.HideShow();
+            //    this.popupMessage("Please Select Opportunity Source", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            //}
             else {
                 debugger;
-                this.InsertToCart = [];
-                var err = 0;
+                //this.InsertToCart = [];
+
                 if (err == 0) {
                     this.InsertToCart.push({
                         "SalesOfficeID": this.InsertCust.SalesOfficeID,
@@ -692,10 +696,12 @@
             }
         }
 
-       
-        Submit(): void
-        {
+
+        Submit(): void {
             debugger;
+            var flag = 0;
+            var failureCount = 0;
+            var SuccessCount = 0;
             if (this.InsertCust.CompanyName == undefined || this.InsertCust.CompanyName == null || this.InsertCust.CompanyName == "") {
                 this.HideShow();
                 this.popupMessage("Please Enter Customer Name", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
@@ -799,54 +805,86 @@
             }
 
             else {
-                debugger;
-                this.InsertLead.ContactID = $('#messageCheckbox:checked').val();
-                this.InsertLead.CustomerID = this.InsertCust.CustomerID;
-                this.InsertLead.CompanyName = this.InsertCust.CompanyName;
-                this.InsertLead.BusinessPartnerNo = this.InsertCust.BusinessPartnerNo;
-                this.InsertLead.Email = this.InsertCust.Email;
-                this.InsertLead.MobileNo = this.InsertCust.MobileNo;
-                this.InsertLead.PhoneNo = this.InsertCust.PhoneNo;
-                this.InsertLead.Pincode = this.InsertCust.Pincode;
-                this.InsertLead.Address1 = this.InsertCust.Address1;
-                this.InsertLead.Address2 = this.InsertCust.Address2;
-                this.InsertLead.SalesOfficeID = this.InsertCust.SalesOfficeID;
-                this.InsertLead.CountryID = '95';
-                this.InsertLead.StateID = this.InsertCust.StateID;
-                this.InsertLead.DistrictID = this.InsertCust.DistrictID;
-                this.InsertLead.City = this.InsertCust.City;
-                this.InsertLead.LeadStatusID = this.InsertCust.LeadStatusID;
-                this.InsertLead.IndustryDivisionID = this.InsertCust.IndustryDivisionID;
-                this.InsertLead.IndustrialSegmentID = this.InsertCust.IndustrialSegmentID;
-                this.InsertLead.CustomerRatingID = this.InsertCust.CustomerRatingID;
-                this.InsertLead.RegionID = this.InsertCust.RegionID;
-            
-    
+                if (this.TotalItemList == null || this.TotalItemList == undefined) {
+                    this.HideShow();
+                    this.popupMessage("Please add atleast one timesheet to list!", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                } else {
+                    debugger;
+                    this.InsertLead.ContactID = $('#messageCheckbox:checked').val();
+                    this.InsertLead.CustomerID = this.InsertCust.CustomerID;
+                    this.InsertLead.CompanyName = this.InsertCust.CompanyName;
+                    this.InsertLead.BusinessPartnerNo = this.InsertCust.BusinessPartnerNo;
+                    this.InsertLead.Email = this.InsertCust.Email;
+                    this.InsertLead.MobileNo = this.InsertCust.MobileNo;
+                    this.InsertLead.PhoneNo = this.InsertCust.PhoneNo;
+                    this.InsertLead.Pincode = this.InsertCust.Pincode;
+                    this.InsertLead.Address1 = this.InsertCust.Address1;
+                    this.InsertLead.Address2 = this.InsertCust.Address2;
+                    this.InsertLead.SalesOfficeID = this.InsertCust.SalesOfficeID;
+                    this.InsertLead.CountryID = '95';
+                    this.InsertLead.StateID = this.InsertCust.StateID;
+                    this.InsertLead.DistrictID = this.InsertCust.DistrictID;
+                    this.InsertLead.City = this.InsertCust.City;
+                    this.InsertLead.LeadStatusID = this.InsertCust.LeadStatusID;
+                    this.InsertLead.IndustryDivisionID = this.InsertCust.IndustryDivisionID;
+                    this.InsertLead.IndustrialSegmentID = this.InsertCust.IndustrialSegmentID;
+                    this.InsertLead.CustomerRatingID = this.InsertCust.CustomerRatingID;
+                    this.InsertLead.RegionID = this.InsertCust.RegionID;
 
-                if (this.UserID != null || this.UserID != "") {
 
-                    this.InsertLead.UserID = this.UserID;
+
+                    if (this.UserID != null || this.UserID != "") {
+
+                        this.InsertLead.UserID = this.UserID;
+                    }
+                    this.InsertService.PostLead(this.InsertLead).then((response => {
+                        if (response.data.Result == 0) {
+                            $("#errorclose").hide();
+                            $("#close").show();
+                            this.popupMessage("Lead already exists for this Customer & Model", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                        }
+                        else if (response.data.Result > 0) {
+                            debugger;
+                            console.log(response.data.Result, "Testing Lead 1111");
+                            this.InsertLead.LeadID = response.data.Result;
+                            for (var i = 0; i < this.TotalItemList.length; i++) {
+                                this.TotalItemList[i].LeadID = this.InsertLead.LeadID;
+                                this.InsertLead = this.TotalItemList[i];
+                                this.InsertItemService.PostItem(this.InsertLead).then((response => {
+                                    if (response.data == "Success") {
+                                        flag = 0;
+                                        SuccessCount++;
+
+                                    } else {
+                                        flag = 1;
+                                        failureCount++;
+
+                                    }
+
+                                    if (flag == 0) {
+                                        $("#errorclose").hide();
+                                        $("#close").show();
+                                        this.popupMessage("Successfully Inserted " + SuccessCount.toString() + " Records!", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                                    } else {
+                                        this.HideShow();
+                                        this.popupMessage("Error Occured for " + failureCount + "Records! Please Try again.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                                    }
+                                    $("#errorclose").hide();
+                                    $("#close").show();
+                                    this.popupMessage("LeadID - " + response.data.Result + " created successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                                }));
+                            }
+                        }
+                        else {
+                            this.HideShow();
+                            this.popupMessage("Oops Some Error Occured", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                        }
+
+                    }));
+
+
+
                 }
-                this.InsertService.PostLead(this.InsertLead).then((response => {
-                    if (response.data.Result == 0) {
-                        $("#errorclose").hide();
-                        $("#close").show();
-                        this.popupMessage("Lead already exists for this Customer & Model", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (response.data.Result > 0) {
-                        $("#errorclose").hide();
-                        $("#close").show();
-                        this.popupMessage("LeadID - " + response.data.Result + " created successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-                    }
-                    else {
-                        this.HideShow();
-                        this.popupMessage("Oops Some Error Occured", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-
-                }));
-
-
-
             }
         }
         SubmitCustomer(): void {
