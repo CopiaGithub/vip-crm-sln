@@ -55,7 +55,7 @@
                                     <div class="form-group">
 
                                         <label class="form-label">Opportunity Status</label>
-                                        <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.AssessmentSearch.StatusID" style="width:100%">
+                                        <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.AssessmentSearch.LeadStatusID" style="width:100%">
                                             <option value="">Select</option>
                                             <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
                                         </select>
@@ -131,7 +131,7 @@
                                             <td>{{item.WhenEntered}}</td>
                                             
                                             <td>
-                                               
+
                                                 <a href="/#!/LeadAssessment?LeadID={{item.LeadID}}" class="btn search-btn" title="LeadAssessment">Edit</a>
                                             </td>
                                         </tr>

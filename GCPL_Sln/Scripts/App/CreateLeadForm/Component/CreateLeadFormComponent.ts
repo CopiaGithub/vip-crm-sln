@@ -1134,7 +1134,7 @@
 
         Close(): void {
 
-            location.href = "#!/CreateLead";
+            location.href = "#!/LeadAssessmentList";
 
         }
 

@@ -157,10 +157,11 @@
         private LeadStageDDService: Service.ILeadStageDDService;
         private LeadStatusDDService: Service.ILeadStatusDDService;
         private UpdateLeadDataService: Service.IUpdateLeadDataService;
+        private DeleteService: Service.IDeleteItemService;
         static $inject = ["LeadStatusddService", "IndustryDivisionService", "IndustrialSegmentService", "LeadTypeddService", "LeadCategoryDDService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService", "ProductddService",
             "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "CampaignDetailsService", "ValidateReferredEmployeeService", "LeadAssessmentService", "LeadContactDetailsService", "CrtAssessmtServiceService",
             "LeadActivityListService", "LeadQueAnsService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service", "LeadOpportunity",
-            "SalesAreaService", "EditActivityList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService","$location", "$cookieStore"];
+            "SalesAreaService", "EditActivityList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "$location", "$cookieStore", "DeleteItemService"];
 
 
         //constructor define with Serivce _Name:Service.IServiceName//
@@ -169,7 +170,7 @@
             _PurchaseTimlineDDService: Service.IPurchaseTimelineService, _CategoryService: Service.ICategoryddService, _DivisionPService: Service.IDivisionDDPService, _ProductService: Service.IProductddService, _ModelService: Service.IModelDDService, _ChannelDDService: Service.IChannelDDService,
             _LeadSourceDDService: Service.ILeadSourceDetailsService, _CampaignDDService: Service.ICampaignDetailsService, _ValidReferredEmpService: Service.IValidateReferredEmployeeService, _leadassessmentService: Service.ILeadAssessmentService, _ContactInfoService: Service.ILeadContactDetailsService, _CrtAssessmtService: Service.ICrtAssessmtServiceService, _LeadActivityListService: Service.ILeadActivityListService,            _LeadQueAnsService: Service.ILeadQueAnsService, _ModeActivityService: Service.IModeActivityService, _LeadActivityStatusDDservice: Service.ILeadActivityStatusDDservice, _LeadActivityPurposeDDservice: Service.ILeadActivityPurposeDDservice, _LeadActivityLocationDDservice: Service.ILeadActivityLocationDDservice, _InsertLeadAssessment: Service.IInsertLeadActivityService,
             _InsertLeadQuestions: Service.IInsertLeadQuestionsService, _Ans1Service: Service.IQAns1Service, _Ans2Service: Service.IQAns2Service, _Ans3Service: Service.IQAns3Service, _LeadOpportunity: Service.ILeadOpportunity, _SalesAreaService: Service.ISalesAreaService, _EditActivityList: Service.IEditActivityList, _LeadReturnService: Service.ILeadReturnService, _CreateInSAPLeadActivityService: Service.ICreateInSAPLeadActivityService,
-            _SubmitService: Service.IInsertLeadToOppSAPService, _ProjectNameService: Service.IProjectNameService, _DisqualificationReasonDDService: Service.IDisqualificationReasonDDService, _LeadStageDDService: Service.ILeadStageDDService, _LeadStatusDDService: Service.ILeadStatusDDService, _UpdateLeadDataService: Service.IUpdateLeadDataService, private $location: ng.ILocationService, private _cookieStore: any) {
+            _SubmitService: Service.IInsertLeadToOppSAPService, _ProjectNameService: Service.IProjectNameService, _DisqualificationReasonDDService: Service.IDisqualificationReasonDDService, _LeadStageDDService: Service.ILeadStageDDService, _LeadStatusDDService: Service.ILeadStatusDDService, _UpdateLeadDataService: Service.IUpdateLeadDataService, private $location: ng.ILocationService, private _cookieStore: any, _deleteItem: Service.IDeleteItemService) {
 
             this.LeadStatusService = _LeadStatusService;
             this.LeadStatusService = _LeadStatusService;
@@ -213,6 +214,7 @@
             this.LeadStageDDService = _LeadStageDDService;
             this.LeadStatusDDService = _LeadStatusDDService;
             this.UpdateLeadDataService = _UpdateLeadDataService;
+            this.DeleteService = _deleteItem;
             this.LeadOpp = new LeadOpp();
             this.CrtAssessmt = new CrtAssessmt1();
             this.ReturnModel = new ReturnModel1();
@@ -648,13 +650,21 @@
 
         }
 
+        DeleteItem(ItemID): void {
+            this.DeleteService.Find(ItemID).then((response => {
+                this.DeleteService.postItemDelete(response.data.Result);
+                this.Init();
+                alert("Record deleted successfully..");
+            }));
+        }
 
-        UpdateLeadStage(): void {
+        updateleadstage(): void {
 
             this.UpdateLeadData.userID = this.UserID;
             this.UpdateLeadData.leadID = this.LeadID;
             this.UpdateLeadData.salesStage = this.AssessmentInfo.SalesStage;
             this.UpdateLeadData.status = this.AssessmentInfo.Status;
+            this.UpdateLeadData.LeadStatusId = this.AssessmentInfo.LeadStatusId;
             this.UpdateLeadData.notes = this.AssessmentInfo.Notes;
             this.UpdateLeadData.reason = "";
             this.UpdateLeadData.description = this.AssessmentInfo.Description;

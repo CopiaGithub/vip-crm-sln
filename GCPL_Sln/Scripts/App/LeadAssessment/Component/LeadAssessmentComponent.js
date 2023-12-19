@@ -18,7 +18,7 @@ var GCPL;
             var LeadToOpp = GCPL.Model.InsertSubmitModel;
             var LeadAssessmentController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function LeadAssessmentController(_LeadStatusService, _IndustryDivisionService, _IndustrialSegmentService, _LeadTypeService, _LeadCategoryService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _CampaignDDService, _ValidReferredEmpService, _leadassessmentService, _ContactInfoService, _CrtAssessmtService, _LeadActivityListService, _LeadQueAnsService, _ModeActivityService, _LeadActivityStatusDDservice, _LeadActivityPurposeDDservice, _LeadActivityLocationDDservice, _InsertLeadAssessment, _InsertLeadQuestions, _Ans1Service, _Ans2Service, _Ans3Service, _LeadOpportunity, _SalesAreaService, _EditActivityList, _LeadReturnService, _CreateInSAPLeadActivityService, _SubmitService, _ProjectNameService, _DisqualificationReasonDDService, _LeadStageDDService, _LeadStatusDDService, _UpdateLeadDataService, $location, _cookieStore) {
+                function LeadAssessmentController(_LeadStatusService, _IndustryDivisionService, _IndustrialSegmentService, _LeadTypeService, _LeadCategoryService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _CampaignDDService, _ValidReferredEmpService, _leadassessmentService, _ContactInfoService, _CrtAssessmtService, _LeadActivityListService, _LeadQueAnsService, _ModeActivityService, _LeadActivityStatusDDservice, _LeadActivityPurposeDDservice, _LeadActivityLocationDDservice, _InsertLeadAssessment, _InsertLeadQuestions, _Ans1Service, _Ans2Service, _Ans3Service, _LeadOpportunity, _SalesAreaService, _EditActivityList, _LeadReturnService, _CreateInSAPLeadActivityService, _SubmitService, _ProjectNameService, _DisqualificationReasonDDService, _LeadStageDDService, _LeadStatusDDService, _UpdateLeadDataService, $location, _cookieStore, _deleteItem) {
                     this.$location = $location;
                     this._cookieStore = _cookieStore;
                     this.LeadActivitylist = null;
@@ -116,6 +116,7 @@ var GCPL;
                     this.LeadStageDDService = _LeadStageDDService;
                     this.LeadStatusDDService = _LeadStatusDDService;
                     this.UpdateLeadDataService = _UpdateLeadDataService;
+                    this.DeleteService = _deleteItem;
                     this.LeadOpp = new LeadOpp();
                     this.CrtAssessmt = new CrtAssessmt1();
                     this.ReturnModel = new ReturnModel1();
@@ -474,12 +475,21 @@ var GCPL;
                         $("#ddlStatus").prop("disabled", false);
                     }
                 };
-                LeadAssessmentController.prototype.UpdateLeadStage = function () {
+                LeadAssessmentController.prototype.DeleteItem = function (ItemID) {
+                    var _this = this;
+                    this.DeleteService.Find(ItemID).then((function (response) {
+                        _this.DeleteService.postItemDelete(response.data.Result);
+                        _this.Init();
+                        alert("Record deleted successfully..");
+                    }));
+                };
+                LeadAssessmentController.prototype.updateleadstage = function () {
                     var _this = this;
                     this.UpdateLeadData.userID = this.UserID;
                     this.UpdateLeadData.leadID = this.LeadID;
                     this.UpdateLeadData.salesStage = this.AssessmentInfo.SalesStage;
                     this.UpdateLeadData.status = this.AssessmentInfo.Status;
+                    this.UpdateLeadData.LeadStatusId = this.AssessmentInfo.LeadStatusId;
                     this.UpdateLeadData.notes = this.AssessmentInfo.Notes;
                     this.UpdateLeadData.reason = "";
                     this.UpdateLeadData.description = this.AssessmentInfo.Description;
@@ -994,7 +1004,7 @@ var GCPL;
                 LeadAssessmentController.$inject = ["LeadStatusddService", "IndustryDivisionService", "IndustrialSegmentService", "LeadTypeddService", "LeadCategoryDDService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService", "ProductddService",
                     "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "CampaignDetailsService", "ValidateReferredEmployeeService", "LeadAssessmentService", "LeadContactDetailsService", "CrtAssessmtServiceService",
                     "LeadActivityListService", "LeadQueAnsService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service", "LeadOpportunity",
-                    "SalesAreaService", "EditActivityList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "$location", "$cookieStore"];
+                    "SalesAreaService", "EditActivityList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "$location", "$cookieStore", "DeleteItemService"];
                 return LeadAssessmentController;
             }());
             var LeadAssessmentComponentController = /** @class */ (function () {

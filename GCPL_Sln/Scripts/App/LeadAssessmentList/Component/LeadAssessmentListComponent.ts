@@ -39,20 +39,23 @@
         private ListService: Service.IAssessmentListService;
         private CustomerSapAutofill: Service.ICustomerSapIdAutoFillService;
         private LeadStatusService: Service.ILeadStatusAssessmentddService;
+        private DeleteService: Service.IDeleteLeadService;
 
 
 
-        static $inject = ["AssessmentListService", "CustomerSapIdAutoFillService", "LeadStatusAssessmentddService", "$cookieStore"];
+        static $inject = ["AssessmentListService", "CustomerSapIdAutoFillService", "LeadStatusAssessmentddService", "$cookieStore", "DeleteLeadService"];
 
 
         //constructor define with Serivce _Name:Service.IServiceName//
 
-        constructor(_ListService: Service.IAssessmentListService, _CustomerSapAutofill: Service.ICustomerSapIdAutoFillService, _LeadStatusService: Service.ILeadStatusAssessmentddService, private _cookieStore: any) {
+        constructor(_ListService: Service.IAssessmentListService, _CustomerSapAutofill: Service.ICustomerSapIdAutoFillService,
+                    _LeadStatusService: Service.ILeadStatusAssessmentddService, private _cookieStore: any, _deleteLead: Service.IDeleteLeadService) {
 
             this.ListService = _ListService;
             this.CustomerSapAutofill = _CustomerSapAutofill;
             this.LeadStatusService = _LeadStatusService;
             this.Cookie = _cookieStore;
+            this.DeleteService = _deleteLead;
             this.AssessmentSearch = Array<GCPL.Model.AssessmentSearchModel>();
             this.InsertContact = new ContactMaster();
             this.UserID = this.Cookie.get('UserInfo')['UserID'];
@@ -171,6 +174,14 @@
             this.FillGrid(this.numRecords);
             
            
+        }
+
+        DeleteLead(LeadID): void {
+            this.DeleteService.Find(LeadID).then((response => {
+                this.DeleteService.postLeadDelete(response.data.Result);
+                this.Init();
+                alert("Record deleted successfully..");
+            }));
         }
 
         FillGrid(NoOfRecords): void {

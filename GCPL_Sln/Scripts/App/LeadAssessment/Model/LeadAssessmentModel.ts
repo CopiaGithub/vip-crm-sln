@@ -185,6 +185,7 @@
         leadID: string;
         salesStage: string;
         status: string;
+        LeadStatusId: string;
         notes: string;
         reason: string;
         description: string;

@@ -1026,23 +1026,17 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                               
-                                                <td>2245</td>
-                                                <td>Test</td>
-                                                <td>1</td>
-                                                <td></td>
-                                                <!--<td>{{$ctrl.AssessmentInfo.LeadType}}</td>
-                                                <td>{{$ctrl.AssessmentInfo.CategoryID}}</td>
-                                                <td>{{$ctrl.AssessmentInfo.DivisionID}}</td>
-                                                <td>{{$ctrl.AssessmentInfo.ProductID}}</td>
-                                                <td>{{$ctrl.AssessmentInfo.ModelID}}</td>-->
+                                            <tr ng-repeat="item in $ctrl.shownItems">                  
+                                                <td>{{item.ItemID}}</td>
+                                                <td>{{item.ItemDesc}}</td>
+                                                <td>{{item.ItemQty}}</td>
+                                                <td>{{item.Status}}</td>
 
                                                 <td>
-                                                    <span class="edit-table-link" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.Edit(item.LeadID);" ><i class="fa fa-edit"  aria-hidden="true"></i></span>
+                                                    <span class="edit-table-link" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.Edit(item.ItemID);" ><i class="fa fa-edit"  aria-hidden="true"></i></span>
                                                 </td>
 
-                                                <td><a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.DeleteTarget(item.TargetID);"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                                <td><a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.DeleteItem(Item.ID);"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -1497,7 +1491,7 @@
                         <div class="col-md-3">
                             <b>Opportunity Category </b>
 
-                            <select id="txtLeadCategory" class="form-control leader-create-dropdown" ng-model="$ctrl.AssessmentInfo.LeadCategoryID" name="LeadCategory" tabindex="2">
+                            <select id="txtLeadCategory" class="form-control leader-create-dropdown" ng-model="$ctrl.AssessmentInfo.LeadCategoryID" name="LeadCategory" tabindex="1">
                                 <option value="">Select</option>
                                 <option ng-repeat="item in $ctrl.LeadCategoryDropDown" value={{item.LeadCategoryID}}>{{item.LeadCategory}}</option>
                             </select>

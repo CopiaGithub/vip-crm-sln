@@ -346,6 +346,44 @@ var GCPL;
     var Service;
     (function (Service) {
         var app = GCPL.app;
+        var DeleteItemService = /** @class */ (function (_super) {
+            __extends(DeleteItemService, _super);
+            function DeleteItemService($http, $q) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this.apiUrl = "";
+                _this.apiUrl = _this.url + "/" + "DeleteItem";
+                return _this;
+            }
+            DeleteItemService.prototype.Find = function (data) {
+                var config = {
+                    params: {
+                        ItemID: data
+                    }
+                };
+                return this.ajaXUtility.Post({
+                    Url: this.apiUrl,
+                    data: data,
+                    Config: config
+                });
+            };
+            DeleteItemService.prototype.postItemDelete = function (data) {
+                var url = this.apiUrl;
+                this.$http.post(url, data).then(function (response) {
+                });
+            };
+            DeleteItemService.$inject = ["$http", "$q"];
+            return DeleteItemService;
+        }(GCPL.Service.BaseService));
+        Service.DeleteItemService = DeleteItemService;
+        app.AddService("DeleteItemService", DeleteItemService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
         var LeadOpportunity = /** @class */ (function (_super) {
             __extends(LeadOpportunity, _super);
             function LeadOpportunity($http, $q, _cookieStore) {

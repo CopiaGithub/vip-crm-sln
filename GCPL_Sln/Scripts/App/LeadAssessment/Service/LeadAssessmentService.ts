@@ -367,6 +367,48 @@ namespace GCPL.Service {
     import app = GCPL.app;
     import model = GCPL.Model;
 
+    export interface IDeleteItemService {
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        postItemDelete(data: any): void;
+    }
+    export class DeleteItemService extends GCPL.Service.BaseService implements IDeleteItemService {
+
+        private apiUrl: string = "";
+        static $inject = ["$http", "$q"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"DeleteItem"}`;
+        }
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+
+            let config = {
+                params: {
+                    ItemID: data
+                }
+            };
+            return this.ajaXUtility.Post({
+
+                Url: this.apiUrl,
+                data,
+                Config: config
+            });
+        }
+
+        postItemDelete(data): void {
+            let url = this.apiUrl;
+            this.$http.post(url, data).then(function (response) {
+            });
+
+        }
+    }
+
+    app.AddService("DeleteItemService", DeleteItemService);
+}
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
     export interface ILeadOpportunity {
 
         PostLeadOpp(data: any): ng.IPromise<Utility.Ajax.IResponse>;
