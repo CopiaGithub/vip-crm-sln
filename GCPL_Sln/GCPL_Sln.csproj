@@ -1617,11 +1617,9 @@
     <Content Include="Scripts\App\CustomerBroadcastMaster\Template\ParentCustomerBroadcastMaster.html" />
     <Content Include="Scripts\App\DelegationMatrix\Template\_DelegationMatrix.html" />
     <Content Include="Scripts\App\DelegationMatrix\Template\_ParentDelegationMatrix.html" />
-    <Content Include="Scripts\App\DeliverySchedule\Component\DeliverySchedule.js" />
     <Content Include="Scripts\App\DeliverySchedule\Component\DeliveryScheduleComponent.js" />
     <Content Include="Scripts\App\DeliverySchedule\Controller\DeliveryScheduleController.js" />
     <Content Include="Scripts\App\DeliverySchedule\Model\DeliveryScheduleModel.js" />
-    <Content Include="Scripts\App\DeliverySchedule\Service\DeliverySchedule.js" />
     <Content Include="Scripts\App\DeliverySchedule\Service\DeliveryScheduleService.js" />
     <Content Include="Scripts\App\DeliverySchedule\Template\DeliverySchedule.html" />
     <Content Include="Scripts\App\DeliverySchedule\Template\ParentDeliverySchedule.html" />
@@ -2291,11 +2289,9 @@
     <Content Include="Scripts\App\ViewQuotation\Controller\ViewQuotationController.js.map" />
     <Content Include="Scripts\App\ViewQuotation\Model\ViewQuotationModel.js.map" />
     <Content Include="Scripts\App\ViewQuotation\Service\ViewQuotationService.js.map" />
-    <Content Include="Scripts\App\DeliverySchedule\Component\DeliverySchedule.js.map" />
     <Content Include="Scripts\App\DeliverySchedule\Component\DeliveryScheduleComponent.js.map" />
     <Content Include="Scripts\App\DeliverySchedule\Controller\DeliveryScheduleController.js.map" />
     <Content Include="Scripts\App\DeliverySchedule\Model\DeliveryScheduleModel.js.map" />
-    <Content Include="Scripts\App\DeliverySchedule\Service\DeliverySchedule.js.map" />
     <Content Include="Scripts\App\DeliverySchedule\Service\DeliveryScheduleService.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Chart.bundle.js" />

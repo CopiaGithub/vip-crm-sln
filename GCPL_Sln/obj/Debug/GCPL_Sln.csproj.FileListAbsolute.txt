@@ -1167,7 +1167,6 @@ E:\Pratima\CRM APPLICATION\CRM_Dev_Sln\GCPL_Sln\obj\Debug\GCPL_Sln.csproj.CoreCo
 E:\Pratima\CRM APPLICATION\CRM_Dev_Sln\GCPL_Sln\obj\Debug\GCPL_Sln.csproj.CopyComplete
 E:\Pratima\CRM APPLICATION\CRM_Dev_Sln\GCPL_Sln\obj\Debug\GCPL_Sln.dll
 E:\Pratima\CRM APPLICATION\CRM_Dev_Sln\GCPL_Sln\obj\Debug\GCPL_Sln.pdb
-E:\Anuja\Mapped_Projects\CRM\CRM_Updated\CRM_Dev_Sln\GCPL_Sln\obj\Debug\GCPL_Sln.csproj.AssemblyReference.cache
 E:\Anuja\Mapped_Projects\CRM\CRM_Updated\CRM_Dev_Sln\GCPL_Sln\bin\ApplicationInsights.config
 E:\Anuja\Mapped_Projects\CRM\CRM_Updated\CRM_Dev_Sln\GCPL_Sln\bin\GCPL_Sln.dll.config
 E:\Anuja\Mapped_Projects\CRM\CRM_Updated\CRM_Dev_Sln\GCPL_Sln\bin\GCPL_Sln.dll
@@ -1292,6 +1291,7 @@ E:\Anuja\Mapped_Projects\CRM\CRM_Updated\CRM_Dev_Sln\GCPL_Sln\bin\Microsoft.AI.D
 E:\Anuja\Mapped_Projects\CRM\CRM_Updated\CRM_Dev_Sln\GCPL_Sln\bin\Microsoft.AI.WindowsServer.xml
 E:\Anuja\Mapped_Projects\CRM\CRM_Updated\CRM_Dev_Sln\GCPL_Sln\bin\Microsoft.AI.Web.xml
 E:\Anuja\Mapped_Projects\CRM\CRM_Updated\CRM_Dev_Sln\GCPL_Sln\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+E:\Anuja\Mapped_Projects\CRM\CRM_Updated\CRM_Dev_Sln\GCPL_Sln\obj\Debug\GCPL_Sln.csproj.AssemblyReference.cache
 E:\Anuja\Mapped_Projects\CRM\CRM_Updated\CRM_Dev_Sln\GCPL_Sln\obj\Debug\GCPL_Sln.csproj.CoreCompileInputs.cache
 E:\Anuja\Mapped_Projects\CRM\CRM_Updated\CRM_Dev_Sln\GCPL_Sln\obj\Debug\GCPL_Sln.csproj.CopyComplete
 E:\Anuja\Mapped_Projects\CRM\CRM_Updated\CRM_Dev_Sln\GCPL_Sln\obj\Debug\GCPL_Sln.dll
