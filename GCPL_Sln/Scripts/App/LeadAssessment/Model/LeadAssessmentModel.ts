@@ -349,7 +349,16 @@
         Answer: string;
         LeadSource: string;
     }
-
+    export class LeadItemModel {
+        constructor() {
+        }
+        ItemID: string;
+        Status: string;
+        Quantity: string;
+        ProductID: string;
+        ProductDesc: string;
+        LeadID: string;
+    }
     export class LeadOpportunityModel {
         constructor() {
         }

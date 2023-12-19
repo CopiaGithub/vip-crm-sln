@@ -18,11 +18,12 @@ var GCPL;
             var LeadToOpp = GCPL.Model.InsertSubmitModel;
             var LeadAssessmentController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function LeadAssessmentController(_LeadStatusService, _IndustryDivisionService, _IndustrialSegmentService, _LeadTypeService, _LeadCategoryService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _CampaignDDService, _ValidReferredEmpService, _leadassessmentService, _ContactInfoService, _CrtAssessmtService, _LeadActivityListService, _LeadQueAnsService, _ModeActivityService, _LeadActivityStatusDDservice, _LeadActivityPurposeDDservice, _LeadActivityLocationDDservice, _InsertLeadAssessment, _InsertLeadQuestions, _Ans1Service, _Ans2Service, _Ans3Service, _LeadOpportunity, _SalesAreaService, _EditActivityList, _LeadReturnService, _CreateInSAPLeadActivityService, _SubmitService, _ProjectNameService, _DisqualificationReasonDDService, _LeadStageDDService, _LeadStatusDDService, _UpdateLeadDataService, $location, _cookieStore) {
+                function LeadAssessmentController(_LeadStatusService, _IndustryDivisionService, _IndustrialSegmentService, _LeadTypeService, _LeadCategoryService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _CampaignDDService, _ValidReferredEmpService, _leadassessmentService, _ContactInfoService, _CrtAssessmtService, _LeadActivityListService, _LeadQueAnsService, _ItemListService, _ModeActivityService, _LeadActivityStatusDDservice, _LeadActivityPurposeDDservice, _LeadActivityLocationDDservice, _InsertLeadAssessment, _InsertLeadQuestions, _Ans1Service, _Ans2Service, _Ans3Service, _LeadOpportunity, _SalesAreaService, _EditActivityList, _LeadReturnService, _CreateInSAPLeadActivityService, _SubmitService, _ProjectNameService, _DisqualificationReasonDDService, _LeadStageDDService, _LeadStatusDDService, _UpdateLeadDataService, $location, _cookieStore) {
                     this.$location = $location;
                     this._cookieStore = _cookieStore;
                     this.LeadActivitylist = null;
                     this.LeadQueAnsDetails = null;
+                    this.LeadItemList = null;
                     this.LeadAssessment = null;
                     this.toggleStatus = null;
                     this.UserID = null;
@@ -99,6 +100,7 @@ var GCPL;
                     this.CrtAssessmtService = _CrtAssessmtService;
                     this.Listservice = _LeadActivityListService;
                     this.QueAnsservice = _LeadQueAnsService;
+                    this.ItemListservice = _ItemListService;
                     this.LeadOpportunity = _LeadOpportunity;
                     this.SalesAreaService = _SalesAreaService;
                     this.ModeActivityService = _ModeActivityService;
@@ -259,6 +261,7 @@ var GCPL;
                     }));
                     this.FillGrid();
                     this.FillGrid1();
+                    this.ItemList();
                     //this.getLocation();
                 };
                 //getLocation() {
@@ -966,6 +969,23 @@ var GCPL;
                         }
                     }));
                 };
+                LeadAssessmentController.prototype.ItemList = function () {
+                    var _this = this;
+                    this.LeadItemList = this.ItemListservice.Find(this.LeadID).then((function (response) {
+                        _this.LeadItemList = _this.ItemListservice.GetLeadItemList(response.data.Result);
+                        console.log("this.LeadItemList11111111", _this.LeadItemList);
+                        for (var i = 0; i < _this.LeadItemList.length; i++) {
+                            if (_this.LeadItemList[i].Question != "" || _this.LeadItemList[i].Question != null) {
+                                console.log("this.LeadItemList", _this.LeadItemList);
+                                _this.toggleStatus = true;
+                            }
+                            else {
+                                _this.toggleStatus = false;
+                                break;
+                            }
+                        }
+                    }));
+                };
                 LeadAssessmentController.prototype.Edit = function (data) {
                     var _this = this;
                     var d = new Date();
@@ -993,7 +1013,7 @@ var GCPL;
                 };
                 LeadAssessmentController.$inject = ["LeadStatusddService", "IndustryDivisionService", "IndustrialSegmentService", "LeadTypeddService", "LeadCategoryDDService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService", "ProductddService",
                     "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "CampaignDetailsService", "ValidateReferredEmployeeService", "LeadAssessmentService", "LeadContactDetailsService", "CrtAssessmtServiceService",
-                    "LeadActivityListService", "LeadQueAnsService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service", "LeadOpportunity",
+                    "LeadActivityListService", "LeadQueAnsService", "LeadItemListService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service", "LeadOpportunity",
                     "SalesAreaService", "EditActivityList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "$location", "$cookieStore"];
                 return LeadAssessmentController;
             }());

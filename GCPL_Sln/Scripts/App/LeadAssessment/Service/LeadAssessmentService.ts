@@ -530,6 +530,63 @@ namespace GCPL.Service {
     app.AddService("LeadQueAnsService", LeadQueAnsService);
 }
 
+//Lead Item List
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface ILeadItemListService {
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        GetLeadItemList(data: any): Array<model.LeadItemModel>;
+
+    }
+    export class LeadItemListService extends GCPL.Service.BaseService implements ILeadItemListService {
+        private apiUrl: string = "";
+        private Cookie: any = null;
+        static $inject = ["$http", "$q", "$cookieStore"];
+
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService, private _cookieStore: any) {
+
+            super($http, $q);
+            this.apiUrl = `${this.url}`;
+            this.Cookie = _cookieStore;
+        }
+
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+            var url = this.apiUrl + "/ItemList";
+
+
+            let config = {
+                params: {
+                    LeadID: data
+                }
+            };
+            return this.ajaXUtility.Get({
+                Url: url,
+                Config: config
+            });
+        }
+        GetLeadItemList(data: any): Array<model.LeadItemModel> {
+            let list = Array<model.LeadItemModel>();
+
+            for (let item of data) {
+                list.push({
+                    ItemID: item.ItemID,
+                    Status: item.Status,
+                    Quantity: item.Quantity,
+                    ProductID: item.ProductID,
+                    ProductDesc: item.ProductDesc,
+                    LeadID: item.LeadID
+                });
+            }
+            return list;
+        }
+
+    }
+    app.AddService("LeadItemListService", LeadItemListService);
+}
+
+
 //Lead Mode
 namespace GCPL.Service {
     import app = GCPL.app;

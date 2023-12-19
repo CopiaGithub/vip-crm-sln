@@ -68,6 +68,12 @@ var GCPL;
             return LeadQueAnsModel;
         }());
         Model.LeadQueAnsModel = LeadQueAnsModel;
+        var LeadItemModel = /** @class */ (function () {
+            function LeadItemModel() {
+            }
+            return LeadItemModel;
+        }());
+        Model.LeadItemModel = LeadItemModel;
         var LeadOpportunityModel = /** @class */ (function () {
             function LeadOpportunityModel() {
             }
