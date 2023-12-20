@@ -8,7 +8,7 @@ var GCPL;
             var ContactMaster = GCPL.Model.InsertContactMaster;
             var LeadAssessmentListController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function LeadAssessmentListController(_ListService, _CustomerSapAutofill, _LeadStatusService, _cookieStore) {
+                function LeadAssessmentListController(_ListService, _CustomerSapAutofill, _LeadStatusService, _cookieStore, _deleteLead) {
                     this._cookieStore = _cookieStore;
                     this.numRecords = 10;
                     this.page = 0;
@@ -30,6 +30,7 @@ var GCPL;
                     this.CustomerSapAutofill = _CustomerSapAutofill;
                     this.LeadStatusService = _LeadStatusService;
                     this.Cookie = _cookieStore;
+                    this.DeleteService = _deleteLead;
                     this.AssessmentSearch = Array();
                     this.InsertContact = new ContactMaster();
                     this.UserID = this.Cookie.get('UserInfo')['UserID'];
@@ -131,6 +132,14 @@ var GCPL;
                     this.numRecords = this.NoOfRds;
                     this.FillGrid(this.numRecords);
                 };
+                LeadAssessmentListController.prototype.DeleteLead = function (LeadID) {
+                    var _this = this;
+                    this.DeleteService.Find(LeadID).then((function (response) {
+                        _this.DeleteService.postLeadDelete(response.data.Result);
+                        _this.Init();
+                        alert("Record deleted successfully..");
+                    }));
+                };
                 LeadAssessmentListController.prototype.FillGrid = function (NoOfRecords) {
                     var _this = this;
                     var that = this;
@@ -218,7 +227,7 @@ var GCPL;
                     $("#txtCustomerName").val("");
                     $("#txtLeadID").val("");
                 };
-                LeadAssessmentListController.$inject = ["AssessmentListService", "CustomerSapIdAutoFillService", "LeadStatusAssessmentddService", "$cookieStore"];
+                LeadAssessmentListController.$inject = ["AssessmentListService", "CustomerSapIdAutoFillService", "LeadStatusAssessmentddService", "$cookieStore", "DeleteLeadService"];
                 return LeadAssessmentListController;
             }());
             var LeadAssessmentListComponentController = /** @class */ (function () {

@@ -164,3 +164,45 @@ namespace GCPL.Service {
 
     app.AddService("LeadStatusAssessmentddService", LeadStatusAssessmentddService);
 }
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IDeleteLeadService {
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        postLeadDelete(data: any): void;
+    }
+    export class DeleteLeadService extends GCPL.Service.BaseService implements IDeleteLeadService {
+
+        private apiUrl: string = "";
+        static $inject = ["$http", "$q"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"DeleteLead"}`;
+        }
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+
+            let config = {
+                params: {
+                    LeadID: data
+                }
+            };
+            return this.ajaXUtility.Post({
+
+                Url: this.apiUrl,
+                data,
+                Config: config
+            });
+        }
+
+        postLeadDelete(data): void {
+            let url = this.apiUrl;
+            this.$http.post(url, data).then(function (response) {
+            });
+
+        }
+    }
+
+    app.AddService("DeleteLeadService", DeleteLeadService);
+}

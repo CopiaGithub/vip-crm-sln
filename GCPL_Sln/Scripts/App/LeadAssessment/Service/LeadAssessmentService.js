@@ -314,6 +314,38 @@ var GCPL;
     var Service;
     (function (Service) {
         var app = GCPL.app;
+        var InsertLeadItemService = /** @class */ (function (_super) {
+            __extends(InsertLeadItemService, _super);
+            function InsertLeadItemService($http, $q, _cookieStore) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this._cookieStore = _cookieStore;
+                _this.apiUrl = "";
+                _this.Cookie = null;
+                _this.apiUrl = _this.url + "/" + "CreateLeadItem";
+                _this.Cookie = _cookieStore;
+                return _this;
+            }
+            InsertLeadItemService.prototype.Find = function () {
+                return this.ajaXUtility.Get({ Url: this.apiUrl });
+            };
+            InsertLeadItemService.prototype.PostInsertLeadItem = function (data) {
+                var url = this.apiUrl;
+                // console.log(url);
+                return this.ajaXUtility.Post({ Url: url, data: data });
+            };
+            InsertLeadItemService.$inject = ["$http", "$q", "$cookieStore"];
+            return InsertLeadItemService;
+        }(GCPL.Service.BaseService));
+        Service.InsertLeadItemService = InsertLeadItemService;
+        app.AddService("InsertLeadItemService", InsertLeadItemService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
         var InsertLeadQuestionsService = /** @class */ (function (_super) {
             __extends(InsertLeadQuestionsService, _super);
             function InsertLeadQuestionsService($http, $q, _cookieStore) {
@@ -443,6 +475,58 @@ var GCPL;
         app.AddService("LeadActivityListService", LeadActivityListService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
+//Lead Activity List
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var LeadItemListService = /** @class */ (function (_super) {
+            __extends(LeadItemListService, _super);
+            function LeadItemListService($http, $q, _cookieStore) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this._cookieStore = _cookieStore;
+                _this.apiUrl = "";
+                _this.Cookie = null;
+                _this.apiUrl = "" + _this.url;
+                _this.Cookie = _cookieStore;
+                return _this;
+            }
+            LeadItemListService.prototype.Find = function (data) {
+                var url = this.apiUrl + "/ItemList";
+                var config = {
+                    params: {
+                        // UserID: this.Cookie.get('UserInfo')['UserID'],
+                        LeadID: data
+                    }
+                };
+                return this.ajaXUtility.Get({
+                    Url: url,
+                    Config: config
+                });
+            };
+            LeadItemListService.prototype.GetLeadItemList = function (data) {
+                var list = Array();
+                for (var _i = 0, data_2 = data; _i < data_2.length; _i++) {
+                    var item = data_2[_i];
+                    list.push({
+                        LeadID: item.LeadID,
+                        ItemID: item.ItemID,
+                        ProductDesc: item.ProductDesc,
+                        Quantity: item.Quantity,
+                        Status: item.Status
+                    });
+                }
+                return list;
+            };
+            LeadItemListService.$inject = ["$http", "$q", "$cookieStore"];
+            return LeadItemListService;
+        }(GCPL.Service.BaseService));
+        Service.LeadItemListService = LeadItemListService;
+        app.AddService("LeadItemListService", LeadItemListService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
 //Lead Ques List
 (function (GCPL) {
     var Service;
@@ -476,8 +560,8 @@ var GCPL;
             };
             LeadQueAnsService.prototype.GetLeadQueAns = function (data) {
                 var list = Array();
-                for (var _i = 0, data_2 = data; _i < data_2.length; _i++) {
-                    var item = data_2[_i];
+                for (var _i = 0, data_3 = data; _i < data_3.length; _i++) {
+                    var item = data_3[_i];
                     list.push({
                         UserID: item.UserID,
                         LeadID: item.LeadID,
@@ -497,58 +581,6 @@ var GCPL;
         }(GCPL.Service.BaseService));
         Service.LeadQueAnsService = LeadQueAnsService;
         app.AddService("LeadQueAnsService", LeadQueAnsService);
-    })(Service = GCPL.Service || (GCPL.Service = {}));
-})(GCPL || (GCPL = {}));
-//Lead Item List
-(function (GCPL) {
-    var Service;
-    (function (Service) {
-        var app = GCPL.app;
-        var LeadItemListService = /** @class */ (function (_super) {
-            __extends(LeadItemListService, _super);
-            function LeadItemListService($http, $q, _cookieStore) {
-                var _this = _super.call(this, $http, $q) || this;
-                _this.$http = $http;
-                _this.$q = $q;
-                _this._cookieStore = _cookieStore;
-                _this.apiUrl = "";
-                _this.Cookie = null;
-                _this.apiUrl = "" + _this.url;
-                _this.Cookie = _cookieStore;
-                return _this;
-            }
-            LeadItemListService.prototype.Find = function (data) {
-                var url = this.apiUrl + "/ItemList";
-                var config = {
-                    params: {
-                        LeadID: data
-                    }
-                };
-                return this.ajaXUtility.Get({
-                    Url: url,
-                    Config: config
-                });
-            };
-            LeadItemListService.prototype.GetLeadItemList = function (data) {
-                var list = Array();
-                for (var _i = 0, data_3 = data; _i < data_3.length; _i++) {
-                    var item = data_3[_i];
-                    list.push({
-                        ItemID: item.ItemID,
-                        Status: item.Status,
-                        Quantity: item.Quantity,
-                        ProductID: item.ProductID,
-                        ProductDesc: item.ProductDesc,
-                        LeadID: item.LeadID
-                    });
-                }
-                return list;
-            };
-            LeadItemListService.$inject = ["$http", "$q", "$cookieStore"];
-            return LeadItemListService;
-        }(GCPL.Service.BaseService));
-        Service.LeadItemListService = LeadItemListService;
-        app.AddService("LeadItemListService", LeadItemListService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
 //Lead Mode
@@ -955,6 +987,100 @@ var GCPL;
         }(GCPL.Service.BaseService));
         Service.EditActivityList = EditActivityList;
         app.AddService("EditActivityList", EditActivityList);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var model = GCPL.Model;
+        var EditItemList = /** @class */ (function (_super) {
+            __extends(EditItemList, _super);
+            function EditItemList($http, $q) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this.apiUrl = "";
+                _this.apiUrl = _this.url + "/" + "/ItemListEdit";
+                return _this;
+            }
+            EditItemList.prototype.Find = function (data) {
+                var ItemID;
+                if (data == undefined) {
+                    ItemID = "";
+                }
+                else {
+                    ItemID = data;
+                }
+                var config = {
+                    params: {
+                        ItemID: ItemID
+                    }
+                };
+                console.log(config);
+                return this.ajaXUtility.Get({
+                    Url: this.apiUrl,
+                    Config: config
+                });
+            };
+            EditItemList.prototype.GetItemEdit = function (data) {
+                var obj = new model.LeadItemCreateModel();
+                obj.RefUserID = data.RefUserID,
+                    obj.CustomerID = data.CustomerID,
+                    obj.SalesOfficeID = data.SalesOfficeID,
+                    obj.CompanyName = data.CompanyName,
+                    obj.Email = data.Email,
+                    obj.MobileNo = data.MobileNo,
+                    obj.Address1 = data.Address1,
+                    obj.Address2 = data.Address2,
+                    obj.DistrictID = data.DistrictID,
+                    obj.City = data.City,
+                    obj.Pincode = data.Pincode,
+                    obj.ContactID = data.ContactID,
+                    obj.ContactName = data.ContactName,
+                    obj.ContactEmail = data.ContactEmail,
+                    obj.ContactMobileNo = data.ContactMobileNo,
+                    obj.ContactAddress = data.ContactAddress,
+                    obj.ContactDistrictID = data.ContactDistrictID,
+                    obj.ContactCity = data.ContactCity,
+                    obj.ContactPincode = data.ContactPincode,
+                    obj.Designation = data.Designation,
+                    obj.DepartmentID = data.DepartmentID,
+                    obj.FOPID = data.FOPID,
+                    obj.ModelID = data.ModelID,
+                    obj.PurchaseTimelineID = data.PurchaseTimelineID,
+                    obj.Comments = data.Comments,
+                    obj.UserID = data.UserID,
+                    obj.ItemID = data.ItemID,
+                    obj.PhoneNo = data.PhoneNo,
+                    obj.Fax = data.Fax,
+                    obj.ContactPhoneNo = data.ContactPhoneNo,
+                    obj.LeadCategoryID = data.LeadCategoryID,
+                    obj.BusinessPartnerNo = data.BusinessPartnerNo,
+                    obj.CampaignID = data.CampaignID,
+                    obj.LeadSourceID = data.LeadSourceID,
+                    obj.Quantity = data.Quantity,
+                    obj.SubsourceID = data.SubsourceID,
+                    obj.Subsource2ID = data.Subsource2ID,
+                    obj.LeadType = data.LeadType,
+                    obj.RefUserName = data.RefUserName,
+                    obj.ChannelID = data.ChannelID,
+                    obj.LeadID = data.LeadID,
+                    obj.IsNational = data.IsNational,
+                    obj.CountryID = data.CountryID,
+                    obj.StateID = data.StateID,
+                    obj.Area = data.Area,
+                    obj.CategoryID = data.CategoryID,
+                    obj.DivisionID = data.DivisionID,
+                    obj.ProductID = data.ProductID,
+                    obj.ProjectID = data.ProjectID;
+                return obj;
+            };
+            EditItemList.$inject = ["$http", "$q"];
+            return EditItemList;
+        }(GCPL.Service.BaseService));
+        Service.EditItemList = EditItemList;
+        app.AddService("EditItemList", EditItemList);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
 (function (GCPL) {

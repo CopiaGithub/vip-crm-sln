@@ -50,6 +50,12 @@ var GCPL;
             return Activity;
         }());
         Model.Activity = Activity;
+        var LeadItemCreateModel = /** @class */ (function () {
+            function LeadItemCreateModel() {
+            }
+            return LeadItemCreateModel;
+        }());
+        Model.LeadItemCreateModel = LeadItemCreateModel;
         var EditActivityModel = /** @class */ (function () {
             function EditActivityModel() {
             }
@@ -62,18 +68,18 @@ var GCPL;
             return LeadActivityModel;
         }());
         Model.LeadActivityModel = LeadActivityModel;
-        var LeadQueAnsModel = /** @class */ (function () {
-            function LeadQueAnsModel() {
-            }
-            return LeadQueAnsModel;
-        }());
-        Model.LeadQueAnsModel = LeadQueAnsModel;
         var LeadItemModel = /** @class */ (function () {
             function LeadItemModel() {
             }
             return LeadItemModel;
         }());
         Model.LeadItemModel = LeadItemModel;
+        var LeadQueAnsModel = /** @class */ (function () {
+            function LeadQueAnsModel() {
+            }
+            return LeadQueAnsModel;
+        }());
+        Model.LeadQueAnsModel = LeadQueAnsModel;
         var LeadOpportunityModel = /** @class */ (function () {
             function LeadOpportunityModel() {
             }

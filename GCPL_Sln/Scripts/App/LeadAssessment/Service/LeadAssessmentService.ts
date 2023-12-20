@@ -28,7 +28,7 @@
         Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
             var url = this.apiUrl + "/GetDetailsToAssessment";
             var LeadID;
-            
+
             if (data == undefined) {
                 LeadID = "";
             }
@@ -53,7 +53,7 @@
             let obj = new model.LeadAssessmentInfoModel();
 
             obj.RefUserID = data.RefUserID;
-            obj.RefUser = data.RefUser; 
+            obj.RefUser = data.RefUser;
             obj.CustomerID = data.CustomerID;
             obj.LeadStatusId = data.LeadStatusId;
             obj.SalesStage = data.SalesStage;
@@ -126,7 +126,7 @@
 
 
         FindModel(data: any): ng.IPromise<Utility.Ajax.IResponse> {
-            
+
             var url = this.apiUrl + "/GetModelProduct";
             var ModelID;
 
@@ -149,7 +149,7 @@
             });
         }
         GetModel(data: any): model.Modelno {
-            
+
             let obj = new model.Modelno();
 
             obj.ModelNo = data;
@@ -158,7 +158,7 @@
         }
 
         FindProduct(data: any): ng.IPromise<Utility.Ajax.IResponse> {
-            
+
             var url = this.apiUrl + "/GetProduct";
             var ProductID;
 
@@ -181,13 +181,16 @@
             });
         }
         GetProduct(data: any): model.Product {
-            
+
             let obj = new model.Product();
 
             obj.Product = data;
 
             return obj;
         }
+
+
+
     }
     app.AddService("LeadAssessmentService", LeadAssessmentService);
 }
@@ -298,7 +301,7 @@ namespace GCPL.Service {
     import model = GCPL.Model;
 
     export interface IInsertLeadActivityService {
- 
+
         PostInsertLeadActivity(data: any): ng.IPromise<Utility.Ajax.IResponse>;
     }
     export class InsertLeadActivityService extends GCPL.Service.BaseService implements IInsertLeadActivityService {
@@ -325,6 +328,41 @@ namespace GCPL.Service {
     }
 
     app.AddService("InsertLeadActivityService", InsertLeadActivityService);
+}
+
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IInsertLeadItemService {
+
+        PostInsertLeadItem(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+    }
+    export class InsertLeadItemService extends GCPL.Service.BaseService implements IInsertLeadItemService {
+
+        private apiUrl: string = "";
+        private Cookie: any = null;
+        static $inject = ["$http", "$q", "$cookieStore"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService, private _cookieStore: any) {
+            super($http, $q);
+
+            this.apiUrl = `${this.url}/${"CreateLeadItem"}`;
+            this.Cookie = _cookieStore;
+        }
+        Find(): ng.IPromise<Utility.Ajax.IResponse> {
+
+            return this.ajaXUtility.Get({ Url: this.apiUrl });
+
+        }
+        PostInsertLeadItem(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+            let url = this.apiUrl;
+            // console.log(url);
+            return this.ajaXUtility.Post({ Url: url, data: data });
+        }
+    }
+
+    app.AddService("InsertLeadItemService", InsertLeadItemService);
 }
 namespace GCPL.Service {
     import app = GCPL.app;
@@ -419,8 +457,8 @@ namespace GCPL.Service {
 
         Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
             var url = this.apiUrl + "/GetLeadActivityList";
-            
-            
+
+
             let config = {
                 params: {
                     UserID: this.Cookie.get('UserInfo')['UserID'],
@@ -466,6 +504,63 @@ namespace GCPL.Service {
 
     }
     app.AddService("LeadActivityListService", LeadActivityListService);
+}
+
+//Lead Activity List
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface ILeadItemListService {
+
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        GetLeadItemList(data: any): Array<model.LeadItemModel>;
+
+    }
+    export class LeadItemListService extends GCPL.Service.BaseService implements ILeadItemListService {
+        private apiUrl: string = "";
+        private Cookie: any = null;
+        static $inject = ["$http", "$q", "$cookieStore"];
+
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService, private _cookieStore: any) {
+
+            super($http, $q);
+            this.apiUrl = `${this.url}`;
+            this.Cookie = _cookieStore;
+        }
+
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+            var url = this.apiUrl + "/ItemList";
+
+
+            let config = {
+                params: {
+                    // UserID: this.Cookie.get('UserInfo')['UserID'],
+                    LeadID: data
+                }
+            };
+            return this.ajaXUtility.Get({
+                Url: url,
+                Config: config
+            });
+        }
+        GetLeadItemList(data: any): Array<model.LeadItemModel> {
+            let list = Array<model.LeadItemModel>();
+
+            for (let item of data) {
+                list.push({
+                    LeadID: item.LeadID,
+                    ItemID: item.ItemID,
+                    ProductDesc: item.ProductDesc,
+                    Quantity: item.Quantity,
+                    Status: item.Status
+                });
+            }
+            return list;
+        }
+
+    }
+    app.AddService("LeadItemListService", LeadItemListService);
 }
 //Lead Ques List
 namespace GCPL.Service {
@@ -526,63 +621,6 @@ namespace GCPL.Service {
     }
     app.AddService("LeadQueAnsService", LeadQueAnsService);
 }
-
-//Lead Item List
-namespace GCPL.Service {
-    import app = GCPL.app;
-    import model = GCPL.Model;
-
-    export interface ILeadItemListService {
-        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
-        GetLeadItemList(data: any): Array<model.LeadItemModel>;
-
-    }
-    export class LeadItemListService extends GCPL.Service.BaseService implements ILeadItemListService {
-        private apiUrl: string = "";
-        private Cookie: any = null;
-        static $inject = ["$http", "$q", "$cookieStore"];
-
-        constructor(private $http: ng.IHttpService, private $q: ng.IQService, private _cookieStore: any) {
-
-            super($http, $q);
-            this.apiUrl = `${this.url}`;
-            this.Cookie = _cookieStore;
-        }
-
-        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
-            var url = this.apiUrl + "/ItemList";
-
-
-            let config = {
-                params: {
-                    LeadID: data
-                }
-            };
-            return this.ajaXUtility.Get({
-                Url: url,
-                Config: config
-            });
-        }
-        GetLeadItemList(data: any): Array<model.LeadItemModel> {
-            let list = Array<model.LeadItemModel>();
-
-            for (let item of data) {
-                list.push({
-                    ItemID: item.ItemID,
-                    Status: item.Status,
-                    Quantity: item.Quantity,
-                    ProductID: item.ProductID,
-                    ProductDesc: item.ProductDesc,
-                    LeadID: item.LeadID
-                });
-            }
-            return list;
-        }
-
-    }
-    app.AddService("LeadItemListService", LeadItemListService);
-}
-
 
 //Lead Mode
 namespace GCPL.Service {
@@ -965,7 +1003,7 @@ namespace GCPL.Service {
         }
         Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
             var ActivityNumber;
-            
+
             if (data == undefined) {
                 ActivityNumber = "";
             }
@@ -987,34 +1025,34 @@ namespace GCPL.Service {
             );
         }
         GetEdit(data: any): model.EditActivityModel {
-            
+
             let obj = new model.EditActivityModel();
 
-            
-               // obj.ActivityNumber = data.ActivityNumber
-               // obj.CustomerID = data.CustomerID,
-               // obj.CompanyName = data.CompanyName,
-               // obj.CustomerSAPID = data.CustomerSAPID,
-               // obj.ContactID = data.ContactID,
-               // obj.ContactName = data.ContactName
-               // obj.ContactSAPID = data.ContactSAPID,
-               // obj.note = data.Note,
-               // obj.ActivityID = data.ActivityID,
-               // obj.ActivityName = data.ActivityName,
-               // obj.ActivityDate = data.ActivityDate,
-               // obj.ActivityStatus = data.Status,
-               // obj.IsActive = data.IsActive,
-               // obj.purid = data.Purpose,
-               // obj.cate = data.Mode,
-               // obj.loc = data.Location,
-               // obj.ReferenceType = data.ReferenceType,
-               // obj.ReferenceLead = data.ReferenceLead,
-               // obj.ReferenceOpportunity = data.ReferenceOpportunity,
-               // obj.date = data.StartDate,
-               //obj.EndDate = data.EndDate
 
-                obj.ActivityNumber = data.ActivityNumber
-                obj.CustomerID = data.CustomerID,
+            // obj.ActivityNumber = data.ActivityNumber
+            // obj.CustomerID = data.CustomerID,
+            // obj.CompanyName = data.CompanyName,
+            // obj.CustomerSAPID = data.CustomerSAPID,
+            // obj.ContactID = data.ContactID,
+            // obj.ContactName = data.ContactName
+            // obj.ContactSAPID = data.ContactSAPID,
+            // obj.note = data.Note,
+            // obj.ActivityID = data.ActivityID,
+            // obj.ActivityName = data.ActivityName,
+            // obj.ActivityDate = data.ActivityDate,
+            // obj.ActivityStatus = data.Status,
+            // obj.IsActive = data.IsActive,
+            // obj.purid = data.Purpose,
+            // obj.cate = data.Mode,
+            // obj.loc = data.Location,
+            // obj.ReferenceType = data.ReferenceType,
+            // obj.ReferenceLead = data.ReferenceLead,
+            // obj.ReferenceOpportunity = data.ReferenceOpportunity,
+            // obj.date = data.StartDate,
+            //obj.EndDate = data.EndDate
+
+            obj.ActivityNumber = data.ActivityNumber
+            obj.CustomerID = data.CustomerID,
                 obj.CompanyName = data.CompanyName,
                 obj.CustomerSAPID = data.CustomerSAPID,
                 obj.ContactID = data.ContactID,
@@ -1034,11 +1072,110 @@ namespace GCPL.Service {
                 obj.ReferenceOpportunity = data.ReferenceOpportunity,
                 obj.date = data.StartDate,
                 obj.EndDate = data.EndDate
-          
+
             return obj;
         }
     }
     app.AddService("EditActivityList", EditActivityList);
+}
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IEditItemList {
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        GetItemEdit(data: any): model.LeadItemCreateModel;
+    }
+    export class EditItemList extends GCPL.Service.BaseService implements IEditItemList {
+        private apiUrl: string = "";
+        static $inject = ["$http", "$q"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"/ItemListEdit"}`;
+        }
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+            var ItemID;
+
+            if (data == undefined) {
+                ItemID = "";
+            }
+            else {
+                ItemID = data;
+            }
+
+            let config = {
+                params: {
+                    ItemID: ItemID
+                }
+            };
+            console.log(config);
+            return this.ajaXUtility.Get({
+
+                Url: this.apiUrl,
+                Config: config
+            }
+            );
+        }
+        GetItemEdit(data: any): model.LeadItemCreateModel {
+
+            let obj = new model.LeadItemCreateModel();
+
+
+            obj.RefUserID = data.RefUserID,
+                obj.CustomerID = data.CustomerID,
+                obj.SalesOfficeID = data.SalesOfficeID,
+                obj.CompanyName = data.CompanyName,
+                obj.Email = data.Email,
+                obj.MobileNo = data.MobileNo,
+                obj.Address1 = data.Address1,
+                obj.Address2 = data.Address2,
+                obj.DistrictID = data.DistrictID,
+                obj.City = data.City,
+                obj.Pincode = data.Pincode,
+                obj.ContactID = data.ContactID,
+                obj.ContactName = data.ContactName,
+                obj.ContactEmail = data.ContactEmail,
+                obj.ContactMobileNo = data.ContactMobileNo,
+                obj.ContactAddress = data.ContactAddress,
+                obj.ContactDistrictID = data.ContactDistrictID,
+                obj.ContactCity = data.ContactCity,
+                obj.ContactPincode = data.ContactPincode,
+                obj.Designation = data.Designation,
+                obj.DepartmentID = data.DepartmentID,
+                obj.FOPID = data.FOPID,
+                obj.ModelID = data.ModelID,
+                obj.PurchaseTimelineID = data.PurchaseTimelineID,
+                obj.Comments = data.Comments,
+                obj.UserID = data.UserID,
+                obj.ItemID = data.ItemID,
+                obj.PhoneNo = data.PhoneNo,
+                obj.Fax = data.Fax,
+                obj.ContactPhoneNo = data.ContactPhoneNo,
+                obj.LeadCategoryID = data.LeadCategoryID,
+                obj.BusinessPartnerNo = data.BusinessPartnerNo,
+                obj.CampaignID = data.CampaignID,
+                obj.LeadSourceID = data.LeadSourceID,
+                obj.Quantity = data.Quantity,
+                obj.SubsourceID = data.SubsourceID,
+                obj.Subsource2ID = data.Subsource2ID,
+                obj.LeadType = data.LeadType,
+                obj.RefUserName = data.RefUserName,
+                obj.ChannelID = data.ChannelID,
+                obj.LeadID = data.LeadID,
+                obj.IsNational = data.IsNational,
+                obj.CountryID = data.CountryID,
+                obj.StateID = data.StateID,
+                obj.Area = data.Area,
+                obj.CategoryID = data.CategoryID,
+                obj.DivisionID = data.DivisionID,
+                obj.ProductID = data.ProductID,
+                obj.ProjectID = data.ProjectID
+
+            return obj;
+        }
+    }
+    app.AddService("EditItemList", EditItemList);
 }
 
 namespace GCPL.Service {
@@ -1180,7 +1317,7 @@ namespace GCPL.Service {
 
 
         Find(): ng.IPromise<Utility.Ajax.IResponse> {
-            
+
             let config = {
                 params: {
 

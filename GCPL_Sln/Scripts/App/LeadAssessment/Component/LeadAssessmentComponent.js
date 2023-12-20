@@ -18,12 +18,12 @@ var GCPL;
             var LeadToOpp = GCPL.Model.InsertSubmitModel;
             var LeadAssessmentController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function LeadAssessmentController(_LeadStatusService, _IndustryDivisionService, _IndustrialSegmentService, _LeadTypeService, _LeadCategoryService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _CampaignDDService, _ValidReferredEmpService, _leadassessmentService, _ContactInfoService, _CrtAssessmtService, _LeadActivityListService, _LeadQueAnsService, _ItemListService, _ModeActivityService, _LeadActivityStatusDDservice, _LeadActivityPurposeDDservice, _LeadActivityLocationDDservice, _InsertLeadAssessment, _InsertLeadQuestions, _Ans1Service, _Ans2Service, _Ans3Service, _LeadOpportunity, _SalesAreaService, _EditActivityList, _LeadReturnService, _CreateInSAPLeadActivityService, _SubmitService, _ProjectNameService, _DisqualificationReasonDDService, _LeadStageDDService, _LeadStatusDDService, _UpdateLeadDataService, $location, _cookieStore) {
+                function LeadAssessmentController(_LeadStatusService, _IndustryDivisionService, _IndustrialSegmentService, _LeadTypeService, _LeadCategoryService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _CampaignDDService, _ValidReferredEmpService, _leadassessmentService, _ContactInfoService, _CrtAssessmtService, _LeadActivityListService, _LeadItemListService, _LeadQueAnsService, _ModeActivityService, _LeadActivityStatusDDservice, _LeadActivityPurposeDDservice, _LeadActivityLocationDDservice, _InsertLeadAssessment, _InsertItemAssessment, _InsertLeadQuestions, _Ans1Service, _Ans2Service, _Ans3Service, _LeadOpportunity, _SalesAreaService, _SalesOfficeService, _EditActivityList, _EditItemList, _LeadReturnService, _CreateInSAPLeadActivityService, _SubmitService, _ProjectNameService, _DisqualificationReasonDDService, _LeadStageDDService, _LeadStatusDDService, _UpdateLeadDataService, $location, _cookieStore) {
                     this.$location = $location;
                     this._cookieStore = _cookieStore;
                     this.LeadActivitylist = null;
+                    this.LeadItemlist = null;
                     this.LeadQueAnsDetails = null;
-                    this.LeadItemList = null;
                     this.LeadAssessment = null;
                     this.toggleStatus = null;
                     this.UserID = null;
@@ -33,6 +33,7 @@ var GCPL;
                     this.LeadOpp = null;
                     this.EditTarget = null;
                     this.LeadStatusDropDown = null;
+                    this.LeadSalesOfficeDropDown = null;
                     this.IndustryDivisionDropDown = null;
                     this.IndustrialSegmentDropDown = null;
                     this.LeadTypeDropDown = null;
@@ -66,6 +67,7 @@ var GCPL;
                     this.SearchUser = null;
                     this.alert = null;
                     this.InsertAct = null;
+                    this.InsertItem = null;
                     this.SubmitData = null;
                     this.Cookie = null;
                     this.ProjectNameDD = null;
@@ -81,6 +83,7 @@ var GCPL;
                     this.CreateInSAPLeadActivityService = _CreateInSAPLeadActivityService;
                     this.IndustryDivisionService = _IndustryDivisionService;
                     this.IndustrialSegmentService = _IndustrialSegmentService;
+                    this.SalesOfficeService = _SalesOfficeService;
                     this.LeadTypeService = _LeadTypeService;
                     this.LeadCategoryService = _LeadCategoryService;
                     this.PurchaseTimlineDDService = _PurchaseTimlineDDService;
@@ -99,8 +102,8 @@ var GCPL;
                     this.ProductID = $location.search().Product;
                     this.CrtAssessmtService = _CrtAssessmtService;
                     this.Listservice = _LeadActivityListService;
+                    this.ListItemservice = _LeadItemListService;
                     this.QueAnsservice = _LeadQueAnsService;
-                    this.ItemListservice = _ItemListService;
                     this.LeadOpportunity = _LeadOpportunity;
                     this.SalesAreaService = _SalesAreaService;
                     this.ModeActivityService = _ModeActivityService;
@@ -108,6 +111,7 @@ var GCPL;
                     this.LeadActivityPurposeDDservice = _LeadActivityPurposeDDservice;
                     this.LeadActivityLocationDDservice = _LeadActivityLocationDDservice;
                     this.InsertLeadAssessment = _InsertLeadAssessment;
+                    this.InsertItemAssessment = _InsertItemAssessment;
                     this.InsertLeadQuestions = _InsertLeadQuestions;
                     this.Ans1Service = _Ans1Service;
                     this.Ans2Service = _Ans2Service;
@@ -124,6 +128,7 @@ var GCPL;
                     this.InsertLeadActivity = new InsertLeadActivity1();
                     this.InsertAct = new Activity();
                     this.EditService = _EditActivityList;
+                    this.EditItemService = _EditItemList;
                     this.AssessmentInfo = new ViewAssessment();
                     this.ValidReferred = new ValidRefrredEmployee();
                     this.ValidReferred = new Array();
@@ -164,8 +169,9 @@ var GCPL;
                 };
                 //Page Load Define Values//
                 LeadAssessmentController.prototype.Init = function () {
-                    //this.EMAIL_REGEXP = /^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
                     var _this = this;
+                    console.log("Init_Anuja");
+                    //this.EMAIL_REGEXP = /^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
                     $("#errorclose").hide();
                     $("#txtDays").hide();
                     $("#ee-date").hide();
@@ -204,6 +210,9 @@ var GCPL;
                     }));
                     this.IndustrialSegmentDropDown = this.IndustrialSegmentService.Find().then((function (response) {
                         _this.IndustrialSegmentDropDown = _this.IndustrialSegmentService.GetIndustrialSegmentName(response.data.Result);
+                    }));
+                    this.LeadSalesOfficeDropDown = this.SalesOfficeService.Find().then((function (response) {
+                        _this.LeadSalesOfficeDropDown = _this.SalesOfficeService.GetSalesOfficeName(response.data.Result);
                     }));
                     this.LeadTypeDropDown = this.LeadTypeService.Find().then((function (response) {
                         _this.LeadTypeDropDown = _this.LeadTypeService.GetLeadTypeName(response.data.Result);
@@ -259,8 +268,8 @@ var GCPL;
                         // this.UpdateLeadData.SalesStage = this.StageDD[0].ID.toString();
                     }));
                     this.FillGrid();
+                    this.FillGridItems();
                     this.FillGrid1();
-                    this.ItemList();
                     //this.getLocation();
                 };
                 //getLocation() {
@@ -335,6 +344,7 @@ var GCPL;
                     var _this = this;
                     this.LeadAssessmentService.Find(data).then((function (response) {
                         _this.AssessmentInfo = _this.LeadAssessmentService.GetLeadAssessment(response.data.Result);
+                        console.log(_this.AssessmentInfo, "AssessmentInfo11111");
                         _this.AssessmentInfo.CategoryID = _this.AssessmentInfo.CategoryID;
                         _this.AssessmentInfo.ProjectID = _this.AssessmentInfo.ProjectID;
                         _this.Division(_this.AssessmentInfo.CategoryID);
@@ -814,6 +824,83 @@ var GCPL;
                         }));
                     }
                 };
+                LeadAssessmentController.prototype.SubmitItem = function () {
+                    var _this = this;
+                    // $("#ass-btn-loader1").show();
+                    debugger;
+                    console.log("OP", this.InsertItem);
+                    if (this.InsertItem.LeadType == undefined || this.InsertItem.LeadType == null || this.InsertItem.LeadType == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Opportunity Type", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.LeadCategoryID == undefined && this.InsertItem.LeadCategoryID == null && this.InsertItem.LeadCategoryID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Opportunity Category", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.PurchaseTimelineID == undefined || this.InsertItem.PurchaseTimelineID == null || this.InsertItem.PurchaseTimelineID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Plan to Purchase Within", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.Quantity == undefined && this.InsertItem.Quantity == null && this.InsertItem.Quantity == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Quantity", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.CategoryID == undefined || this.InsertItem.CategoryID == null || this.InsertItem.CategoryID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Category", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.DivisionID == undefined || this.InsertItem.DivisionID == null || this.InsertItem.DivisionID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Division", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.ProductID == undefined || this.InsertItem.ProductID == null || this.InsertItem.ProductID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Product", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.ModelID == undefined || this.InsertItem.ModelID == null || this.InsertItem.ModelID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Model", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.ChannelID == undefined || this.InsertItem.ChannelID == null || this.InsertItem.ChannelID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Channel", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.LeadSourceID == undefined || this.InsertItem.LeadSourceID == null || this.InsertItem.LeadSourceID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Opportunity Source", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else {
+                        debugger;
+                        $("#Item-submit").prop("disabled", true);
+                        if (this.InsertItem.ItemID == undefined || this.InsertItem.ItemID == null || this.InsertItem.ItemID == "") {
+                            this.InsertItem.Operation = "Create";
+                        }
+                        else {
+                            this.InsertItem.Operation = "Update";
+                        }
+                        debugger;
+                        console.log("OP", this.InsertItem);
+                        //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
+                        this.InsertItemAssessment.PostItem(this.InsertItem).then((function (response) {
+                            debugger;
+                            if (response.data.Result != null) {
+                                //   $("#myAlert").modal("show");
+                                //  $("#act-btn-loader").hide(); 
+                                _this.HideShow();
+                                _this.popupMessage("Item created Successfully .", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                                //$("#myModalAddNew").hide();
+                                $('#myModalAdd').click();
+                                _this.FillGridItems();
+                            }
+                            else {
+                                // $("#ass-btn-loader1").hide();
+                                //  $("#myAlert").modal("show");
+                                _this.HideShow();
+                                _this.popupMessage("Item Creation failed", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                            }
+                        }));
+                    }
+                };
                 LeadAssessmentController.prototype.SubmitQuestions = function () {
                     var _this = this;
                     // $("#ass-btn-loader1").show();
@@ -950,6 +1037,12 @@ var GCPL;
                         }
                     }));
                 };
+                LeadAssessmentController.prototype.FillGridItems = function () {
+                    var _this = this;
+                    this.LeadItemlist = this.ListItemservice.Find(this.LeadID).then((function (response) {
+                        _this.LeadItemlist = _this.ListItemservice.GetLeadItemList(response.data.Result);
+                    }));
+                };
                 LeadAssessmentController.prototype.FillGrid1 = function () {
                     var _this = this;
                     this.LeadQueAnsDetails = this.QueAnsservice.Find(this.LeadID).then((function (response) {
@@ -958,22 +1051,6 @@ var GCPL;
                         for (var i = 0; i < _this.LeadQueAnsDetails.length; i++) {
                             if (_this.LeadQueAnsDetails[i].Question != "" || _this.LeadQueAnsDetails[i].Question != null) {
                                 console.log("this.LeadQueAnsDetails", _this.LeadQueAnsDetails);
-                                _this.toggleStatus = true;
-                            }
-                            else {
-                                _this.toggleStatus = false;
-                                break;
-                            }
-                        }
-                    }));
-                };
-                LeadAssessmentController.prototype.ItemList = function () {
-                    var _this = this;
-                    this.LeadItemList = this.ItemListservice.Find(this.LeadID).then((function (response) {
-                        _this.LeadItemList = _this.ItemListservice.GetLeadItemList(response.data.Result);
-                        for (var i = 0; i < _this.LeadItemList.length; i++) {
-                            if (_this.LeadItemList[i].Question != "" || _this.LeadItemList[i].Question != null) {
-                                console.log("this.LeadItemList", _this.LeadItemList);
                                 _this.toggleStatus = true;
                             }
                             else {
@@ -1008,10 +1085,36 @@ var GCPL;
                         $("myModalAddNew").show();
                     }));
                 };
+                LeadAssessmentController.prototype.EditItem = function (data) {
+                    var _this = this;
+                    console.log(data);
+                    //var d = new Date();
+                    //var c = new Date($("#date").val());
+                    //if (c > d) {
+                    //    $("#ddlStatus").prop("disabled", true);
+                    //} else {
+                    //    $("#ddlStatus").prop("disabled", false);
+                    //}
+                    this.EditItemService.Find(data).then((function (response) {
+                        _this.InsertItem = _this.EditItemService.GetItemEdit(response.data.Result);
+                        console.log(_this.InsertItem);
+                        //if (this.InsertAct.ActivityStatus = "Pending") {
+                        //    this.InsertAct.ActivityStatus = '1';
+                        //}
+                        //else if (this.InsertAct.ActivityStatus = "Rejected") {
+                        //    this.InsertAct.ActivityStatus = '2';
+                        //}
+                        //else {
+                        //    this.InsertAct.ActivityStatus = '3';
+                        //}
+                        //$('#date').val(this.InsertAct.date);
+                        $("myModalAdd").show();
+                    }));
+                };
                 LeadAssessmentController.$inject = ["LeadStatusddService", "IndustryDivisionService", "IndustrialSegmentService", "LeadTypeddService", "LeadCategoryDDService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService", "ProductddService",
                     "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "CampaignDetailsService", "ValidateReferredEmployeeService", "LeadAssessmentService", "LeadContactDetailsService", "CrtAssessmtServiceService",
-                    "LeadActivityListService", "LeadQueAnsService", "LeadItemListService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service", "LeadOpportunity",
-                    "SalesAreaService", "EditActivityList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "$location", "$cookieStore"];
+                    "LeadActivityListService", "LeadItemListService", "LeadQueAnsService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertItemDetailsService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service", "LeadOpportunity",
+                    "SalesAreaService", "SalesOfficeService", "EditActivityList", "EditItemList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "$location", "$cookieStore"];
                 return LeadAssessmentController;
             }());
             var LeadAssessmentComponentController = /** @class */ (function () {

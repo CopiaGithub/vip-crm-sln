@@ -162,4 +162,42 @@ var GCPL;
         app.AddService("LeadStatusAssessmentddService", LeadStatusAssessmentddService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var DeleteLeadService = /** @class */ (function (_super) {
+            __extends(DeleteLeadService, _super);
+            function DeleteLeadService($http, $q) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this.apiUrl = "";
+                _this.apiUrl = _this.url + "/" + "DeleteLead";
+                return _this;
+            }
+            DeleteLeadService.prototype.Find = function (data) {
+                var config = {
+                    params: {
+                        LeadID: data
+                    }
+                };
+                return this.ajaXUtility.Post({
+                    Url: this.apiUrl,
+                    data: data,
+                    Config: config
+                });
+            };
+            DeleteLeadService.prototype.postLeadDelete = function (data) {
+                var url = this.apiUrl;
+                this.$http.post(url, data).then(function (response) {
+                });
+            };
+            DeleteLeadService.$inject = ["$http", "$q"];
+            return DeleteLeadService;
+        }(GCPL.Service.BaseService));
+        Service.DeleteLeadService = DeleteLeadService;
+        app.AddService("DeleteLeadService", DeleteLeadService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
 //# sourceMappingURL=LeadAssessmentListService.js.map

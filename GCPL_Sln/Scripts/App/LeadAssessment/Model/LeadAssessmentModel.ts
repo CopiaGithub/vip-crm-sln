@@ -62,7 +62,7 @@
         //OASSID: number;
         Product: string;
         ModelNo1: string;
-        
+
     }
     export class ValidateContactListModel {
         constructor() {
@@ -196,7 +196,7 @@
 
         UserID: string;
         LeadID: string;
-       
+
     }
 
     export class InsertLeadActivity {
@@ -259,10 +259,64 @@
         reftyp: string;
         SAPID: string;
         BusinessPartnerNo: string;
-        
+
     }
 
-     export class EditActivityModel {
+    export class LeadItemCreateModel {
+        constructor() {
+        }
+        RefUserID: string;
+        CustomerID: string;
+        SalesOfficeID: string;
+        CompanyName: string;
+        Email: string;
+        MobileNo: string;
+        Address1: string;
+        Address2: string;
+        DistrictID: string;
+        City: string;
+        Pincode: string;
+        ContactID: string;
+        ContactName: string;
+        ContactEmail: string;
+        ContactMobileNo: string;
+        ContactAddress: string;
+        ContactDistrictID: string;
+        ContactCity: string;
+        ContactPincode: string;
+        Designation: string;
+        DepartmentID: string;
+        FOPID: string;
+        ModelID: string;
+        PurchaseTimelineID: string;
+        Comments: string;
+        UserID: string;
+        ItemID: string;
+        PhoneNo: string;
+        Fax: string;
+        ContactPhoneNo: string;
+        LeadCategoryID: string;
+        BusinessPartnerNo: string;
+        CampaignID: string;
+        LeadSourceID: string;
+        Quantity: string;
+        SubsourceID: string;
+        Subsource2ID: string;
+        LeadType: string;
+        RefUserName: string;
+        ChannelID: string;
+        LeadID: number;
+        IsNational: string;
+        CountryID: string;
+        StateID: string;
+        Area: string;
+        CategoryID: string;
+        DivisionID: string;
+        ProductID: string;
+        ProjectID: string;
+    }
+
+    export class EditActivityModel {
         constructor() {
         }
         //CustomerID: string;
@@ -287,27 +341,27 @@
         //EndDate: string;
         //ActivityNumber: string;
 
-         CustomerID: string;
-         CompanyName: string;
-         CustomerSAPID: string;
-         ContactID: string;
-         ContactName: string;
-         ContactSAPID: string;
-         ActivityNote: string;
-         ActivityID: string;
-         ActivityName: string;
-         ActivityDate: string;
-         ActivityStatus: string;
-         IsActive: string;
-         ActivityPurpose: string;
-         ActivityCategory: string;
-         LocationID: string;
-         ReferenceType: string;
-         ReferenceLead: string;
-         ReferenceOpportunity: string;
-         date: string;
-         EndDate: string;
-         ActivityNumber: string;
+        CustomerID: string;
+        CompanyName: string;
+        CustomerSAPID: string;
+        ContactID: string;
+        ContactName: string;
+        ContactSAPID: string;
+        ActivityNote: string;
+        ActivityID: string;
+        ActivityName: string;
+        ActivityDate: string;
+        ActivityStatus: string;
+        IsActive: string;
+        ActivityPurpose: string;
+        ActivityCategory: string;
+        LocationID: string;
+        ReferenceType: string;
+        ReferenceLead: string;
+        ReferenceOpportunity: string;
+        date: string;
+        EndDate: string;
+        ActivityNumber: string;
     }
     export class LeadActivityModel {
         constructor() {
@@ -335,7 +389,17 @@
         EndDate: string;
         ActivityNumber: string;
     }
-   
+
+    export class LeadItemModel {
+        constructor() {
+        }
+        LeadID: string;
+        ItemID: string;
+        ProductDesc: string;
+        Quantity: string;
+        Status: string;
+    }
+
     export class LeadQueAnsModel {
         constructor() {
         }
@@ -349,29 +413,20 @@
         Answer: string;
         LeadSource: string;
     }
-    export class LeadItemModel {
-        constructor() {
-        }
-        ItemID: string;
-        Status: string;
-        Quantity: string;
-        ProductID: string;
-        ProductDesc: string;
-        LeadID: string;
-    }
+
     export class LeadOpportunityModel {
         constructor() {
         }
-       
+
         UserID: string;
         LeadID: string;
-        Comnt: string; 
-        CretOpp: string; 
-        ConversionProbabilityID: string; 
-        PlatformProbabilityID: string; 
-        KeepAllocatedTimeID: string; 
+        Comnt: string;
+        CretOpp: string;
+        ConversionProbabilityID: string;
+        PlatformProbabilityID: string;
+        KeepAllocatedTimeID: string;
         Allocated: string;
-        LeadStatus: string; 
+        LeadStatus: string;
         ExpDate: string;
     }
 
@@ -415,7 +470,7 @@
         Answer: string;
     }
 
-    export class  LeadActivityPurposeModel {
+    export class LeadActivityPurposeModel {
         constructor() { }
         Description: string;
         LeadSourceID: string;

@@ -881,7 +881,7 @@ var GCPL;
                     }));
                 };
                 CreateLeadFormController.prototype.Close = function () {
-                    location.href = "#!/CreateLead";
+                    location.href = "#!/LeadAssessmentList";
                 };
                 CreateLeadFormController.$inject = ["CountryService", "StateDDService", "DistrictddService", "IndustrialSegmentService", "IndustryDivisionService", "SalesOfficeService", "DepartmentService", "DesignationService",
                     "LeadTypeddService", "CategoryddService", "DivisionDDPService", "ProductddService", "LeadTypeProductService1", "ChannelDDService", "EmployeeAtofillService", "LeadSourceDetailsService", "ProjectNameService", "CustomerClassService", "RegionddService",
