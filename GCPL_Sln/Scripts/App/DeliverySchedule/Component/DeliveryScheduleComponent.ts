@@ -2,24 +2,12 @@
 
     import app = GCPL.app;
     import Service = GCPL.Service;
-    import LeadAssess = GCPL.Model.LeadAssessmentModel;
-    import ValidRefrredEmployee = GCPL.Model.ReferredEmpModel;
-    import ViewAssessment = GCPL.Model.LeadAssessmentInfoModel;
-    import CrtAssessmt1 = GCPL.Model.CrtAssessmtModel;
-    import UpdateLeadDataM = GCPL.Model.UpdateLeadDataModel;
-    import ReturnModel1 = GCPL.Model.ReturnModel;
-    import InsertLeadActivity1 = GCPL.Model.InsertLeadActivity;
     import EditActivity = GCPL.Model.EditActivityModel;
     import LeadActivitylist = GCPL.Model.LeadActivityModel;
     import LeadQueAnsDetails = GCPL.Model.LeadQueAnsModel;
-    import Activity = GCPL.Model.Activity;
-    import SearchRefUser = GCPL.Model.SearchRefUserModel;
-    import LeadToOpp = GCPL.Model.InsertSubmitModel;
     interface IDeliveryScheduleController {
         Edit(data: any): void;
         EditTarget: Array<Model.EditActivityModel>;
-        LeadAssessment: LeadAssess;
-        AssessmentInfo: ViewAssessment;
         UserID: GCPL.Model.UserIDModel
         SalesAreaDropDown: Array<Model.SalesAreaddlModel>
         LeadActivitylist: Array<Model.LeadActivityModel>;
@@ -45,19 +33,13 @@
         Campaigndd: Array<Model.CampaignDetailsModel>
         ContactInfo: GCPL.Model.ContactDetailsListModel;
         LeadActivitySearch: GCPL.Model.LeadActivitySearchModel;
-        CrtAssessmt: CrtAssessmt1;
-        ReturnModel: ReturnModel1;
-        InsertLeadActivity: InsertLeadActivity1;
-        InsertAct: Activity;
         LeadID: any;
         ModelID: any;
         ProductID: any;
-        SubmitData: LeadToOpp;
         ProjectNameDD: Array<Model.GetProjectNameDDModel>;
         DisqualificationReasonDD: Array<Model.GetDisqualificationReasonDDModel>;
         StageDD: Array<Model.SalesStageDDModel>;
         LeadStatusDD: Array<Model.LeadStatusDDModel>;
-        UpdateLeadData: UpdateLeadDataM;
     }
 
     class DeliveryScheduleController implements IDeliveryScheduleController {
@@ -190,9 +172,9 @@
             this.ValidReferredEmpService = _ValidReferredEmpService;
             this.LeadAssessmentService = _leadassessmentService;
             this.ContactInfoService = _ContactInfoService;
-            this.LeadID = $location.search().LeadID;
-            this.ModelID = $location.search().Model;
-            this.ProductID = $location.search().Product;
+            //this.LeadID = $location.search().LeadID;
+            //this.ModelID = $location.search().Model;
+            //this.ProductID = $location.search().Product;
             this.CrtAssessmtService = _CrtAssessmtService;
             this.Listservice = _LeadActivityListService;
             this.QueAnsservice = _LeadQueAnsService;
@@ -214,21 +196,9 @@
             this.LeadStageDDService = _LeadStageDDService;
             this.LeadStatusDDService = _LeadStatusDDService;
             this.UpdateLeadDataService = _UpdateLeadDataService;
-            this.CrtAssessmt = new CrtAssessmt1();
-            this.ReturnModel = new ReturnModel1();
-            this.InsertLeadActivity = new InsertLeadActivity1();
-            this.InsertAct = new Activity();
             this.EditService = _EditActivityList;
-            this.AssessmentInfo = new ViewAssessment();
-            this.ValidReferred = new ValidRefrredEmployee();
-            this.ValidReferred = new Array<GCPL.Model.ReferredEmpModel>();
-            this.LeadAssessment = new LeadAssess();
-            this.ContactInfo = new Array<GCPL.Model.ValidateContactListModel>();
-            this.SearchUser = new SearchRefUser();
-            this.SubmitData = new LeadToOpp();
-            this.UpdateLeadData = new UpdateLeadDataM();
-            this.Cookie = _cookieStore;
-            this.UserID = this.Cookie.get('UserInfo')['UserID'];
+            //this.Cookie = _cookieStore;
+            //this.UserID = this.Cookie.get('UserInfo')['UserID'];
         }
 
         $onInit() {
@@ -268,7 +238,6 @@
         //Page Load Define Values//
         Init(): void {
             
-            console.log("Init_Anuja111111111");
             //this.EMAIL_REGEXP = /^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 
             $("#errorclose").hide();
@@ -587,6 +556,10 @@
                 $("#Campaignfield").hide();
                 $("#UserNamefield").show();
             }
+        }
+
+        AddNew(): void {
+            console.log("del Schedule page");
         }
 
         Add(): void {

@@ -272,7 +272,6 @@
         //Page Load Define Values//
         Init(): void {
             
-            console.log("Init_Anuja");
             //this.EMAIL_REGEXP = /^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 
             $("#errorclose").hide();
@@ -497,7 +496,6 @@
 
                 this.AssessmentInfo = this.LeadAssessmentService.GetLeadAssessment(response.data.Result);
                 
-                console.log(this.AssessmentInfo, "AssessmentInfo11111");
                 this.AssessmentInfo.CategoryID = this.AssessmentInfo.CategoryID;
                 this.AssessmentInfo.ProjectID = this.AssessmentInfo.ProjectID;
                 this.Division(this.AssessmentInfo.CategoryID);
@@ -1217,7 +1215,6 @@
         ItemList(): void {
             this.LeadItemList = this.ItemListservice.Find(this.LeadID).then((response => {
                 this.LeadItemList = this.ItemListservice.GetLeadItemList(response.data.Result);
-                console.log("this.LeadItemList11111111", this.LeadItemList);
                 for (var i = 0; i < this.LeadItemList.length; i++) {
                     if (this.LeadItemList[i].Question != "" || this.LeadItemList[i].Question != null) {
                         console.log("this.LeadItemList", this.LeadItemList);

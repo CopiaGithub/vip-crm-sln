@@ -5,16 +5,6 @@ var GCPL;
         var Home;
         (function (Home) {
             var app = GCPL.app;
-            var LeadAssess = GCPL.Model.LeadAssessmentModel;
-            var ValidRefrredEmployee = GCPL.Model.ReferredEmpModel;
-            var ViewAssessment = GCPL.Model.LeadAssessmentInfoModel;
-            var CrtAssessmt1 = GCPL.Model.CrtAssessmtModel;
-            var UpdateLeadDataM = GCPL.Model.UpdateLeadDataModel;
-            var ReturnModel1 = GCPL.Model.ReturnModel;
-            var InsertLeadActivity1 = GCPL.Model.InsertLeadActivity;
-            var Activity = GCPL.Model.Activity;
-            var SearchRefUser = GCPL.Model.SearchRefUserModel;
-            var LeadToOpp = GCPL.Model.InsertSubmitModel;
             var DeliveryScheduleController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
                 function DeliveryScheduleController(_LeadStatusService, _IndustryDivisionService, _IndustrialSegmentService, _LeadTypeService, _LeadCategoryService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _CampaignDDService, _ValidReferredEmpService, _leadassessmentService, _ContactInfoService, _CrtAssessmtService, _LeadActivityListService, _LeadQueAnsService, _ItemListService, _ModeActivityService, _LeadActivityStatusDDservice, _LeadActivityPurposeDDservice, _LeadActivityLocationDDservice, _InsertLeadAssessment, _InsertLeadQuestions, _Ans1Service, _Ans2Service, _Ans3Service, _LeadOpportunity, _SalesAreaService, _EditActivityList, _LeadReturnService, _CreateInSAPLeadActivityService, _SubmitService, _ProjectNameService, _DisqualificationReasonDDService, _LeadStageDDService, _LeadStatusDDService, _UpdateLeadDataService, $location, _cookieStore) {
@@ -92,9 +82,9 @@ var GCPL;
                     this.ValidReferredEmpService = _ValidReferredEmpService;
                     this.LeadAssessmentService = _leadassessmentService;
                     this.ContactInfoService = _ContactInfoService;
-                    this.LeadID = $location.search().LeadID;
-                    this.ModelID = $location.search().Model;
-                    this.ProductID = $location.search().Product;
+                    //this.LeadID = $location.search().LeadID;
+                    //this.ModelID = $location.search().Model;
+                    //this.ProductID = $location.search().Product;
                     this.CrtAssessmtService = _CrtAssessmtService;
                     this.Listservice = _LeadActivityListService;
                     this.QueAnsservice = _LeadQueAnsService;
@@ -116,21 +106,9 @@ var GCPL;
                     this.LeadStageDDService = _LeadStageDDService;
                     this.LeadStatusDDService = _LeadStatusDDService;
                     this.UpdateLeadDataService = _UpdateLeadDataService;
-                    this.CrtAssessmt = new CrtAssessmt1();
-                    this.ReturnModel = new ReturnModel1();
-                    this.InsertLeadActivity = new InsertLeadActivity1();
-                    this.InsertAct = new Activity();
                     this.EditService = _EditActivityList;
-                    this.AssessmentInfo = new ViewAssessment();
-                    this.ValidReferred = new ValidRefrredEmployee();
-                    this.ValidReferred = new Array();
-                    this.LeadAssessment = new LeadAssess();
-                    this.ContactInfo = new Array();
-                    this.SearchUser = new SearchRefUser();
-                    this.SubmitData = new LeadToOpp();
-                    this.UpdateLeadData = new UpdateLeadDataM();
-                    this.Cookie = _cookieStore;
-                    this.UserID = this.Cookie.get('UserInfo')['UserID'];
+                    //this.Cookie = _cookieStore;
+                    //this.UserID = this.Cookie.get('UserInfo')['UserID'];
                 }
                 DeliveryScheduleController.prototype.$onInit = function () {
                     var date = new Date();
@@ -161,9 +139,8 @@ var GCPL;
                 };
                 //Page Load Define Values//
                 DeliveryScheduleController.prototype.Init = function () {
-                    var _this = this;
-                    console.log("Init_Anuja111111111");
                     //this.EMAIL_REGEXP = /^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+                    var _this = this;
                     $("#errorclose").hide();
                     $("#txtDays").hide();
                     $("#ee-date").hide();
@@ -417,6 +394,9 @@ var GCPL;
                         $("#Campaignfield").hide();
                         $("#UserNamefield").show();
                     }
+                };
+                DeliveryScheduleController.prototype.AddNew = function () {
+                    console.log("del Schedule page");
                 };
                 DeliveryScheduleController.prototype.Add = function () {
                     $("#activity-submit").prop("disabled", false);

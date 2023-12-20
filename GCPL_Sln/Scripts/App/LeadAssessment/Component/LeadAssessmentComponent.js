@@ -164,9 +164,8 @@ var GCPL;
                 };
                 //Page Load Define Values//
                 LeadAssessmentController.prototype.Init = function () {
-                    var _this = this;
-                    console.log("Init_Anuja");
                     //this.EMAIL_REGEXP = /^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+                    var _this = this;
                     $("#errorclose").hide();
                     $("#txtDays").hide();
                     $("#ee-date").hide();
@@ -336,7 +335,6 @@ var GCPL;
                     var _this = this;
                     this.LeadAssessmentService.Find(data).then((function (response) {
                         _this.AssessmentInfo = _this.LeadAssessmentService.GetLeadAssessment(response.data.Result);
-                        console.log(_this.AssessmentInfo, "AssessmentInfo11111");
                         _this.AssessmentInfo.CategoryID = _this.AssessmentInfo.CategoryID;
                         _this.AssessmentInfo.ProjectID = _this.AssessmentInfo.ProjectID;
                         _this.Division(_this.AssessmentInfo.CategoryID);
@@ -973,7 +971,6 @@ var GCPL;
                     var _this = this;
                     this.LeadItemList = this.ItemListservice.Find(this.LeadID).then((function (response) {
                         _this.LeadItemList = _this.ItemListservice.GetLeadItemList(response.data.Result);
-                        console.log("this.LeadItemList11111111", _this.LeadItemList);
                         for (var i = 0; i < _this.LeadItemList.length; i++) {
                             if (_this.LeadItemList[i].Question != "" || _this.LeadItemList[i].Question != null) {
                                 console.log("this.LeadItemList", _this.LeadItemList);
