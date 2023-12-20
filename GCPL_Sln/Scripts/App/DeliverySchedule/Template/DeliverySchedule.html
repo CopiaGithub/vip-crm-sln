@@ -25,14 +25,14 @@
 
 <ul class="accordian">
     <li>
-        <span data-toggle="collapse" data-target="#acco1" title="Contact Detail" class="acco-tab spl-tab toggle-spl-plus">Opportunity Details</span>
+        <span data-toggle="collapse" data-target="#acco1" title="Contact Detail" class="acco-tab spl-tab toggle-spl-plus">Opportunity Details  - <span>{{$ctrl.AssessmentInfo.LeadID}}</span>
         <div id="acco1" class="collapse customer-form acco-content transition">
             <div class="row">
                 <div class="col-lg-3">
                     <div class="form-group">
                         <label>Opportunity No</label>
                         <!--<div class="col-md-3" ng-class="{ 'has-error' : (userForm.txtCustomerName.$invalid && userForm.txtCustomerName.$pristine) }">-->
-                        <input type="text" id="txtSAPID" disabled="disabled" ng-model="$ctrl.InsertContact.SAPID" name="txtSAPID" class="form-control" required>
+                        <input type="text" id="txtSAPID" disabled="disabled" ng-model="$ctrl.AssessmentInfo.LeadID" name="txtSAPID" class="form-control" required>
                         <!--<p ng-show="(userForm.txtCustomerName.$invalid && !userForm.txtCustomerName.$pristine)" id="errorWOType" class="help-block" style="color:red">Customer Name is required.</p>-->
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label for="Address">Date</label>
                         <input id="hfDate" type="hidden" name="hfFromDate">
-                        <input name="txtBirDate" placeholder="DD MMM YYYY" ng-model="$ctrl.InsertContact.BirthDate" input="hfBirDate" data-intro="true" id="txtBirDate" style="width: 108%;" class="form-control" disabled="disabled">
+                        <input name="txtBirDate" placeholder="DD MMM YYYY" ng-model="$ctrl.AssessmentInfo.BirthDate" input="hfBirDate" data-intro="true" id="txtBirDate" style="width: 108%;" class="form-control" disabled="disabled">
                     </div>
                 </div>
                 <div class="col-lg-3">
@@ -53,17 +53,16 @@
                     </div>-->
                     <div class="form-group">
                         <label>Opportunity Status</label>
-                        <select name="Status" disabled="disabled" ng-model="$ctrl.InsertContact.Status" class="form-control">
+                        <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.AssessmentInfo.LeadStatusId" style="width:100%" disabled>
                             <option value="">Select</option>
-                            <option value="1"> Active</option>
-                            <option value="0">Inactive</option>
+                            <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
                         </select>
                     </div>
                 </div>
                 <!--<div class="col-lg-3">
                 <div class="form-group">
                     <label>Customer Phone No</label>
-                    <input type="text" id="txtPhoneNo" disabled="disabled" ng-model="$ctrl.InsertContact.PhoneNo" maxlength="10" name="txtPhoneNo" class="form-control" required>-->
+                    <input type="text" id="txtPhoneNo" disabled="disabled" ng-model="$ctrl.AssessmentInfo.PhoneNo" maxlength="10" name="txtPhoneNo" class="form-control" required>-->
                 <!--<p ng-show="(userForm.txtMobileNo.$invalid && !userForm.txtMobileNo.$pristine)" id="errorWOType" class="help-block" style="color:red">Mobile Number is required.</p>-->
                 <!--</div>
                 </div>-->
@@ -71,7 +70,7 @@
                     <div class="form-group">
                         <label>Customer Name</label>
                         <!--<div class="col-md-3" ng-class="{ 'has-error' : (userForm.txtContactPerson.$invalid && userForm.txtContactPerson.$pristine) }">-->
-                        <input type="text" id="txtCustomerPerson" disabled="disabled" ng-model="$ctrl.InsertContact.ContactName" name="txtContactPerson" class="form-control" placeholder="Customer Person(min 5 characters)" min="5" required>
+                        <input type="text" id="txtCustomerPerson" disabled="disabled" ng-model="$ctrl.AssessmentInfo.CompanyName" name="txtContactPerson" class="form-control" placeholder="Customer Person(min 5 characters)" min="5" required>
                         <!--<p ng-show="(userForm.txtContactPerson.$invalid && !userForm.txtContactPerson.$pristine)" id="errorWOType" class="help-block" style="color:red">Contact Person is required.</p>-->
                     </div>
                 </div>
@@ -82,7 +81,7 @@
                     <div class="form-group">
                         <label>Contact Name</label>
                         <!--<div class="col-md-3" ng-class="{ 'has-error' : (userForm.txtContactPerson.$invalid && userForm.txtContactPerson.$pristine) }">-->
-                        <input type="text" id="txtContactPerson" disabled="disabled" ng-model="$ctrl.InsertContact.ContactName" name="txtContactPerson" class="form-control" placeholder="Contact Person(min 5 characters)" min="5" required>
+                        <input type="text" id="txtContactPerson" disabled="disabled" ng-model="$ctrl.AssessmentInfo.ContactName" name="txtContactPerson" class="form-control" placeholder="Contact Person(min 5 characters)" min="5" required>
                         <!--<p ng-show="(userForm.txtContactPerson.$invalid && !userForm.txtContactPerson.$pristine)" id="errorWOType" class="help-block" style="color:red">Contact Person is required.</p>-->
                     </div>
                 </div>
@@ -105,16 +104,7 @@
 
                 </div>-->
 
-                <div class="col-md-12 page-title-right-container text-right">
-                    <a href="/#!/DeliverySchedule?LeadID={{$ctrl.AssessmentInfo.LeadID}}" class="btn create-btn" style="margin-top: 5px; margin-right: 10px;">Delivery Schedule</a>
-
-                    <!--<a href="/#!/DeliverySchedule?LeadID={{$ctrl.AssessmentInfo.LeadID}}" style="margin-top: 5px; margin-right: 10px;" class="btn create-btn" ng-click="navigateToDeliverySchedule();">Delivery Schedule</a>-->
-                    <button id="#" style="margin-top:5px;" class="btn create-btn pull-right" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.AddNew();">Add New</button>
-
-                    <!--<a href="/#!/ItemDetails" ng-click="$ctrl.Add();" class="btn create-btn ">Add New</a>-->
-                    <!--<button id="#myBtnNextMetting" style="margin-top:5px;" class="btn create-btn pull-right" ng-click="$ctrl.RefreshActivityList();">Refresh</button>-->
-
-                </div>
+                
             </div>
             <br />
 
@@ -138,14 +128,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="item in $ctrl.LeadItemList">
+                                            <tr ng-repeat="item in $ctrl.LeadItemlist">
 
                                                 <td>{{item.ItemID}}</td>
                                                 <td>{{item.ProductDesc}}</td>
                                                 <td>{{item.Quantity}}</td>
                                                 <td>{{item.Status}}</td>
                                                 <td>
-                                                    <span class="edit-table-link" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.Edit(item.LeadID);"><i class="fa fa-edit" aria-hidden="true"></i></span>
+                                                    <span class="edit-table-link" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.Edit(item.ItemID);"><i class="fa fa-edit" aria-hidden="true"></i></span>
                                                 </td>
 
                                                 <td><a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.DeleteTarget(item.TargetID);"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
@@ -171,7 +161,7 @@
                 <div class="form-group">
                     <label>Delivery No.</label>-->
                 <!--<div class="col-md-3" ng-class="{ 'has-error' : (userForm.txtCustomerName.$invalid && userForm.txtCustomerName.$pristine) }">-->
-                <!--<input type="text" id="txtName" ng-model="$ctrl.InsertContact.AssistantName" name="txtName" class="form-control" required>-->
+                <!--<input type="text" id="txtName" ng-model="$ctrl.AssessmentInfo.AssistantName" name="txtName" class="form-control" required>-->
                 <!--<p ng-show="(userForm.txtCustomerName.$invalid && !userForm.txtCustomerName.$pristine)" id="errorWOType" class="help-block" style="color:red">Customer Name is required.</p>-->
                 <!--</div>
                 </div>-->
@@ -357,7 +347,7 @@
     <div class="col-lg-3">
         <div class="form-group">
             <label>Marital Status</label>
-            <select id="txtStatus" name="Marital" ng-model="$ctrl.InsertContact.MaritalStatus" class="form-control">
+            <select id="txtStatus" name="Marital" ng-model="$ctrl.AssessmentInfo.MaritalStatus" class="form-control">
                 <option value="">Select</option>
                 <option value="1">Married</option>
                 <option value="0">UnMarried</option>
@@ -368,7 +358,7 @@
         <div class="form-group">
             <label>Spouse</label>
             <!--<div class="col-md-3" ng-class="{ 'has-error' : (userForm.txtCustomerName.$invalid && userForm.txtCustomerName.$pristine) }">-->
-    <!--<input type="text" id="txtSpouse" ng-model="$ctrl.InsertContact.Spouse" name="txtSpouse" class="form-control" required>-->
+    <!--<input type="text" id="txtSpouse" ng-model="$ctrl.AssessmentInfo.Spouse" name="txtSpouse" class="form-control" required>-->
     <!--<p ng-show="(userForm.txtCustomerName.$invalid && !userForm.txtCustomerName.$pristine)" id="errorWOType" class="help-block" style="color:red">Customer Name is required.</p>-->
     <!--</div>
         </div>
@@ -377,7 +367,7 @@
                 <label for="Address">Anniversary Date</label>
 
                 <input id="hfDate" type="hidden" name="hfFromDate">
-                <input name="txtAnniverDate" placeholder="DD MMM YYYY" ng-model="$ctrl.InsertContact.AnniversaryDate" input="hfAnniverDate" data-intro="true" id="txtAnniverDate" style="width: 108%;" class="form-control">
+                <input name="txtAnniverDate" placeholder="DD MMM YYYY" ng-model="$ctrl.AssessmentInfo.AnniversaryDate" input="hfAnniverDate" data-intro="true" id="txtAnniverDate" style="width: 108%;" class="form-control">
 
             </div>
         </div>
@@ -386,7 +376,7 @@
                 <label for="Address">Spouse Birth Date</label>
 
                 <input id="hfDate" type="hidden" name="hfFromDate">
-                <input name="txtSpouBirthDate" placeholder="DD MMM YYYY" ng-model="$ctrl.InsertContact.SpouseBirthDate" input="hfSpouBirthDate" data-intro="true" id="txtSpouBirthDate" style="width: 108%;" class="form-control">
+                <input name="txtSpouBirthDate" placeholder="DD MMM YYYY" ng-model="$ctrl.AssessmentInfo.SpouseBirthDate" input="hfSpouBirthDate" data-intro="true" id="txtSpouBirthDate" style="width: 108%;" class="form-control">
 
             </div>
         </div>
@@ -395,7 +385,7 @@
         <div class="col-lg-3">
             <div class="form-group">
                 <label>Children</label>
-                <select id="txtChildren" name="Children" ng-model="$ctrl.InsertContact.Children" class="form-control">
+                <select id="txtChildren" name="Children" ng-model="$ctrl.AssessmentInfo.Children" class="form-control">
                     <option value="">Select</option>
                     <option value="0">0</option>
                     <option value="1">1</option>
@@ -414,7 +404,7 @@
         <div class="col-lg-3">
             <div class="form-group">
                 <label>Language Preference</label>
-                <select id="txtLang" name="Language" ng-model="$ctrl.InsertContact.Language" class="form-control">
+                <select id="txtLang" name="Language" ng-model="$ctrl.AssessmentInfo.Language" class="form-control">
                     <option value="">Select</option>
                     <option value="0">Hindi</option>
                     <option value="1">English</option>
@@ -436,7 +426,7 @@
         <div class="col-lg-3">
             <div class="form-group">
                 <label>Smoking Preference</label>
-                <select id="txtLang" name="Language" ng-model="$ctrl.InsertContact.SmokingPreference" class="form-control">
+                <select id="txtLang" name="Language" ng-model="$ctrl.AssessmentInfo.SmokingPreference" class="form-control">
                     <option value="">Select</option>
                     <option value="1">Smoker</option>
                     <option value="0">Non-Smoker</option>
@@ -446,7 +436,7 @@
         <div class="col-lg-3">
             <div class="form-group">
                 <label>Drinking Preference</label>
-                <select id="txtLang" name="Language" ng-model="$ctrl.InsertContact.DrinkingPreference" class="form-control">
+                <select id="txtLang" name="Language" ng-model="$ctrl.AssessmentInfo.DrinkingPreference" class="form-control">
                     <option value="">Select</option>
                     <option value="1">Drink</option>
                     <option value="0">Doesn't Drink</option>
@@ -459,7 +449,7 @@
         <div class="col-lg-3">
             <div class="form-group">
                 <label>Meal Preference</label>
-                <select id="txtLang" name="Language" ng-model="$ctrl.InsertContact.MealPreference" class="form-control">
+                <select id="txtLang" name="Language" ng-model="$ctrl.AssessmentInfo.MealPreference" class="form-control">
                     <option value="">Select</option>
                     <option value="1">Veg</option>
                     <option value="0">Non-Veg</option>
@@ -469,7 +459,7 @@
         <div class="col-lg-3">
             <div class="form-group">
                 <label for="Address">Special Comments</label>
-                <textarea rows="3" cols="30" id="txtComm" ng-model="$ctrl.InsertContact.Comments" name="txtComm" class="form-control">
+                <textarea rows="3" cols="30" id="txtComm" ng-model="$ctrl.AssessmentInfo.Comments" name="txtComm" class="form-control">
                 </textarea>
             </div>
         </div>
@@ -700,7 +690,7 @@
         <div class="modal-content " style="position: relative">
             <div class="modal-header modal-head">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title modal-head-title"> OPPORTUNITY DETAILS </h3>
+                <h3 class="modal-title modal-head-title"> OPPORTUNITY DETAILS   - <span>{{$ctrl.AssessmentInfo.LeadID}}</span></h3>
             </div>
 
             <div id="div-1" class="modal-body">
@@ -767,26 +757,26 @@
                         </div>
                         <div class="col-md-3">
                             <b>Phone No </b>
-                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                            <input type="text" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
                         </div>
                         <div class="col-md-3">
                             <b>Country </b>
-                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                            <input type="text" ng-model="$ctrl.AssessmentInfo.Country" name="mail" class="form-control" disabled />
                         </div>
                         <div class="col-md-3">
                             <b>State </b>
-                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                            <input type="text" ng-model="$ctrl.AssessmentInfo.State" name="mail" class="form-control" disabled />
                         </div>
 
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
                             <b>District </b>
-                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                            <input type="text" ng-model="$ctrl.AssessmentInfo.District" name="mail" class="form-control" disabled />
                         </div>
                         <div class="col-md-3">
                             <b>City </b>
-                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                            <input type="text" ng-model="$ctrl.AssessmentInfo.City" name="mail" class="form-control" disabled />
                         </div>
 
                     </div>
@@ -801,50 +791,50 @@
 
                         <div class="col-md-3">
                             <b>Contact Person </b>
-                            <input type="text" placeholder="Customer Name" ng-model="$ctrl.AssessmentInfo.CompanyName" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                            <input type="text" placeholder="Customer Name" ng-model="$ctrl.AssessmentInfo.ContactName" id="txtCustomerName" class="form-control" name="customer-name" disabled />
                         </div>
                         <div class="col-md-3">
                             <b>Mobile No </b>
-                            <input type="text" ng-model="$ctrl.AssessmentInfo.MobileNo" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                            <input type="text" ng-model="$ctrl.AssessmentInfo.ContactMobileNo" id="txtCustomerName" class="form-control" name="customer-name" disabled />
                         </div>
                         <div class="col-md-3">
                             <b>Email </b>
-                            <input type="text" ng-model="$ctrl.AssessmentInfo.Pincode" id="txtCustomerName" class="form-control" name="customer-name" disabled />
+                            <input type="text" ng-model="$ctrl.AssessmentInfo.ContactEmail" id="txtCustomerName" class="form-control" name="customer-name" disabled />
                         </div>
 
                         <div class="col-md-3">
                             <b>Phone No </b>
-                            <input type="text" class="form-control" rows="5" ng-model="$ctrl.AssessmentInfo.Address1" maxlength="40" id="txtAddr1" disabled>
+                            <input type="text" class="form-control" rows="5" ng-model="$ctrl.AssessmentInfo.ContactPhoneNo" maxlength="40" id="txtAddr1" disabled>
                         </div>
                     </div>
                     <div class="form-group">
 
                         <div class="col-md-3">
                             <b>Country </b>
-                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.Email" name="mail" class="form-control" disabled />
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.Country" name="mail" class="form-control" disabled />
                         </div>
                         <div class="col-md-3">
                             <b>State </b>
-                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.ContactState" name="mail" class="form-control" disabled />
                         </div>
                         <div class="col-md-3">
                             <b>District </b>
-                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.ContactDistrict" name="mail" class="form-control" disabled />
                         </div>
                         <div class="col-md-3">
                             <b>City </b>
-                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.ContactCity" name="mail" class="form-control" disabled />
                         </div>
 
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
                             <b>Pincode </b>
-                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.Address" name="mail" class="form-control" disabled />
                         </div>
                         <div class="col-md-3">
                             <b>Address </b>
-                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.Address" name="mail" class="form-control" disabled />
                         </div>
                         <div class="col-md-3">
                             <b>Designation </b>
@@ -852,7 +842,7 @@
                         </div>
                         <div class="col-md-3">
                             <b>Department </b>
-                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.PhoneNo" name="mail" class="form-control" disabled />
+                            <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.Department" name="mail" class="form-control" disabled />
                         </div>
 
                     </div>

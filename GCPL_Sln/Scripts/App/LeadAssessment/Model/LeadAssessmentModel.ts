@@ -297,6 +297,8 @@
         ContactPhoneNo: string;
         LeadCategoryID: string;
         BusinessPartnerNo: string;
+        IndustryDivisionID: string;
+        IndustrialSegmentID: string;
         CampaignID: string;
         LeadSourceID: string;
         Quantity: string;
@@ -398,6 +400,7 @@
         ProductDesc: string;
         Quantity: string;
         Status: string;
+        ModelID: string;
     }
 
     export class LeadQueAnsModel {

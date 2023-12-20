@@ -7,18 +7,15 @@ var GCPL;
             var app = GCPL.app;
             var DeliveryScheduleController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function DeliveryScheduleController(_LeadStatusService, _IndustryDivisionService, _IndustrialSegmentService, _LeadTypeService, _LeadCategoryService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _CampaignDDService, _ValidReferredEmpService, _leadassessmentService, _ContactInfoService, _CrtAssessmtService, _LeadActivityListService, _LeadQueAnsService, _ItemListService, _ModeActivityService, _LeadActivityStatusDDservice, _LeadActivityPurposeDDservice, _LeadActivityLocationDDservice, _InsertLeadAssessment, _InsertLeadQuestions, _Ans1Service, _Ans2Service, _Ans3Service, _LeadOpportunity, _SalesAreaService, _EditActivityList, _LeadReturnService, _CreateInSAPLeadActivityService, _SubmitService, _ProjectNameService, _DisqualificationReasonDDService, _LeadStageDDService, _LeadStatusDDService, _UpdateLeadDataService, $location, _cookieStore) {
+                function DeliveryScheduleController(_LeadStatusService, _IndustryDivisionService, _IndustrialSegmentService, _LeadTypeService, _LeadCategoryService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _CampaignDDService, _ValidReferredEmpService, _leadassessmentService, _ContactInfoService, _CrtAssessmtService, _LeadActivityListService, _LeadQueAnsService, _ModeActivityService, _LeadActivityStatusDDservice, _LeadActivityPurposeDDservice, _LeadActivityLocationDDservice, _InsertLeadAssessment, _InsertLeadQuestions, _Ans1Service, _Ans2Service, _Ans3Service, _LeadOpportunity, _SalesAreaService, _EditActivityList, _LeadReturnService, _CreateInSAPLeadActivityService, _SubmitService, _ProjectNameService, _DisqualificationReasonDDService, _LeadStageDDService, _LeadStatusDDService, _UpdateLeadDataService, _ItemDataListService, $location, _cookieStore) {
                     this.$location = $location;
                     this._cookieStore = _cookieStore;
                     this.LeadActivitylist = null;
+                    this.LeadItemlist = null;
                     this.LeadQueAnsDetails = null;
-                    this.LeadItemList = null;
                     this.LeadAssessment = null;
                     this.toggleStatus = null;
                     this.UserID = null;
-                    this.Ans1DD = null;
-                    this.Ans2DD = null;
-                    this.Ans3DD = null;
                     this.EditTarget = null;
                     this.LeadStatusDropDown = null;
                     this.IndustryDivisionDropDown = null;
@@ -63,6 +60,7 @@ var GCPL;
                     this.lat = null;
                     this.lng = null;
                     this.UpdateLeadData = null;
+                    this.$location = $location;
                     this.LeadStatusService = _LeadStatusService;
                     this.LeadStatusService = _LeadStatusService;
                     this.ProjectNameService = _ProjectNameService;
@@ -82,13 +80,13 @@ var GCPL;
                     this.ValidReferredEmpService = _ValidReferredEmpService;
                     this.LeadAssessmentService = _leadassessmentService;
                     this.ContactInfoService = _ContactInfoService;
+                    this.LeadID = "11693";
                     //this.LeadID = $location.search().LeadID;
                     //this.ModelID = $location.search().Model;
                     //this.ProductID = $location.search().Product;
                     this.CrtAssessmtService = _CrtAssessmtService;
                     this.Listservice = _LeadActivityListService;
                     this.QueAnsservice = _LeadQueAnsService;
-                    this.ItemListservice = _ItemListService;
                     this.LeadOpportunity = _LeadOpportunity;
                     this.SalesAreaService = _SalesAreaService;
                     this.ModeActivityService = _ModeActivityService;
@@ -106,8 +104,9 @@ var GCPL;
                     this.LeadStageDDService = _LeadStageDDService;
                     this.LeadStatusDDService = _LeadStatusDDService;
                     this.UpdateLeadDataService = _UpdateLeadDataService;
+                    this.ItemListservice = _ItemDataListService;
                     this.EditService = _EditActivityList;
-                    //this.Cookie = _cookieStore;
+                    this.Cookie = _cookieStore;
                     //this.UserID = this.Cookie.get('UserInfo')['UserID'];
                 }
                 DeliveryScheduleController.prototype.$onInit = function () {
@@ -168,7 +167,10 @@ var GCPL;
                     //    minDate: 0,
                     //    onSelect: this.selectExpectedDate
                     //});
+                    debugger;
                     if (this.LeadID != null || this.LeadID != "" || this.LeadID != undefined) {
+                        console.log(this.LeadID, "this.LeadID11111");
+                        this.FillGridData();
                         this.Assessment(this.LeadID);
                     }
                     this.LeadStatusDropDown = this.LeadStatusService.Find().then((function (response) {
@@ -204,20 +206,11 @@ var GCPL;
                     this.LeadActivityStatusDD = this.LeadActivityStatusDDservice.Find().then((function (response) {
                         _this.LeadActivityStatusDD = _this.LeadActivityStatusDDservice.LeadActivityStatus(response.data.Result);
                     }));
-                    this.LeadActivityPurposeDD = this.LeadActivityPurposeDDservice.Find().then((function (response) {
-                        _this.LeadActivityPurposeDD = _this.LeadActivityPurposeDDservice.GetLeadActivityPurpose(response.data.Result);
-                    }));
+                    //this.LeadActivityPurposeDD = this.LeadActivityPurposeDDservice.Find().then((response => {
+                    //    this.LeadActivityPurposeDD = this.LeadActivityPurposeDDservice.GetLeadActivityPurpose(response.data.Result);
+                    //}));
                     this.LeadActivityLocationDD = this.LeadActivityLocationDDservice.Find().then((function (response) {
                         _this.LeadActivityLocationDD = _this.LeadActivityLocationDDservice.GetLeadActivityLocation(response.data.Result);
-                    }));
-                    this.Ans1DD = this.Ans1Service.Find().then((function (response) {
-                        _this.Ans1DD = _this.Ans1Service.GetAns1(response.data.Result);
-                    }));
-                    this.Ans2DD = this.Ans2Service.Find().then((function (response) {
-                        _this.Ans2DD = _this.Ans2Service.GetAns2(response.data.Result);
-                    }));
-                    this.Ans3DD = this.Ans3Service.Find().then((function (response) {
-                        _this.Ans3DD = _this.Ans3Service.GetAns3(response.data.Result);
                     }));
                     this.ProjectNameDD = this.ProjectNameService.FindProjectNameDD(this.UserID).then((function (response) {
                         _this.ProjectNameDD = _this.ProjectNameService.GetProjectNameDD(response.data.Result);
@@ -233,10 +226,15 @@ var GCPL;
                         _this.LeadStatusDD = _this.LeadStatusDDService.GetStage(response.data.Result);
                         // this.UpdateLeadData.SalesStage = this.StageDD[0].ID.toString();
                     }));
-                    this.FillGrid();
-                    this.FillGrid1();
-                    this.ItemList();
                     //this.getLocation();
+                };
+                DeliveryScheduleController.prototype.FillGridData = function () {
+                    var _this = this;
+                    debugger;
+                    this.LeadItemlist = this.ItemListservice.Find(this.LeadID).then((function (response) {
+                        _this.LeadItemlist = _this.ItemListservice.GetLeadItemList(response.data.Result);
+                        console.log(_this.LeadItemlist, "this.LeadItemlist1111111");
+                    }));
                 };
                 //getLocation() {
                 //    if (navigator.geolocation) {
@@ -308,6 +306,7 @@ var GCPL;
                 };
                 DeliveryScheduleController.prototype.Assessment = function (data) {
                     var _this = this;
+                    debugger;
                     this.LeadAssessmentService.Find(data).then((function (response) {
                         _this.AssessmentInfo = _this.LeadAssessmentService.GetLeadAssessment(response.data.Result);
                         console.log(_this.AssessmentInfo, "AssessmentInfo11111");
@@ -762,7 +761,6 @@ var GCPL;
                                 _this.popupMessage("Activity created Successfully .", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
                                 //$("#myModalAddNew").hide();
                                 $('#myModalAddNew').click();
-                                _this.FillGrid();
                             }
                             else {
                                 // $("#ass-btn-loader1").hide();
@@ -773,112 +771,14 @@ var GCPL;
                         }));
                     }
                 };
-                DeliveryScheduleController.prototype.SubmitQuestions = function () {
-                    var _this = this;
-                    // $("#ass-btn-loader1").show();
-                    if (this.InsertAct.AnsOne == undefined || this.InsertAct.AnsOne == null || this.InsertAct.AnsOne == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Complete All Questionnaire", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertAct.AnsTwo == undefined || this.InsertAct.AnsTwo == null || this.InsertAct.AnsTwo == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Complete All Questionnaire", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertAct.AnsThree == undefined || this.InsertAct.AnsThree == null || this.InsertAct.AnsThree == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Complete All Questionnaire", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else {
-                        $("#question-submit").prop("disabled", true);
-                        this.InsertAct.UserID = this.UserID;
-                        this.InsertAct.LeadID = this.LeadID;
-                        this.InsertAct.QueOne = "1";
-                        this.InsertAct.AnsOne = this.InsertAct.AnsOne;
-                        this.InsertAct.QueTwo = "2";
-                        this.InsertAct.AnsTwo = this.InsertAct.AnsTwo;
-                        this.InsertAct.QueThree = "3";
-                        this.InsertAct.AnsThree = this.InsertAct.AnsThree;
-                        debugger;
-                        //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
-                        this.InsertLeadQuestions.PostInsertLeadQuestions(this.InsertAct).then((function (response) {
-                            if (response.data.Result != null) {
-                                //   $("#myAlert").modal("show");
-                                //  $("#act-btn-loader").hide(); 
-                                _this.HideShow();
-                                _this.popupMessage("Questions Submitted Successfully .", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-                                //$("#myModalAddNew").hide();
-                                $('#myModalAddQue').click();
-                                _this.FillGrid1();
-                            }
-                            else {
-                                // $("#ass-btn-loader1").hide();
-                                //  $("#myAlert").modal("show");
-                                _this.HideShow();
-                                _this.popupMessage("Questions Creation failed", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                            }
-                        }));
-                    }
-                };
                 DeliveryScheduleController.prototype.SubmitOpportunity = function () {
                 };
                 DeliveryScheduleController.prototype.Close = function () {
                     location.href = "/#!/LeadAssessmentList";
                 };
-                DeliveryScheduleController.prototype.RefreshActivityList = function () {
-                    this.FillGrid();
-                };
                 DeliveryScheduleController.prototype.HideShow = function () {
                     $("#errorclose").show();
                     $("#close").hide();
-                };
-                DeliveryScheduleController.prototype.FillGrid = function () {
-                    var _this = this;
-                    this.LeadActivitylist = this.Listservice.Find(this.LeadID).then((function (response) {
-                        _this.LeadActivitylist = _this.Listservice.GetLeadActivityList(response.data.Result);
-                        for (var i = 0; i < _this.LeadActivitylist.length; i++) {
-                            if (_this.LeadActivitylist[i].Status == "Completed" || _this.LeadActivitylist[i].Status == "Rejected") {
-                                _this.toggleStatus = true;
-                            }
-                            else {
-                                _this.toggleStatus = false;
-                                break;
-                            }
-                        }
-                    }));
-                };
-                DeliveryScheduleController.prototype.FillGrid1 = function () {
-                    var _this = this;
-                    this.LeadQueAnsDetails = this.QueAnsservice.Find(this.LeadID).then((function (response) {
-                        _this.LeadQueAnsDetails = _this.QueAnsservice.GetLeadQueAns(response.data.Result);
-                        console.log("this.LeadQueAnsDetails", _this.LeadQueAnsDetails);
-                        for (var i = 0; i < _this.LeadQueAnsDetails.length; i++) {
-                            if (_this.LeadQueAnsDetails[i].Question != "" || _this.LeadQueAnsDetails[i].Question != null) {
-                                console.log("this.LeadQueAnsDetails", _this.LeadQueAnsDetails);
-                                _this.toggleStatus = true;
-                            }
-                            else {
-                                _this.toggleStatus = false;
-                                break;
-                            }
-                        }
-                    }));
-                };
-                DeliveryScheduleController.prototype.ItemList = function () {
-                    var _this = this;
-                    this.LeadItemList = this.ItemListservice.Find(this.LeadID).then((function (response) {
-                        _this.LeadItemList = _this.ItemListservice.GetLeadItemList(response.data.Result);
-                        console.log("this.LeadItemList11111111", _this.LeadItemList);
-                        for (var i = 0; i < _this.LeadItemList.length; i++) {
-                            if (_this.LeadItemList[i].Question != "" || _this.LeadItemList[i].Question != null) {
-                                console.log("this.LeadItemList", _this.LeadItemList);
-                                _this.toggleStatus = true;
-                            }
-                            else {
-                                _this.toggleStatus = false;
-                                break;
-                            }
-                        }
-                    }));
                 };
                 DeliveryScheduleController.prototype.Edit = function (data) {
                     var _this = this;
@@ -907,8 +807,8 @@ var GCPL;
                 };
                 DeliveryScheduleController.$inject = ["LeadStatusddService", "IndustryDivisionService", "IndustrialSegmentService", "LeadTypeddService", "LeadCategoryDDService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService", "ProductddService",
                     "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "CampaignDetailsService", "ValidateReferredEmployeeService", "LeadAssessmentService", "LeadContactDetailsService", "CrtAssessmtServiceService",
-                    "LeadActivityListService", "LeadQueAnsService", "LeadItemListService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service",
-                    "SalesAreaService", "EditActivityList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "$location", "$cookieStore"];
+                    "LeadActivityListService", "LeadQueAnsService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service",
+                    "SalesAreaService", "EditActivityList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "LeadItemListService", "$location", "$cookieStore"];
                 return DeliveryScheduleController;
             }());
             var DeliveryScheduleComponentController = /** @class */ (function () {

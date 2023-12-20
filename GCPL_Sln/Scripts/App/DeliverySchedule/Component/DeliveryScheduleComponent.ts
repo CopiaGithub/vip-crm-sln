@@ -2,6 +2,7 @@
 
     import app = GCPL.app;
     import Service = GCPL.Service;
+    import LeadAssessData = GCPL.Model.LeadAssessmentModel;
     import EditActivity = GCPL.Model.EditActivityModel;
     import LeadActivitylist = GCPL.Model.LeadActivityModel;
     import LeadQueAnsDetails = GCPL.Model.LeadQueAnsModel;
@@ -26,9 +27,6 @@
         LeadActivityStatusDD: Array<Model.LeadActivityStatusModel>
         LeadActivityPurposeDD: Array<Model.LeadActivityPurposeModel>
         LeadActivityLocationDD: Array<Model.LeadActivityLocationModel>
-        Ans1DD: Array<Model.Ans1DDLModel>
-        Ans2DD: Array<Model.Ans2DDLModel>
-        Ans3DD: Array<Model.Ans3DDLModel>
         LeadSourcedd: Array<Model.LeadSourceDetailsModel>
         Campaigndd: Array<Model.CampaignDetailsModel>
         ContactInfo: GCPL.Model.ContactDetailsListModel;
@@ -40,19 +38,17 @@
         DisqualificationReasonDD: Array<Model.GetDisqualificationReasonDDModel>;
         StageDD: Array<Model.SalesStageDDModel>;
         LeadStatusDD: Array<Model.LeadStatusDDModel>;
+        LeadAssessment: LeadAssessData;
     }
 
     class DeliveryScheduleController implements IDeliveryScheduleController {
 
         LeadActivitylist = null;
+        LeadItemlist = null;
         LeadQueAnsDetails = null;
-        LeadItemList = null;
         LeadAssessment = null;
         toggleStatus = null;
         UserID = null;
-        Ans1DD = null;
-        Ans2DD = null;
-        Ans3DD = null;
         EditTarget = null;
         LeadStatusDropDown = null;
         IndustryDivisionDropDown = null;
@@ -119,7 +115,6 @@
         private CrtAssessmtService: Service.ICrtAssessmtServiceService;
         private Listservice: Service.ILeadActivityListService;
         private QueAnsservice: Service.ILeadQueAnsService;
-        private ItemListservice: Service.ILeadItemListService;
         private ModeActivityService: Service.IModeActivityService;
         private LeadActivityStatusDDservice: Service.ILeadActivityStatusDDservice;
         private LeadActivityPurposeDDservice: Service.ILeadActivityPurposeDDservice;
@@ -138,10 +133,12 @@
         private LeadStageDDService: Service.ILeadStageDDService;
         private LeadStatusDDService: Service.ILeadStatusDDService;
         private UpdateLeadDataService: Service.IUpdateLeadDataService;
+        private ItemListservice: Service.ILeadItemListService;
+
         static $inject = ["LeadStatusddService", "IndustryDivisionService", "IndustrialSegmentService", "LeadTypeddService", "LeadCategoryDDService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService", "ProductddService",
             "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "CampaignDetailsService", "ValidateReferredEmployeeService", "LeadAssessmentService", "LeadContactDetailsService", "CrtAssessmtServiceService",
-            "LeadActivityListService", "LeadQueAnsService", "LeadItemListService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service",
-            "SalesAreaService", "EditActivityList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService","$location", "$cookieStore"];
+            "LeadActivityListService", "LeadQueAnsService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service",
+            "SalesAreaService", "EditActivityList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "LeadItemListService", "$location", "$cookieStore"];
 
 
         //constructor define with Serivce _Name:Service.IServiceName//
@@ -149,10 +146,10 @@
         constructor(_LeadStatusService: Service.ILeadStatusddService, _IndustryDivisionService: Service.IIndustryDivisionService, _IndustrialSegmentService: Service.IIndustrialSegmentService, _LeadTypeService: Service.ILeadTypeddService, _LeadCategoryService: Service.ILeadCategoryDDService,
             _PurchaseTimlineDDService: Service.IPurchaseTimelineService, _CategoryService: Service.ICategoryddService, _DivisionPService: Service.IDivisionDDPService, _ProductService: Service.IProductddService, _ModelService: Service.IModelDDService, _ChannelDDService: Service.IChannelDDService,
             _LeadSourceDDService: Service.ILeadSourceDetailsService, _CampaignDDService: Service.ICampaignDetailsService, _ValidReferredEmpService: Service.IValidateReferredEmployeeService, _leadassessmentService: Service.ILeadAssessmentService, _ContactInfoService: Service.ILeadContactDetailsService, _CrtAssessmtService: Service.ICrtAssessmtServiceService, _LeadActivityListService: Service.ILeadActivityListService,
-            _LeadQueAnsService: Service.ILeadQueAnsService, _ItemListService: Service.ILeadItemListService, _ModeActivityService: Service.IModeActivityService, _LeadActivityStatusDDservice: Service.ILeadActivityStatusDDservice, _LeadActivityPurposeDDservice: Service.ILeadActivityPurposeDDservice, _LeadActivityLocationDDservice: Service.ILeadActivityLocationDDservice, _InsertLeadAssessment: Service.IInsertLeadActivityService,
+            _LeadQueAnsService: Service.ILeadQueAnsService, _ModeActivityService: Service.IModeActivityService, _LeadActivityStatusDDservice: Service.ILeadActivityStatusDDservice, _LeadActivityPurposeDDservice: Service.ILeadActivityPurposeDDservice, _LeadActivityLocationDDservice: Service.ILeadActivityLocationDDservice, _InsertLeadAssessment: Service.IInsertLeadActivityService,
             _InsertLeadQuestions: Service.IInsertLeadQuestionsService, _Ans1Service: Service.IQAns1Service, _Ans2Service: Service.IQAns2Service, _Ans3Service: Service.IQAns3Service, _LeadOpportunity: Service.ILeadOpportunity, _SalesAreaService: Service.ISalesAreaService, _EditActivityList: Service.IEditActivityList, _LeadReturnService: Service.ILeadReturnService, _CreateInSAPLeadActivityService: Service.ICreateInSAPLeadActivityService,
-            _SubmitService: Service.IInsertLeadToOppSAPService, _ProjectNameService: Service.IProjectNameService, _DisqualificationReasonDDService: Service.IDisqualificationReasonDDService, _LeadStageDDService: Service.ILeadStageDDService, _LeadStatusDDService: Service.ILeadStatusDDService, _UpdateLeadDataService: Service.IUpdateLeadDataService, private $location: ng.ILocationService, private _cookieStore: any) {
-
+            _SubmitService: Service.IInsertLeadToOppSAPService, _ProjectNameService: Service.IProjectNameService, _DisqualificationReasonDDService: Service.IDisqualificationReasonDDService, _LeadStageDDService: Service.ILeadStageDDService, _LeadStatusDDService: Service.ILeadStatusDDService, _UpdateLeadDataService: Service.IUpdateLeadDataService, _ItemDataListService: Service.ILeadItemListService, private $location: ng.ILocationService, private _cookieStore: any) {
+            this.$location = $location;
             this.LeadStatusService = _LeadStatusService;
             this.LeadStatusService = _LeadStatusService;
             this.ProjectNameService = _ProjectNameService;
@@ -172,13 +169,13 @@
             this.ValidReferredEmpService = _ValidReferredEmpService;
             this.LeadAssessmentService = _leadassessmentService;
             this.ContactInfoService = _ContactInfoService;
+            this.LeadID = "11693";
             //this.LeadID = $location.search().LeadID;
             //this.ModelID = $location.search().Model;
             //this.ProductID = $location.search().Product;
             this.CrtAssessmtService = _CrtAssessmtService;
             this.Listservice = _LeadActivityListService;
             this.QueAnsservice = _LeadQueAnsService;
-            this.ItemListservice = _ItemListService;
             this.LeadOpportunity = _LeadOpportunity;
             this.SalesAreaService = _SalesAreaService;
             this.ModeActivityService = _ModeActivityService;
@@ -196,8 +193,9 @@
             this.LeadStageDDService = _LeadStageDDService;
             this.LeadStatusDDService = _LeadStatusDDService;
             this.UpdateLeadDataService = _UpdateLeadDataService;
+            this.ItemListservice = _ItemDataListService;
             this.EditService = _EditActivityList;
-            //this.Cookie = _cookieStore;
+            this.Cookie = _cookieStore;
             //this.UserID = this.Cookie.get('UserInfo')['UserID'];
         }
 
@@ -272,10 +270,14 @@
             //    onSelect: this.selectExpectedDate
 
             //});
+            debugger;
             if (this.LeadID != null || this.LeadID != "" || this.LeadID != undefined) {
-
+                console.log(this.LeadID, "this.LeadID11111");
+                this.FillGridData();
                 this.Assessment(this.LeadID);
+
             }
+
             this.LeadStatusDropDown = this.LeadStatusService.Find().then((response => {
                 this.LeadStatusDropDown = this.LeadStatusService.GetLeadStatusName(response.data.Result);
 
@@ -324,25 +326,14 @@
                 this.LeadActivityStatusDD = this.LeadActivityStatusDDservice.LeadActivityStatus(response.data.Result);
             }));
 
-            this.LeadActivityPurposeDD = this.LeadActivityPurposeDDservice.Find().then((response => {
-                this.LeadActivityPurposeDD = this.LeadActivityPurposeDDservice.GetLeadActivityPurpose(response.data.Result);
-            }));
+            //this.LeadActivityPurposeDD = this.LeadActivityPurposeDDservice.Find().then((response => {
+            //    this.LeadActivityPurposeDD = this.LeadActivityPurposeDDservice.GetLeadActivityPurpose(response.data.Result);
+            //}));
 
             this.LeadActivityLocationDD = this.LeadActivityLocationDDservice.Find().then((response => {
                 this.LeadActivityLocationDD = this.LeadActivityLocationDDservice.GetLeadActivityLocation(response.data.Result);
             }));
 
-            this.Ans1DD = this.Ans1Service.Find().then((response => {
-                this.Ans1DD = this.Ans1Service.GetAns1(response.data.Result);
-            }));
-
-            this.Ans2DD = this.Ans2Service.Find().then((response => {
-                this.Ans2DD = this.Ans2Service.GetAns2(response.data.Result);
-            }));
-
-            this.Ans3DD = this.Ans3Service.Find().then((response => {
-                this.Ans3DD = this.Ans3Service.GetAns3(response.data.Result);
-            }));
             this.ProjectNameDD = this.ProjectNameService.FindProjectNameDD(this.UserID).then((response => {
                 this.ProjectNameDD = this.ProjectNameService.GetProjectNameDD(response.data.Result);
             }));
@@ -360,12 +351,21 @@
                 // this.UpdateLeadData.SalesStage = this.StageDD[0].ID.toString();
             }));
             
-            this.FillGrid();
-            this.FillGrid1();
-            this.ItemList();
             //this.getLocation();
 
         }
+
+
+        FillGridData(): void {
+            debugger;
+
+            this.LeadItemlist = this.ItemListservice.Find(this.LeadID).then((response => {
+                this.LeadItemlist = this.ItemListservice.GetLeadItemList(response.data.Result);
+                console.log(this.LeadItemlist, "this.LeadItemlist1111111");
+
+            }));
+        }
+
 
         //getLocation() {
         //    if (navigator.geolocation) {
@@ -454,12 +454,9 @@
         }
 
         Assessment(data: any): void {
-            
-
-
+            debugger;
             this.LeadAssessmentService.Find(data).then((response => {
                 
-
                 this.AssessmentInfo = this.LeadAssessmentService.GetLeadAssessment(response.data.Result);
                 
                 console.log(this.AssessmentInfo, "AssessmentInfo11111");
@@ -971,7 +968,6 @@
                         this.popupMessage("Activity created Successfully .", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
                         //$("#myModalAddNew").hide();
                         $('#myModalAddNew').click();
-                        this.FillGrid();
 
                     }
 
@@ -988,61 +984,6 @@
 
         }
 
-        SubmitQuestions(): void {
-            // $("#ass-btn-loader1").show();
-            if (this.InsertAct.AnsOne == undefined || this.InsertAct.AnsOne == null || this.InsertAct.AnsOne == "") {
-                this.HideShow();
-                this.popupMessage("Please Complete All Questionnaire", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-            }
-            else if (this.InsertAct.AnsTwo == undefined || this.InsertAct.AnsTwo == null || this.InsertAct.AnsTwo == "") {
-                this.HideShow();
-                this.popupMessage("Please Complete All Questionnaire", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-            }
-            else if (this.InsertAct.AnsThree == undefined || this.InsertAct.AnsThree == null || this.InsertAct.AnsThree == "") {
-                this.HideShow();
-                this.popupMessage("Please Complete All Questionnaire", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-            }
-            else {
-                $("#question-submit").prop("disabled", true);
-
-                this.InsertAct.UserID = this.UserID;
-                this.InsertAct.LeadID = this.LeadID;
-                this.InsertAct.QueOne = "1";
-                this.InsertAct.AnsOne = this.InsertAct.AnsOne;
-                this.InsertAct.QueTwo = "2";
-                this.InsertAct.AnsTwo = this.InsertAct.AnsTwo;
-                this.InsertAct.QueThree = "3";
-                this.InsertAct.AnsThree = this.InsertAct.AnsThree;
-
-                debugger;
-                //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
-                this.InsertLeadQuestions.PostInsertLeadQuestions(this.InsertAct).then((response => {
-                    if (response.data.Result != null) {
-
-                        //   $("#myAlert").modal("show");
-                        //  $("#act-btn-loader").hide(); 
-                        this.HideShow();
-                        this.popupMessage("Questions Submitted Successfully .", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-                        //$("#myModalAddNew").hide();
-                        $('#myModalAddQue').click();
-                        this.FillGrid1();
-
-                    }
-
-                    else {
-
-                        // $("#ass-btn-loader1").hide();
-                        //  $("#myAlert").modal("show");
-                        this.HideShow();
-                        this.popupMessage("Questions Creation failed", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-
-                }));
-            }
-
-        }
-
-
         SubmitOpportunity(): void {
            
         }
@@ -1051,64 +992,13 @@
             location.href = "/#!/LeadAssessmentList";
         }
 
-        RefreshActivityList(): void {
-
-            this.FillGrid();
-        }
         HideShow() {
             $("#errorclose").show();
             $("#close").hide();
         }
 
-        FillGrid(): void {
-            
-            this.LeadActivitylist = this.Listservice.Find(this.LeadID).then((response => {
-                this.LeadActivitylist = this.Listservice.GetLeadActivityList(response.data.Result);
-                for (var i = 0; i < this.LeadActivitylist.length; i++) {
-                    if (this.LeadActivitylist[i].Status == "Completed" || this.LeadActivitylist[i].Status == "Rejected") {
-                        this.toggleStatus = true;
-                    }
-                    else {
-                        this.toggleStatus = false;
-                        break;
-                    }
-                }
-            }));
-        }
+       
 
-        FillGrid1(): void {
-            this.LeadQueAnsDetails = this.QueAnsservice.Find(this.LeadID).then((response => {
-                this.LeadQueAnsDetails = this.QueAnsservice.GetLeadQueAns(response.data.Result);
-                console.log("this.LeadQueAnsDetails", this.LeadQueAnsDetails);
-                for (var i = 0; i < this.LeadQueAnsDetails.length; i++) {
-                    if (this.LeadQueAnsDetails[i].Question != "" || this.LeadQueAnsDetails[i].Question != null) {
-                        console.log("this.LeadQueAnsDetails", this.LeadQueAnsDetails);
-                        this.toggleStatus = true;
-                    }
-                    else {
-                        this.toggleStatus = false;
-                        break;
-                    }
-                }
-            }));
-        }
-
-        ItemList(): void {
-            this.LeadItemList = this.ItemListservice.Find(this.LeadID).then((response => {
-                this.LeadItemList = this.ItemListservice.GetLeadItemList(response.data.Result);
-                console.log("this.LeadItemList11111111", this.LeadItemList);
-                for (var i = 0; i < this.LeadItemList.length; i++) {
-                    if (this.LeadItemList[i].Question != "" || this.LeadItemList[i].Question != null) {
-                        console.log("this.LeadItemList", this.LeadItemList);
-                        this.toggleStatus = true;
-                    }
-                    else {
-                        this.toggleStatus = false;
-                        break;
-                    }
-                }
-            }));
-        }
 
         Edit(data: any): void {
            

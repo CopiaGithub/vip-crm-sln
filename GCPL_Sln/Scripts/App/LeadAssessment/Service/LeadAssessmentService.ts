@@ -553,7 +553,8 @@ namespace GCPL.Service {
                     ItemID: item.ItemID,
                     ProductDesc: item.ProductDesc,
                     Quantity: item.Quantity,
-                    Status: item.Status
+                    Status: item.Status,
+                    ModelID: item.ModelID
                 });
             }
             return list;
@@ -1092,7 +1093,7 @@ namespace GCPL.Service {
         static $inject = ["$http", "$q"];
         constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
             super($http, $q);
-            this.apiUrl = `${this.url}/${"/ItemListEdit"}`;
+            this.apiUrl = `${this.url}/${"ItemListEdit"}`;
         }
         Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
             var ItemID;
@@ -1120,8 +1121,6 @@ namespace GCPL.Service {
         GetItemEdit(data: any): model.LeadItemCreateModel {
 
             let obj = new model.LeadItemCreateModel();
-
-
             obj.RefUserID = data.RefUserID,
                 obj.CustomerID = data.CustomerID,
                 obj.SalesOfficeID = data.SalesOfficeID,
@@ -1154,6 +1153,8 @@ namespace GCPL.Service {
                 obj.ContactPhoneNo = data.ContactPhoneNo,
                 obj.LeadCategoryID = data.LeadCategoryID,
                 obj.BusinessPartnerNo = data.BusinessPartnerNo,
+                obj.IndustryDivisionID = data.IndustryDivisionID,
+                obj.IndustrialSegmentID = data.IndustrialSegmentID,
                 obj.CampaignID = data.CampaignID,
                 obj.LeadSourceID = data.LeadSourceID,
                 obj.Quantity = data.Quantity,
@@ -1171,6 +1172,7 @@ namespace GCPL.Service {
                 obj.DivisionID = data.DivisionID,
                 obj.ProductID = data.ProductID,
                 obj.ProjectID = data.ProjectID
+
 
             return obj;
         }

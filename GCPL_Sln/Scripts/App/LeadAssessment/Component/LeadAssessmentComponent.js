@@ -14,6 +14,7 @@ var GCPL;
             var InsertLeadActivity1 = GCPL.Model.InsertLeadActivity;
             var LeadOpp = GCPL.Model.LeadOpportunityModel;
             var Activity = GCPL.Model.Activity;
+            var LeadItem = GCPL.Model.LeadItemCreateModel;
             var SearchRefUser = GCPL.Model.SearchRefUserModel;
             var LeadToOpp = GCPL.Model.InsertSubmitModel;
             var LeadAssessmentController = /** @class */ (function () {
@@ -23,6 +24,7 @@ var GCPL;
                     this._cookieStore = _cookieStore;
                     this.LeadActivitylist = null;
                     this.LeadItemlist = null;
+                    this.LeadItem = null;
                     this.LeadQueAnsDetails = null;
                     this.LeadAssessment = null;
                     this.toggleStatus = null;
@@ -97,6 +99,7 @@ var GCPL;
                     this.ValidReferredEmpService = _ValidReferredEmpService;
                     this.LeadAssessmentService = _leadassessmentService;
                     this.ContactInfoService = _ContactInfoService;
+                    debugger;
                     this.LeadID = $location.search().LeadID;
                     this.ModelID = $location.search().Model;
                     this.ProductID = $location.search().Product;
@@ -127,6 +130,7 @@ var GCPL;
                     this.ReturnModel = new ReturnModel1();
                     this.InsertLeadActivity = new InsertLeadActivity1();
                     this.InsertAct = new Activity();
+                    this.InsertItem = new LeadItem();
                     this.EditService = _EditActivityList;
                     this.EditItemService = _EditItemList;
                     this.AssessmentInfo = new ViewAssessment();
@@ -828,6 +832,7 @@ var GCPL;
                     var _this = this;
                     // $("#ass-btn-loader1").show();
                     debugger;
+                    this.InsertItem.LeadID = this.LeadID;
                     console.log("OP", this.InsertItem);
                     if (this.InsertItem.LeadType == undefined || this.InsertItem.LeadType == null || this.InsertItem.LeadType == "") {
                         this.HideShow();
@@ -872,13 +877,6 @@ var GCPL;
                     else {
                         debugger;
                         $("#Item-submit").prop("disabled", true);
-                        if (this.InsertItem.ItemID == undefined || this.InsertItem.ItemID == null || this.InsertItem.ItemID == "") {
-                            this.InsertItem.Operation = "Create";
-                        }
-                        else {
-                            this.InsertItem.Operation = "Update";
-                        }
-                        debugger;
                         console.log("OP", this.InsertItem);
                         //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
                         this.InsertItemAssessment.PostItem(this.InsertItem).then((function (response) {
@@ -1088,26 +1086,11 @@ var GCPL;
                 LeadAssessmentController.prototype.EditItem = function (data) {
                     var _this = this;
                     console.log(data);
-                    //var d = new Date();
-                    //var c = new Date($("#date").val());
-                    //if (c > d) {
-                    //    $("#ddlStatus").prop("disabled", true);
-                    //} else {
-                    //    $("#ddlStatus").prop("disabled", false);
-                    //}
                     this.EditItemService.Find(data).then((function (response) {
+                        console.log(response);
                         _this.InsertItem = _this.EditItemService.GetItemEdit(response.data.Result);
-                        console.log(_this.InsertItem);
-                        //if (this.InsertAct.ActivityStatus = "Pending") {
-                        //    this.InsertAct.ActivityStatus = '1';
-                        //}
-                        //else if (this.InsertAct.ActivityStatus = "Rejected") {
-                        //    this.InsertAct.ActivityStatus = '2';
-                        //}
-                        //else {
-                        //    this.InsertAct.ActivityStatus = '3';
-                        //}
-                        //$('#date').val(this.InsertAct.date);
+                        console.log("Api Model", response.data.Result);
+                        console.log("Frontend Model", _this.InsertItem);
                         $("myModalAdd").show();
                     }));
                 };

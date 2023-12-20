@@ -19,6 +19,7 @@
     import LeadToOpp = GCPL.Model.InsertSubmitModel;
     interface ILeadAssessmentController {
         Edit(data: any): void;
+        EditItem(data: any): void;
         EditTarget: Array<Model.EditActivityModel>;
         LeadAssessment: LeadAssess;
         AssessmentInfo: ViewAssessment;
@@ -69,6 +70,7 @@
 
         LeadActivitylist = null;
         LeadItemlist = null;
+        LeadItem = null;
         LeadQueAnsDetails = null;
         LeadAssessment = null;
         toggleStatus = null;
@@ -203,6 +205,7 @@
             this.ValidReferredEmpService = _ValidReferredEmpService;
             this.LeadAssessmentService = _leadassessmentService;
             this.ContactInfoService = _ContactInfoService;
+            debugger;
             this.LeadID = $location.search().LeadID;
             this.ModelID = $location.search().Model;
             this.ProductID = $location.search().Product;
@@ -233,6 +236,7 @@
             this.ReturnModel = new ReturnModel1();
             this.InsertLeadActivity = new InsertLeadActivity1();
             this.InsertAct = new Activity();
+            this.InsertItem = new LeadItem();
             this.EditService = _EditActivityList;
             this.EditItemService = _EditItemList;
             this.AssessmentInfo = new ViewAssessment();
@@ -1057,6 +1061,7 @@
         SubmitItem(): void {
             // $("#ass-btn-loader1").show();
             debugger;
+            this.InsertItem.LeadID = this.LeadID;
             console.log("OP", this.InsertItem);
             if (this.InsertItem.LeadType == undefined || this.InsertItem.LeadType == null || this.InsertItem.LeadType == "") {
                 this.HideShow();
@@ -1108,13 +1113,7 @@
                 $("#Item-submit").prop("disabled", true);
 
 
-                if (this.InsertItem.ItemID == undefined || this.InsertItem.ItemID == null || this.InsertItem.ItemID == "") {
-                    this.InsertItem.Operation = "Create";
-                }
-                else {
-                    this.InsertItem.Operation = "Update";
-                }
-                debugger;
+
                 console.log("OP", this.InsertItem);
                 //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
                 this.InsertItemAssessment.PostItem(this.InsertItem).then((response => {
@@ -1363,35 +1362,19 @@
         }
 
         EditItem(data: any): void {
-            console.log(data)
+            console.log(data);
 
-            //var d = new Date();
-            //var c = new Date($("#date").val());
 
-            //if (c > d) {
-            //    $("#ddlStatus").prop("disabled", true);
-            //} else {
-            //    $("#ddlStatus").prop("disabled", false);
-            //}
             this.EditItemService.Find(data).then((response => {
+                console.log(response);
 
                 this.InsertItem = this.EditItemService.GetItemEdit(response.data.Result);
-
-                console.log(this.InsertItem)
-
-                //if (this.InsertAct.ActivityStatus = "Pending") {
-                //    this.InsertAct.ActivityStatus = '1';
-                //}
-                //else if (this.InsertAct.ActivityStatus = "Rejected") {
-                //    this.InsertAct.ActivityStatus = '2';
-                //}
-                //else {
-
-                //    this.InsertAct.ActivityStatus = '3';
-                //}
+                console.log("Api Model", response.data.Result);
 
 
-                //$('#date').val(this.InsertAct.date);
+                console.log("Frontend Model", this.InsertItem);
+
+
 
                 $("myModalAdd").show();
 

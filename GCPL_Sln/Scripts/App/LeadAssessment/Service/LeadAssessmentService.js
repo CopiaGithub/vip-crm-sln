@@ -515,7 +515,8 @@ var GCPL;
                         ItemID: item.ItemID,
                         ProductDesc: item.ProductDesc,
                         Quantity: item.Quantity,
-                        Status: item.Status
+                        Status: item.Status,
+                        ModelID: item.ModelID
                     });
                 }
                 return list;
@@ -1001,7 +1002,7 @@ var GCPL;
                 _this.$http = $http;
                 _this.$q = $q;
                 _this.apiUrl = "";
-                _this.apiUrl = _this.url + "/" + "/ItemListEdit";
+                _this.apiUrl = _this.url + "/" + "ItemListEdit";
                 return _this;
             }
             EditItemList.prototype.Find = function (data) {
@@ -1057,6 +1058,8 @@ var GCPL;
                     obj.ContactPhoneNo = data.ContactPhoneNo,
                     obj.LeadCategoryID = data.LeadCategoryID,
                     obj.BusinessPartnerNo = data.BusinessPartnerNo,
+                    obj.IndustryDivisionID = data.IndustryDivisionID,
+                    obj.IndustrialSegmentID = data.IndustrialSegmentID,
                     obj.CampaignID = data.CampaignID,
                     obj.LeadSourceID = data.LeadSourceID,
                     obj.Quantity = data.Quantity,
