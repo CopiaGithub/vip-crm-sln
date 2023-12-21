@@ -18,15 +18,15 @@ var GCPL;
     var Controller;
     (function (Controller) {
         var app = GCPL.app;
-        var AllActivitiesController = /** @class */ (function (_super) {
-            __extends(AllActivitiesController, _super);
-            function AllActivitiesController() {
+        var DScheduleController = /** @class */ (function (_super) {
+            __extends(DScheduleController, _super);
+            function DScheduleController() {
                 return _super !== null && _super.apply(this, arguments) || this;
             }
-            return AllActivitiesController;
+            return DScheduleController;
         }(GCPL.Controller.CoockiesBaseController));
-        Controller.AllActivitiesController = AllActivitiesController;
-        app.AddController("AllActivitiesController", AllActivitiesController);
+        Controller.DScheduleController = DScheduleController;
+        app.AddController("DScheduleController", DScheduleController);
     })(Controller = GCPL.Controller || (GCPL.Controller = {}));
 })(GCPL || (GCPL = {}));
-//# sourceMappingURL=AllActivitiesController.js.map
+//# sourceMappingURL=DScheduleController.js.map

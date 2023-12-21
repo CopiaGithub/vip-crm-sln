@@ -44,6 +44,12 @@ var GCPL;
             return LeadSourceddModel;
         }());
         Model.LeadSourceddModel = LeadSourceddModel;
+        var ActivityTypeddlModel = /** @class */ (function () {
+            function ActivityTypeddlModel() {
+            }
+            return ActivityTypeddlModel;
+        }());
+        Model.ActivityTypeddlModel = ActivityTypeddlModel;
         var AllLeadReportViewModel = /** @class */ (function () {
             function AllLeadReportViewModel() {
             }

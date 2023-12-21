@@ -265,57 +265,21 @@
     export class LeadItemCreateModel {
         constructor() {
         }
-        RefUserID: string;
-        CustomerID: string;
-        SalesOfficeID: string;
-        CompanyName: string;
-        Email: string;
-        MobileNo: string;
-        Address1: string;
-        Address2: string;
-        DistrictID: string;
-        City: string;
-        Pincode: string;
-        ContactID: string;
-        ContactName: string;
-        ContactEmail: string;
-        ContactMobileNo: string;
-        ContactAddress: string;
-        ContactDistrictID: string;
-        ContactCity: string;
-        ContactPincode: string;
-        Designation: string;
-        DepartmentID: string;
-        FOPID: string;
+        ItemID: string;
+        Status: string;
+        ProductID: string;
+        ProductDesc: string;
         ModelID: string;
         PurchaseTimelineID: string;
-        Comments: string;
-        UserID: string;
-        ItemID: string;
-        PhoneNo: string;
-        Fax: string;
-        ContactPhoneNo: string;
-        LeadCategoryID: string;
-        BusinessPartnerNo: string;
+        IsActive: string;
+        SalesOfficeID: string;
         IndustryDivisionID: string;
         IndustrialSegmentID: string;
-        CampaignID: string;
-        LeadSourceID: string;
-        Quantity: string;
-        SubsourceID: string;
-        Subsource2ID: string;
-        LeadType: string;
-        RefUserName: string;
-        ChannelID: string;
-        LeadID: number;
-        IsNational: string;
-        CountryID: string;
-        StateID: string;
-        Area: string;
         CategoryID: string;
         DivisionID: string;
-        ProductID: string;
-        ProjectID: string;
+        ChannelID: string;
+        ItemStatusID: string;
+
     }
 
     export class EditActivityModel {

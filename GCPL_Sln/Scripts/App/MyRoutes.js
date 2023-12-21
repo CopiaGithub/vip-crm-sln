@@ -454,6 +454,9 @@ var GCPL;
                     .when("/CreateProject", {
                     templateUrl: "/Scripts/App/CreateProjectTracker/Template/ParentCreateProject.html",
                 })
+                    .when("/DSchedule", {
+                    templateUrl: "/Scripts/App/DSchedule/Template/ParentDSchedule.html",
+                })
                     .when("/LeadChange", {
                     templateUrl: "/Scripts/App/LeadChange/Template/ParentLeadChange.html",
                 })

@@ -122,6 +122,14 @@
         LeadSource: string;
     }
 
+    export class ActivityTypeddlModel {
+        constructor() {
+        }
+        ID: number;
+        ActivityType: string;
+    }
+
+
     export class AllLeadReportViewModel {
         constructor() { }
         LeadID: string;
