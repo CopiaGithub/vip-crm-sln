@@ -11,7 +11,11 @@ var GCPL;
             var CustomerMaster = GCPL.Model.InsertCustomerMaster;
             var ContactMaster = GCPL.Model.InsertContactMaster;
             var CreateLeadFormController = /** @class */ (function () {
+<<<<<<< HEAD
                 function CreateLeadFormController(_CountryService, _StateDDService, _DistrictService, _IndustrialSegmentService, _IndustryDivisionService, _SalesOfficeService, _DepartmentService, _DesignationService, _LeadTypeService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _getAutoSalesrep1, _LeadSourceDDService, _ProjectNameService, CustClassService, _RegionService, _CampaignDDService, _InsertService, _InsertItemService, _PurchaseTimlineDDService, _LeadCategoryService, _CustomerSapAutofill, _ProductDescAutofill, _CustomerInfoService, _ContactService, _ContactInfoService, _InsertCustomerService, _InsertContactService, _cookieStore, _LeadCustomerDetails, _CustomerService, _getAutoUser, _ShowMobileService, _LeadCustomerDetails1, _LeadDetailsService, _LeadCategotyWPDDService) {
+=======
+                function CreateLeadFormController(_CountryService, _StateDDService, _DistrictService, _IndustrialSegmentService, _IndustryDivisionService, _SalesOfficeService, _DepartmentService, _DesignationService, _LeadTypeService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _getAutoSalesrep1, _LeadSourceDDService, _ProjectNameService, CustClassService, _RegionService, _CampaignDDService, _InsertService, _InsertServiceItem, _PurchaseTimlineDDService, _LeadCategoryService, _CustomerSapAutofill, _ProductDescAutofill, _CustomerInfoService, _ContactService, _ContactInfoService, _InsertCustomerService, _InsertContactService, _cookieStore, _LeadCustomerDetails, _CustomerService, _getAutoUser, _ShowMobileService, _LeadCustomerDetails1, _LeadDetailsService, _LeadCategotyWPDDService) {
+>>>>>>> 33eb0d8a6f4cf37204987f648848e1fdcb30ba62
                     this._cookieStore = _cookieStore;
                     this.numRecords = 10;
                     this.page = 0;
@@ -95,7 +99,11 @@ var GCPL;
                     this.RegionService = _RegionService;
                     this.CampaignDDService = _CampaignDDService;
                     this.InsertService = _InsertService;
+<<<<<<< HEAD
                     this.InsertItemService = _InsertItemService;
+=======
+                    this.InsertServiceItem = _InsertServiceItem;
+>>>>>>> 33eb0d8a6f4cf37204987f648848e1fdcb30ba62
                     this.InsertLead = new Lead();
                     this.InsertToCart = new AddToCart();
                     this.PurchaseTimlineDDService = _PurchaseTimlineDDService;
@@ -254,6 +262,8 @@ var GCPL;
                                         id: item.ProductID
                                     };
                                 }));
+                                console.log(data, "data1111");
+                                //this.InsertLead.ProductID = data.;
                             }));
                         },
                         minLength: 2,
@@ -307,6 +317,18 @@ var GCPL;
                         }));
                     });
                 };
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+                //Product(ProductID): void {
+                //    console.log(ProductID, "ProductID11111");
+                //    this.ProductValue = this.ProductDescAutofill.FindProduct(ProductID).then((response => {
+                //        this.ProductValue = this.ProductDescAutofill.GetProduct(response.data.Result);
+                //    }));
+                //}
+>>>>>>> develop-anuja
+>>>>>>> 33eb0d8a6f4cf37204987f648848e1fdcb30ba62
                 CreateLeadFormController.prototype.AddCustDistrict = function () {
                     var _this = this;
                     this.AddCustDistrictDropDown = this.DistrictService.Find(this.InsertCustomer.StateID).then((function (response) {
@@ -631,6 +653,7 @@ var GCPL;
                                     _this.popupMessage("Lead already exists for this Customer & Model", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                                 }
                                 else if (response.data.Result > 0) {
+<<<<<<< HEAD
                                     debugger;
                                     console.log(response.data.Result, "Testing Lead 1111");
                                     _this.InsertLead.LeadID = response.data.Result;
@@ -638,6 +661,14 @@ var GCPL;
                                         _this.TotalItemList[i].LeadID = _this.InsertLead.LeadID;
                                         _this.InsertLead = _this.TotalItemList[i];
                                         _this.InsertItemService.PostItem(_this.InsertLead).then((function (response) {
+=======
+                                    $("#errorclose").hide();
+                                    $("#close").show();
+                                    _this.popupMessage("LeadID - " + response.data.Result + " created successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                                    for (var i = 0; i < _this.TotalItemList.length; i++) {
+                                        _this.InsertLead = _this.TotalItemList[i];
+                                        _this.InsertServiceItem.PostItem(_this.InsertLead).then((function (response) {
+>>>>>>> 33eb0d8a6f4cf37204987f648848e1fdcb30ba62
                                             if (response.data == "Success") {
                                                 flag = 0;
                                                 SuccessCount++;
@@ -655,9 +686,12 @@ var GCPL;
                                                 _this.HideShow();
                                                 _this.popupMessage("Error Occured for " + failureCount + "Records! Please Try again.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                                             }
+<<<<<<< HEAD
                                             $("#errorclose").hide();
                                             $("#close").show();
                                             _this.popupMessage("LeadID - " + response.data.Result + " created successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+=======
+>>>>>>> 33eb0d8a6f4cf37204987f648848e1fdcb30ba62
                                         }));
                                     }
                                 }

@@ -314,6 +314,38 @@ var GCPL;
         app.AddService("InsertLeadDetailsService", InsertLeadDetailsService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var InsertItemDetailsService = /** @class */ (function (_super) {
+            __extends(InsertItemDetailsService, _super);
+            function InsertItemDetailsService($http, $q, _cookieStore) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this._cookieStore = _cookieStore;
+                _this.apiUrl = "";
+                _this.Cookie = null;
+                _this.apiUrl = _this.url + "/" + "InsertItemDetails";
+                _this.Cookie = _cookieStore;
+                return _this;
+            }
+            InsertItemDetailsService.prototype.Find = function () {
+                return this.ajaXUtility.Get({ Url: this.apiUrl });
+            };
+            InsertItemDetailsService.prototype.PostItem = function (data) {
+                var url = this.apiUrl;
+                // console.log(url);
+                return this.ajaXUtility.Post({ Url: url, data: data });
+            };
+            InsertItemDetailsService.$inject = ["$http", "$q", "$cookieStore"];
+            return InsertItemDetailsService;
+        }(GCPL.Service.BaseService));
+        Service.InsertItemDetailsService = InsertItemDetailsService;
+        app.AddService("InsertItemDetailsService", Service.InsertLeadDetailsService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
 //PurchaseTimeline dd
 (function (GCPL) {
     var Service;
