@@ -170,8 +170,8 @@ var GCPL;
                     debugger;
                     if (this.LeadID != null || this.LeadID != "" || this.LeadID != undefined) {
                         console.log(this.LeadID, "this.LeadID11111");
-                        this.FillGridData();
                         this.Assessment(this.LeadID);
+                        this.FillGridData();
                     }
                     this.LeadStatusDropDown = this.LeadStatusService.Find().then((function (response) {
                         _this.LeadStatusDropDown = _this.LeadStatusService.GetLeadStatusName(response.data.Result);

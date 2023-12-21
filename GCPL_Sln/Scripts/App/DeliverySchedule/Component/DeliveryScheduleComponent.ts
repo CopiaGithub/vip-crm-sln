@@ -3,9 +3,20 @@
     import app = GCPL.app;
     import Service = GCPL.Service;
     import LeadAssessData = GCPL.Model.LeadAssessmentModel;
+    import ValidRefrredEmployee = GCPL.Model.ReferredEmpModel;
+    import ViewAssessment = GCPL.Model.LeadAssessmentInfoModel;
+    import CrtAssessmt1 = GCPL.Model.CrtAssessmtModel;
+    import UpdateLeadDataM = GCPL.Model.UpdateLeadDataModel;
+    import ReturnModel1 = GCPL.Model.ReturnModel;
+    import InsertLeadActivity1 = GCPL.Model.InsertLeadActivity;
     import EditActivity = GCPL.Model.EditActivityModel;
     import LeadActivitylist = GCPL.Model.LeadActivityModel;
     import LeadQueAnsDetails = GCPL.Model.LeadQueAnsModel;
+    import LeadOpp = GCPL.Model.LeadOpportunityModel;
+    import Activity = GCPL.Model.Activity;
+    import LeadItem = GCPL.Model.LeadItemCreateModel;
+    import SearchRefUser = GCPL.Model.SearchRefUserModel;
+    import LeadToOpp = GCPL.Model.InsertSubmitModel;
     interface IDeliveryScheduleController {
         Edit(data: any): void;
         EditTarget: Array<Model.EditActivityModel>;
@@ -273,8 +284,8 @@
             debugger;
             if (this.LeadID != null || this.LeadID != "" || this.LeadID != undefined) {
                 console.log(this.LeadID, "this.LeadID11111");
-                this.FillGridData();
                 this.Assessment(this.LeadID);
+                this.FillGridData();
 
             }
 
