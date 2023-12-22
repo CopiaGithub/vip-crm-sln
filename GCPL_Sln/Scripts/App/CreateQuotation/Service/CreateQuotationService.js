@@ -1087,7 +1087,7 @@ var GCPL;
                 _this._cookieStore = _cookieStore;
                 _this.apiUrl = "";
                 _this.Cookie = null;
-                _this.apiUrl = _this.url + "/" + "InsertQuotationMaster";
+                _this.apiUrl = _this.url + "/" + "InsertQuotation";
                 _this.Cookie = _cookieStore;
                 return _this;
             }
@@ -1096,7 +1096,7 @@ var GCPL;
             };
             InsertQuotationService.prototype.PostQuote = function (data) {
                 var url = this.apiUrl;
-                // console.log(url);
+                console.log(data);
                 return this.ajaXUtility.Post({ Url: url, data: data });
             };
             InsertQuotationService.$inject = ["$http", "$q", "$cookieStore"];

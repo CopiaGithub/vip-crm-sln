@@ -48,6 +48,7 @@ var GCPL;
                     this.ViewCapability = null;
                     this.QuotationID = null;
                     this.Total = null;
+                    this.LeadID = null;
                     this.TotalPriceModel = null;
                     this.Accessory1Service = _Accessory1Service;
                     this.Option1Service = _Option1Service;
@@ -77,6 +78,7 @@ var GCPL;
                     this.InsertQuotation = new Quotation();
                     this.Cookie = _cookieStore;
                     this.UserID = this.Cookie.get('UserInfo')['UserID'];
+                    this.LeadID = $location.search().LeadID;
                 }
                 CreateQuotationController.prototype.$onInit = function () {
                     this.Init();
@@ -213,165 +215,28 @@ var GCPL;
                 };
                 CreateQuotationController.prototype.Submit = function () {
                     var _this = this;
-                    if ($("#chkPF1").prop('checked') == true) {
-                        this.InsertQuotation.PF1 = "1";
+                    debugger;
+                    this.InsertQuotation.CustomerName = 'Test';
+                    this.InsertQuotation.ContactName = 'Testt';
+                    this.InsertQuotation.CustomerID = 1123;
+                    this.InsertQuotation.ContactID = 1123;
+                    this.InsertQuotation.CreatedBy = this.UserID;
+                    this.InsertQuotation.LeadID = this.LeadID;
+                    if (this.UserID != null || this.UserID != "") {
+                        this.InsertQuotation.CreatedBy = this.UserID;
                     }
-                    if ($("#chkPF2").prop('checked') == true) {
-                        this.InsertQuotation.PF2 = "2";
-                    }
-                    if ($("#chkPF3").prop('checked') == true) {
-                        this.InsertQuotation.PF3 = "3";
-                    }
-                    if ($("#chkPF4").prop('checked') == true) {
-                        this.InsertQuotation.PF4 = "4";
-                    }
-                    if ($("#chkPF5").prop('checked') == true) {
-                        this.InsertQuotation.PF5 = "5";
-                    }
-                    if ($("#chkPF6").prop('checked') == true) {
-                        this.InsertQuotation.PF6 = "6";
-                    }
-                    if ($("#chkPF7").prop('checked') == true) {
-                        this.InsertQuotation.PF7 = "7";
-                    }
-                    if ($("#chkPF8").prop('checked') == true) {
-                        this.InsertQuotation.PF1 = "8";
-                    }
-                    if ($("#chkPF9").prop('checked') == true) {
-                        this.InsertQuotation.PF2 = "9";
-                    }
-                    if ($("#chkPF10").prop('checked') == true) {
-                        this.InsertQuotation.PF3 = "10";
-                    }
-                    if ($("#chkPF11").prop('checked') == true) {
-                        this.InsertQuotation.PF4 = "11";
-                    }
-                    if ($("#chkPF12").prop('checked') == true) {
-                        this.InsertQuotation.PF5 = "12";
-                    }
-                    if ($("#chkPF13").prop('checked') == true) {
-                        this.InsertQuotation.PF1 = "13";
-                    }
-                    if ($("#chkPF14").prop('checked') == true) {
-                        this.InsertQuotation.PF2 = "14";
-                    }
-                    if ($("#chkPF15").prop('checked') == true) {
-                        this.InsertQuotation.PF3 = "15";
-                    }
-                    if ($("#chkPF16").prop('checked') == true) {
-                        this.InsertQuotation.PF4 = "16";
-                    }
-                    if ($("#chkPF17").prop('checked') == true) {
-                        this.InsertQuotation.PF1 = "17";
-                    }
-                    if ($("#chkPF18").prop('checked') == true) {
-                        this.InsertQuotation.PF2 = "18";
-                    }
-                    if ($("#chkPF19").prop('checked') == true) {
-                        this.InsertQuotation.PF3 = "19";
-                    }
-                    if ($("#chkPF20").prop('checked') == true) {
-                        this.InsertQuotation.PF4 = "20";
-                    }
-                    if ($("#chkPF21").prop('checked') == true) {
-                        this.InsertQuotation.PF5 = "21";
-                    }
-                    if ($("#chkPF22").prop('checked') == true) {
-                        this.InsertQuotation.PF6 = "22";
-                    }
-                    if ($("#chkTC1").prop('checked') == true) {
-                        this.InsertQuotation.TC1 = $("#txtTC1").val();
-                        this.InsertQuotation.TC1ID = 1;
-                    }
-                    if ($("#chkTC2").prop('checked') == true) {
-                        this.InsertQuotation.TC2 = $("#txtTC2").val();
-                        this.InsertQuotation.TC2ID = 2;
-                    }
-                    if ($("#chkTC3").prop('checked') == true) {
-                        this.InsertQuotation.TC3 = $("#txtTC3").val();
-                        this.InsertQuotation.TC3ID = 3;
-                    }
-                    if ($("#chkTC4").prop('checked') == true) {
-                        this.InsertQuotation.TC4 = $("#txtTC4").val();
-                        this.InsertQuotation.TC4ID = 4;
-                    }
-                    if ($("#chkTC5").prop('checked') == true) {
-                        this.InsertQuotation.TC5 = $("#txtTC5").val();
-                        this.InsertQuotation.TC5ID = 5;
-                    }
-                    if ($("#chkTC6").prop('checked') == true) {
-                        this.InsertQuotation.TC6 = $("#txtTC6").val();
-                        this.InsertQuotation.TC6ID = 6;
-                    }
-                    if ($("#chkTC7").prop('checked') == true) {
-                        this.InsertQuotation.TC7 = $("#txtTC7").val();
-                        this.InsertQuotation.TC7ID = 7;
-                    }
-                    if ($("#chkTC8").prop('checked') == true) {
-                        this.InsertQuotation.TC8 = $("#txtTC8").val();
-                        this.InsertQuotation.TC8ID = 8;
-                    }
-                    if ($("#chkOffer1").prop('checked') == true) {
-                        this.InsertQuotation.Offer1 = "1";
-                    }
-                    if ($("#chkOffer2").prop('checked') == true) {
-                        this.InsertQuotation.Offer2 = "2";
-                    }
-                    if ($("#chkOffer3").prop('checked') == true) {
-                        this.InsertQuotation.Offer3 = "3";
-                    }
-                    if ($("#chkOffer4").prop('checked') == true) {
-                        this.InsertQuotation.Offer4 = "4";
-                    }
-                    if ($("#chkOffer5").prop('checked') == true) {
-                        this.InsertQuotation.Offer5 = "5";
-                    }
-                    if ($("#chkOffer6").prop('checked') == true) {
-                        this.InsertQuotation.Offer6 = "6";
-                    }
-                    if ($("#chkCapability1").prop('checked') == true) {
-                        this.InsertQuotation.Capability1 = "1";
-                    }
-                    if ($("#chkCapability2").prop('checked') == true) {
-                        this.InsertQuotation.Capability2 = "2";
-                    }
-                    if ($("#chkCapability3").prop('checked') == true) {
-                        this.InsertQuotation.Capability3 = "3";
-                    }
-                    if ($("#chkCapability4").prop('checked') == true) {
-                        this.InsertQuotation.Capability4 = "4";
-                    }
-                    if ($("#chkCapability5").prop('checked') == true) {
-                        this.InsertQuotation.Capability5 = "5";
-                    }
-                    if ($("#chkCapability6").prop('checked') == true) {
-                        this.InsertQuotation.Capability6 = "6";
-                    }
-                    this.InsertQuotation.ContactName = this.ViewCOL.ContactName;
-                    this.InsertQuotation.CustomerAddress = this.ViewCOL.Address;
-                    if (this.InsertQuotation.TotalPrice == undefined || this.InsertQuotation.TotalPrice == null || this.InsertQuotation.TotalPrice == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Check Total Price.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else {
-                        this.InsertQuotation.UserID = this.UserID;
-                        if (this.UserID != null || this.UserID != "") {
-                            this.InsertQuotation.UserID = this.UserID;
+                    /*this.InsertQuotation.QuoteDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;*/
+                    this.InsertService.PostQuote(this.InsertQuotation).then((function (response) {
+                        if (response.data.Result != null) {
+                            $("#errorclose").hide();
+                            $("#close").show();
+                            _this.popupMessage("Quotation  Created Successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
                         }
-                        this.InsertQuotation.QuoteDate = document.getElementById("txtFromDate").value;
-                        this.InsertService.PostQuote(this.InsertQuotation).then((function (response) {
-                            if (response.data.Result != null) {
-                                $("#errorclose").hide();
-                                $("#close").show();
-                                _this.popupMessage("Quotation Reference - " + _this.InsertQuotation.QuoteRange + "  Created Successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-                                _this.InsertQuotation = null;
-                            }
-                            else {
-                                _this.HideShow();
-                                _this.popupMessage("Oops Some Error Occured", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                            }
-                        }));
-                    }
+                        else {
+                            _this.HideShow();
+                            _this.popupMessage("Oops Some Error Occured", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                        }
+                    }));
                 };
                 CreateQuotationController.prototype.GetOption1 = function () {
                     var _this = this;
