@@ -1639,12 +1639,6 @@
     <Content Include="Scripts\App\DisplayDocuments\Service\DisplayDocumentsService.js" />
     <Content Include="Scripts\App\DisplayDocuments\Template\DisplayDocuments.html" />
     <Content Include="Scripts\App\DisplayDocuments\Template\ParentDisplayDocuments.html" />
-    <Content Include="Scripts\App\DSchedule\Component\DScheduleComponent.js" />
-    <Content Include="Scripts\App\DSchedule\Controller\DScheduleController.js" />
-    <Content Include="Scripts\App\DSchedule\Model\DScheduleModel.js" />
-    <Content Include="Scripts\App\DSchedule\Service\DScheduleService.js" />
-    <Content Include="Scripts\App\DSchedule\Template\DSchedule.html" />
-    <Content Include="Scripts\App\DSchedule\Template\ParentDSchedule.html" />
     <Content Include="Scripts\App\DuplicateLead\Template\DuplicateLead.html" />
     <Content Include="Scripts\App\DuplicateLead\Template\ParentDuplicateLead.html" />
     <Content Include="Scripts\App\EditQuotation\Component\EditQuotationComponent.js" />
@@ -2309,10 +2303,6 @@
     <Content Include="Scripts\App\DeliverySchedule\Controller\DeliveryScheduleController.js.map" />
     <Content Include="Scripts\App\DeliverySchedule\Model\DeliveryScheduleModel.js.map" />
     <Content Include="Scripts\App\DeliverySchedule\Service\DeliveryScheduleService.js.map" />
-    <Content Include="Scripts\App\DSchedule\Component\DScheduleComponent.js.map" />
-    <Content Include="Scripts\App\DSchedule\Controller\DScheduleController.js.map" />
-    <Content Include="Scripts\App\DSchedule\Model\DScheduleModel.js.map" />
-    <Content Include="Scripts\App\DSchedule\Service\DScheduleService.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Chart.bundle.js" />
     <Content Include="Scripts\Chart.bundle.min.js" />
@@ -2461,10 +2451,6 @@
     <TypeScriptCompile Include="Scripts\App\DisplayDocuments\Controller\DisplayDocumentsController.ts" />
     <TypeScriptCompile Include="Scripts\App\DisplayDocuments\Model\DisplayDocumentsModel.ts" />
     <TypeScriptCompile Include="Scripts\App\DisplayDocuments\Service\DisplayDocumentsService.ts" />
-    <TypeScriptCompile Include="Scripts\App\DSchedule\Component\DScheduleComponent.ts" />
-    <TypeScriptCompile Include="Scripts\App\DSchedule\Controller\DScheduleController.ts" />
-    <TypeScriptCompile Include="Scripts\App\DSchedule\Model\DScheduleModel.ts" />
-    <TypeScriptCompile Include="Scripts\App\DSchedule\Service\DScheduleService.ts" />
     <TypeScriptCompile Include="Scripts\App\DuplicateLead\Component\DuplicateLeadComponent.ts" />
     <TypeScriptCompile Include="Scripts\App\DuplicateLead\Controller\DuplicateLeadController.ts" />
     <TypeScriptCompile Include="Scripts\App\DuplicateLead\Model\DuplicateLeadModel.ts" />

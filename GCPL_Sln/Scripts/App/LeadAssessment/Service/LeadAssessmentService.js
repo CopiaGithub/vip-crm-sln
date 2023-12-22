@@ -516,7 +516,8 @@ var GCPL;
                         ProductDesc: item.ProductDesc,
                         Quantity: item.Quantity,
                         Status: item.Status,
-                        ModelID: item.ModelID
+                        ModelID: item.ModelID,
+                        ItemStatus: item.ItemStatus
                     });
                 }
                 return list;
@@ -1026,20 +1027,58 @@ var GCPL;
             };
             EditItemList.prototype.GetItemEdit = function (data) {
                 var obj = new model.LeadItemCreateModel();
-                obj.ItemID = data.ItemID,
-                    obj.Status = data.Status,
-                    obj.ProductID = data.ProductID,
-                    obj.ProductDesc = data.ProductDesc,
+                obj.RefUserID = data.RefUserID,
+                    obj.CustomerID = data.CustomerID,
+                    obj.SalesOfficeID = data.SalesOfficeID,
+                    obj.CompanyName = data.CompanyName,
+                    obj.Email = data.Email,
+                    obj.MobileNo = data.MobileNo,
+                    obj.Address1 = data.Address1,
+                    obj.Address2 = data.Address2,
+                    obj.DistrictID = data.DistrictID,
+                    obj.City = data.City,
+                    obj.Pincode = data.Pincode,
+                    obj.ContactID = data.ContactID,
+                    obj.ContactName = data.ContactName,
+                    obj.ContactEmail = data.ContactEmail,
+                    obj.ContactMobileNo = data.ContactMobileNo,
+                    obj.ContactAddress = data.ContactAddress,
+                    obj.ContactDistrictID = data.ContactDistrictID,
+                    obj.ContactCity = data.ContactCity,
+                    obj.ContactPincode = data.ContactPincode,
+                    obj.Designation = data.Designation,
+                    obj.DepartmentID = data.DepartmentID,
+                    obj.FOPID = data.FOPID,
                     obj.ModelID = data.ModelID,
                     obj.PurchaseTimelineID = data.PurchaseTimelineID,
-                    obj.IsActive = data.IsActive,
-                    obj.SalesOfficeID = data.SalesOfficeID,
+                    obj.Comments = data.Comments,
+                    obj.UserID = data.UserID,
+                    obj.ItemID = data.ItemID,
+                    obj.PhoneNo = data.PhoneNo,
+                    obj.Fax = data.Fax,
+                    obj.ContactPhoneNo = data.ContactPhoneNo,
+                    obj.BusinessPartnerNo = data.BusinessPartnerNo,
                     obj.IndustryDivisionID = data.IndustryDivisionID,
                     obj.IndustrialSegmentID = data.IndustrialSegmentID,
-                    obj.CategoryID = data.CategoryID,
-                    obj.DivisionID = data.DivisionID,
+                    obj.CampaignID = data.CampaignID,
+                    obj.LeadSourceID = data.LeadSourceID,
+                    obj.Quantity = data.Quantity,
+                    obj.SubsourceID = data.SubsourceID,
+                    obj.Subsource2ID = data.Subsource2ID,
+                    obj.LeadType = data.LeadType,
+                    obj.RefUserName = data.RefUserName,
                     obj.ChannelID = data.ChannelID,
-                    obj.ItemStatusID = data.ItemStatusID;
+                    obj.LeadID = data.LeadID,
+                    obj.IsNational = data.IsNational,
+                    obj.CountryID = data.CountryID,
+                    obj.StateID = data.StateID,
+                    obj.Area = data.Area,
+                    obj.LeadCategoryID = data.CategoryID,
+                    obj.DivisionID = data.DivisionID,
+                    obj.ProductID = data.ProductID,
+                    obj.ProductDesc = data.ProductDesc,
+                    obj.ProjectID = data.ProjectID,
+                    obj.LeadStatusId = data.ItemStatusID;
                 return obj;
             };
             EditItemList.$inject = ["$http", "$q"];
@@ -1237,6 +1276,44 @@ var GCPL;
         }(GCPL.Service.BaseService));
         Service.LeadStatusDDService = LeadStatusDDService;
         app.AddService("LeadStatusDDService", LeadStatusDDService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var DeleteItemService = /** @class */ (function (_super) {
+            __extends(DeleteItemService, _super);
+            function DeleteItemService($http, $q) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this.apiUrl = "";
+                _this.apiUrl = _this.url + "/" + "DeleteItem";
+                return _this;
+            }
+            DeleteItemService.prototype.Find = function (data) {
+                var config = {
+                    params: {
+                        ItemID: data
+                    }
+                };
+                return this.ajaXUtility.Post({
+                    Url: this.apiUrl,
+                    data: data,
+                    Config: config
+                });
+            };
+            DeleteItemService.prototype.postItemDelete = function (data) {
+                var url = this.apiUrl;
+                this.$http.post(url, data).then(function (response) {
+                });
+            };
+            DeleteItemService.$inject = ["$http", "$q"];
+            return DeleteItemService;
+        }(GCPL.Service.BaseService));
+        Service.DeleteItemService = DeleteItemService;
+        app.AddService("DeleteItemService", DeleteItemService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
 //# sourceMappingURL=LeadAssessmentService.js.map

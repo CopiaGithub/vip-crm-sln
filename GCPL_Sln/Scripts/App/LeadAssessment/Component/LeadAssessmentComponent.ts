@@ -169,10 +169,13 @@
         private LeadStageDDService: Service.ILeadStageDDService;
         private LeadStatusDDService: Service.ILeadStatusDDService;
         private UpdateLeadDataService: Service.IUpdateLeadDataService;
+        private ProductDescAutofill: Service.IProductDescAutoFillService;
+        private DeleteService: Service.IDeleteItemService;
+
         static $inject = ["LeadStatusddService", "IndustryDivisionService", "IndustrialSegmentService", "LeadTypeddService", "LeadCategoryDDService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService", "ProductddService",
             "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "CampaignDetailsService", "ValidateReferredEmployeeService", "LeadAssessmentService", "LeadContactDetailsService", "CrtAssessmtServiceService",
             "LeadActivityListService", "LeadItemListService", "LeadQueAnsService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertItemDetailsService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service", "LeadOpportunity",
-            "SalesAreaService", "SalesOfficeService", "EditActivityList", "EditItemList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "$location", "$cookieStore"];
+            "SalesAreaService", "SalesOfficeService", "EditActivityList", "EditItemList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "ProductDescAutoFillService", "DeleteItemService", "$location", "$cookieStore"];
 
 
         //constructor define with Serivce _Name:Service.IServiceName//
@@ -183,7 +186,7 @@
             _CrtAssessmtService: Service.ICrtAssessmtServiceService, _LeadActivityListService: Service.ILeadActivityListService, _LeadItemListService: Service.ILeadItemListService, _LeadQueAnsService: Service.ILeadQueAnsService, _ModeActivityService: Service.IModeActivityService, _LeadActivityStatusDDservice: Service.ILeadActivityStatusDDservice,
             _LeadActivityPurposeDDservice: Service.ILeadActivityPurposeDDservice, _LeadActivityLocationDDservice: Service.ILeadActivityLocationDDservice, _InsertLeadAssessment: Service.IInsertLeadActivityService, _InsertItemAssessment: Service.IInsertItemDetailsService,
             _InsertLeadQuestions: Service.IInsertLeadQuestionsService, _Ans1Service: Service.IQAns1Service, _Ans2Service: Service.IQAns2Service, _Ans3Service: Service.IQAns3Service, _LeadOpportunity: Service.ILeadOpportunity, _SalesAreaService: Service.ISalesAreaService, _SalesOfficeService: Service.ISalesOfficeService, _EditActivityList: Service.IEditActivityList, _EditItemList: Service.IEditItemList, _LeadReturnService: Service.ILeadReturnService, _CreateInSAPLeadActivityService: Service.ICreateInSAPLeadActivityService,
-            _SubmitService: Service.IInsertLeadToOppSAPService, _ProjectNameService: Service.IProjectNameService, _DisqualificationReasonDDService: Service.IDisqualificationReasonDDService, _LeadStageDDService: Service.ILeadStageDDService, _LeadStatusDDService: Service.ILeadStatusDDService, _UpdateLeadDataService: Service.IUpdateLeadDataService, private $location: ng.ILocationService, private _cookieStore: any) {
+            _SubmitService: Service.IInsertLeadToOppSAPService, _ProjectNameService: Service.IProjectNameService, _DisqualificationReasonDDService: Service.IDisqualificationReasonDDService, _LeadStageDDService: Service.ILeadStageDDService, _LeadStatusDDService: Service.ILeadStatusDDService, _UpdateLeadDataService: Service.IUpdateLeadDataService, _ProductDescAutofill: Service.IProductDescAutoFillService, _deleteItem: Service.IDeleteItemService, private $location: ng.ILocationService, private _cookieStore: any) {
 
             this.LeadStatusService = _LeadStatusService;
             this.LeadStatusService = _LeadStatusService;
@@ -195,6 +198,8 @@
             this.LeadTypeService = _LeadTypeService;
             this.LeadCategoryService = _LeadCategoryService;
             this.PurchaseTimlineDDService = _PurchaseTimlineDDService;
+            this.ProductDescAutofill = _ProductDescAutofill;
+            this.DeleteService = _deleteItem;
             this.CategoryService = _CategoryService;
             this.DivisionPService = _DivisionPService;
             this.ProductService = _ProductService;
@@ -205,7 +210,6 @@
             this.ValidReferredEmpService = _ValidReferredEmpService;
             this.LeadAssessmentService = _leadassessmentService;
             this.ContactInfoService = _ContactInfoService;
-            debugger;
             this.LeadID = $location.search().LeadID;
             this.ModelID = $location.search().Model;
             this.ProductID = $location.search().Product;
@@ -347,6 +351,7 @@
 
             this.LeadTypeDropDown = this.LeadTypeService.Find().then((response => {
                 this.LeadTypeDropDown = this.LeadTypeService.GetLeadTypeName(response.data.Result);
+                this.InsertItem.LeadType = "5";
             }));
 
             this.LeadCategoryDropDown = this.LeadCategoryService.Find().then((response => {
@@ -414,10 +419,47 @@
                 // this.UpdateLeadData.SalesStage = this.StageDD[0].ID.toString();
             }));
 
+            this.ProductDropDown = this.ProductService.Find(0).then((response => {
+                this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
+
+            }));
+
             this.FillGrid();
             this.FillGridItems();
             this.FillGrid1();
             //this.getLocation();
+
+            let that = this;
+
+            $("#txtProductDesc").autocomplete({
+                //  source:['1a0','anjali','archana'],
+                source: function (request, res) {
+                    that.ProductDescAutofill.FilterAutoComplete(request).then((response => {
+
+                        let data = that.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
+                        res($.map(data, function (item, index) {
+                            return {
+                                label: item.ProductDesc,
+                                value: item.ProductDesc,
+                                id: item.ProductID
+
+                            }
+                        }));
+                    }));
+
+                },
+                minLength: 2,
+                focus: (event, ui) => {
+
+                    event.preventDefault();
+                },
+                select: function (e, ui) {
+                    that.InsertItem.ProductID = ui.item.id;
+                },
+                change: function () {
+
+                }
+            });
 
         }
 
@@ -479,13 +521,13 @@
             }));
         }
 
-        Product(data: any): void {
+        //Product(data: any): void {
 
-            this.ProductDropDown = this.ProductService.Find(data).then((response => {
-                this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
+        //    this.ProductDropDown = this.ProductService.Find(data).then((response => {
+        //        this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
 
-            }));
-        }
+        //    }));
+        //}
 
         Model(data: any): void {
             this.ModelDropDown = this.ModelService.Find(this.LeadAssessment.ProductID).then((response => {
@@ -507,6 +549,17 @@
             }));
         }
 
+        DeleteItem(ItemID): void {
+            this.DeleteService.Find(ItemID).then((response => {
+                this.DeleteService.postItemDelete(response.data.Result);
+                this.Init();
+                $("#errorclose").hide();
+                $("#close").show();
+                this.popupMessage("Record deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+
+            }));
+        }
+
         Assessment(data: any): void {
 
 
@@ -521,7 +574,7 @@
                 this.AssessmentInfo.ProjectID = this.AssessmentInfo.ProjectID;
                 this.Division(this.AssessmentInfo.CategoryID);
                 this.AssessmentInfo.DivisionID = this.AssessmentInfo.DivisionID;
-                this.Product(this.AssessmentInfo.DivisionID);
+                /*this.Product(this.AssessmentInfo.DivisionID);*/
                 this.AssessmentInfo.ProductID = this.AssessmentInfo.ProductID;
                 this.Model(this.AssessmentInfo.ProductID);
                 this.AssessmentInfo.ModelID = this.AssessmentInfo.ModelID;
@@ -599,6 +652,9 @@
             }
         }
 
+
+
+
         allocatedOpp(): void {
             if (this.LeadOpp.Allocated == 1) {
                 $("#txtDays2").show();
@@ -653,6 +709,20 @@
             $('#date').val(y1 + "-" + currentMonth + "-" + d1);
         }
 
+        AddItem(): void {
+            this.InsertItem = new LeadItem();
+            $("#Item-submit").prop("disabled", false);
+            this.InsertItem.LeadType = "5";
+            this.InsertItem.LeadStatusId = "1";
+            //this.InsertItem.cate = "";
+            //this.InsertItem.ptype = "";
+            //this.InsertItem.loc = "";
+            //this.InsertItem.note = "";
+            //this.InsertItem.AnsOne = "";
+            //this.InsertItem.AnsTwo = "";
+            //this.InsertItem.AnsThree = "";
+        }
+
         DateChange(): void {
             debugger;
             var n1 = new Date();
@@ -673,8 +743,8 @@
         }
 
 
-        UpdateLeadStage(): void {
-
+        UpdateLead(): void {
+            debugger;
             this.UpdateLeadData.userID = this.UserID;
             this.UpdateLeadData.leadID = this.LeadID;
             this.UpdateLeadData.salesStage = this.AssessmentInfo.SalesStage;
@@ -685,13 +755,14 @@
 
             if (this.UpdateLeadData.SalesStage == this.AssessmentInfo.SalesStage) {
                 $("#pg-load").show();
+                debugger;
                 this.UpdateLeadDataService.PostUpdateLeadData(this.UpdateLeadData).then(response => {
                     $("#pg-load").hide();
                     if (response.data.Result == 1) {
                         $("#errorclose").hide();
                         $("#close").show();
                         $("#btncloseOk").hide();
-                        this.popupMessage("Lead Updated Successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                        this.popupMessage("Opportunity Updated Successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
                     }
                     else {
                         $("#errorclose").show();
@@ -702,6 +773,7 @@
                 });
             } else {
                 $("#pg-load").show();
+                debugger;
                 this.UpdateLeadDataService.PostUpdateLeadData(this.UpdateLeadData).then(response => {
 
                     $("#pg-load").hide();
@@ -1113,6 +1185,8 @@
                 $("#Item-submit").prop("disabled", true);
 
 
+                this.InsertItem.ItemStatusID = this.InsertItem.LeadStatusId;
+                this.InsertItem.CategoryID = this.InsertItem.LeadCategoryID;
 
                 console.log("OP", this.InsertItem);
                 //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {

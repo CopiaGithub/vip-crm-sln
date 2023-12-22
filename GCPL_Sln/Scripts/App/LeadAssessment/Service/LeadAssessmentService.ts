@@ -554,7 +554,8 @@ namespace GCPL.Service {
                     ProductDesc: item.ProductDesc,
                     Quantity: item.Quantity,
                     Status: item.Status,
-                    ModelID: item.ModelID
+                    ModelID: item.ModelID,
+                    ItemStatus: item.ItemStatus
                 });
             }
             return list;
@@ -1121,20 +1122,58 @@ namespace GCPL.Service {
         GetItemEdit(data: any): model.LeadItemCreateModel {
 
             let obj = new model.LeadItemCreateModel();
-                obj.ItemID = data.ItemID,
-                obj.Status = data.Status,
-                obj.ProductID = data.ProductID,
-                obj.ProductDesc = data.ProductDesc,
+            obj.RefUserID = data.RefUserID,
+                obj.CustomerID = data.CustomerID,
+                obj.SalesOfficeID = data.SalesOfficeID,
+                obj.CompanyName = data.CompanyName,
+                obj.Email = data.Email,
+                obj.MobileNo = data.MobileNo,
+                obj.Address1 = data.Address1,
+                obj.Address2 = data.Address2,
+                obj.DistrictID = data.DistrictID,
+                obj.City = data.City,
+                obj.Pincode = data.Pincode,
+                obj.ContactID = data.ContactID,
+                obj.ContactName = data.ContactName,
+                obj.ContactEmail = data.ContactEmail,
+                obj.ContactMobileNo = data.ContactMobileNo,
+                obj.ContactAddress = data.ContactAddress,
+                obj.ContactDistrictID = data.ContactDistrictID,
+                obj.ContactCity = data.ContactCity,
+                obj.ContactPincode = data.ContactPincode,
+                obj.Designation = data.Designation,
+                obj.DepartmentID = data.DepartmentID,
+                obj.FOPID = data.FOPID,
                 obj.ModelID = data.ModelID,
                 obj.PurchaseTimelineID = data.PurchaseTimelineID,
-                obj.IsActive = data.IsActive,
-                obj.SalesOfficeID = data.SalesOfficeID,
+                obj.Comments = data.Comments,
+                obj.UserID = data.UserID,
+                obj.ItemID = data.ItemID,
+                obj.PhoneNo = data.PhoneNo,
+                obj.Fax = data.Fax,
+                obj.ContactPhoneNo = data.ContactPhoneNo,
+                obj.BusinessPartnerNo = data.BusinessPartnerNo,
                 obj.IndustryDivisionID = data.IndustryDivisionID,
                 obj.IndustrialSegmentID = data.IndustrialSegmentID,
-                obj.CategoryID = data.CategoryID,
-                obj.DivisionID = data.DivisionID,
+                obj.CampaignID = data.CampaignID,
+                obj.LeadSourceID = data.LeadSourceID,
+                obj.Quantity = data.Quantity,
+                obj.SubsourceID = data.SubsourceID,
+                obj.Subsource2ID = data.Subsource2ID,
+                obj.LeadType = data.LeadType,
+                obj.RefUserName = data.RefUserName,
                 obj.ChannelID = data.ChannelID,
-                obj.ItemStatusID = data.ItemStatusID
+                obj.LeadID = data.LeadID,
+                obj.IsNational = data.IsNational,
+                obj.CountryID = data.CountryID,
+                obj.StateID = data.StateID,
+                obj.Area = data.Area,
+                obj.LeadCategoryID = data.CategoryID,
+                obj.DivisionID = data.DivisionID,
+                obj.ProductID = data.ProductID,
+                obj.ProductDesc = data.ProductDesc,
+                obj.ProjectID = data.ProjectID,
+                obj.LeadStatusId = data.ItemStatusID
 
 
             return obj;
@@ -1357,4 +1396,46 @@ namespace GCPL.Service {
     }
 
     app.AddService("LeadStatusDDService", LeadStatusDDService);
+}
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IDeleteItemService {
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        postItemDelete(data: any): void;
+    }
+    export class DeleteItemService extends GCPL.Service.BaseService implements IDeleteItemService {
+
+        private apiUrl: string = "";
+        static $inject = ["$http", "$q"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"DeleteItem"}`;
+        }
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+
+            let config = {
+                params: {
+                    ItemID: data
+                }
+            };
+            return this.ajaXUtility.Post({
+
+                Url: this.apiUrl,
+                data,
+                Config: config
+            });
+        }
+
+        postItemDelete(data): void {
+            let url = this.apiUrl;
+            this.$http.post(url, data).then(function (response) {
+            });
+
+        }
+    }
+
+    app.AddService("DeleteItemService", DeleteItemService);
 }

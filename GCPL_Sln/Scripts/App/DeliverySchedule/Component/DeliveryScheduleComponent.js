@@ -5,124 +5,331 @@ var GCPL;
         var Home;
         (function (Home) {
             var app = GCPL.app;
+            var LeadChangeInsert = GCPL.Model.UpdateLeadChangeModel;
+            var Search = GCPL.Model.RegionCheckModel;
+            var SalesAreaSearch = GCPL.Model.CheckSalesAreaModel;
+            var SearchRefUser = GCPL.Model.SearchRefUserModel;
             var DeliveryScheduleController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function DeliveryScheduleController(_LeadStatusService, _IndustryDivisionService, _IndustrialSegmentService, _LeadTypeService, _LeadCategoryService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _CampaignDDService, _ValidReferredEmpService, _leadassessmentService, _ContactInfoService, _CrtAssessmtService, _LeadActivityListService, _LeadQueAnsService, _ModeActivityService, _LeadActivityStatusDDservice, _LeadActivityPurposeDDservice, _LeadActivityLocationDDservice, _InsertLeadAssessment, _InsertLeadQuestions, _Ans1Service, _Ans2Service, _Ans3Service, _LeadOpportunity, _SalesAreaService, _EditActivityList, _LeadReturnService, _CreateInSAPLeadActivityService, _SubmitService, _ProjectNameService, _DisqualificationReasonDDService, _LeadStageDDService, _LeadStatusDDService, _UpdateLeadDataService, _ItemDataListService, $location, _cookieStore) {
+                function DeliveryScheduleController(_EditService, _ReasonForLeadOpenDDService, _LeadStatusForOpenDDService, _SalesOfficeService, _CountryService, _StateService, _DistrictService, _RegionService, _IndustrialSegmentService, _DepartmentService, _DesignationService, _LeadTypeService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _PurchaseTimlineDDService, _ChannelDDService, _LeadSourceDDService, _LeadCategoryService, _SalesAreaService, _InsertService, _CheckRegionService, _CheckSalesAreaService, _ProjectNameService, $location, _cookieStore, _CampaignDDService, _getAutoUser, _LeadItemListService, _EditItemList, _AddToCartDsService, _DsListService) {
                     this.$location = $location;
                     this._cookieStore = _cookieStore;
-                    this.LeadActivitylist = null;
-                    this.LeadItemlist = null;
-                    this.LeadQueAnsDetails = null;
-                    this.LeadAssessment = null;
-                    this.toggleStatus = null;
-                    this.UserID = null;
-                    this.EditTarget = null;
-                    this.LeadStatusDropDown = null;
-                    this.IndustryDivisionDropDown = null;
+                    this.numRecords = 10;
+                    this.page = 0;
+                    this.incre = 0;
+                    this.shownItems = [];
+                    this.maxPages = 0;
+                    this.ShowNext = true;
+                    this.ShowBack = true;
+                    this.NoOfRds = 10;
+                    this.alert = null;
+                    this.LeadID = null;
+                    this.LeadOpenReasonDD = null;
+                    this.LeadStatusOpenDD = null;
+                    this.SalesOfficeDropDown = null;
+                    this.CountryDropDown = null;
+                    this.StateDropDown = null;
+                    this.DistrictDropDown = null;
+                    this.RegionDropDown = null;
                     this.IndustrialSegmentDropDown = null;
+                    this.DepartmentDropDown = null;
+                    this.DesignationDropDown = null;
+                    this.AddConCountryDropDown = null;
+                    this.AddConStateDropDown = null;
+                    this.AddConDistrictDropDown = null;
                     this.LeadTypeDropDown = null;
-                    this.LeadCategoryDropDown = null;
-                    this.PurchaseTimlinedd = null;
                     this.CategoryDropDown = null;
                     this.DivisionDropDownP = null;
                     this.ProductDropDown = null;
                     this.ModelDropDown = null;
                     this.ChannelDD = null;
-                    this.ModeActivityDropDown = null;
-                    this.LeadActivityStatusDD = null;
-                    this.LeadActivityPurposeDD = null;
-                    this.LeadActivityLocationDD = null;
                     this.LeadSourcedd = null;
-                    this.Campaigndd = null;
-                    this.ValidReferred = null;
-                    this.AssessmentInfo = null;
-                    this.ContactInfo = null;
-                    this.LeadID = null;
-                    this.ModelID = null;
-                    this.ProductID = null;
-                    this.ModelNo = null;
-                    this.ProductD = null;
-                    this.InsertAssessment = null;
-                    this.CrtAssessmt = null;
-                    this.ReturnModel = null;
-                    this.InsertLeadActivity = null;
+                    this.PurchaseTimlinedd = null;
+                    this.LeadCategoryDropDown = null;
+                    this.SalesAreaDD = null;
+                    this.InsertLeadChange = null;
+                    this.EditLeadChange = null;
+                    this.CheckRegion = null;
+                    this.SearchRegion = null;
                     this.SalesAreaDropDown = null;
-                    this.LeadActivitySearch = null;
                     this.SearchUser = null;
-                    this.alert = null;
-                    this.InsertAct = null;
-                    this.SubmitData = null;
-                    this.Cookie = null;
+                    this.SearchSalesArea = null;
+                    this.GetSalesArea = null;
+                    this.Campaigndd = null;
+                    this.UserID = null;
+                    this.RoleID = null;
+                    this.LeadStatusID = null;
                     this.ProjectNameDD = null;
-                    this.DisqualificationReasonDD = null;
-                    this.StageDD = null;
-                    this.LeadStatusDD = null;
-                    this.lat = null;
-                    this.lng = null;
-                    this.UpdateLeadData = null;
-                    this.$location = $location;
-                    this.LeadStatusService = _LeadStatusService;
-                    this.LeadStatusService = _LeadStatusService;
+                    this.LeadItemlist = null;
+                    this.InsertItem = null;
+                    this.DeliverySchedulelist = null;
+                    this.Cookie = null;
+                    this.InsertService = _InsertService;
                     this.ProjectNameService = _ProjectNameService;
-                    this.CreateInSAPLeadActivityService = _CreateInSAPLeadActivityService;
-                    this.IndustryDivisionService = _IndustryDivisionService;
+                    this.InsertLeadChange = new LeadChangeInsert();
+                    this.ReasonForLeadOpenDDService = _ReasonForLeadOpenDDService;
+                    this.LeadStatusForOpenDDService = _LeadStatusForOpenDDService;
+                    this.SalesOfficeService = _SalesOfficeService;
+                    this.CountryService = _CountryService;
+                    this.StateService = _StateService;
+                    this.DistrictService = _DistrictService;
+                    this.RegionService = _RegionService;
+                    this.CheckRegionService = _CheckRegionService;
+                    this.SearchRegion = new Search();
                     this.IndustrialSegmentService = _IndustrialSegmentService;
+                    this.DepartmentService = _DepartmentService;
+                    this.DesignationService = _DesignationService;
                     this.LeadTypeService = _LeadTypeService;
-                    this.LeadCategoryService = _LeadCategoryService;
-                    this.PurchaseTimlineDDService = _PurchaseTimlineDDService;
                     this.CategoryService = _CategoryService;
                     this.DivisionPService = _DivisionPService;
                     this.ProductService = _ProductService;
                     this.ModelService = _ModelService;
+                    this.PurchaseTimlineDDService = _PurchaseTimlineDDService;
                     this.ChannelDDService = _ChannelDDService;
                     this.LeadSourceDDService = _LeadSourceDDService;
-                    this.CampaignDDService = _CampaignDDService;
-                    this.ValidReferredEmpService = _ValidReferredEmpService;
-                    this.LeadAssessmentService = _leadassessmentService;
-                    this.ContactInfoService = _ContactInfoService;
-                    this.LeadID = "11693";
-                    //this.LeadID = $location.search().LeadID;
-                    //this.ModelID = $location.search().Model;
-                    //this.ProductID = $location.search().Product;
-                    this.CrtAssessmtService = _CrtAssessmtService;
-                    this.Listservice = _LeadActivityListService;
-                    this.QueAnsservice = _LeadQueAnsService;
-                    this.LeadOpportunity = _LeadOpportunity;
+                    this.LeadCategoryService = _LeadCategoryService;
                     this.SalesAreaService = _SalesAreaService;
-                    this.ModeActivityService = _ModeActivityService;
-                    this.LeadActivityStatusDDservice = _LeadActivityStatusDDservice;
-                    this.LeadActivityPurposeDDservice = _LeadActivityPurposeDDservice;
-                    this.LeadActivityLocationDDservice = _LeadActivityLocationDDservice;
-                    this.InsertLeadAssessment = _InsertLeadAssessment;
-                    this.InsertLeadQuestions = _InsertLeadQuestions;
-                    this.Ans1Service = _Ans1Service;
-                    this.Ans2Service = _Ans2Service;
-                    this.Ans3Service = _Ans3Service;
-                    this.LeadReturnService = _LeadReturnService;
-                    this.SubmitService = _SubmitService;
-                    this.DisqualificationReasonDDService = _DisqualificationReasonDDService;
-                    this.LeadStageDDService = _LeadStageDDService;
-                    this.LeadStatusDDService = _LeadStatusDDService;
-                    this.UpdateLeadDataService = _UpdateLeadDataService;
-                    this.ItemListservice = _ItemDataListService;
-                    this.EditService = _EditActivityList;
+                    this.CheckSalesAreaService = _CheckSalesAreaService;
+                    this.SearchSalesArea = new SalesAreaSearch();
+                    this.EditService = _EditService;
+                    this.LeadID = $location.search().LeadID;
+                    this.CampaignDDService = _CampaignDDService;
+                    this.SearchUser = new SearchRefUser();
+                    this.getAutoUser = _getAutoUser;
+                    this.ListItemservice = _LeadItemListService;
+                    this.EditItemService = _EditItemList;
+                    this.AddToCartDsService = _AddToCartDsService;
+                    this.DsListService = _DsListService;
                     this.Cookie = _cookieStore;
-                    //this.UserID = this.Cookie.get('UserInfo')['UserID'];
+                    this.UserID = this.Cookie.get('UserInfo')['UserID'];
+                    this.RoleID = this.Cookie.get('UserInfo')['RoleID'];
                 }
                 DeliveryScheduleController.prototype.$onInit = function () {
-                    var date = new Date();
-                    var currentMonth = date.getMonth();
-                    var currentDate = date.getDate();
-                    var currentYear = date.getFullYear();
-                    var d = new Date();
-                    d.setDate(d.getDate() - 2);
-                    $("#date").datepicker({
-                        dateFormat: 'yy-mm-dd', changeMonth: true,
-                        changeYear: true,
-                        onSelect: this.OppActDate,
-                        minDate: d
-                    });
+                    var that = this;
                     this.Init();
+                    $("#errorclose").hide();
+                    $('#search-btn-loader').hide();
+                    $("#close").hide();
+                    var splTab = document.getElementsByClassName("spl-tab");
+                    for (var i = 0; i < splTab.length; i++) {
+                        splTab[i].addEventListener("click", function () {
+                            this.classList.toggle("toggle-spl-minus");
+                        });
+                    }
+                };
+                DeliveryScheduleController.prototype.selectFromDate = function (e) {
+                    document.getElementById("txtDeliveryDate").value = e;
+                };
+                //Page Load Define Values//
+                DeliveryScheduleController.prototype.Init = function () {
+                    var _this = this;
+                    debugger;
+                    var n = new Date();
+                    n.setDate(n.getDate() - 7);
+                    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                    var m = months[n.getMonth()];
+                    var d = n.getDate();
+                    var y = n.getFullYear();
+                    document.getElementById("txtDeliveryDate").innerHTML = d + " " + m + " " + y;
+                    $('#txtDeliveryDate').val(d + " " + m + " " + y);
+                    document.getElementById("txtDeliveryDate").value;
+                    $("#txtDeliveryDate").datepicker({
+                        dateFormat: 'dd M yy', changeMonth: true,
+                        changeYear: true,
+                        onSelect: this.selectFromDate
+                    });
+                    var that = this;
+                    $('#Campaignfield').hide();
+                    $('#UserNamefield').hide();
+                    $("#errorclose").hide();
+                    $("#close").hide();
+                    this.LeadOpenReasonDD = this.ReasonForLeadOpenDDService.Find().then((function (response) {
+                        _this.LeadOpenReasonDD = _this.ReasonForLeadOpenDDService.GetReason(response.data.Result);
+                    }));
+                    this.SalesOfficeDropDown = this.SalesOfficeService.Find().then((function (response) {
+                        _this.SalesOfficeDropDown = _this.SalesOfficeService.GetSalesOfficeName(response.data.Result);
+                    }));
+                    this.CountryDropDown = this.CountryService.Find().then((function (response) {
+                        _this.CountryDropDown = _this.CountryService.GetCountryName(response.data.Result);
+                    }));
+                    this.RegionDropDown = this.RegionService.Find().then((function (response) {
+                        _this.RegionDropDown = _this.RegionService.GetRegion(response.data.Result);
+                    }));
+                    this.IndustrialSegmentDropDown = this.IndustrialSegmentService.Find().then((function (response) {
+                        _this.IndustrialSegmentDropDown = _this.IndustrialSegmentService.GetIndustrialSegmentName(response.data.Result);
+                    }));
+                    this.DepartmentDropDown = this.DepartmentService.Find().then((function (response) {
+                        _this.DepartmentDropDown = _this.DepartmentService.GetDepartmentName(response.data.Result);
+                    }));
+                    this.DesignationDropDown = this.DesignationService.Find().then((function (response) {
+                        _this.DesignationDropDown = _this.DesignationService.GetDesignationName(response.data.Result);
+                    }));
+                    this.AddConCountryDropDown = this.CountryService.Find().then((function (response) {
+                        _this.AddConCountryDropDown = _this.CountryService.GetCountryName(response.data.Result);
+                    }));
+                    this.LeadTypeDropDown = this.LeadTypeService.Find().then((function (response) {
+                        _this.LeadTypeDropDown = _this.LeadTypeService.GetLeadTypeName(response.data.Result);
+                    }));
+                    this.CategoryDropDown = this.CategoryService.Find().then((function (response) {
+                        _this.CategoryDropDown = _this.CategoryService.GetCategoryName(response.data.Result);
+                    }));
+                    this.PurchaseTimlinedd = this.PurchaseTimlineDDService.Find().then((function (response) {
+                        _this.PurchaseTimlinedd = _this.PurchaseTimlineDDService.GetPurchaseTimeline(response.data.Result);
+                    }));
+                    this.ChannelDD = this.ChannelDDService.Find().then((function (response) {
+                        _this.ChannelDD = _this.ChannelDDService.GetChannelDDnew(response.data.Result);
+                    }));
+                    this.LeadCategoryDropDown = this.LeadCategoryService.Find().then((function (response) {
+                        _this.LeadCategoryDropDown = _this.LeadCategoryService.GetLeadCategoryName(response.data.Result);
+                    }));
+                    this.SalesAreaDropDown = this.SalesAreaService.Find().then((function (response) {
+                        _this.SalesAreaDropDown = _this.SalesAreaService.GetSalesAreaName(response.data.Result);
+                    }));
+                    this.ProjectNameDD = this.ProjectNameService.FindProjectNameDD(this.UserID).then((function (response) {
+                        _this.ProjectNameDD = _this.ProjectNameService.GetProjectNameDD(response.data.Result);
+                    }));
+                    //var LeadStatus = this.InsertLeadChange.LeadStatusID;
+                    this.LeadStatusOpenDD = this.LeadStatusForOpenDDService.Find(this.LeadID).then((function (response) {
+                        _this.LeadStatusOpenDD = _this.LeadStatusForOpenDDService.GetLeadOpen(response.data.Result);
+                        //this.InsertLeadChange.LeadStatusID = LeadStatus
+                    }));
+                    if (this.LeadID != undefined || this.LeadID != null || this.LeadID != "") {
+                        this.Edit(this.LeadID);
+                        this.FillGridItems();
+                        this.FillGridDeliverySchedule();
+                    }
+                    //else {
+                    //    this.Edit(this.LeadID);
+                    //}
+                    $("#txtUserName").autocomplete({
+                        source: function (request, res) {
+                            that.getAutoUser.FilterAutoComplete(request).then((function (response) {
+                                var data = that.getAutoUser.GetAutoUser(response.data.Result);
+                                res($.map(data, function (item, index) {
+                                    return {
+                                        label: item.UserName,
+                                        value: item.UserName,
+                                        id: item.UserID
+                                    };
+                                }));
+                            }));
+                        },
+                        minLength: 2,
+                        focus: function (event, ui) {
+                            event.preventDefault();
+                        },
+                        select: function (e, ui) {
+                            that.InsertLeadChange.RefUserID = ui.item.id;
+                            that.InsertLeadChange.RefUserName = ui.item.value;
+                        },
+                        change: function () {
+                        }
+                    });
+                };
+                DeliveryScheduleController.prototype.FillGridItems = function () {
+                    var _this = this;
+                    this.LeadItemlist = this.ListItemservice.Find(this.LeadID).then((function (response) {
+                        _this.LeadItemlist = _this.ListItemservice.GetLeadItemList(response.data.Result);
+                    }));
+                };
+                DeliveryScheduleController.prototype.FillGridDeliverySchedule = function () {
+                    var _this = this;
+                    this.DeliverySchedulelist = this.DsListService.Find(this.LeadID).then((function (response) {
+                        _this.DeliverySchedulelist = _this.DsListService.GetLeadItemList(response.data.Result);
+                        console.log("this.DeliverySchedulelist", _this.DeliverySchedulelist);
+                    }));
+                };
+                DeliveryScheduleController.prototype.State = function (data) {
+                    var _this = this;
+                    this.StateDropDown = this.StateService.Find(this.InsertLeadChange.CountryID).then((function (response) {
+                        _this.StateDropDown = _this.StateService.GetStateName(response.data.Result);
+                    }));
+                };
+                DeliveryScheduleController.prototype.District = function (data) {
+                    var _this = this;
+                    this.DistrictDropDown = this.DistrictService.Find(this.InsertLeadChange.StateID).then((function (response) {
+                        _this.DistrictDropDown = _this.DistrictService.GetDistrictName(response.data.Result);
+                    }));
+                };
+                DeliveryScheduleController.prototype.AddConState = function (data) {
+                    var _this = this;
+                    this.AddConStateDropDown = this.StateService.Find(this.InsertLeadChange.ContactCountryID).then((function (response) {
+                        _this.AddConStateDropDown = _this.StateService.GetStateName(response.data.Result);
+                    }));
+                };
+                DeliveryScheduleController.prototype.AddConDistrict = function (data) {
+                    var _this = this;
+                    this.AddConDistrictDropDown = this.DistrictService.Find(this.InsertLeadChange.ContactStateID).then((function (response) {
+                        _this.AddConDistrictDropDown = _this.DistrictService.GetDistrictName(response.data.Result);
+                    }));
+                };
+                DeliveryScheduleController.prototype.Division = function (data) {
+                    var _this = this;
+                    this.DivisionDropDownP = this.DivisionPService.Find(this.InsertLeadChange.CategoryID).then((function (response) {
+                        _this.DivisionDropDownP = _this.DivisionPService.GetDivisionDDP(response.data.Result);
+                    }));
+                };
+                DeliveryScheduleController.prototype.Product = function (data) {
+                    var _this = this;
+                    this.ProductDropDown = this.ProductService.Find(this.InsertLeadChange.DivisionID).then((function (response) {
+                        _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
+                    }));
+                };
+                DeliveryScheduleController.prototype.Model = function (data) {
+                    var _this = this;
+                    this.ModelDropDown = this.ModelService.Find(this.InsertLeadChange.ProductID).then((function (response) {
+                        _this.ModelDropDown = _this.ModelService.GetModelDD(response.data.Result);
+                    }));
+                };
+                DeliveryScheduleController.prototype.LeadSource = function (data) {
+                    var _this = this;
+                    this.LeadSourcedd = this.LeadSourceDDService.Find(this.InsertLeadChange.ChannelID).then((function (response) {
+                        _this.LeadSourcedd = _this.LeadSourceDDService.GetLeadSourceDetails(response.data.Result);
+                    }));
+                };
+                DeliveryScheduleController.prototype.LeadStatusopen = function (data) {
+                    var _this = this;
+                    this.LeadStatusOpenDD = this.LeadStatusForOpenDDService.Find(this.LeadID).then((function (response) {
+                        _this.LeadStatusOpenDD = _this.LeadStatusForOpenDDService.GetLeadOpen(response.data.Result);
+                    }));
+                };
+                DeliveryScheduleController.prototype.Campaign = function () {
+                    var _this = this;
+                    this.Campaigndd = this.CampaignDDService.Find(this.InsertLeadChange.LeadSourceID).then((function (response) {
+                        _this.Campaigndd = _this.CampaignDDService.GetCampaignDetails(response.data.Result);
+                    }));
+                };
+                DeliveryScheduleController.prototype.LeadSourceChange = function () {
+                    $("#Campaignfield").hide();
+                    $("#UserNamefield").hide();
+                    if (this.InsertLeadChange.LeadSourceID == "10" || this.InsertLeadChange.LeadSourceID == "24") {
+                        this.Campaign();
+                        $("#Campaignfield").show();
+                        $("#UserNamefield").hide();
+                    }
+                    else if (this.InsertLeadChange.LeadSourceID == "2") {
+                        $("#Campaignfield").hide();
+                        $("#UserNamefield").show();
+                    }
+                };
+                DeliveryScheduleController.prototype.LeadOpenReason = function () {
+                    var _this = this;
+                    $("#txtreason").prop('disabled', true);
+                    if (this.InsertLeadChange.LeadStatusID == "1") {
+                        $("#txtreason").prop('disabled', false);
+                        this.LeadOpenReasonDD = this.ReasonForLeadOpenDDService.Find().then((function (response) {
+                            _this.LeadOpenReasonDD = _this.ReasonForLeadOpenDDService.GetReason(response.data.Result);
+                            _this.InsertLeadChange.LeadOpenReason = _this.LeadOpenReasonDD[0].ID.toString();
+                        }));
+                    }
+                    else {
+                        $("#txtreason").prop('disabled', true);
+                        this.InsertLeadChange.LeadOpenReason = "";
+                    }
+                };
+                DeliveryScheduleController.prototype.HideShow = function () {
+                    $("#errorclose").show();
+                    $("#close").hide();
                 };
                 DeliveryScheduleController.prototype.popupMessage = function (Message, AddClass, RemoveClass, ShowImg, HideImg) {
                     $("#message-text").html(Message);
@@ -131,684 +338,273 @@ var GCPL;
                     $(HideImg).hide();
                     $("#succeess-message-box").modal("show");
                 };
-                DeliveryScheduleController.prototype.ShowHidePopUp = function (Message) {
-                    $("#errorclose").show();
-                    $("#close").hide();
-                    this.alert = Message;
-                };
-                //Page Load Define Values//
-                DeliveryScheduleController.prototype.Init = function () {
-                    //this.EMAIL_REGEXP = /^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+                DeliveryScheduleController.prototype.AddDsToCart = function (data) {
                     var _this = this;
-                    $("#errorclose").hide();
-                    $("#txtDays").hide();
-                    $("#ee-date").hide();
-                    $("#txtAllocated").hide();
-                    $("#txtDays2").hide();
-                    $("#close").hide();
-                    $('#Campaignfield').hide();
-                    $('#UserNamefield').hide();
-                    $("#txtAllocated1").hide();
-                    $("#ass-btn-loader").hide();
-                    $("#act-btn-loader").hide();
-                    $("#txtDisqual").hide();
-                    var n1 = new Date();
-                    var y1 = n1.getFullYear();
-                    var months1 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                    var m1 = months1[n1.getMonth()];
-                    var d1 = n1.getDate();
-                    //(<HTMLInputElement>document.getElementById("ExpDate")).innerHTML = d1 + " " + m1 + " " + y1;
-                    //$('#ExpDate').val(d1 + " " + m1 + " " + y1);
-                    //(<HTMLInputElement>document.getElementById("ExpDate")).value;
-                    //$("#ExpDate").datepicker({
-                    //    dateFormat: 'yy-mm-dd',
-                    //    changeMonth: true,
-                    //    changeYear: true,
-                    //    minDate: 0,
-                    //    onSelect: this.selectExpectedDate
-                    //});
-                    debugger;
-                    if (this.LeadID != null || this.LeadID != "" || this.LeadID != undefined) {
-                        console.log(this.LeadID, "this.LeadID11111");
-                        this.Assessment(this.LeadID);
-                        this.FillGridData();
+                    this.InsertItem.UserID = this.UserID;
+                    this.InsertItem.LeadID = this.LeadID;
+                    //if (this.InsertItem.DeliveryDate == undefined || this.InsertItem.DeliveryDate == null || this.InsertItem.DeliveryDate == "") {
+                    //    this.HideShow();
+                    //    this.popupMessage("Please Select Delivery Date", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    //}
+                    //else
+                    if (this.InsertItem.DeliveryQty == undefined || this.InsertItem.DeliveryQty == null || this.InsertItem.DeliveryQty == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Delivery Quantity", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                     }
-                    this.LeadStatusDropDown = this.LeadStatusService.Find().then((function (response) {
-                        _this.LeadStatusDropDown = _this.LeadStatusService.GetLeadStatusName(response.data.Result);
-                    }));
-                    this.IndustryDivisionDropDown = this.IndustryDivisionService.Find().then((function (response) {
-                        _this.IndustryDivisionDropDown = _this.IndustryDivisionService.GetIndustryName(response.data.Result);
-                    }));
-                    this.IndustrialSegmentDropDown = this.IndustrialSegmentService.Find().then((function (response) {
-                        _this.IndustrialSegmentDropDown = _this.IndustrialSegmentService.GetIndustrialSegmentName(response.data.Result);
-                    }));
-                    this.LeadTypeDropDown = this.LeadTypeService.Find().then((function (response) {
-                        _this.LeadTypeDropDown = _this.LeadTypeService.GetLeadTypeName(response.data.Result);
-                    }));
-                    this.LeadCategoryDropDown = this.LeadCategoryService.Find().then((function (response) {
-                        _this.LeadCategoryDropDown = _this.LeadCategoryService.GetLeadCategoryName(response.data.Result);
-                    }));
-                    this.SalesAreaDropDown = this.SalesAreaService.Find().then((function (response) {
-                        _this.SalesAreaDropDown = _this.SalesAreaService.GetSalesAreaName(response.data.Result);
-                    }));
-                    this.PurchaseTimlinedd = this.PurchaseTimlineDDService.Find().then((function (response) {
-                        _this.PurchaseTimlinedd = _this.PurchaseTimlineDDService.GetPurchaseTimeline(response.data.Result);
-                    }));
-                    this.CategoryDropDown = this.CategoryService.Find().then((function (response) {
-                        _this.CategoryDropDown = _this.CategoryService.GetCategoryName(response.data.Result);
-                    }));
-                    this.ChannelDD = this.ChannelDDService.Find().then((function (response) {
-                        _this.ChannelDD = _this.ChannelDDService.GetChannelDDnew(response.data.Result);
-                    }));
-                    this.ModeActivityDropDown = this.ModeActivityService.Find().then((function (response) {
-                        _this.ModeActivityDropDown = _this.ModeActivityService.GetModeActivity(response.data.Result);
-                    }));
-                    this.LeadActivityStatusDD = this.LeadActivityStatusDDservice.Find().then((function (response) {
-                        _this.LeadActivityStatusDD = _this.LeadActivityStatusDDservice.LeadActivityStatus(response.data.Result);
-                    }));
-                    //this.LeadActivityPurposeDD = this.LeadActivityPurposeDDservice.Find().then((response => {
-                    //    this.LeadActivityPurposeDD = this.LeadActivityPurposeDDservice.GetLeadActivityPurpose(response.data.Result);
-                    //}));
-                    this.LeadActivityLocationDD = this.LeadActivityLocationDDservice.Find().then((function (response) {
-                        _this.LeadActivityLocationDD = _this.LeadActivityLocationDDservice.GetLeadActivityLocation(response.data.Result);
-                    }));
-                    this.ProjectNameDD = this.ProjectNameService.FindProjectNameDD(this.UserID).then((function (response) {
-                        _this.ProjectNameDD = _this.ProjectNameService.GetProjectNameDD(response.data.Result);
-                    }));
-                    this.DisqualificationReasonDD = this.DisqualificationReasonDDService.Find().then((function (response) {
-                        _this.DisqualificationReasonDD = _this.DisqualificationReasonDDService.GetDisqualifiedName(response.data.Result);
-                    }));
-                    this.StageDD = this.LeadStageDDService.Find().then((function (response) {
-                        _this.StageDD = _this.LeadStageDDService.GetStage(response.data.Result);
-                        // this.UpdateLeadData.SalesStage = this.StageDD[0].ID.toString();
-                    }));
-                    this.LeadStatusDD = this.LeadStatusDDService.Find().then((function (response) {
-                        _this.LeadStatusDD = _this.LeadStatusDDService.GetStage(response.data.Result);
-                        // this.UpdateLeadData.SalesStage = this.StageDD[0].ID.toString();
-                    }));
-                    //this.getLocation();
-                };
-                DeliveryScheduleController.prototype.FillGridData = function () {
-                    var _this = this;
-                    debugger;
-                    this.LeadItemlist = this.ItemListservice.Find(this.LeadID).then((function (response) {
-                        _this.LeadItemlist = _this.ItemListservice.GetLeadItemList(response.data.Result);
-                        console.log(_this.LeadItemlist, "this.LeadItemlist1111111");
-                    }));
-                };
-                //getLocation() {
-                //    if (navigator.geolocation) {
-                //        navigator.geolocation.getCurrentPosition(
-                //            (position: Position) => {
-                //                if (position) {
-                //                    console.log("Latitude: " + position.coords.latitude +
-                //                        " Longitude: " + position.coords.longitude);
-                //                    if (position.coords.accuracy) {
-                //                        console.log("Accuracy: " + position.coords.accuracy + " meters");
-                //                    }
-                //                    this.lat = position.coords.latitude;
-                //                    this.lng = position.coords.longitude;
-                //                }
-                //            },
-                //            (error: PositionError) => console.log(error),
-                //            { enableHighAccuracy: true }
-                //        );
-                //    } else {
-                //        alert("Geolocation is not supported by this browser.");
-                //    }
-                //}
-                DeliveryScheduleController.prototype.OppActDate = function (e) {
-                    debugger;
-                    document.getElementById("date").value = e;
-                    var d = new Date();
-                    var c = new Date(e);
-                    if (c > d) {
-                        $("#ddlStatus").val(1);
-                        $("#ddlStatus").prop("disabled", true);
+                    else if (this.InsertItem.ItemID == undefined || this.InsertItem.ItemID == null || this.InsertItem.ItemID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Item to Create Delivery Schedule", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                     }
                     else {
-                        $("#ddlStatus").prop("disabled", false);
-                    }
-                };
-                DeliveryScheduleController.prototype.selectExpectedDate = function (e) {
-                    document.getElementById("ExpDate").value = e;
-                };
-                DeliveryScheduleController.prototype.Division = function (data) {
-                    var _this = this;
-                    this.DivisionDropDownP = this.DivisionPService.Find(this.LeadAssessment.CategoryID).then((function (response) {
-                        _this.DivisionDropDownP = _this.DivisionPService.GetDivisionDDP(response.data.Result);
-                    }));
-                };
-                DeliveryScheduleController.prototype.Product = function (data) {
-                    var _this = this;
-                    this.ProductDropDown = this.ProductService.Find(data).then((function (response) {
-                        _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
-                    }));
-                };
-                DeliveryScheduleController.prototype.Model = function (data) {
-                    var _this = this;
-                    this.ModelDropDown = this.ModelService.Find(this.LeadAssessment.ProductID).then((function (response) {
-                        _this.ModelDropDown = _this.ModelService.GetModelDD(response.data.Result);
-                    }));
-                };
-                DeliveryScheduleController.prototype.LeadSource = function (data) {
-                    var _this = this;
-                    this.LeadSourcedd = this.LeadSourceDDService.Find(this.LeadAssessment.ChannelID).then((function (response) {
-                        _this.LeadSourcedd = _this.LeadSourceDDService.GetLeadSourceDetails(response.data.Result);
-                    }));
-                };
-                DeliveryScheduleController.prototype.Campaign = function () {
-                    var _this = this;
-                    debugger;
-                    this.Campaigndd = this.CampaignDDService.Find(this.LeadAssessment.LeadSourceID).then((function (response) {
-                        _this.Campaigndd = _this.CampaignDDService.GetCampaignDetails(response.data.Result);
-                    }));
-                };
-                DeliveryScheduleController.prototype.Assessment = function (data) {
-                    var _this = this;
-                    debugger;
-                    this.LeadAssessmentService.Find(data).then((function (response) {
-                        _this.AssessmentInfo = _this.LeadAssessmentService.GetLeadAssessment(response.data.Result);
-                        console.log(_this.AssessmentInfo, "AssessmentInfo11111");
-                        _this.AssessmentInfo.CategoryID = _this.AssessmentInfo.CategoryID;
-                        _this.AssessmentInfo.ProjectID = _this.AssessmentInfo.ProjectID;
-                        _this.Division(_this.AssessmentInfo.CategoryID);
-                        _this.AssessmentInfo.DivisionID = _this.AssessmentInfo.DivisionID;
-                        _this.Product(_this.AssessmentInfo.DivisionID);
-                        _this.AssessmentInfo.ProductID = _this.AssessmentInfo.ProductID;
-                        _this.Model(_this.AssessmentInfo.ProductID);
-                        _this.AssessmentInfo.ModelID = _this.AssessmentInfo.ModelID;
-                        _this.LeadSource(_this.AssessmentInfo.ChannelID);
-                        _this.LeadSourceChange();
-                        _this.InsertAct.erpid = _this.AssessmentInfo.EmployeeCode;
-                        $("#txtUserName").val(_this.AssessmentInfo.RefUser);
-                        if (_this.AssessmentInfo.LeadSourceID == "2") {
-                            _this.AssessmentInfo.RefUserID = _this.AssessmentInfo.RefUserID;
-                            _this.AssessmentInfo.RefUserName = _this.AssessmentInfo.RefUser;
+                        if (this.UserID != null || this.UserID != "") {
+                            this.InsertItem.UserID = this.UserID;
                         }
-                        else if (_this.AssessmentInfo.LeadSourceID == "10" || _this.AssessmentInfo.LeadSourceID == "24") {
-                            _this.AssessmentInfo.CampaignID = _this.AssessmentInfo.CampaignNameID;
-                        }
-                        if (_this.AssessmentInfo.LeadStatusId == "10") {
-                            $("#assessment-submit").prop("disabled", false);
-                        }
-                        else if (_this.AssessmentInfo.LeadStatusId == "13") {
-                            $("#assessment-submit").prop("disabled", false);
-                        }
-                        else if (_this.AssessmentInfo.LeadStatusId == "14") {
-                            $("#assessment-submit").prop("disabled", false);
-                        }
-                        else if (_this.AssessmentInfo.LeadStatusId == "15") {
-                            $("#assessment-submit").prop("disabled", false);
-                        }
-                        else {
-                            $("#assessment-submit").prop("disabled", false);
-                        }
-                    }));
-                };
-                DeliveryScheduleController.prototype.MeetCustomer = function () {
-                    debugger;
-                    if (this.CrtAssessmt.IsLess == 1) {
-                        $("#txtAllocated1").hide();
-                        $("#txtMeetCustomer").show();
-                        $("#txtDays").hide();
-                        $("#txtDisqual").hide();
-                    }
-                    else {
-                        $("#txtAllocated1").show();
-                        $("#txtMeetCustomer").hide();
-                        $("#txtDisqual").hide();
-                        if (this.CrtAssessmt.IsLess == 0 && this.CrtAssessmt.Allocated1 == 1) {
-                            $("#txtDays").show();
-                            $("#txtDisqual").hide();
-                        }
-                        else if (this.CrtAssessmt.IsLess == 0 && this.CrtAssessmt.Allocated1 == 0) {
-                            $("#txtDays").hide();
-                            $("#txtDisqual").show();
-                        }
-                        else {
-                            $("#txtDays").hide();
-                            $("#txtDisqual").hide();
-                        }
-                    }
-                };
-                DeliveryScheduleController.prototype.ContactDetail = function () {
-                    var _this = this;
-                    this.ContactInfo = this.ContactInfoService.Find(this.LeadAssessment.CustomerID).then((function (response) {
-                        _this.ContactInfo = _this.ContactInfoService.GetLeadContactInfo(response.data.Result);
-                    }));
-                };
-                DeliveryScheduleController.prototype.LeadSourceChange = function () {
-                    $("#Campaignfield").hide();
-                    $("#UserNamefield").hide();
-                    this.AssessmentInfo.CampaignID = null;
-                    this.AssessmentInfo.RefUserID = null;
-                    this.AssessmentInfo.RefUserName = null;
-                    if (this.AssessmentInfo.LeadSourceID == "10" || this.AssessmentInfo.LeadSourceID == "24") {
-                        this.Campaign();
-                        $("#Campaignfield").show();
-                        $("#UserNamefield").hide();
-                    }
-                    else if (this.AssessmentInfo.LeadSourceID == "2") {
-                        $("#Campaignfield").hide();
-                        $("#UserNamefield").show();
-                    }
-                };
-                DeliveryScheduleController.prototype.AddNew = function () {
-                    console.log("del Schedule page");
-                };
-                DeliveryScheduleController.prototype.Add = function () {
-                    $("#activity-submit").prop("disabled", false);
-                    this.InsertAct.ActivityNumber = null;
-                    this.InsertAct.ActivityStatus = "1";
-                    this.InsertAct.cate = "";
-                    this.InsertAct.ptype = "";
-                    this.InsertAct.loc = "";
-                    this.InsertAct.note = "";
-                    this.InsertAct.AnsOne = "";
-                    this.InsertAct.AnsTwo = "";
-                    this.InsertAct.AnsThree = "";
-                    var n1 = new Date();
-                    var currentMonth = n1.getMonth() + 1;
-                    var y1 = n1.getFullYear();
-                    var months1 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                    var m1 = months1[n1.getMonth()];
-                    var d1 = n1.getDate();
-                    document.getElementById("date").innerHTML = y1 + "-" + currentMonth + "-" + d1;
-                    $('#date').val(y1 + "-" + currentMonth + "-" + d1);
-                };
-                DeliveryScheduleController.prototype.DateChange = function () {
-                    debugger;
-                    var n1 = new Date();
-                    var y1 = n1.getFullYear();
-                    var months1 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                    var m1 = months1[n1.getMonth()];
-                    var d1 = n1.getDate();
-                    console.log(($("#date").val()));
-                    debugger;
-                    if ($("#date").val() < d1) {
-                        $("#ddlStatus").prop("disabled", true);
-                    }
-                    else {
-                        $("#ddlStatus").prop("disabled", false);
-                    }
-                };
-                DeliveryScheduleController.prototype.UpdateLeadStage = function () {
-                    var _this = this;
-                    this.UpdateLeadData.userID = this.UserID;
-                    this.UpdateLeadData.leadID = this.LeadID;
-                    this.UpdateLeadData.salesStage = this.AssessmentInfo.SalesStage;
-                    this.UpdateLeadData.status = this.AssessmentInfo.Status;
-                    this.UpdateLeadData.notes = this.AssessmentInfo.Notes;
-                    this.UpdateLeadData.reason = "";
-                    this.UpdateLeadData.description = this.AssessmentInfo.Description;
-                    if (this.UpdateLeadData.SalesStage == this.AssessmentInfo.SalesStage) {
-                        $("#pg-load").show();
-                        this.UpdateLeadDataService.PostUpdateLeadData(this.UpdateLeadData).then(function (response) {
-                            $("#pg-load").hide();
-                            if (response.data.Result == 1) {
-                                $("#errorclose").hide();
-                                $("#close").show();
-                                $("#btncloseOk").hide();
-                                _this.popupMessage("Lead Updated Successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-                            }
-                            else {
-                                $("#errorclose").show();
-                                $("#close").hide();
-                                $("#btncloseOk").hide();
-                                _this.popupMessage("Error Occured.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                            }
-                        });
-                    }
-                    else {
-                        $("#pg-load").show();
-                        this.UpdateLeadDataService.PostUpdateLeadData(this.UpdateLeadData).then(function (response) {
-                            $("#pg-load").hide();
-                            if (response.data.Result == 1) {
-                                $("#errorclose").hide();
-                                $("#close").show();
-                                $("#btncloseOk").hide();
-                                _this.popupMessage("Lead Updated Successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-                            }
-                            else {
-                                $("#errorclose").show();
-                                $("#close").hide();
-                                $("#btncloseOk").hide();
-                                _this.popupMessage("Error Occured.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                            }
-                        });
-                    }
-                };
-                DeliveryScheduleController.prototype.SubmitReturn = function () {
-                    var _this = this;
-                    if (this.CrtAssessmt.Comments == undefined || this.CrtAssessmt.Comments == null || this.CrtAssessmt.Comments == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Comment", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else {
-                        this.ReturnModel.Comments = this.CrtAssessmt.Comments;
-                        this.ReturnModel.UserID = this.UserID;
-                        this.ReturnModel.LeadID = this.LeadID;
-                        this.LeadReturnService.PostReturn(this.ReturnModel).then((function (response) {
-                            console.log(_this.CrtAssessmt);
-                            if (response.data.Result != null) {
-                                //this.IsDisplayModalPopup = true;
-                                //$("#ass-btn-loader").hide();
-                                $("#errorclose").hide();
-                                $("#close").show();
-                                _this.popupMessage("Lead Return Successfully .", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-                                _this.Init();
-                                //$("#myModalAddNew").hide();
-                                $('#myModalAddNew').click();
-                                _this.CrtAssessmt = null;
-                            }
-                            else {
-                                _this.HideShow();
-                                _this.popupMessage("Oops Some Error Occured", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                            }
-                        }));
-                    }
-                };
-                DeliveryScheduleController.prototype.SubmitCrtAssessmt = function () {
-                    var _this = this;
-                    debugger;
-                    // $("#ass-btn-loader").show();
-                    if (this.CrtAssessmt.IsLess == undefined || this.CrtAssessmt.IsLess == null || this.CrtAssessmt.IsLess == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Sales Within Days", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.CrtAssessmt.IsLess == "1" && (this.CrtAssessmt.IsMeet == undefined || this.CrtAssessmt.IsMeet == null || this.CrtAssessmt.IsMeet == "")) {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Meet Customer", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.CrtAssessmt.IsLess == "0" && (this.CrtAssessmt.Allocated1 == undefined || this.CrtAssessmt.Allocated1 == null || this.CrtAssessmt.Allocated1 == "")) {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Allocated Field", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if ((this.CrtAssessmt.IsLess == "0" && this.CrtAssessmt.Allocated1 == "1") && (this.CrtAssessmt.KeepAllocatedTimeID == undefined || this.CrtAssessmt.KeepAllocatedTimeID == null || this.CrtAssessmt.KeepAllocatedTimeID == "")) {
-                        this.HideShow();
-                        this.popupMessage("Please Select Days", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if ((this.CrtAssessmt.IsLess == "0" && this.CrtAssessmt.Allocated1 == "0") && (this.CrtAssessmt.DisqualificationID == undefined || this.CrtAssessmt.DisqualificationID == null || this.CrtAssessmt.DisqualificationID == "")) {
-                        this.HideShow();
-                        this.popupMessage("Please Select Disqualified Reason", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.CrtAssessmt.Comments == undefined || this.CrtAssessmt.Comments == null || this.CrtAssessmt.Comments == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Comment", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else {
-                        debugger;
-                        this.CrtAssessmt.UserID = this.UserID;
-                        this.CrtAssessmt.LeadID = this.LeadID;
-                        if ((this.CrtAssessmt.IsLess == 1 && this.CrtAssessmt.IsMeet == 1) || (this.CrtAssessmt.IsLess == 1 && this.CrtAssessmt.IsMeet == 0)) {
-                            this.CrtAssessmt.LeadStatus = "10";
-                        }
-                        else if (this.CrtAssessmt.IsLess == 0 && this.CrtAssessmt.Allocated1 == 0) {
-                            this.CrtAssessmt.LeadStatus = "8";
-                        }
-                        else {
-                            this.CrtAssessmt.LeadStatus = this.AssessmentInfo.LeadStatusId;
-                        }
-                        this.CrtAssessmtService.PostCrtAssessmt(this.CrtAssessmt).then((function (response) {
-                            console.log(_this.CrtAssessmt);
-                            if (response.data.Result != null) {
-                                //this.IsDisplayModalPopup = true;
-                                $("#errorclose").hide();
-                                $("#close").show();
-                                _this.popupMessage("Assessment saved Successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-                                _this.Init();
-                                //$("#myModalAddNew").hide();
-                                $('#myModalAddNew').click();
-                                console.log("lkhuubufuctffuvfg6t wefffw" + response.data.Result);
-                                _this.CrtAssessmt = null;
-                            }
+                        this.AddToCartDsService.PostDeliveryScheduleToCart(this.InsertItem).then((function (response) {
+                            console.log(_this.InsertItem);
                             //if (response.data.Result != null) {
-                            //    console.log("lkhuubufuctffuvfg6t" + response.data.Result)
-                            //    //this.IsDisplayModalPopup = true;
-                            //    this.alert = " Assessment saved Successfully ";
-                            //    $("#ass-btn-loader").hide();
-                            //    $("#errorclose").hide();
-                            //    $("#close").show();
-                            //    this.Init();
-                            //    //$("#myModalAddNew").hide();
-                            //    $('#myModalAddNew').click();
-                            //    this.CrtAssessmt = null;
-                            //}
+                            if (response.data.Result > 0) {
+                                $("#errorclose").hide();
+                                $("#close").show();
+                                _this.popupMessage("Delivery Schedule Successfully Added to Cart.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                                _this.InsertLeadChange = null;
+                            }
                             else {
                                 _this.HideShow();
-                                _this.popupMessage("Oops Some Error Occured", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                                _this.popupMessage("Couldn't Add Delivery Schedule.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                             }
                         }));
                     }
                 };
-                //SubmitActivity(): void {
-                //   // $("#ass-btn-loader1").show();
-                //   if (this.InsertAct.cate == undefined || this.InsertAct.cate == null || this.InsertAct.cate == "") {
-                //       this.HideShow();
-                //       this.popupMessage("Please Select Activity Category", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                //      // $("#myAlert").modal("show");
-                //     //  $("#ass-btn-loader1").hide();
-                //    }
-                //    else if (this.InsertAct.ActivityStatus == undefined || this.InsertAct.ActivityStatus == null || this.InsertAct.ActivityStatus == "") {
-                //       this.HideShow();
-                //       this.popupMessage("Please  Select Activity Status", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");             
-                //      // $("#myAlert").modal("show");
-                //    }
-                //   else if (this.InsertAct.purid == undefined || this.InsertAct.purid == null || this.InsertAct.purid == "") {
-                //       this.HideShow();
-                //       this.popupMessage("Please  Select Activity Purpose", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");  
-                //    }
-                //    else if (this.InsertAct.loc == undefined || this.InsertAct.loc == null || this.InsertAct.loc == "") {
-                //       this.HideShow();
-                //       this.popupMessage("Please  Select Activity Location", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");  
-                //    }
-                //    else if (this.InsertAct.note == undefined || this.InsertAct.note == null || this.InsertAct.note == "") {
-                //       this.HideShow();
-                //       this.popupMessage("Please  write Activity Notes", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id"); 
-                //    }
-                //    else if (this.InsertAct.AnsOne == undefined || this.InsertAct.AnsOne == null || this.InsertAct.AnsOne == "") {
-                //       this.HideShow();
-                //       this.popupMessage("Please  Complete All Questionnaire", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id"); 
-                //    }
-                //    else if (this.InsertAct.AnsTwo == undefined || this.InsertAct.AnsTwo == null || this.InsertAct.AnsTwo == "") {
-                //       this.HideShow();
-                //       this.popupMessage("Please  Complete All Questionnaire", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id"); 
-                //    }
-                //    else if (this.InsertAct.AnsThree == undefined || this.InsertAct.AnsThree == null || this.InsertAct.AnsThree == "") {
-                //       this.HideShow();
-                //       this.popupMessage("Please  Complete All Questionnaire", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id"); 
-                //    }
-                //    else {
-                //       $("#activity-submit").prop("disabled", true);
-                //        debugger;
-                //        if ($("#ddlStatus").val() == "1") {
-                //            this.InsertAct.ActivityStatus = "1";
-                //        } else if ($("#ddlStatus").val() == "2") {
-                //            this.InsertAct.ActivityStatus = "2";
-                //        } else {
-                //            this.InsertAct.ActivityStatus = "3";
-                //       }
-                //        this.InsertAct.UserID = this.UserID;
-                //        this.InsertAct.LeadID = this.LeadID;
-                //       this.InsertAct.CustomerID = this.AssessmentInfo.CustomerID;
-                //       this.InsertAct.BusinessPartnerNo = this.AssessmentInfo.BusinessPartnerNo;
-                //       this.InsertAct.SAPID = this.AssessmentInfo.SAPID;
-                //       this.InsertAct.ContactID = this.AssessmentInfo.ContactID;
-                //       this.InsertAct.ActivityNumber = this.InsertAct.ActivityNumber;
-                //        this.InsertAct.ftime = "101010";
-                //        this.InsertAct.ttime = "141516";
-                //        this.InsertAct.dchnl = "10";
-                //       this.InsertAct.sorg = "O 50000002";
-                //       this.InsertAct.erpid = this.AssessmentInfo.EmployeeCode;
-                //        this.InsertAct.sofc = "SOFF1001";
-                //        this.InsertAct.div = "20";
-                //        this.InsertAct.date = (<HTMLInputElement>document.getElementById("date")).value; //2019-08-22
-                //        this.InsertAct.QueOne = "1";
-                //        this.InsertAct.QueTwo = "2";
-                //        this.InsertAct.QueThree = "3";
-                //        this.InsertAct.QueFour = "";
-                //       this.InsertAct.AnsFour = "";
-                //       this.InsertAct.ptype = "YTBA";
-                //        this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
-                //            if (response.data.Result != null) {
-                //             //   $("#myAlert").modal("show");
-                //              //  $("#act-btn-loader").hide(); 
-                //                this.HideShow();
-                //                this.popupMessage("Activity created Successfully .", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-                //                //$("#myModalAddNew").hide();
-                //                $('#myModalAddNew').click();
-                //                this.FillGrid();
-                //            }
-                //            else {
-                //               // $("#ass-btn-loader1").hide();
-                //              //  $("#myAlert").modal("show");
-                //                this.HideShow();
-                //                this.popupMessage("Activity Creation failed", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                //            }
-                //        }));
-                //    }
-                //}
-                DeliveryScheduleController.prototype.SubmitActivity = function () {
+                DeliveryScheduleController.prototype.Submit = function (data) {
                     var _this = this;
-                    // $("#ass-btn-loader1").show();
-                    debugger;
-                    console.log("activityyyyy2808", this.InsertAct);
-                    if (this.InsertAct.ActivityCategory == undefined || this.InsertAct.ActivityCategory == null || this.InsertAct.ActivityCategory == "") {
+                    this.InsertLeadChange.UserID = this.UserID;
+                    //this.InsertLeadChange.LeadStatusID = this.LeadStatusID;
+                    if (this.InsertLeadChange.LeadStatusID == undefined || this.InsertLeadChange.LeadStatusID == null || this.InsertLeadChange.LeadStatusID == "") {
                         this.HideShow();
-                        this.popupMessage("Please Select Activity Category", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                        // $("#myAlert").modal("show");
-                        //  $("#ass-btn-loader1").hide();
+                        this.popupMessage("Please Enter LeadStatus", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                     }
-                    else if (this.InsertAct.ActivityStatus == undefined || this.InsertAct.ActivityStatus == null || this.InsertAct.ActivityStatus == "") {
+                    //else if (this.InsertLeadChange.LeadOpenReason == undefined || this.InsertLeadChange.LeadOpenReason == null || this.InsertLeadChange.LeadOpenReason == "") {
+                    //    $("#errorclose").show();
+                    //    $("#close").hide();
+                    //    this.alert = "Please Enter Lead Reason";
+                    //}
+                    else if (this.InsertLeadChange.Comments == undefined || this.InsertLeadChange.Comments == null || this.InsertLeadChange.Comments == "") {
                         this.HideShow();
-                        this.popupMessage("Please  Select Activity Status", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                        // $("#myAlert").modal("show");
+                        this.popupMessage("Please Enter Comments", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                     }
-                    else if (this.InsertAct.ActivityPurpose == undefined || this.InsertAct.ActivityPurpose == null || this.InsertAct.ActivityPurpose == "") {
-                        debugger;
+                    else if (this.InsertLeadChange.LeadType == undefined || this.InsertLeadChange.LeadType == null || this.InsertLeadChange.LeadType == "") {
                         this.HideShow();
-                        this.popupMessage("Please  Select Activity Purpose", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                        this.popupMessage("Please Enter Lead Type", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                     }
-                    else if (this.InsertAct.LocationID == undefined || this.InsertAct.LocationID == null || this.InsertAct.LocationID == "") {
+                    else if (this.InsertLeadChange.DivisionID == undefined || this.InsertLeadChange.DivisionID == null || this.InsertLeadChange.DivisionID == "") {
                         this.HideShow();
-                        this.popupMessage("Please  Select Activity Location", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                        this.popupMessage("Please Enter Division", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                     }
-                    else if (this.InsertAct.ActivityNote == undefined || this.InsertAct.ActivityNote == null || this.InsertAct.ActivityNote == "") {
+                    else if (this.InsertLeadChange.ProductID == undefined || this.InsertLeadChange.ProductID == null || this.InsertLeadChange.ProductID == "") {
                         this.HideShow();
-                        this.popupMessage("Please  write Activity Notes", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                        this.popupMessage("Please Enter Product", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertLeadChange.ModelID == undefined || this.InsertLeadChange.ModelID == null || this.InsertLeadChange.ModelID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Model", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertLeadChange.Quantity == undefined || this.InsertLeadChange.Quantity == null || this.InsertLeadChange.Quantity == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Quantity", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertLeadChange.PurchaseTimelineID == undefined || this.InsertLeadChange.PurchaseTimelineID == null || this.InsertLeadChange.PurchaseTimelineID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Plan to Purchase ", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertLeadChange.LeadCategoryID == undefined || this.InsertLeadChange.LeadCategoryID == null || this.InsertLeadChange.LeadCategoryID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Lead Category ", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertLeadChange.SalesAreaID == undefined || this.InsertLeadChange.SalesAreaID == null || this.InsertLeadChange.SalesAreaID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Sales Area ", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertLeadChange.ChannelID == undefined || this.InsertLeadChange.ChannelID == null || this.InsertLeadChange.ChannelID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Channel", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertLeadChange.LeadSourceID == undefined || this.InsertLeadChange.LeadSourceID == null || this.InsertLeadChange.LeadSourceID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Lead Source", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertLeadChange.LeadSourceID == "2" && (this.InsertLeadChange.RefUserID == undefined || this.InsertLeadChange.RefUserID == null || this.InsertLeadChange.RefUserID == "")) {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Ref User Name", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if ((this.InsertLeadChange.LeadSourceID == "10" || this.InsertLeadChange.LeadSourceID == "24") && (this.InsertLeadChange.CampaignID == undefined || this.InsertLeadChange.CampaignID == null || this.InsertLeadChange.CampaignID == "")) {
+                        this.HideShow();
+                        this.popupMessage("Please Select  Campaign", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                     }
                     else {
-                        debugger;
-                        $("#activity-submit").prop("disabled", true);
-                        if ($("#ddlStatus").val() == "1") {
-                            this.InsertAct.ActivityStatus = "1";
+                        if (this.UserID != null || this.UserID != "") {
+                            this.InsertLeadChange.UserID = this.UserID;
                         }
-                        else if ($("#ddlStatus").val() == "2") {
-                            this.InsertAct.ActivityStatus = "2";
+                        if (this.InsertLeadChange.LeadSourceID == "2") {
+                            this.InsertLeadChange.CampaignID = "";
                         }
-                        else {
-                            this.InsertAct.ActivityStatus = "3";
+                        else if (this.InsertLeadChange.LeadSourceID == "10" || this.InsertLeadChange.LeadSourceID == "24") {
+                            this.InsertLeadChange.RefUserID = "";
+                            this.InsertLeadChange.RefUserName = "";
                         }
-                        //this.InsertAct.UserID = this.UserID;
-                        //this.InsertAct.ActivityReferenceLead = this.LeadID;
-                        //this.InsertAct.CustomerID = this.AssessmentInfo.CustomerID;
-                        //this.InsertAct.ContactID = this.AssessmentInfo.ContactID;
-                        //this.InsertAct.ActivityNumber = this.InsertAct.ActivityNumber;
-                        //this.InsertAct.ftime = "101010";
-                        //this.InsertAct.ttime = "141516";
-                        //this.InsertAct.dchnl = "10";
-                        //this.InsertAct.sorg = "O 50000002";
-                        //this.InsertAct.erpid = this.AssessmentInfo.EmployeeCode;
-                        //this.InsertAct.sofc = "SOFF1001";
-                        //this.InsertAct.div = "20";
-                        //this.InsertAct.StartDate = (<HTMLInputElement>document.getElementById("date")).value; //2019-08-22
-                        //this.InsertAct.ptype = "YTBA";
-                        this.InsertAct.ActivityID = this.InsertAct.ActivityNumber;
-                        this.InsertAct.UserID = this.UserID;
-                        this.InsertAct.CustomerID = this.AssessmentInfo.CustomerID;
-                        this.InsertAct.ContactID = this.AssessmentInfo.ContactID;
-                        this.InsertAct.StartDate = document.getElementById("date").value; //2019-08-22
-                        this.InsertAct.EndDate = "";
-                        this.InsertAct.ActivityName = "";
-                        this.InsertAct.ActivityPurpose = this.InsertAct.ActivityPurpose;
-                        this.InsertAct.ActivityMode = this.InsertAct.ModeID;
-                        //this.InsertAct.ActivityCategory = this.InsertAct.cate;
-                        //this.InsertAct.ActivityNote = this.InsertAct.note;
-                        this.InsertAct.ActivityReferencePurpose = "";
-                        this.InsertAct.ActivityReferenceLead = this.LeadID;
-                        this.InsertAct.ActivityReferenceOpportunity = "";
-                        //this.InsertAct.LocationID = this.InsertAct.loc;
-                        this.InsertAct.ReferenceType = "";
-                        this.InsertAct.Latitude = this.lat;
-                        this.InsertAct.Longitude = this.lng;
-                        this.InsertAct.ActivityLocation = "";
-                        if (this.InsertAct.ActivityNumber == undefined || this.InsertAct.ActivityNumber == null || this.InsertAct.ActivityNumber == "") {
-                            this.InsertAct.Operation = "Create";
-                        }
-                        else {
-                            this.InsertAct.Operation = "Update";
-                        }
-                        debugger;
-                        console.log("activityyyyy28", this.InsertAct);
-                        //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
-                        this.InsertLeadAssessment.PostInsertLeadActivity(this.InsertAct).then((function (response) {
-                            debugger;
-                            if (response.data.Result != null) {
-                                //   $("#myAlert").modal("show");
-                                //  $("#act-btn-loader").hide(); 
-                                _this.HideShow();
-                                _this.popupMessage("Activity created Successfully .", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-                                //$("#myModalAddNew").hide();
-                                $('#myModalAddNew').click();
+                        this.InsertService.PostLeadChange(this.InsertLeadChange).then((function (response) {
+                            console.log(_this.InsertLeadChange);
+                            //if (response.data.Result != null) {
+                            if (response.data.Result > 0) {
+                                $("#errorclose").hide();
+                                $("#close").show();
+                                _this.popupMessage("LeadID ID - " + _this.LeadID + " Successfully Updated.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                                _this.InsertLeadChange = null;
                             }
                             else {
-                                // $("#ass-btn-loader1").hide();
-                                //  $("#myAlert").modal("show");
                                 _this.HideShow();
-                                _this.popupMessage("Activity Creation failed", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                                _this.popupMessage("LeadID ID - " + _this.LeadID + " is unable to Change.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                             }
                         }));
                     }
                 };
-                DeliveryScheduleController.prototype.SubmitOpportunity = function () {
-                };
-                DeliveryScheduleController.prototype.Close = function () {
-                    location.href = "/#!/LeadAssessmentList";
-                };
-                DeliveryScheduleController.prototype.HideShow = function () {
-                    $("#errorclose").show();
-                    $("#close").hide();
+                DeliveryScheduleController.prototype.FetchItemData = function (data) {
+                    var _this = this;
+                    console.log(data, "data11111");
+                    this.EditItemService.Find(data).then((function (response) {
+                        _this.InsertItem = _this.EditItemService.GetItemEdit(response.data.Result);
+                        console.log("this.InsertItem11111", _this.InsertItem);
+                        $("myModalAdd").show();
+                    }));
                 };
                 DeliveryScheduleController.prototype.Edit = function (data) {
                     var _this = this;
-                    var d = new Date();
-                    var c = new Date($("#date").val());
-                    if (c > d) {
-                        $("#ddlStatus").prop("disabled", true);
-                    }
-                    else {
-                        $("#ddlStatus").prop("disabled", false);
-                    }
+                    debugger;
                     this.EditService.Find(data).then((function (response) {
-                        _this.InsertAct = _this.EditService.GetEdit(response.data.Result);
-                        if (_this.InsertAct.ActivityStatus = "Pending") {
-                            _this.InsertAct.ActivityStatus = '1';
-                        }
-                        else if (_this.InsertAct.ActivityStatus = "Rejected") {
-                            _this.InsertAct.ActivityStatus = '2';
+                        _this.InsertLeadChange = _this.EditService.GetEdit(response.data.Result);
+                        // this.LeadStatusID = this.InsertLeadChange.LeadStatusID;
+                        var status = _this.InsertLeadChange.LeadStatusID;
+                        _this.LeadStatusOpenDD = _this.LeadStatusForOpenDDService.Find(_this.LeadID).then((function (response) {
+                            _this.LeadStatusOpenDD = _this.LeadStatusForOpenDDService.GetLeadOpen(response.data.Result);
+                            _this.InsertLeadChange.LeadStatusID = status; //this.LeadStatusOpenDD[0].LeadStatusID.toString();
+                        }));
+                        var reason = _this.InsertLeadChange.LeadOpenReason;
+                        _this.LeadOpenReasonDD = _this.ReasonForLeadOpenDDService.Find().then((function (response) {
+                            _this.LeadOpenReasonDD = _this.ReasonForLeadOpenDDService.GetReason(response.data.Result);
+                            _this.InsertLeadChange.LeadOpenReason = reason;
+                        }));
+                        debugger;
+                        if (_this.InsertLeadChange.LeadStatusID == "8" || _this.InsertLeadChange.LeadStatusID == "9") {
+                            $("#txtstatus").prop("disabled", false);
                         }
                         else {
-                            _this.InsertAct.ActivityStatus = '3';
+                            $("#txtstatus").prop("disabled", true);
                         }
-                        $('#date').val(_this.InsertAct.date);
-                        $("myModalAddNew").show();
+                        // $('#txtreason').val(this.InsertLeadChange.LeadOpenReason);
+                        // $('#txtcomments').val(this.InsertLeadChange.Comments);
+                        $('#txtCompanyName').val(_this.InsertLeadChange.CompanyName);
+                        $('#txtmobileno').val(_this.InsertLeadChange.MobileNo);
+                        $('#txtphno').val(_this.InsertLeadChange.PhoneNo);
+                        $('#txtsalesoffice').val(_this.InsertLeadChange.SalesOfficeID);
+                        $('#txtemail').val(_this.InsertLeadChange.Email);
+                        $('#txtfax').val(_this.InsertLeadChange.Fax);
+                        $('#txtadd1').val(_this.InsertLeadChange.Address1);
+                        $('#txtadd2').val(_this.InsertLeadChange.Address2);
+                        $('#txtcountry').val(_this.InsertLeadChange.CountryID);
+                        _this.State(_this.InsertLeadChange.CountryID);
+                        $('#txtstate').val(_this.InsertLeadChange.StateID);
+                        _this.District(_this.InsertLeadChange.StateID);
+                        $('#txtdistrict').val(_this.InsertLeadChange.DistrictID);
+                        _this.SearchRegion.StateID = _this.InsertLeadChange.StateID;
+                        _this.SearchRegion.DistrictID = _this.InsertLeadChange.DistrictID;
+                        _this.InsertLeadChange.RegionID = "";
+                        if (_this.SearchRegion.StateID != undefined || _this.SearchRegion.StateID != null || _this.SearchRegion.StateID != "") {
+                            _this.CheckRegion = _this.CheckRegionService.Find(_this.SearchRegion).then((function (response) {
+                                _this.CheckRegion = _this.CheckRegionService.GetRegion(response.data.Result);
+                                _this.RegionDropDown[0].RegionID = _this.CheckRegion[0].RegionID;
+                            }));
+                        }
+                        else {
+                        }
+                        $('#txtcity').val(_this.InsertLeadChange.City);
+                        $('#txtPincode').val(_this.InsertLeadChange.PinCode);
+                        $('#txtindustrysegment').val(_this.InsertLeadChange.IndustrialSegmentID);
+                        $('#txtContactName').val(_this.InsertLeadChange.ContactName);
+                        $('#txtcontactemail').val(_this.InsertLeadChange.ContactEmail);
+                        $('#txtContactMobNo').val(_this.InsertLeadChange.ContactMobileNo);
+                        $('#txtContactPhno').val(_this.InsertLeadChange.ContactPhoneNo);
+                        $('#txtdesignation').val(_this.InsertLeadChange.Designation);
+                        $('#txtdept').val(_this.InsertLeadChange.DepartmentID);
+                        $('#txtFop').val(_this.InsertLeadChange.FOPID);
+                        $('#txtaddress').val(_this.InsertLeadChange.Address);
+                        $('#txtconcountry').val(_this.InsertLeadChange.ContactCountryID);
+                        _this.AddConState(_this.InsertLeadChange.ContactCountryID);
+                        $('#txtconstate').val(_this.InsertLeadChange.ContactStateID);
+                        _this.AddConDistrict(_this.InsertLeadChange.ContactCountryID);
+                        $('#txtcondistrict').val(_this.InsertLeadChange.ContactDistrictID);
+                        $('#txtconcity').val(_this.InsertLeadChange.ContactCity);
+                        $('#txtconpincode').val(_this.InsertLeadChange.PostalCode);
+                        $('#txtleadtype').val(_this.InsertLeadChange.LeadType);
+                        $('#txtcategory').val(_this.InsertLeadChange.CategoryID);
+                        _this.Division(_this.InsertLeadChange.CategoryID);
+                        $('#txtdivision').val(_this.InsertLeadChange.DivisionID);
+                        _this.Product(_this.InsertLeadChange.DivisionID);
+                        $('#txtproduct').val(_this.InsertLeadChange.ProductID);
+                        _this.Model(_this.InsertLeadChange.ProductID);
+                        $('#txtmodelno').val(_this.InsertLeadChange.ModelID);
+                        $('#txtqty').val(_this.InsertLeadChange.Quantity);
+                        $('#txttitle').val(_this.InsertLeadChange.PurchaseTimelineID);
+                        $('#txtleadcategory').val(_this.InsertLeadChange.LeadCategoryID);
+                        $('#ddlprojectname').val(_this.InsertLeadChange.ProjectID);
+                        //$('#txtsalesarea').val(this.InsertLeadChange.SalesAreaID);
+                        //this.SalesArea(this.InsertLeadChange.SalesAreaID);
+                        _this.SearchSalesArea.CountryID = _this.InsertLeadChange.CountryID;
+                        _this.SearchSalesArea.LeadCategoryID = _this.InsertLeadChange.LeadCategoryID;
+                        _this.SearchSalesArea.CategoryID = _this.InsertLeadChange.CategoryID;
+                        //this.GetSalesArea = this.CheckSalesAreaService.Find(this.SearchSalesArea).then((response => {
+                        //    this.GetSalesArea = this.CheckSalesAreaService.GetSales(response.data.Result);
+                        //    
+                        //    this.InsertLeadChange.SalesAreaID = this.GetSalesArea[0].toString();
+                        //}));
+                        _this.LeadSource(_this.InsertLeadChange.ChannelID);
+                        _this.LeadSourceChange();
+                        if (_this.InsertLeadChange.LeadSourceID == "2") {
+                            _this.InsertLeadChange.RefUserID = _this.InsertLeadChange.RefUserID;
+                            _this.InsertLeadChange.RefUserName = _this.InsertLeadChange.RefUserName;
+                            _this.SearchUser.RefUserID = _this.InsertLeadChange.RefUserID;
+                            _this.SearchUser.RefUserName = _this.InsertLeadChange.RefUserName;
+                        }
+                        else if (_this.InsertLeadChange.LeadSourceID == "10" || _this.InsertLeadChange.LeadSourceID == "24") {
+                            _this.InsertLeadChange.CampaignID = _this.InsertLeadChange.CampaignID;
+                        }
+                        //$('#txtChannel').val(this.InsertLeadChange.ChannelID);
+                        //this.LeadSource(this.InsertLeadChange.ChannelID);
+                        //$('#ddlleadsource').val(this.InsertLeadChange.LeadSourceID);
+                        //$('#txtCommnets').val(this.InsertLeadChange.Comments);
                     }));
                 };
-                DeliveryScheduleController.$inject = ["LeadStatusddService", "IndustryDivisionService", "IndustrialSegmentService", "LeadTypeddService", "LeadCategoryDDService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService", "ProductddService",
-                    "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "CampaignDetailsService", "ValidateReferredEmployeeService", "LeadAssessmentService", "LeadContactDetailsService", "CrtAssessmtServiceService",
-                    "LeadActivityListService", "LeadQueAnsService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service",
-                    "SalesAreaService", "EditActivityList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "LeadItemListService", "$location", "$cookieStore"];
+                DeliveryScheduleController.prototype.Reset = function () {
+                    this.Edit(this.LeadID);
+                    if (this.LeadID > 0) {
+                        $("#errorclose").hide();
+                        $("#close").show();
+                        this.popupMessage("LeadID ID - " + this.LeadID + " Data Reset Successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                    }
+                    else {
+                        $("#errorclose").hide();
+                        $("#close").show();
+                    }
+                };
+                DeliveryScheduleController.prototype.Close = function () {
+                    this.FillGridDeliverySchedule();
+                    //location.href = "#!/LeadChangeList";
+                };
+                DeliveryScheduleController.$inject = ["LeadChangeEditService", "ReasonForLeadOpenDDService", "LeadStatusForOpenDDService",
+                    "SalesOfficeService", "CountryService", "StateddService", "DistrictddService", "RegionddService",
+                    "IndustrialSegmentService", "DepartmentService", "DesignationService", "LeadTypeddService",
+                    "CategoryddService", "DivisionDDPService", "ProductddService", "ModelDDService",
+                    "PurchaseTimelineService", "ChannelDDService", "LeadSourceDetailsService", "LeadCategoryDDService",
+                    "SalesAreaService", "UpdateLeadChangeService", "CheckRegionService", "CheckSalesAreaDataService", "ProjectNameService",
+                    "$location", "$cookieStore", "CampaignDetailsService", "UserCodeAutoFillService", "LeadItemListService", "EditItemList", "AddToCartDsService", "DeliveryScheduleListService"];
                 return DeliveryScheduleController;
             }());
             var DeliveryScheduleComponentController = /** @class */ (function () {
@@ -816,7 +612,7 @@ var GCPL;
                     this.controller = DeliveryScheduleController;
                     this.templateUrl = "/Scripts/App/DeliverySchedule/Template/DeliverySchedule.html";
                 }
-                DeliveryScheduleComponentController.Name = "deliveryschedulecomponent";
+                DeliveryScheduleComponentController.Name = "deliveryschedule";
                 return DeliveryScheduleComponentController;
             }());
             app.AddComponent(DeliveryScheduleComponentController.Name, new DeliveryScheduleComponentController());

@@ -3,6 +3,7 @@
     export class DeliveryScheduleController extends GCPL.Controller.CoockiesBaseController {
 
     }
-    app.AddController("DeliveryScheduleController", DeliveryScheduleController);
 
+
+    app.AddController("DeliveryScheduleController", DeliveryScheduleController);
 }

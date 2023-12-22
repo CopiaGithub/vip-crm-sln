@@ -100,9 +100,6 @@ var GCPL;
                     .when("/CreateContact", {
                     templateUrl: "/Scripts/App/MasterData/CreateContact/Template/_ParentCreateContact.html",
                 })
-                    .when("/DeliverySchedule", {
-                    templateUrl: "/Scripts/App/DeliverySchedule/Template/ParentDeliverySchedule.html",
-                })
                     .when("/ItemDetails", {
                     templateUrl: "/Scripts/App/ItemDetails/Template/ParentItemDetails.html",
                 })
@@ -454,8 +451,8 @@ var GCPL;
                     .when("/CreateProject", {
                     templateUrl: "/Scripts/App/CreateProjectTracker/Template/ParentCreateProject.html",
                 })
-                    .when("/DSchedule", {
-                    templateUrl: "/Scripts/App/DSchedule/Template/ParentDSchedule.html",
+                    .when("/DeliverySchedule", {
+                    templateUrl: "/Scripts/App/DeliverySchedule/Template/ParentDeliverySchedule.html",
                 })
                     .when("/LeadChange", {
                     templateUrl: "/Scripts/App/LeadChange/Template/ParentLeadChange.html",

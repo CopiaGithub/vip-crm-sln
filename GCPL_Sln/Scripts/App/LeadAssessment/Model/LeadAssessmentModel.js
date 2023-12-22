@@ -50,6 +50,27 @@ var GCPL;
             return Activity;
         }());
         Model.Activity = Activity;
+        //export class LeadItemCreateModel {
+        //    constructor() {
+        //    }
+        //    ItemID: string;
+        //    Status: string;
+        //    ProductID: string;
+        //    ProductDesc: string;
+        //    ModelID: string;
+        //    PurchaseTimelineID: string;
+        //    IsActive: string;
+        //    SalesOfficeID: string;
+        //    IndustryDivisionID: string;
+        //    IndustrialSegmentID: string;
+        //    CategoryID: string;
+        //    LeadCategoryID: string;
+        //    DivisionID: string;
+        //    ChannelID: string;
+        //    ItemStatusID: string;
+        //    LeadStatusId: string;
+        //    ProjectID: string;
+        //}
         var LeadItemCreateModel = /** @class */ (function () {
             function LeadItemCreateModel() {
             }

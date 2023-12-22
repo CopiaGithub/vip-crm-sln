@@ -18,7 +18,8 @@
         </div>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 page-title-right-container text-right">
-        <a href="/#!/CreateQuotation" ng-click="$ctrl.Add();" class="btn create-btn pull-right" data-target="#myModalAddNew">Create Quotation</a>
+        <!--<a href="/#!/CreateQuotation" ng-click="$ctrl.Add();" class="btn create-btn pull-right" data-target="#myModalAddNew">Create Quotation</a>-->
+        <a href="/#!/CreateQuotation?LeadID={{$ctrl.AssessmentInfo.LeadID}}" style="margin-top: 5px; margin-right: 10px;" class="btn create-btn pull-right" title="Create Quotation">Create Quotation</a>
 
     </div>
 </div>
@@ -56,7 +57,7 @@
                     </div>
                     <div class="col-lg-12 col-md-12">
 
-                        <input type="submit" value="update" id="btnsubmit" style="margin-top:50px;" ng-click="$ctrl.updateleadstage();" class="btn search-btn pull-right">
+                        <input type="submit" value="Update" id="btnsubmit" style="margin-top:50px;" ng-click="$ctrl.UpdateLead();" class="btn search-btn pull-right">
                     </div>
                     <!--<div class="col-lg-3 col-md-3">
                         <div class="form-group">
@@ -987,9 +988,10 @@
                     <div class="col-md-12 page-title-right-container text-right">
 
 
-                         <a href="/#!/DSchedule?LeadID={{$ctrl.AssessmentInfo.LeadID}}" style="margin-top: 5px; margin-right: 10px;" class="btn search-btn" title="LeadAssessment">Delivery Schedule</a>
 
-                        <button id="#" style="margin-top:5px;" class="btn create-btn pull-right" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.Add();">Add New</button>
+                        <a href="/#!/DeliverySchedule?LeadID={{$ctrl.AssessmentInfo.LeadID}}" style="margin-top: 5px; margin-right: 10px;" class="btn search-btn" title="LeadAssessment">Delivery Schedule</a>
+
+                        <button id="#" style="margin-top:5px;" class="btn create-btn pull-right" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.AddItem();">Add New</button>
 
                         <!--<a href="/#!/ItemDetails" ng-click="$ctrl.Add();" class="btn create-btn ">Add New</a>-->
                         <!--<button id="#myBtnNextMetting" style="margin-top:5px;" class="btn create-btn pull-right" ng-click="$ctrl.RefreshActivityList();">Refresh</button>-->
@@ -1023,11 +1025,10 @@
                                                     <td>{{item.ItemID}}</td>
                                                     <td>{{item.ProductDesc}}</td>
                                                     <td>{{item.Quantity}}</td>
-                                                    <td>{{item.Status}}</td>
+                                                    <td>{{item.ItemStatus}}</td>
                                                     <td>
                                                         <span class="edit-table-link" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.EditItem(item.ItemID);"><i class="fa fa-edit" aria-hidden="true"></i></span>
                                                     </td>
-
                                                     <td><a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.DeleteItem(item.ItemID);"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                                                 </tr>
                                             </tbody>
@@ -1451,7 +1452,7 @@
                         <div class="col-md-3">
                             <b>Sr. No.</b>
 
-                            <input type="text" placeholder="Select leadid" ng-model="$ctrl.InsertItem.ItemID" name="leadid" class="form-control" />
+                            <input type="text" placeholder="New Item" ng-model="$ctrl.InsertItem.ItemID" name="leadid" class="form-control" disabled />
                         </div>
                         <div class="col-md-3">
                             <b>Item Status </b>
@@ -1472,7 +1473,7 @@
                         </div>
                         <div class="col-md-3">
                             <b>Opportunity Type </b>
-                            <select id="txtLeadType" class="form-control leader-create-dropdown" ng-model="$ctrl.InsertItem.LeadType" name="LeadType" tabindex="2" required>
+                            <select id="txtLeadType" class="form-control leader-create-dropdown" ng-model="$ctrl.InsertItem.LeadType" name="LeadType" tabindex="2" required disabled>
                                 <option value="">Select</option>
                                 <option ng-repeat="item in $ctrl.LeadTypeDropDown" value={{item.ID}}>{{item.LeadTypeDesc}}</option>
                             </select>
@@ -1543,13 +1544,32 @@
 
                     </div>
                     <div class="form-group">
-                        <div class="col-md-3">
+                        <!--<div class="col-md-3">
                             <b>Product </b>
                             <select id="txtProduct" name="Product" ng-model="$ctrl.InsertItem.ProductID" class="form-control leader-create-dropdown" tabindex="2" required>
                                 <option value="">Select</option>
                                 <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
 
                             </select>
+                        </div>-->
+                        <div class="col-md-3">
+                            <b>Product<span class="Mandatory">*</span></b>
+                            <select id="txtProduct" name="Product" ng-model="$ctrl.InsertItem.ProductID" class="form-control leader-create-dropdown" tabindex="2" required disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
+
+                            </select>
+
+                        </div>
+                        <!--<div class="col-md-3">
+                            <label>Product Description<span class="Mandatory">*</span></label>
+                            <input type="text" id="txtProductDesc" name="txtProductDesc" ng-model="$ctrl.InsertItem.ProductDesc" class="form-control" ng-change="$ctrl.Product($ctrl.InsertItem.ProductID)" ; placeholder="Product Description" />
+
+                        </div>-->
+                        <div class="col-md-3">
+                            <b>Product Description</b>
+
+                            <input type="text" id="txtProductDesc" placeholder="Product Description" ng-model="$ctrl.InsertItem.ProductDesc" name="txtProductDesc" class="form-control" ng-change="$ctrl.Product($ctrl.InsertItem.ProductID)" />
                         </div>
                         <div class="col-md-3">
                             <b>Model </b>
@@ -1566,14 +1586,6 @@
 
                             </select>
                         </div>
-                        <div class="col-md-3">
-                            <b>Opportunity Source  </b>
-
-                            <select id="ddlleadsource" class="form-control leader-create-dropdown" name="LeadSource" ng-model="$ctrl.InsertItem.LeadSourceID" ng-change="$ctrl.LeadSourceChange();">
-                                <option value="">Select</option>
-                                <option ng-repeat="item in $ctrl.LeadSourcedd" value={{item.LeadSourceID}}>{{item.LeadSource}}</option>
-                            </select>
-                        </div>
                         <!--<div class="col-md-3">
                             <b>Sales Area </b>
                             <select id="txtSales" name="SalesArea" ng-model="$ctrl.InsertItem.SalesAreaID" class="form-control">
@@ -1583,7 +1595,14 @@
                         </div>-->
                     </div>
                     <div class="form-group">
+                        <div class="col-md-3">
+                            <b>Opportunity Source  </b>
 
+                            <select id="ddlleadsource" class="form-control leader-create-dropdown" name="LeadSource" ng-model="$ctrl.InsertItem.LeadSourceID" ng-change="$ctrl.LeadSourceChange();">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.LeadSourcedd" value={{item.LeadSourceID}}>{{item.LeadSource}}</option>
+                            </select>
+                        </div>
                         <div class="col-md-3">
                             <b>Comments </b>
                             <textarea class="form-control" placeholder="Add Comments" ng-model="$ctrl.InsertItem.Comments" rows="3" id="address"></textarea>
