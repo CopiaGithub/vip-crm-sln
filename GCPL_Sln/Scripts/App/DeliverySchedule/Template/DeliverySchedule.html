@@ -143,7 +143,7 @@
                                 <div class="form-group">
                                     <label>Delivery Quantity</label>
                                     <!--<div class="col-md-3" ng-class="{ 'has-error' : (userForm.txtCustomerName.$invalid && userForm.txtCustomerName.$pristine) }">-->
-                                    <input type="text" id="DeliveryQty" ng-model="$ctrl.InsertItem.DeliveryQty" name="DeliveryQty" class="form-control" required>
+                                    <input type="text" id="DeliveryQty" ng-model="$ctrl.InsertItem.DeliveryQty" name="DeliveryQty" class="form-control">
                                     <!--<p ng-show="(userForm.txtCustomerName.$invalid && !userForm.txtCustomerName.$pristine)" id="errorWOType" class="help-block" style="color:red">Customer Name is required.</p>-->
                                 </div>
                             </div>
@@ -165,18 +165,20 @@
                                                 <table id="myTable1" cellspacing="0" rules="all" class="table table-bordered table-condensed customer-list-table table-responsive" border="1" style="width:100%;border-collapse:collapse;">
                                                     <thead class="customer-list-heading">
                                                         <tr>
-                                                            <th>Sr No</th>
+                                                            <th>Sr. No.</th>
                                                             <th>Item Description</th>
                                                             <th>Delivery Date</th>
                                                             <th>Delivery Quantity</th>
+                                                            <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr ng-repeat="item in $ctrl.DeliverySchedulelist">
-                                                            <td>{{item.ItemID}}</td>
+                                                            <td>{{item.ID}}</td>
                                                             <td>{{item.ProductDesc}}</td>
-                                                            <td>{{item.DeliveryQty}}</td>
                                                             <td>{{item.DeliveryDate}}</td>
+                                                            <td>{{item.DeliveryQty}}</td>
+                                                            <td><a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.DeleteDsFromCart(item.ID);"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

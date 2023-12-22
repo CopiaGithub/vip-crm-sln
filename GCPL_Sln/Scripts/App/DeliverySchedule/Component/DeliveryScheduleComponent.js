@@ -5,13 +5,13 @@ var GCPL;
         var Home;
         (function (Home) {
             var app = GCPL.app;
-            var LeadChangeInsert = GCPL.Model.UpdateLeadChangeModel;
             var Search = GCPL.Model.RegionCheckModel;
             var SalesAreaSearch = GCPL.Model.CheckSalesAreaModel;
             var SearchRefUser = GCPL.Model.SearchRefUserModel;
+            var LeadItem = GCPL.Model.LeadItemCreateModel;
             var DeliveryScheduleController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function DeliveryScheduleController(_EditService, _ReasonForLeadOpenDDService, _LeadStatusForOpenDDService, _SalesOfficeService, _CountryService, _StateService, _DistrictService, _RegionService, _IndustrialSegmentService, _DepartmentService, _DesignationService, _LeadTypeService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _PurchaseTimlineDDService, _ChannelDDService, _LeadSourceDDService, _LeadCategoryService, _SalesAreaService, _InsertService, _CheckRegionService, _CheckSalesAreaService, _ProjectNameService, $location, _cookieStore, _CampaignDDService, _getAutoUser, _LeadItemListService, _EditItemList, _AddToCartDsService, _DsListService) {
+                function DeliveryScheduleController(_EditService, _ReasonForLeadOpenDDService, _LeadStatusForOpenDDService, _SalesOfficeService, _CountryService, _StateService, _DistrictService, _RegionService, _IndustrialSegmentService, _DepartmentService, _DesignationService, _LeadTypeService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _PurchaseTimlineDDService, _ChannelDDService, _LeadSourceDDService, _LeadCategoryService, _SalesAreaService, _InsertService, _CheckRegionService, _CheckSalesAreaService, _ProjectNameService, $location, _cookieStore, _CampaignDDService, _getAutoUser, _LeadItemListService, _EditItemList, _AddToCartDsService, _DsListService, _deleteItem, _InsertDsDetailsService) {
                     this.$location = $location;
                     this._cookieStore = _cookieStore;
                     this.numRecords = 10;
@@ -63,10 +63,11 @@ var GCPL;
                     this.LeadItemlist = null;
                     this.InsertItem = null;
                     this.DeliverySchedulelist = null;
+                    this.TotalDsList = null;
                     this.Cookie = null;
                     this.InsertService = _InsertService;
                     this.ProjectNameService = _ProjectNameService;
-                    this.InsertLeadChange = new LeadChangeInsert();
+                    this.InsertLeadChange = new LeadItem();
                     this.ReasonForLeadOpenDDService = _ReasonForLeadOpenDDService;
                     this.LeadStatusForOpenDDService = _LeadStatusForOpenDDService;
                     this.SalesOfficeService = _SalesOfficeService;
@@ -100,6 +101,8 @@ var GCPL;
                     this.EditItemService = _EditItemList;
                     this.AddToCartDsService = _AddToCartDsService;
                     this.DsListService = _DsListService;
+                    this.DeleteService = _deleteItem;
+                    this.InsertDsDetailsService = _InsertDsDetailsService;
                     this.Cookie = _cookieStore;
                     this.UserID = this.Cookie.get('UserInfo')['UserID'];
                     this.RoleID = this.Cookie.get('UserInfo')['RoleID'];
@@ -346,7 +349,7 @@ var GCPL;
                     //    this.HideShow();
                     //    this.popupMessage("Please Select Delivery Date", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                     //}
-                    //else
+                    /*else*/
                     if (this.InsertItem.DeliveryQty == undefined || this.InsertItem.DeliveryQty == null || this.InsertItem.DeliveryQty == "") {
                         this.HideShow();
                         this.popupMessage("Please Enter Delivery Quantity", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
@@ -356,6 +359,7 @@ var GCPL;
                         this.popupMessage("Please Select Item to Create Delivery Schedule", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                     }
                     else {
+                        console.log(this.InsertItem.DeliveryDate, "this.InsertItem.DeliveryDate11111");
                         if (this.UserID != null || this.UserID != "") {
                             this.InsertItem.UserID = this.UserID;
                         }
@@ -375,97 +379,77 @@ var GCPL;
                         }));
                     }
                 };
+                DeliveryScheduleController.prototype.DeleteDsFromCart = function (DsID) {
+                    var _this = this;
+                    debugger;
+                    this.DeleteService.Find(DsID).then((function (response) {
+                        _this.DeleteService.postDsDelete(response.data.Result);
+                        _this.Init();
+                        $("#errorclose").hide();
+                        $("#close").show();
+                        _this.popupMessage("Record deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                    }));
+                };
                 DeliveryScheduleController.prototype.Submit = function (data) {
                     var _this = this;
-                    this.InsertLeadChange.UserID = this.UserID;
-                    //this.InsertLeadChange.LeadStatusID = this.LeadStatusID;
-                    if (this.InsertLeadChange.LeadStatusID == undefined || this.InsertLeadChange.LeadStatusID == null || this.InsertLeadChange.LeadStatusID == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Enter LeadStatus", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    //else if (this.InsertLeadChange.LeadOpenReason == undefined || this.InsertLeadChange.LeadOpenReason == null || this.InsertLeadChange.LeadOpenReason == "") {
-                    //    $("#errorclose").show();
-                    //    $("#close").hide();
-                    //    this.alert = "Please Enter Lead Reason";
-                    //}
-                    else if (this.InsertLeadChange.Comments == undefined || this.InsertLeadChange.Comments == null || this.InsertLeadChange.Comments == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Comments", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertLeadChange.LeadType == undefined || this.InsertLeadChange.LeadType == null || this.InsertLeadChange.LeadType == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Lead Type", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertLeadChange.DivisionID == undefined || this.InsertLeadChange.DivisionID == null || this.InsertLeadChange.DivisionID == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Division", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertLeadChange.ProductID == undefined || this.InsertLeadChange.ProductID == null || this.InsertLeadChange.ProductID == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Product", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertLeadChange.ModelID == undefined || this.InsertLeadChange.ModelID == null || this.InsertLeadChange.ModelID == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Model", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertLeadChange.Quantity == undefined || this.InsertLeadChange.Quantity == null || this.InsertLeadChange.Quantity == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Quantity", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertLeadChange.PurchaseTimelineID == undefined || this.InsertLeadChange.PurchaseTimelineID == null || this.InsertLeadChange.PurchaseTimelineID == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Plan to Purchase ", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertLeadChange.LeadCategoryID == undefined || this.InsertLeadChange.LeadCategoryID == null || this.InsertLeadChange.LeadCategoryID == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Lead Category ", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertLeadChange.SalesAreaID == undefined || this.InsertLeadChange.SalesAreaID == null || this.InsertLeadChange.SalesAreaID == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Sales Area ", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertLeadChange.ChannelID == undefined || this.InsertLeadChange.ChannelID == null || this.InsertLeadChange.ChannelID == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Channel", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertLeadChange.LeadSourceID == undefined || this.InsertLeadChange.LeadSourceID == null || this.InsertLeadChange.LeadSourceID == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Lead Source", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertLeadChange.LeadSourceID == "2" && (this.InsertLeadChange.RefUserID == undefined || this.InsertLeadChange.RefUserID == null || this.InsertLeadChange.RefUserID == "")) {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Ref User Name", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if ((this.InsertLeadChange.LeadSourceID == "10" || this.InsertLeadChange.LeadSourceID == "24") && (this.InsertLeadChange.CampaignID == undefined || this.InsertLeadChange.CampaignID == null || this.InsertLeadChange.CampaignID == "")) {
-                        this.HideShow();
-                        this.popupMessage("Please Select  Campaign", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    debugger;
+                    var err = 0;
+                    var flag = 0;
+                    var failureCount = 0;
+                    var SuccessCount = 0;
+                    if (this.DeliverySchedulelist == undefined || this.TotalDsList == null) {
                     }
                     else {
+                        this.TotalDsList = this.DeliverySchedulelist;
+                    }
+                    //if (this.InsertItem.DeliveryDate == undefined || this.InsertItem.DeliveryDate == null || this.InsertItem.DeliveryDate == "") {
+                    //    this.HideShow();
+                    //    this.popupMessage("Please Select Delivery Date", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    //}
+                    //else
+                    //if (this.InsertItem.DeliveryQty == undefined || this.InsertItem.DeliveryQty == null || this.InsertItem.DeliveryQty == "") {
+                    //    this.HideShow();
+                    //    this.popupMessage("Please Enter Delivery Quantity", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    //}
+                    //else if (this.InsertItem.ItemID == undefined || this.InsertItem.ItemID == null || this.InsertItem.ItemID == "") {
+                    //    this.HideShow();
+                    //    this.popupMessage("Please Select Item to Create Delivery Schedule", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    //}
+                    //else {
+                    //this.InsertItem.LeadID;
+                    //debugger;
+                    //this.InsertItem.DeliveryDate;
+                    //debugger;
+                    //this.InsertItem.DeliveryQty;
+                    //debugger;
+                    //this.InsertItem.ItemID;
+                    //debugger;
+                    //this.InsertItem.ProductID;
+                    //if (this.UserID != null || this.UserID != "") {
+                    //    this.InsertItem.UserID = this.UserID;
+                    //}
+                    for (var i = 0; i < this.DeliverySchedulelist.length; i++) {
                         if (this.UserID != null || this.UserID != "") {
-                            this.InsertLeadChange.UserID = this.UserID;
+                            this.DeliverySchedulelist[i].UserID = this.UserID;
                         }
-                        if (this.InsertLeadChange.LeadSourceID == "2") {
-                            this.InsertLeadChange.CampaignID = "";
-                        }
-                        else if (this.InsertLeadChange.LeadSourceID == "10" || this.InsertLeadChange.LeadSourceID == "24") {
-                            this.InsertLeadChange.RefUserID = "";
-                            this.InsertLeadChange.RefUserName = "";
-                        }
-                        this.InsertService.PostLeadChange(this.InsertLeadChange).then((function (response) {
-                            console.log(_this.InsertLeadChange);
-                            //if (response.data.Result != null) {
-                            if (response.data.Result > 0) {
-                                $("#errorclose").hide();
-                                $("#close").show();
-                                _this.popupMessage("LeadID ID - " + _this.LeadID + " Successfully Updated.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-                                _this.InsertLeadChange = null;
+                        this.InsertItem = this.DeliverySchedulelist[i];
+                        debugger;
+                        this.InsertDsDetailsService.PostDS(this.InsertItem).then((function (response) {
+                            if (response.data == "Success") {
+                                flag = 0;
+                                SuccessCount++;
+                                _this.HideShow();
+                                _this.popupMessage("Delivery Schedule Created Successfully", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
                             }
                             else {
+                                flag = 1;
+                                failureCount++;
                                 _this.HideShow();
-                                _this.popupMessage("LeadID ID - " + _this.LeadID + " is unable to Change.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                                _this.popupMessage("Error Occured While Creating Delivery Schedule Please Try again.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                             }
                         }));
                     }
+                    //}
                 };
                 DeliveryScheduleController.prototype.FetchItemData = function (data) {
                     var _this = this;
@@ -604,7 +588,8 @@ var GCPL;
                     "CategoryddService", "DivisionDDPService", "ProductddService", "ModelDDService",
                     "PurchaseTimelineService", "ChannelDDService", "LeadSourceDetailsService", "LeadCategoryDDService",
                     "SalesAreaService", "UpdateLeadChangeService", "CheckRegionService", "CheckSalesAreaDataService", "ProjectNameService",
-                    "$location", "$cookieStore", "CampaignDetailsService", "UserCodeAutoFillService", "LeadItemListService", "EditItemList", "AddToCartDsService", "DeliveryScheduleListService"];
+                    "$location", "$cookieStore", "CampaignDetailsService", "UserCodeAutoFillService", "LeadItemListService", "EditItemList",
+                    "AddToCartDsService", "DeliveryScheduleListService", "DeleteDsFromAddToCartService", "InsertDsDetailsService"];
                 return DeliveryScheduleController;
             }());
             var DeliveryScheduleComponentController = /** @class */ (function () {
