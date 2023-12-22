@@ -748,7 +748,7 @@
             this.UpdateLeadData.userID = this.UserID;
             this.UpdateLeadData.leadID = this.LeadID;
             this.UpdateLeadData.salesStage = this.AssessmentInfo.SalesStage;
-            this.UpdateLeadData.status = this.AssessmentInfo.Status;
+            this.UpdateLeadData.status = this.AssessmentInfo.LeadStatusId;
             this.UpdateLeadData.notes = this.AssessmentInfo.Notes;
             this.UpdateLeadData.reason = "";
             this.UpdateLeadData.description = this.AssessmentInfo.Description;
@@ -1076,6 +1076,7 @@
                 //this.InsertAct.ptype = "YTBA";
 
                 this.InsertAct.ActivityID = this.InsertAct.ActivityNumber;
+                this.InsertAct.LeadStatusId = this.AssessmentInfo.LeadStatusId;
                 this.InsertAct.UserID = this.UserID;
                 this.InsertAct.CustomerID = this.AssessmentInfo.CustomerID;
                 this.InsertAct.ContactID = this.AssessmentInfo.ContactID;
@@ -1134,6 +1135,7 @@
             // $("#ass-btn-loader1").show();
             debugger;
             this.InsertItem.LeadID = this.LeadID;
+            this.InsertItem.UserID = this.UserID;
             console.log("OP", this.InsertItem);
             if (this.InsertItem.LeadType == undefined || this.InsertItem.LeadType == null || this.InsertItem.LeadType == "") {
                 this.HideShow();
@@ -1186,7 +1188,8 @@
 
 
                 this.InsertItem.ItemStatusID = this.InsertItem.LeadStatusId;
-                this.InsertItem.CategoryID = this.InsertItem.LeadCategoryID;
+                this.InsertItem.CategoryID = this.InsertItem.CategoryID;
+                this.InsertItem.LeadCategoryID = this.InsertItem.LeadCategoryID;
 
                 console.log("OP", this.InsertItem);
                 //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {

@@ -409,6 +409,7 @@
         ActivityName: string;
         ActivityDate: string;
         Status: string;
+        LeadStatusId: string;
         IsActive: string;
         Purpose: string;
         Mode: string;

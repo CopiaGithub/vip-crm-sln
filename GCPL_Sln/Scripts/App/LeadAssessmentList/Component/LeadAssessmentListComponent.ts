@@ -276,7 +276,7 @@
         Clear() {
 
             this.AssessmentSearch.SearchInput = "";
-            this.AssessmentSearch.StatusID = "";
+            this.AssessmentSearch.LeadStatusID = "";
             this.AssessmentSearch.CustomerID = "";
             this.AssessmentSearch.LeadID = "";
             $("#txtCustomerName").val("");

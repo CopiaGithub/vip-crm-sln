@@ -496,7 +496,8 @@ namespace GCPL.Service {
                     ReferenceOpportunity: item.ReferenceOpportunity,
                     StartDate: item.StartDate,
                     EndDate: item.EndDate,
-                    ActivityNumber: item.ActivityNumber
+                    ActivityNumber: item.ActivityNumber,
+                    LeadStatusId: item.LeadStatusId
                 });
             }
             return list;

@@ -1083,7 +1083,7 @@
                                                     <td>{{item.ActivityDate}}</td>
                                                     <td>{{item.Status}}</td>
                                                     <td>{{item.Note}}</td>
-                                                    <td>Market Platform</td>
+                                                    <td>{{item.LeadStatusId}}</td>
                                                     <td><a id="lnkview" ng-click="$ctrl.Edit(item.ActivityNumber)" data-toggle="modal" ng-show="item.Status == 'Pending'" data-target="#myModalAddNew" style="cursor: pointer">Edit</a></td>
                                                 </tr>
                                             </tbody>
@@ -1528,7 +1528,7 @@
                         </div>
                         <div class="col-md-3">
                             <b>Category </b>
-                            <select id="txtCategory" name="Category" ng-model="$ctrl.InsertItem.CategoryID" ng-change="$ctrl.Division();" class="form-control leader-create-dropdown" tabindex="2" required>
+                            <select id="txtCategory" name="Category" ng-model="$ctrl.InsertItem.CategoryID"  class="form-control leader-create-dropdown" tabindex="2" required>
                                 <option value="">Select</option>
                                 <option ng-repeat="item in $ctrl.CategoryDropDown" value={{item.CategoryID}}>{{item.Category}}</option>
                             </select>
