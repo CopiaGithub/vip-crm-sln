@@ -10,7 +10,7 @@
     import SearchRefUser = GCPL.Model.SearchRefUserModel;
     import LeadItem = GCPL.Model.LeadItemCreateModel;
 
-    interface IDeliveryScheduleController {
+    interface IDeliveryScheduleEditController {
         InsertLeadChange: LeadChangeInsert;
         Submit(data: any): void;
         Edit(data: any): void;
@@ -52,7 +52,7 @@
 
 
 
-    class DeliveryScheduleController implements IDeliveryScheduleController {
+    class DeliveryScheduleEditController implements IDeliveryScheduleEditController {
         numRecords: number = 10;
         page: number = 0;
         incre: number = 0;
@@ -813,17 +813,17 @@
 
 
     }
-    class DeliveryScheduleComponentController implements ng.IComponentOptions {
-        static Name: string = "deliveryschedule"
+    class DeliveryScheduleEditComponentController implements ng.IComponentOptions {
+        static Name: string = "deliveryscheduleedit"
         public bindings: any;
         public controller: any;
         public template: string;
         public templateUrl: string;
         constructor() {
-            this.controller = DeliveryScheduleController;
-            this.templateUrl = "/Scripts/App/DeliverySchedule/Template/DeliverySchedule.html";
+            this.controller = DeliveryScheduleEditController;
+            this.templateUrl = "/Scripts/App/DeliveryScheduleEdit/Template/DeliveryScheduleEdit.html";
         }
     }
-    app.AddComponent(DeliveryScheduleComponentController.Name, new DeliveryScheduleComponentController());
+    app.AddComponent(DeliveryScheduleEditComponentController.Name, new DeliveryScheduleEditComponentController());
 
 }

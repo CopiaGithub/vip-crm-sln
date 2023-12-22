@@ -4,6 +4,7 @@
         }
         ID: string;
         ItemID: string;
+        ProductID: string;
         ProductDesc: string;
         UserID: string;
         LeadID: string;
