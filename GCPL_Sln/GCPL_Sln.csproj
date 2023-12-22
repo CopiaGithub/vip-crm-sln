@@ -1627,6 +1627,12 @@
     <Content Include="Scripts\App\CustomerBroadcastMaster\Template\ParentCustomerBroadcastMaster.html" />
     <Content Include="Scripts\App\DelegationMatrix\Template\_DelegationMatrix.html" />
     <Content Include="Scripts\App\DelegationMatrix\Template\_ParentDelegationMatrix.html" />
+    <Content Include="Scripts\App\DeliveryScheduleEdit\Component\DeliveryScheduleEditComponent.js" />
+    <Content Include="Scripts\App\DeliveryScheduleEdit\Controller\DeliveryScheduleEditController.js" />
+    <Content Include="Scripts\App\DeliveryScheduleEdit\Model\DeliveryScheduleEditModel.js" />
+    <Content Include="Scripts\App\DeliveryScheduleEdit\Service\DeliveryScheduleEditService.js" />
+    <Content Include="Scripts\App\DeliveryScheduleEdit\Template\DeliveryScheduleEdit.html" />
+    <Content Include="Scripts\App\DeliveryScheduleEdit\Template\ParentDeliveryScheduleEdit.html" />
     <Content Include="Scripts\App\DeliverySchedule\Component\DeliveryScheduleComponent.js" />
     <Content Include="Scripts\App\DeliverySchedule\Controller\DeliveryScheduleController.js" />
     <Content Include="Scripts\App\DeliverySchedule\Model\DeliveryScheduleModel.js" />
@@ -2303,6 +2309,10 @@
     <Content Include="Scripts\App\DeliverySchedule\Controller\DeliveryScheduleController.js.map" />
     <Content Include="Scripts\App\DeliverySchedule\Model\DeliveryScheduleModel.js.map" />
     <Content Include="Scripts\App\DeliverySchedule\Service\DeliveryScheduleService.js.map" />
+    <Content Include="Scripts\App\DeliveryScheduleEdit\Component\DeliveryScheduleEditComponent.js.map" />
+    <Content Include="Scripts\App\DeliveryScheduleEdit\Controller\DeliveryScheduleEditController.js.map" />
+    <Content Include="Scripts\App\DeliveryScheduleEdit\Model\DeliveryScheduleEditModel.js.map" />
+    <Content Include="Scripts\App\DeliveryScheduleEdit\Service\DeliveryScheduleEditService.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\Chart.bundle.js" />
     <Content Include="Scripts\Chart.bundle.min.js" />
@@ -2443,6 +2453,10 @@
     <TypeScriptCompile Include="Scripts\App\DelegationMatrix\Controller\DelegationMatrixController.ts" />
     <TypeScriptCompile Include="Scripts\App\DelegationMatrix\Model\DelegationMatrixModel.ts" />
     <TypeScriptCompile Include="Scripts\App\DelegationMatrix\Service\DelegationMatrixService.ts" />
+    <TypeScriptCompile Include="Scripts\App\DeliveryScheduleEdit\Component\DeliveryScheduleEditComponent.ts" />
+    <TypeScriptCompile Include="Scripts\App\DeliveryScheduleEdit\Controller\DeliveryScheduleEditController.ts" />
+    <TypeScriptCompile Include="Scripts\App\DeliveryScheduleEdit\Model\DeliveryScheduleEditModel.ts" />
+    <TypeScriptCompile Include="Scripts\App\DeliveryScheduleEdit\Service\DeliveryScheduleEditService.ts" />
     <TypeScriptCompile Include="Scripts\App\DeliverySchedule\Component\DeliveryScheduleComponent.ts" />
     <TypeScriptCompile Include="Scripts\App\DeliverySchedule\Controller\DeliveryScheduleController.ts" />
     <TypeScriptCompile Include="Scripts\App\DeliverySchedule\Model\DeliveryScheduleModel.ts" />
