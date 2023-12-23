@@ -454,6 +454,9 @@ var GCPL;
                     .when("/DeliverySchedule", {
                     templateUrl: "/Scripts/App/DeliverySchedule/Template/ParentDeliverySchedule.html",
                 })
+                    .when("/DeliveryScheduleEdit", {
+                    templateUrl: "/Scripts/App/DeliveryScheduleEdit/Template/ParentDeliveryScheduleEdit.html",
+                })
                     .when("/LeadChange", {
                     templateUrl: "/Scripts/App/LeadChange/Template/ParentLeadChange.html",
                 })

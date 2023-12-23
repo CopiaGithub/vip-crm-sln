@@ -84,6 +84,7 @@ var GCPL;
                     list.push({
                         ID: item.ID,
                         ItemID: item.ItemID,
+                        ProductID: item.ProductID,
                         ProductDesc: item.ProductDesc,
                         UserID: item.UserID,
                         LeadID: item.LeadID,
@@ -98,6 +99,76 @@ var GCPL;
         }(GCPL.Service.BaseService));
         Service.DeliveryScheduleListService = DeliveryScheduleListService;
         app.AddService("DeliveryScheduleListService", DeliveryScheduleListService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var DeleteDsFromAddToCartService = /** @class */ (function (_super) {
+            __extends(DeleteDsFromAddToCartService, _super);
+            function DeleteDsFromAddToCartService($http, $q) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this.apiUrl = "";
+                _this.apiUrl = _this.url + "/" + "DeleteDs";
+                return _this;
+            }
+            DeleteDsFromAddToCartService.prototype.Find = function (data) {
+                var config = {
+                    params: {
+                        DsID: data
+                    }
+                };
+                return this.ajaXUtility.Post({
+                    Url: this.apiUrl,
+                    data: data,
+                    Config: config
+                });
+            };
+            DeleteDsFromAddToCartService.prototype.postDsDelete = function (data) {
+                var url = this.apiUrl;
+                this.$http.post(url, data).then(function (response) {
+                });
+            };
+            DeleteDsFromAddToCartService.$inject = ["$http", "$q"];
+            return DeleteDsFromAddToCartService;
+        }(GCPL.Service.BaseService));
+        Service.DeleteDsFromAddToCartService = DeleteDsFromAddToCartService;
+        app.AddService("DeleteDsFromAddToCartService", DeleteDsFromAddToCartService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var InsertDsDetailsService = /** @class */ (function (_super) {
+            __extends(InsertDsDetailsService, _super);
+            function InsertDsDetailsService($http, $q, _cookieStore) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this._cookieStore = _cookieStore;
+                _this.apiUrl = "";
+                _this.Cookie = null;
+                _this.apiUrl = _this.url + "/" + "InsertDsDetails";
+                _this.Cookie = _cookieStore;
+                return _this;
+            }
+            InsertDsDetailsService.prototype.Find = function () {
+                return this.ajaXUtility.Get({ Url: this.apiUrl });
+            };
+            InsertDsDetailsService.prototype.PostDS = function (data) {
+                var url = this.apiUrl;
+                // console.log(url);
+                return this.ajaXUtility.Post({ Url: url, data: data });
+            };
+            InsertDsDetailsService.$inject = ["$http", "$q", "$cookieStore"];
+            return InsertDsDetailsService;
+        }(GCPL.Service.BaseService));
+        Service.InsertDsDetailsService = InsertDsDetailsService;
+        app.AddService("InsertDsDetailsService", InsertDsDetailsService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
 //# sourceMappingURL=DeliveryScheduleService.js.map

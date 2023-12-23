@@ -9,9 +9,9 @@ var GCPL;
             var SalesAreaSearch = GCPL.Model.CheckSalesAreaModel;
             var SearchRefUser = GCPL.Model.SearchRefUserModel;
             var LeadItem = GCPL.Model.LeadItemCreateModel;
-            var DeliveryScheduleController = /** @class */ (function () {
+            var DeliveryScheduleEditController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function DeliveryScheduleController(_EditService, _ReasonForLeadOpenDDService, _LeadStatusForOpenDDService, _SalesOfficeService, _CountryService, _StateService, _DistrictService, _RegionService, _IndustrialSegmentService, _DepartmentService, _DesignationService, _LeadTypeService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _PurchaseTimlineDDService, _ChannelDDService, _LeadSourceDDService, _LeadCategoryService, _SalesAreaService, _InsertService, _CheckRegionService, _CheckSalesAreaService, _ProjectNameService, $location, _cookieStore, _CampaignDDService, _getAutoUser, _LeadItemListService, _EditItemList, _AddToCartDsService, _DsListService, _deleteItem, _InsertDsDetailsService) {
+                function DeliveryScheduleEditController(_EditService, _ReasonForLeadOpenDDService, _LeadStatusForOpenDDService, _SalesOfficeService, _CountryService, _StateService, _DistrictService, _RegionService, _IndustrialSegmentService, _DepartmentService, _DesignationService, _LeadTypeService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _PurchaseTimlineDDService, _ChannelDDService, _LeadSourceDDService, _LeadCategoryService, _SalesAreaService, _InsertService, _CheckRegionService, _CheckSalesAreaService, _ProjectNameService, $location, _cookieStore, _CampaignDDService, _getAutoUser, _LeadItemListService, _EditItemList, _AddToCartDsService, _DsListService, _deleteItem, _InsertDsDetailsService) {
                     this.$location = $location;
                     this._cookieStore = _cookieStore;
                     this.numRecords = 10;
@@ -107,7 +107,7 @@ var GCPL;
                     this.UserID = this.Cookie.get('UserInfo')['UserID'];
                     this.RoleID = this.Cookie.get('UserInfo')['RoleID'];
                 }
-                DeliveryScheduleController.prototype.$onInit = function () {
+                DeliveryScheduleEditController.prototype.$onInit = function () {
                     var that = this;
                     this.Init();
                     $("#errorclose").hide();
@@ -120,11 +120,11 @@ var GCPL;
                         });
                     }
                 };
-                DeliveryScheduleController.prototype.selectFromDate = function (e) {
+                DeliveryScheduleEditController.prototype.selectFromDate = function (e) {
                     document.getElementById("txtDeliveryDate").value = e;
                 };
                 //Page Load Define Values//
-                DeliveryScheduleController.prototype.Init = function () {
+                DeliveryScheduleEditController.prototype.Init = function () {
                     var _this = this;
                     debugger;
                     var n = new Date();
@@ -229,80 +229,80 @@ var GCPL;
                         }
                     });
                 };
-                DeliveryScheduleController.prototype.FillGridItems = function () {
+                DeliveryScheduleEditController.prototype.FillGridItems = function () {
                     var _this = this;
                     this.LeadItemlist = this.ListItemservice.Find(this.LeadID).then((function (response) {
                         _this.LeadItemlist = _this.ListItemservice.GetLeadItemList(response.data.Result);
                     }));
                 };
-                DeliveryScheduleController.prototype.FillGridDeliverySchedule = function () {
+                DeliveryScheduleEditController.prototype.FillGridDeliverySchedule = function () {
                     var _this = this;
                     this.DeliverySchedulelist = this.DsListService.Find(this.LeadID).then((function (response) {
                         _this.DeliverySchedulelist = _this.DsListService.GetLeadItemList(response.data.Result);
                         console.log("this.DeliverySchedulelist", _this.DeliverySchedulelist);
                     }));
                 };
-                DeliveryScheduleController.prototype.State = function (data) {
+                DeliveryScheduleEditController.prototype.State = function (data) {
                     var _this = this;
                     this.StateDropDown = this.StateService.Find(this.InsertLeadChange.CountryID).then((function (response) {
                         _this.StateDropDown = _this.StateService.GetStateName(response.data.Result);
                     }));
                 };
-                DeliveryScheduleController.prototype.District = function (data) {
+                DeliveryScheduleEditController.prototype.District = function (data) {
                     var _this = this;
                     this.DistrictDropDown = this.DistrictService.Find(this.InsertLeadChange.StateID).then((function (response) {
                         _this.DistrictDropDown = _this.DistrictService.GetDistrictName(response.data.Result);
                     }));
                 };
-                DeliveryScheduleController.prototype.AddConState = function (data) {
+                DeliveryScheduleEditController.prototype.AddConState = function (data) {
                     var _this = this;
                     this.AddConStateDropDown = this.StateService.Find(this.InsertLeadChange.ContactCountryID).then((function (response) {
                         _this.AddConStateDropDown = _this.StateService.GetStateName(response.data.Result);
                     }));
                 };
-                DeliveryScheduleController.prototype.AddConDistrict = function (data) {
+                DeliveryScheduleEditController.prototype.AddConDistrict = function (data) {
                     var _this = this;
                     this.AddConDistrictDropDown = this.DistrictService.Find(this.InsertLeadChange.ContactStateID).then((function (response) {
                         _this.AddConDistrictDropDown = _this.DistrictService.GetDistrictName(response.data.Result);
                     }));
                 };
-                DeliveryScheduleController.prototype.Division = function (data) {
+                DeliveryScheduleEditController.prototype.Division = function (data) {
                     var _this = this;
                     this.DivisionDropDownP = this.DivisionPService.Find(this.InsertLeadChange.CategoryID).then((function (response) {
                         _this.DivisionDropDownP = _this.DivisionPService.GetDivisionDDP(response.data.Result);
                     }));
                 };
-                DeliveryScheduleController.prototype.Product = function (data) {
+                DeliveryScheduleEditController.prototype.Product = function (data) {
                     var _this = this;
                     this.ProductDropDown = this.ProductService.Find(this.InsertLeadChange.DivisionID).then((function (response) {
                         _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
                     }));
                 };
-                DeliveryScheduleController.prototype.Model = function (data) {
+                DeliveryScheduleEditController.prototype.Model = function (data) {
                     var _this = this;
                     this.ModelDropDown = this.ModelService.Find(this.InsertLeadChange.ProductID).then((function (response) {
                         _this.ModelDropDown = _this.ModelService.GetModelDD(response.data.Result);
                     }));
                 };
-                DeliveryScheduleController.prototype.LeadSource = function (data) {
+                DeliveryScheduleEditController.prototype.LeadSource = function (data) {
                     var _this = this;
                     this.LeadSourcedd = this.LeadSourceDDService.Find(this.InsertLeadChange.ChannelID).then((function (response) {
                         _this.LeadSourcedd = _this.LeadSourceDDService.GetLeadSourceDetails(response.data.Result);
                     }));
                 };
-                DeliveryScheduleController.prototype.LeadStatusopen = function (data) {
+                DeliveryScheduleEditController.prototype.LeadStatusopen = function (data) {
                     var _this = this;
                     this.LeadStatusOpenDD = this.LeadStatusForOpenDDService.Find(this.LeadID).then((function (response) {
                         _this.LeadStatusOpenDD = _this.LeadStatusForOpenDDService.GetLeadOpen(response.data.Result);
                     }));
                 };
-                DeliveryScheduleController.prototype.Campaign = function () {
+                DeliveryScheduleEditController.prototype.Campaign = function () {
                     var _this = this;
                     this.Campaigndd = this.CampaignDDService.Find(this.InsertLeadChange.LeadSourceID).then((function (response) {
                         _this.Campaigndd = _this.CampaignDDService.GetCampaignDetails(response.data.Result);
                     }));
                 };
-                DeliveryScheduleController.prototype.LeadSourceChange = function () {
+                DeliveryScheduleEditController.prototype.LeadSourceChange = function () {
                     $("#Campaignfield").hide();
                     $("#UserNamefield").hide();
                     if (this.InsertLeadChange.LeadSourceID == "10" || this.InsertLeadChange.LeadSourceID == "24") {
@@ -315,7 +315,7 @@ var GCPL;
                         $("#UserNamefield").show();
                     }
                 };
-                DeliveryScheduleController.prototype.LeadOpenReason = function () {
+                DeliveryScheduleEditController.prototype.LeadOpenReason = function () {
                     var _this = this;
                     $("#txtreason").prop('disabled', true);
                     if (this.InsertLeadChange.LeadStatusID == "1") {
@@ -330,18 +330,18 @@ var GCPL;
                         this.InsertLeadChange.LeadOpenReason = "";
                     }
                 };
-                DeliveryScheduleController.prototype.HideShow = function () {
+                DeliveryScheduleEditController.prototype.HideShow = function () {
                     $("#errorclose").show();
                     $("#close").hide();
                 };
-                DeliveryScheduleController.prototype.popupMessage = function (Message, AddClass, RemoveClass, ShowImg, HideImg) {
+                DeliveryScheduleEditController.prototype.popupMessage = function (Message, AddClass, RemoveClass, ShowImg, HideImg) {
                     $("#message-text").html(Message);
                     $("#success-modal-head").addClass(AddClass).removeClass(RemoveClass);
                     $(ShowImg).show();
                     $(HideImg).hide();
                     $("#succeess-message-box").modal("show");
                 };
-                DeliveryScheduleController.prototype.AddDsToCart = function (data) {
+                DeliveryScheduleEditController.prototype.AddDsToCart = function (data) {
                     var _this = this;
                     this.InsertItem.UserID = this.UserID;
                     this.InsertItem.LeadID = this.LeadID;
@@ -379,7 +379,7 @@ var GCPL;
                         }));
                     }
                 };
-                DeliveryScheduleController.prototype.DeleteDsFromCart = function (DsID) {
+                DeliveryScheduleEditController.prototype.DeleteDsFromCart = function (DsID) {
                     var _this = this;
                     debugger;
                     this.DeleteService.Find(DsID).then((function (response) {
@@ -390,7 +390,7 @@ var GCPL;
                         _this.popupMessage("Record deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
                     }));
                 };
-                DeliveryScheduleController.prototype.Submit = function (data) {
+                DeliveryScheduleEditController.prototype.Submit = function (data) {
                     var _this = this;
                     debugger;
                     var err = 0;
@@ -451,7 +451,7 @@ var GCPL;
                     }
                     //}
                 };
-                DeliveryScheduleController.prototype.FetchItemData = function (data) {
+                DeliveryScheduleEditController.prototype.FetchItemData = function (data) {
                     var _this = this;
                     console.log(data, "data11111");
                     this.EditItemService.Find(data).then((function (response) {
@@ -460,7 +460,7 @@ var GCPL;
                         $("myModalAdd").show();
                     }));
                 };
-                DeliveryScheduleController.prototype.Edit = function (data) {
+                DeliveryScheduleEditController.prototype.Edit = function (data) {
                     var _this = this;
                     debugger;
                     this.EditService.Find(data).then((function (response) {
@@ -566,7 +566,7 @@ var GCPL;
                         //$('#txtCommnets').val(this.InsertLeadChange.Comments);
                     }));
                 };
-                DeliveryScheduleController.prototype.Reset = function () {
+                DeliveryScheduleEditController.prototype.Reset = function () {
                     this.Edit(this.LeadID);
                     if (this.LeadID > 0) {
                         $("#errorclose").hide();
@@ -578,11 +578,11 @@ var GCPL;
                         $("#close").show();
                     }
                 };
-                DeliveryScheduleController.prototype.Close = function () {
+                DeliveryScheduleEditController.prototype.Close = function () {
                     this.FillGridDeliverySchedule();
                     //location.href = "#!/LeadChangeList";
                 };
-                DeliveryScheduleController.$inject = ["LeadChangeEditService", "ReasonForLeadOpenDDService", "LeadStatusForOpenDDService",
+                DeliveryScheduleEditController.$inject = ["LeadChangeEditService", "ReasonForLeadOpenDDService", "LeadStatusForOpenDDService",
                     "SalesOfficeService", "CountryService", "StateddService", "DistrictddService", "RegionddService",
                     "IndustrialSegmentService", "DepartmentService", "DesignationService", "LeadTypeddService",
                     "CategoryddService", "DivisionDDPService", "ProductddService", "ModelDDService",
@@ -590,18 +590,18 @@ var GCPL;
                     "SalesAreaService", "UpdateLeadChangeService", "CheckRegionService", "CheckSalesAreaDataService", "ProjectNameService",
                     "$location", "$cookieStore", "CampaignDetailsService", "UserCodeAutoFillService", "LeadItemListService", "EditItemList",
                     "AddToCartDsService", "DeliveryScheduleListService", "DeleteDsFromAddToCartService", "InsertDsDetailsService"];
-                return DeliveryScheduleController;
+                return DeliveryScheduleEditController;
             }());
-            var DeliveryScheduleComponentController = /** @class */ (function () {
-                function DeliveryScheduleComponentController() {
-                    this.controller = DeliveryScheduleController;
-                    this.templateUrl = "/Scripts/App/DeliverySchedule/Template/DeliverySchedule.html";
+            var DeliveryScheduleEditComponentController = /** @class */ (function () {
+                function DeliveryScheduleEditComponentController() {
+                    this.controller = DeliveryScheduleEditController;
+                    this.templateUrl = "/Scripts/App/DeliveryScheduleEdit/Template/DeliveryScheduleEdit.html";
                 }
-                DeliveryScheduleComponentController.Name = "deliveryschedule";
-                return DeliveryScheduleComponentController;
+                DeliveryScheduleEditComponentController.Name = "deliveryscheduleedit";
+                return DeliveryScheduleEditComponentController;
             }());
-            app.AddComponent(DeliveryScheduleComponentController.Name, new DeliveryScheduleComponentController());
+            app.AddComponent(DeliveryScheduleEditComponentController.Name, new DeliveryScheduleEditComponentController());
         })(Home = Component.Home || (Component.Home = {}));
     })(Component = GCPL.Component || (GCPL.Component = {}));
 })(GCPL || (GCPL = {}));
-//# sourceMappingURL=DeliveryScheduleComponent.js.map
+//# sourceMappingURL=DeliveryScheduleEditComponent.js.map

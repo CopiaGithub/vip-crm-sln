@@ -79,6 +79,7 @@ namespace GCPL.Service {
                 list.push({
                     ID: item.ID,
                     ItemID: item.ItemID,
+                    ProductID: item.ProductID,
                     ProductDesc: item.ProductDesc,
                     UserID: item.UserID,
                     LeadID: item.LeadID,
@@ -93,4 +94,82 @@ namespace GCPL.Service {
     }
     app.AddService("DeliveryScheduleListService", DeliveryScheduleListService);
 }
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IDeleteDsFromAddToCartService {
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        postDsDelete(data: any): void;
+    }
+    export class DeleteDsFromAddToCartService extends GCPL.Service.BaseService implements IDeleteDsFromAddToCartService {
+
+        private apiUrl: string = "";
+        static $inject = ["$http", "$q"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"DeleteDs"}`;
+        }
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+
+            let config = {
+                params: {
+                    DsID: data
+                }
+            };
+            return this.ajaXUtility.Post({
+
+                Url: this.apiUrl,
+                data,
+                Config: config
+            });
+        }
+
+        postDsDelete(data): void {
+            let url = this.apiUrl;
+            this.$http.post(url, data).then(function (response) {
+            });
+
+        }
+    }
+
+    app.AddService("DeleteDsFromAddToCartService", DeleteDsFromAddToCartService);
+}
+
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IInsertDsDetailsService {
+        PostDS(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+    }
+    export class InsertDsDetailsService extends GCPL.Service.BaseService implements IInsertDsDetailsService {
+
+
+        private apiUrl: string = "";
+        private Cookie: any = null;
+        static $inject = ["$http", "$q", "$cookieStore"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService, private _cookieStore: any) {
+            super($http, $q);
+
+            this.apiUrl = `${this.url}/${"InsertDsDetails"}`;
+            this.Cookie = _cookieStore;
+        }
+        Find(): ng.IPromise<Utility.Ajax.IResponse> {
+
+            return this.ajaXUtility.Get({ Url: this.apiUrl });
+
+        }
+        PostDS(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+            let url = this.apiUrl;
+            // console.log(url);
+            return this.ajaXUtility.Post({ Url: url, data: data });
+        }
+    }
+
+    app.AddService("InsertDsDetailsService", InsertDsDetailsService);
+}
+
 
