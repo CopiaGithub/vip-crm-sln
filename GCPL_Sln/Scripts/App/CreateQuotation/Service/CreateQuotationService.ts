@@ -1216,7 +1216,7 @@ namespace GCPL.Service {
         constructor(private $http: ng.IHttpService, private $q: ng.IQService, private _cookieStore: any) {
             super($http, $q);
 
-            this.apiUrl = `${this.url}/${"InsertQuotationMaster"}`;
+            this.apiUrl = `${this.url}/${"InsertQuotation"}`;
             this.Cookie = _cookieStore;
         }
         Find(): ng.IPromise<Utility.Ajax.IResponse> {
@@ -1226,7 +1226,7 @@ namespace GCPL.Service {
         }
         PostQuote(data: any): ng.IPromise<Utility.Ajax.IResponse> {
             let url = this.apiUrl;
-            // console.log(url);
+             console.log(data);
             return this.ajaXUtility.Post({ Url: url, data: data });
         }
     }

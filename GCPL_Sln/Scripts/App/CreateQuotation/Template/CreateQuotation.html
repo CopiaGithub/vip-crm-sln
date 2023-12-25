@@ -333,7 +333,7 @@
                         <div class="form-group">
                             <label>Opportunity No</label>
                             <!--<div class="col-md-3" ng-class="{ 'has-error' : (userForm.txtCustomerName.$invalid && userForm.txtCustomerName.$pristine) }">-->
-                            <input type="text" id="txtSAPID" disabled="disabled" ng-model="$ctrl.InsertContact.SAPID" name="txtSAPID" class="form-control" required>
+                            <input type="text" id="txtSAPID" disabled="disabled" ng-model="$ctrl.InsertContact.LeadID" name="txtSAPID" class="form-control" required>
                             <!--<p ng-show="(userForm.txtCustomerName.$invalid && !userForm.txtCustomerName.$pristine)" id="errorWOType" class="help-block" style="color:red">Customer Name is required.</p>-->
                         </div>
                     </div>
@@ -455,11 +455,19 @@
                             <div class="form-group">
 
                                 <!--<label>
-                                    {{$ctrl.EditQuotation.TC1Heading}} <input type="checkbox" class="TC-class" ng-checked="$ctrl.EditQuotation.TC1ID != '0' " id="chkTC1" />
+                                    {{$ctrl.InsertQuotation.TCDetails}} <input type="checkbox" class="TC-class" ng-checked="$ctrl.EditQuotation.TC1ID != '0' " id="chkTC1" />
                                 </label>-->
                                 <div>
-
-                                    <textarea class="form-control" rows="3" id="txtTC1" style="height: 30rem;" placeholder="Sales Person Name" ng-model="$ctrl.AssessmentInfo.CompanyName" name="TC"></textarea>
+                                    <textarea class="form-control" rows="3" id="txtTC1" style="height: 30rem;" placeholder="Sales Person Name" ng-model="$ctrl.InsertQuotation.TCDetails" name="TC"></textarea>
+                                   
+                                    <!--<textarea class="form-control" rows="3" id="txtTC1" style="height: 30rem;">1. The above quoted prices are for the MOQ mentioned against the items and are FOR your locations as provided in the mail below.
+    2. Payment Terms: 100% advance along with the Purchase Order.
+    3. Delivery – Shall confirm. As of now, it is starting Mid Dec, if the order can be confirmed by 23rd Nov 2023.
+    4. The Purchase of the above items does not entitle the client for use of the Brands of VIP Industries Ltd if not given in writing specifically otherwise. The Usage of the brand and its other constituents, if agreed to by VIP Industries Ltd, should be strictly as per standards specified by VIP.
+    5. Customization – The above prices are inclusive of the customization charges of your Logo to be printed on the Strolley thru suitable process.
+    6. The above quote is valid for 15 days from this date.
+    7. This transaction shall be governed by the laws applicable in India and the parties hereto agree that all disputes arising under these presents shall be subjects to Mumbai Jurisdiction only.
+    </textarea>-->
                                 </div>
                             </div>
                         </div>
@@ -480,7 +488,7 @@
                             <div class="col-ld-3 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Sales Person Name</label>
-                                    <input type="text" placeholder="Sales Person Name" ng-model="$ctrl.AssessmentInfo.CompanyName" id="txtCustomerName" class="form-control" name="customer-name" />
+                                    <input type="text" ng-model="$ctrl.InsertQuotation.SPName" id="txtSalesPersonName" class="form-control" name="sales-person-name" />
                                 </div>
                             </div>
 
@@ -488,20 +496,20 @@
                             <div class="col-ld-3 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Mobile No</label>
-                                    <input type="text" ng-model="$ctrl.AssessmentInfo.MobileNo" id="txtCustomerName" class="form-control" name="customer-name" />
+                                    <input type="text" ng-model="$ctrl.InsertQuotation.SPMobileNo" id="txtMobileNo" class="form-control" name="mobile-no" />
                                 </div>
                             </div>
 
                             <div class="col-ld-3 col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Email</label>
-                                    <input type="text" ng-model="$ctrl.AssessmentInfo.Pincode" id="txtCustomerName" class="form-control" name="customer-name" />
+                                    <input type="text" ng-model="$ctrl.InsertQuotation.SPEmail" id="txtEmail" class="form-control" name="Email" />
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-md-3">
+                            <div class="col-ld-3 col-md-3">
                                 <div class="form-group">
-                                    <label for="address" class="form-label">Designation  <span class="Mandatory">*</span></label>
-                                    <input type="text" class="form-control" rows="5" ng-model="$ctrl.AssessmentInfo.Address1" maxlength="40" id="txtAddr1" />
+                                    <label class="form-label">Designation</label>
+                                    <input type="text" ng-model="$ctrl.InsertQuotation.SPDesignation" id="txtDesignation" class="form-control" name="Designation" />
                                 </div>
                             </div>
                         </div>

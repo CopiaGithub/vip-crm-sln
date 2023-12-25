@@ -33,27 +33,27 @@ var GCPL;
             }
             QuotationlistService.prototype.Find = function (data) {
                 var url = this.apiUrl + "/QuatationListDetails";
-                var CustomerID;
-                var OppNumber;
-                var QuotationNo;
+                var ID;
+                var LeadID;
+                var CustomerName;
                 //var UserID;
-                if (data.CustomerID == undefined) {
-                    CustomerID = '';
+                if (data.ID == undefined) {
+                    ID = '';
                 }
                 else {
-                    CustomerID = data.CustomerID;
+                    ID = data.ID;
                 }
-                if (data.OppNumber == undefined) {
-                    OppNumber = '';
-                }
-                else {
-                    OppNumber = data.OppNumber;
-                }
-                if (data.QuotationNo == undefined) {
-                    QuotationNo = '';
+                if (data.LeadID == undefined) {
+                    LeadID = '';
                 }
                 else {
-                    QuotationNo = data.QuotationNo;
+                    LeadID = data.LeadID;
+                }
+                if (data.CustomerName == undefined) {
+                    CustomerName = '';
+                }
+                else {
+                    CustomerName = data.CustomerName;
                 }
                 //if (data.UserID == undefined) {
                 //    UserID = '';
@@ -63,9 +63,9 @@ var GCPL;
                 //}
                 var config = {
                     params: {
-                        CustomerID: CustomerID,
-                        OppNumber: OppNumber,
-                        QuotationNo: QuotationNo,
+                        ID: ID,
+                        LeadID: LeadID,
+                        CustomerName: CustomerName,
                         UserID: this.Cookie.get('UserInfo')['UserID']
                     }
                 };
@@ -79,18 +79,14 @@ var GCPL;
                 for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
                     var item = data_1[_i];
                     list.push({
-                        OpportunityID: item.OpportunityID,
-                        OpportunitySAPNo: item.OpportunitySAPNo,
-                        OpportunityDate: item.OpportunityDate,
-                        CustomerID: item.CustomerID,
+                        ID: item.ID,
+                        LeadID: item.LeadID,
                         CustomerName: item.CustomerName,
-                        OppStatus: item.OppStatus,
-                        OppStage: item.OppStage,
-                        ModelNo: item.ModelNo,
-                        UserID: item.UserID,
+                        ContactName: item.ContactName,
+                        SPName: item.SPName,
+                        SPMobileNo: item.SPMobileNo,
+                        SPDesignation: item.SPDesignation,
                         CreatedBy: item.CreatedBy,
-                        QuotationRefernce: item.QuotationRefernce,
-                        QuotationDate: item.QuotationDate,
                     });
                 }
                 return list;
