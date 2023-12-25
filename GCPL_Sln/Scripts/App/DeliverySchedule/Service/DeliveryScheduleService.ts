@@ -172,4 +172,120 @@ namespace GCPL.Service {
     app.AddService("InsertDsDetailsService", InsertDsDetailsService);
 }
 
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IEditDSListService {
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        GetDSEdit(data: any): model.DeliveryScheduleModel;
+    }
+    export class EditDSListService extends GCPL.Service.BaseService implements IEditDSListService {
+        private apiUrl: string = "";
+        static $inject = ["$http", "$q"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"DSListEdit"}`;
+        }
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+            var ID;
+
+            if (data == undefined) {
+                ID = "";
+            }
+            else {
+                ID = data;
+            }
+
+            let config = {
+                params: {
+                    ID: ID
+                }
+            };
+            console.log(config);
+            return this.ajaXUtility.Get({
+
+                Url: this.apiUrl,
+                Config: config
+            }
+            );
+        }
+        GetDSEdit(data: any): model.DeliveryScheduleModel {
+
+            let obj = new model.DeliveryScheduleModel();
+            obj.ID = data.ID,
+                obj.ItemID = data.ItemID,
+                obj.ProductID = data.ProductID,
+                obj.ProductDesc = data.ProductDesc,
+                obj.UserID = data.UserID,
+                obj.LeadID = data.LeadID,
+                obj.DeliveryDate = data.DeliveryDate,
+                obj.DeliveryQty = data.DeliveryQty
+            console.log(obj);
+                             
+            return obj;
+        }
+    }
+    app.AddService("EditDSListService", EditDSListService);
+}
+
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface ILeadItemNewDSListService {
+
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        GetLeadItemNewDSList(data: any): Array<model.LeadItemModel>;
+
+    }
+    export class LeadItemNewDSListService extends GCPL.Service.BaseService implements ILeadItemNewDSListService {
+        private apiUrl: string = "";
+        private Cookie: any = null;
+        static $inject = ["$http", "$q", "$cookieStore"];
+
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService, private _cookieStore: any) {
+
+            super($http, $q);
+            this.apiUrl = `${this.url}`;
+            this.Cookie = _cookieStore;
+        }
+
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+            var url = this.apiUrl + "/ItemListNewDS";
+
+
+            let config = {
+                params: {
+                    // UserID: this.Cookie.get('UserInfo')['UserID'],
+                    LeadID: data
+                }
+            };
+            return this.ajaXUtility.Get({
+                Url: url,
+                Config: config
+            });
+        }
+        GetLeadItemNewDSList(data: any): Array<model.LeadItemModel> {
+            let list = Array<model.LeadItemModel>();
+
+            for (let item of data) {
+                list.push({
+                    LeadID: item.LeadID,
+                    ItemID: item.ItemID,
+                    ProductDesc: item.ProductDesc,
+                    Quantity: item.Quantity,
+                    Status: item.Status,
+                    ModelID: item.ModelID,
+                    ItemStatus: item.ItemStatus,
+                    ItemCode: item.ProductID
+                });
+            }
+            return list;
+        }
+
+    }
+    app.AddService("LeadItemNewDSListService", LeadItemNewDSListService);
+}
 

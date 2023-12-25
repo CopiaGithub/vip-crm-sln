@@ -689,16 +689,12 @@
         }
 
         Add(): void {
+
             $("#activity-submit").prop("disabled", false);
+            this.InsertAct = new Activity();
             this.InsertAct.ActivityNumber = null;
             this.InsertAct.ActivityStatus = "1";
-            this.InsertAct.cate = "";
-            this.InsertAct.ptype = "";
-            this.InsertAct.loc = "";
-            this.InsertAct.note = "";
-            this.InsertAct.AnsOne = "";
-            this.InsertAct.AnsTwo = "";
-            this.InsertAct.AnsThree = "";
+            this.InsertAct.LeadStatusId = this.AssessmentInfo.LeadStatusId;
             var n1 = new Date();
             var currentMonth = n1.getMonth() + 1;
             var y1 = n1.getFullYear();
@@ -911,109 +907,6 @@
 
         }
 
-        //SubmitActivity(): void {
-        //   // $("#ass-btn-loader1").show();
-
-        //   if (this.InsertAct.cate == undefined || this.InsertAct.cate == null || this.InsertAct.cate == "") {
-        //       this.HideShow();
-        //       this.popupMessage("Please Select Activity Category", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-        //      // $("#myAlert").modal("show");
-
-        //     //  $("#ass-btn-loader1").hide();
-        //    }
-
-        //    else if (this.InsertAct.ActivityStatus == undefined || this.InsertAct.ActivityStatus == null || this.InsertAct.ActivityStatus == "") {
-        //       this.HideShow();
-        //       this.popupMessage("Please  Select Activity Status", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");             
-        //      // $("#myAlert").modal("show");
-        //    }
-
-        //   else if (this.InsertAct.purid == undefined || this.InsertAct.purid == null || this.InsertAct.purid == "") {
-        //       this.HideShow();
-        //       this.popupMessage("Please  Select Activity Purpose", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");  
-
-        //    }
-
-        //    else if (this.InsertAct.loc == undefined || this.InsertAct.loc == null || this.InsertAct.loc == "") {
-        //       this.HideShow();
-        //       this.popupMessage("Please  Select Activity Location", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");  
-
-        //    }
-        //    else if (this.InsertAct.note == undefined || this.InsertAct.note == null || this.InsertAct.note == "") {
-        //       this.HideShow();
-        //       this.popupMessage("Please  write Activity Notes", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id"); 
-
-        //    }
-        //    else if (this.InsertAct.AnsOne == undefined || this.InsertAct.AnsOne == null || this.InsertAct.AnsOne == "") {
-        //       this.HideShow();
-        //       this.popupMessage("Please  Complete All Questionnaire", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id"); 
-        //    }
-        //    else if (this.InsertAct.AnsTwo == undefined || this.InsertAct.AnsTwo == null || this.InsertAct.AnsTwo == "") {
-        //       this.HideShow();
-        //       this.popupMessage("Please  Complete All Questionnaire", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id"); 
-        //    }
-        //    else if (this.InsertAct.AnsThree == undefined || this.InsertAct.AnsThree == null || this.InsertAct.AnsThree == "") {
-        //       this.HideShow();
-        //       this.popupMessage("Please  Complete All Questionnaire", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id"); 
-        //    }
-        //    else {
-        //       $("#activity-submit").prop("disabled", true);
-        //        debugger;
-        //        if ($("#ddlStatus").val() == "1") {
-        //            this.InsertAct.ActivityStatus = "1";
-        //        } else if ($("#ddlStatus").val() == "2") {
-        //            this.InsertAct.ActivityStatus = "2";
-        //        } else {
-        //            this.InsertAct.ActivityStatus = "3";
-        //       }
-
-        //        this.InsertAct.UserID = this.UserID;
-        //        this.InsertAct.LeadID = this.LeadID;
-        //       this.InsertAct.CustomerID = this.AssessmentInfo.CustomerID;
-        //       this.InsertAct.BusinessPartnerNo = this.AssessmentInfo.BusinessPartnerNo;
-        //       this.InsertAct.SAPID = this.AssessmentInfo.SAPID;
-        //       this.InsertAct.ContactID = this.AssessmentInfo.ContactID;
-        //       this.InsertAct.ActivityNumber = this.InsertAct.ActivityNumber;
-        //        this.InsertAct.ftime = "101010";
-        //        this.InsertAct.ttime = "141516";
-        //        this.InsertAct.dchnl = "10";
-        //       this.InsertAct.sorg = "O 50000002";
-        //       this.InsertAct.erpid = this.AssessmentInfo.EmployeeCode;
-        //        this.InsertAct.sofc = "SOFF1001";
-        //        this.InsertAct.div = "20";
-        //        this.InsertAct.date = (<HTMLInputElement>document.getElementById("date")).value; //2019-08-22
-        //        this.InsertAct.QueOne = "1";
-        //        this.InsertAct.QueTwo = "2";
-        //        this.InsertAct.QueThree = "3";
-        //        this.InsertAct.QueFour = "";
-        //       this.InsertAct.AnsFour = "";
-        //       this.InsertAct.ptype = "YTBA";
-        //        this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
-        //            if (response.data.Result != null) {
-
-        //             //   $("#myAlert").modal("show");
-        //              //  $("#act-btn-loader").hide(); 
-        //                this.HideShow();
-        //                this.popupMessage("Activity created Successfully .", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-        //                //$("#myModalAddNew").hide();
-        //                $('#myModalAddNew').click();
-        //                this.FillGrid();
-
-        //            }
-
-        //            else {
-
-        //               // $("#ass-btn-loader1").hide();
-        //              //  $("#myAlert").modal("show");
-        //                this.HideShow();
-        //                this.popupMessage("Activity Creation failed", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-        //            }
-
-        //        }));
-        //    }
-
-        //}
-
         SubmitActivity(): void {
             // $("#ass-btn-loader1").show();
             debugger;
@@ -1075,8 +968,7 @@
                 //this.InsertAct.StartDate = (<HTMLInputElement>document.getElementById("date")).value; //2019-08-22
                 //this.InsertAct.ptype = "YTBA";
 
-                this.InsertAct.ActivityID = this.InsertAct.ActivityNumber;
-                this.InsertAct.LeadStatusId = this.AssessmentInfo.LeadStatusId;
+                this.InsertAct.ActivityID = this.InsertAct.ActivityNumber;               
                 this.InsertAct.UserID = this.UserID;
                 this.InsertAct.CustomerID = this.AssessmentInfo.CustomerID;
                 this.InsertAct.ContactID = this.AssessmentInfo.ContactID;

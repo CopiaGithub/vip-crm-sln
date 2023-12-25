@@ -1085,7 +1085,11 @@
                                                     <td>{{item.Status}}</td>
                                                     <td>{{item.Note}}</td>
                                                     <td>{{item.LeadStatusId}}</td>
-                                                    <td><a id="lnkview" ng-click="$ctrl.Edit(item.ActivityNumber)" data-toggle="modal" ng-show="item.Status == 'Pending'" data-target="#myModalAddNew" style="cursor: pointer">Edit</a></td>
+                                                    <td>
+                                                        <!--<a class="edit-table-link"id="lnkview" ng-click="$ctrl.Edit(item.ActivityNumber)" data-toggle="modal" ng-show="item.Status == 'Pending'" data-target="#myModalAddNew" style="cursor: pointer">Edit</a>-->
+                                                        <span class="edit-table-link"id="lnkview" ng-click="$ctrl.Edit(item.ActivityNumber)" data-toggle="modal" ng-show="item.Status == 'Pending'" data-target="#myModalAddNew"><i class="fa fa-edit" aria-hidden="true"></i></span>
+                                                    </td>
+
                                                 </tr>
                                             </tbody>
                                         </table>

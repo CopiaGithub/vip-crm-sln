@@ -556,7 +556,8 @@ namespace GCPL.Service {
                     Quantity: item.Quantity,
                     Status: item.Status,
                     ModelID: item.ModelID,
-                    ItemStatus: item.ItemStatus
+                    ItemStatus: item.ItemStatus,
+                    ItemCode: item.ProductID
                 });
             }
             return list;

@@ -432,6 +432,7 @@
         Status: string;
         ModelID: string;
         ItemStatus: string;
+        ItemCode: string;
     }
 
     export class LeadQueAnsModel {
