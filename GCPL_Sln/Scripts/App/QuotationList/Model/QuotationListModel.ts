@@ -11,6 +11,7 @@
         SPMobileNo: string;
         SPDesignation: string;
         CreatedBy: string;
+        WhenCreated: string;
        
     }
 

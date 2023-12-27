@@ -114,7 +114,7 @@
         private EditService: Service.ILeadChangeEditService;
         private ListItemservice: Service.ILeadItemListService;
         private EditItemService: Service.IEditItemList;
-
+        private InsertItemAssessment: Service.IInsertItemDetailsService;
 
 
 
@@ -122,7 +122,7 @@
             "Option3Service", "Accessory4DDService", "Option4Service", "Accessory5DDService", "Option5Service", "Accessory6DDService",
             "Option6Service", "Configuration1DDService", "Configuration2DDService", "ScopeofSupplyService", "CoveringLetterInfoService",
             "ProductFeaturesInfoService", "TermsConditionInfoService", "OfferingInfoService", "CapabilitiesInfoService", "TotalPriceService",
-            "InsertQuotationService", "$location", "$cookieStore", "LeadChangeEditService", "LeadItemListService", "EditItemList"];
+            "InsertQuotationService", "$location", "$cookieStore", "LeadChangeEditService", "LeadItemListService", "EditItemList", "InsertItemDetailsService"];
 
 
         //constructor define with Serivce _Name:Service.IServiceName//
@@ -139,7 +139,7 @@
             _OfferService: Service.IOfferingInfoService, _CapabilityService: Service.ICapabilitiesInfoService,
             _TotalPriceCalService: Service.ITotalPriceService, _InsertService: Service.IInsertQuotationService,
             private $location: ng.ILocationService, private _cookieStore: any, _EditService: Service.ILeadChangeEditService, _LeadItemListService: Service.ILeadItemListService,
-            _EditItemList: Service.IEditItemList) {
+            _EditItemList: Service.IEditItemList, _InsertItemAssessment: Service.IInsertItemDetailsService,) {
 
             this.Accessory1Service = _Accessory1Service;
             this.Option1Service = _Option1Service;
@@ -170,11 +170,13 @@
             this.OpportunitySAPNo = $location.search().OpportunitySAPNo;
             this.QuotationRefernce = $location.search().QuotationRefernce;
             this.InsertService = _InsertService;
+            this.InsertItemAssessment = _InsertItemAssessment;
 
             this.InsertQuotation = new Quotation();
             this.Cookie = _cookieStore;
             this.UserID = this.Cookie.get('UserInfo')['UserID'];
             this.LeadID = $location.search().LeadID;
+            
         }
 
 
@@ -458,6 +460,93 @@
             }));
         }
 
+        SubmitItem(): void {
+            // $("#ass-btn-loader1").show();
+            debugger;
+            this.InsertItem.LeadID = this.LeadID;
+            console.log("OP", this.InsertItem);
+            if (this.InsertItem.LeadType == undefined || this.InsertItem.LeadType == null || this.InsertItem.LeadType == "") {
+                this.HideShow();
+                this.popupMessage("Please Select Opportunity Type", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else if (this.InsertItem.LeadCategoryID == undefined && this.InsertItem.LeadCategoryID == null && this.InsertItem.LeadCategoryID == "") {
+                this.HideShow();
+                this.popupMessage("Please Select Opportunity Category", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+
+            else if (this.InsertItem.PurchaseTimelineID == undefined || this.InsertItem.PurchaseTimelineID == null || this.InsertItem.PurchaseTimelineID == "") {
+                this.HideShow();
+                this.popupMessage("Please Select Plan to Purchase Within", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else if (this.InsertItem.Quantity == undefined && this.InsertItem.Quantity == null && this.InsertItem.Quantity == "") {
+                this.HideShow();
+                this.popupMessage("Please Enter Quantity", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else if (this.InsertItem.CategoryID == undefined || this.InsertItem.CategoryID == null || this.InsertItem.CategoryID == "") {
+                this.HideShow();
+                this.popupMessage("Please Select Category", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else if (this.InsertItem.DivisionID == undefined || this.InsertItem.DivisionID == null || this.InsertItem.DivisionID == "") {
+                this.HideShow();
+                this.popupMessage("Please Select Division", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+
+            else if (this.InsertItem.ProductID == undefined || this.InsertItem.ProductID == null || this.InsertItem.ProductID == "") {
+                this.HideShow();
+                this.popupMessage("Please Select Product", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+
+            else if (this.InsertItem.ModelID == undefined || this.InsertItem.ModelID == null || this.InsertItem.ModelID == "") {
+                this.HideShow();
+                this.popupMessage("Please Select Model", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+
+            else if (this.InsertItem.ChannelID == undefined || this.InsertItem.ChannelID == null || this.InsertItem.ChannelID == "") {
+
+                this.HideShow();
+                this.popupMessage("Please Select Channel", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else if (this.InsertItem.LeadSourceID == undefined || this.InsertItem.LeadSourceID == null || this.InsertItem.LeadSourceID == "") {
+                this.HideShow();
+                this.popupMessage("Please Select Opportunity Source", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else {
+                debugger;
+                $("#Item-submit").prop("disabled", true);
+
+
+                this.InsertItem.ItemStatusID = this.InsertItem.LeadStatusId;
+                this.InsertItem.CategoryID = this.InsertItem.LeadCategoryID;
+
+                console.log("OP", this.InsertItem);
+                //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
+                this.InsertItemAssessment.PostItem(this.InsertItem).then((response => {
+                    debugger;
+                    if (response.data.Result != null) {
+
+                        //   $("#myAlert").modal("show");
+                        //  $("#act-btn-loader").hide(); 
+                        this.HideShow();
+                        this.popupMessage("Item created Successfully .", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                        //$("#myModalAddNew").hide();
+                        $('#myModalAdd').click();
+                        this.FillGridItems();
+
+                    }
+
+                    else {
+
+                        // $("#ass-btn-loader1").hide();
+                        //  $("#myAlert").modal("show");
+                        this.HideShow();
+                        this.popupMessage("Item Creation failed", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+
+                }));
+            }
+
+        }
+
         Submit(): void {
             debugger;
             this.InsertQuotation.CustomerName = 'Test';
@@ -467,10 +556,13 @@
 
             this.InsertQuotation.CreatedBy = this.UserID;
             this.InsertQuotation.LeadID = this.LeadID;
-
+            
             if (this.UserID != null || this.UserID != "") {
                 this.InsertQuotation.CreatedBy = this.UserID;
             }
+
+            
+
 
 
             /*this.InsertQuotation.QuoteDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;*/

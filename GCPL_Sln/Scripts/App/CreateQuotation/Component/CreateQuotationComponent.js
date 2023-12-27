@@ -9,7 +9,7 @@ var GCPL;
             var GSTCalculation = GCPL.Model.TotalPriceModel;
             var CreateQuotationController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function CreateQuotationController(_Accessory1Service, _Option1Service, _Accessory2Service, _Option2Service, _Accessory3Service, _Option3Service, _Accessory4Service, _Option4Service, _Accessory5Service, _Option5Service, _Accessory6Service, _Option6Service, _Configuration1Service, _Configuration2Service, _SOSService, _COLService, _PFService, _TCService, _OfferService, _CapabilityService, _TotalPriceCalService, _InsertService, $location, _cookieStore, _EditService, _LeadItemListService, _EditItemList) {
+                function CreateQuotationController(_Accessory1Service, _Option1Service, _Accessory2Service, _Option2Service, _Accessory3Service, _Option3Service, _Accessory4Service, _Option4Service, _Accessory5Service, _Option5Service, _Accessory6Service, _Option6Service, _Configuration1Service, _Configuration2Service, _SOSService, _COLService, _PFService, _TCService, _OfferService, _CapabilityService, _TotalPriceCalService, _InsertService, $location, _cookieStore, _EditService, _LeadItemListService, _EditItemList, _InsertItemAssessment) {
                     this.$location = $location;
                     this._cookieStore = _cookieStore;
                     this.numRecords = 10;
@@ -81,6 +81,7 @@ var GCPL;
                     this.OpportunitySAPNo = $location.search().OpportunitySAPNo;
                     this.QuotationRefernce = $location.search().QuotationRefernce;
                     this.InsertService = _InsertService;
+                    this.InsertItemAssessment = _InsertItemAssessment;
                     this.InsertQuotation = new Quotation();
                     this.Cookie = _cookieStore;
                     this.UserID = this.Cookie.get('UserInfo')['UserID'];
@@ -306,6 +307,79 @@ var GCPL;
                         // this.TotalPriceModel.ConvertedGST = this.Total.ConvertedGST;
                     }));
                 };
+                CreateQuotationController.prototype.SubmitItem = function () {
+                    var _this = this;
+                    // $("#ass-btn-loader1").show();
+                    debugger;
+                    this.InsertItem.LeadID = this.LeadID;
+                    console.log("OP", this.InsertItem);
+                    if (this.InsertItem.LeadType == undefined || this.InsertItem.LeadType == null || this.InsertItem.LeadType == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Opportunity Type", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.LeadCategoryID == undefined && this.InsertItem.LeadCategoryID == null && this.InsertItem.LeadCategoryID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Opportunity Category", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.PurchaseTimelineID == undefined || this.InsertItem.PurchaseTimelineID == null || this.InsertItem.PurchaseTimelineID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Plan to Purchase Within", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.Quantity == undefined && this.InsertItem.Quantity == null && this.InsertItem.Quantity == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Quantity", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.CategoryID == undefined || this.InsertItem.CategoryID == null || this.InsertItem.CategoryID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Category", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.DivisionID == undefined || this.InsertItem.DivisionID == null || this.InsertItem.DivisionID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Division", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.ProductID == undefined || this.InsertItem.ProductID == null || this.InsertItem.ProductID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Product", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.ModelID == undefined || this.InsertItem.ModelID == null || this.InsertItem.ModelID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Model", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.ChannelID == undefined || this.InsertItem.ChannelID == null || this.InsertItem.ChannelID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Channel", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertItem.LeadSourceID == undefined || this.InsertItem.LeadSourceID == null || this.InsertItem.LeadSourceID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Opportunity Source", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else {
+                        debugger;
+                        $("#Item-submit").prop("disabled", true);
+                        this.InsertItem.ItemStatusID = this.InsertItem.LeadStatusId;
+                        this.InsertItem.CategoryID = this.InsertItem.LeadCategoryID;
+                        console.log("OP", this.InsertItem);
+                        //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
+                        this.InsertItemAssessment.PostItem(this.InsertItem).then((function (response) {
+                            debugger;
+                            if (response.data.Result != null) {
+                                //   $("#myAlert").modal("show");
+                                //  $("#act-btn-loader").hide(); 
+                                _this.HideShow();
+                                _this.popupMessage("Item created Successfully .", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                                //$("#myModalAddNew").hide();
+                                $('#myModalAdd').click();
+                                _this.FillGridItems();
+                            }
+                            else {
+                                // $("#ass-btn-loader1").hide();
+                                //  $("#myAlert").modal("show");
+                                _this.HideShow();
+                                _this.popupMessage("Item Creation failed", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                            }
+                        }));
+                    }
+                };
                 CreateQuotationController.prototype.Submit = function () {
                     var _this = this;
                     debugger;
@@ -374,7 +448,7 @@ var GCPL;
                     "Option3Service", "Accessory4DDService", "Option4Service", "Accessory5DDService", "Option5Service", "Accessory6DDService",
                     "Option6Service", "Configuration1DDService", "Configuration2DDService", "ScopeofSupplyService", "CoveringLetterInfoService",
                     "ProductFeaturesInfoService", "TermsConditionInfoService", "OfferingInfoService", "CapabilitiesInfoService", "TotalPriceService",
-                    "InsertQuotationService", "$location", "$cookieStore", "LeadChangeEditService", "LeadItemListService", "EditItemList"];
+                    "InsertQuotationService", "$location", "$cookieStore", "LeadChangeEditService", "LeadItemListService", "EditItemList", "InsertItemDetailsService"];
                 return CreateQuotationController;
             }());
             var CreateQuotationComponentController = /** @class */ (function () {
