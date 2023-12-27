@@ -23,7 +23,7 @@
         }
 
         Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
-            var url = this.apiUrl + "/QuatationListDetails";
+            var url = this.apiUrl + "/QuotationList";
             var ID;
             var LeadID;
             var CustomerName;

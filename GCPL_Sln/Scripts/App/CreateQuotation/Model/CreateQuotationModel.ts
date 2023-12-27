@@ -100,7 +100,7 @@
     export class SOSModel {
         constructor() {
         }
-        
+
         ModelDescription: string;
         ModelID: string;
         ModelNo: string;
@@ -129,7 +129,7 @@
         ModifiedBy: string;
         WhenCreated: string;
         WhenModified: string;
-        
+
     }
     export class COLModel {
         constructor() {
@@ -160,13 +160,13 @@
         FeatureName: string;
         ProductFeaturesID: string;
         PictureID: string;
-        
+
 
     }
     export class ProdFModel {
         constructor() {
-        }       
-        FeatureDescription: string;       
+        }
+        FeatureDescription: string;
         FeatureName: string;
         ProductFeaturesID: string;
         PictureID: string;
@@ -207,5 +207,5 @@
         TotalTax: string;
     }
 
-   
+
 }

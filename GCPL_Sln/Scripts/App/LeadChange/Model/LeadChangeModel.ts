@@ -53,6 +53,12 @@
         RefUserName: string;
         CampaignID: string;
         ProjectID: string;
+        ID: string;
+        SPName: string;
+        SPMobileNo: string;
+        SPEmail: string;
+        SPDesignation: string;
+        TcDetails: string;
     }
 
    

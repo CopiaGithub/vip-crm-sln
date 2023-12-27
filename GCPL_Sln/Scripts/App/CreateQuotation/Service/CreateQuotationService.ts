@@ -782,8 +782,8 @@ namespace GCPL.Service {
         Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
             var url = this.apiUrl + "/CreateQuotation";
             var OpportunitySAPNo;
-           
-            
+
+
 
             if (data == undefined) {
                 OpportunitySAPNo = "";
@@ -793,7 +793,7 @@ namespace GCPL.Service {
 
             }
 
-            
+
             let config = {
                 params: {
                     OpportunitySAPNo: OpportunitySAPNo
@@ -805,9 +805,9 @@ namespace GCPL.Service {
                 Config: config
             });
         }
-        GetSOS(data: any): model.SOSModel {          
+        GetSOS(data: any): model.SOSModel {
             let obj = new model.SOSModel();
-            
+
             obj.ModelDescription = data.ModelDescription;
             obj.ModelID = data.ModelID;
             obj.ModelNo = data.ModelNo;
@@ -816,7 +816,7 @@ namespace GCPL.Service {
             obj.Price = data.Price;
             obj.Quantity = data.Quantity;
             return obj;
-               
+
         }
 
     }
@@ -851,7 +851,7 @@ namespace GCPL.Service {
             var url = this.apiUrl + "/CoveringLetter";
             var OpportunitySAPNo;
 
-            
+
 
             if (data == undefined) {
                 OpportunitySAPNo = "";
@@ -928,7 +928,7 @@ namespace GCPL.Service {
             var url = this.apiUrl + "/ProductFeatures";
             var OpportunitySAPNo;
 
-            
+
 
             if (data == undefined) {
                 OpportunitySAPNo = "";
@@ -941,7 +941,7 @@ namespace GCPL.Service {
             let config = {
                 params: {
                     OpportunitySAPNo: OpportunitySAPNo
-                   
+
                 }
             };
             return this.ajaXUtility.Get({
@@ -950,7 +950,7 @@ namespace GCPL.Service {
             });
         }
         GetPF(data: any): Array<model.ProductFModel> {
-           
+
             let list = Array<model.ProductFModel>();
             for (let item of data) {
                 list.push({
@@ -995,10 +995,10 @@ namespace GCPL.Service {
         }
 
         Find(): ng.IPromise<Utility.Ajax.IResponse> {
-            var url = this.apiUrl + "/TermsConditions";         
+            var url = this.apiUrl + "/TermsConditions";
 
             let config = {
-                params: {                  
+                params: {
 
                 }
             };
@@ -1007,16 +1007,16 @@ namespace GCPL.Service {
                 Config: config
             });
         }
-        
+
         GetTC(data: any): Array<model.TermsCModel> {
-            
+
             let list = Array<model.TermsCModel>();
             for (let item of data) {
                 list.push({
                     TACID: item.TACID,
                     Description: item.Description,
                     TACName: item.TACName
-                 
+
                 });
             }
             return list;
@@ -1145,7 +1145,7 @@ namespace GCPL.Service {
 
     export interface ITotalPriceService {
 
-        FindChange(TotalPriceModel:any): ng.IPromise<Utility.Ajax.IResponse>;
+        FindChange(TotalPriceModel: any): ng.IPromise<Utility.Ajax.IResponse>;
         GetTotalPriceChange(data: any): model.TotalPriceModel;
 
     }
@@ -1184,8 +1184,8 @@ namespace GCPL.Service {
 
             let list = new model.TotalPriceModel();
 
-            
-            list.TotalPrice = data.TotalPrice;            
+
+            list.TotalPrice = data.TotalPrice;
             list.TotalTax = data.TotalTax;
             list.Quantity = data.Quantity;
             list.ConvertedGST = data.ConvertedGST;
@@ -1226,7 +1226,7 @@ namespace GCPL.Service {
         }
         PostQuote(data: any): ng.IPromise<Utility.Ajax.IResponse> {
             let url = this.apiUrl;
-             console.log(data);
+            console.log(data);
             return this.ajaXUtility.Post({ Url: url, data: data });
         }
     }

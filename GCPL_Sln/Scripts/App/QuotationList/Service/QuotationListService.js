@@ -32,7 +32,7 @@ var GCPL;
                 return _this;
             }
             QuotationlistService.prototype.Find = function (data) {
-                var url = this.apiUrl + "/QuatationListDetails";
+                var url = this.apiUrl + "/QuotationList";
                 var ID;
                 var LeadID;
                 var CustomerName;
