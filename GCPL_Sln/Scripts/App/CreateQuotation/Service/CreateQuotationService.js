@@ -1106,4 +1106,145 @@ var GCPL;
         app.AddService("InsertQuotationService", InsertQuotationService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var CountryddService = /** @class */ (function (_super) {
+            __extends(CountryddService, _super);
+            function CountryddService($http, $q) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this.apiUrl = "";
+                _this.apiUrl = _this.url + "/" + "CountryDD";
+                return _this;
+            }
+            CountryddService.prototype.Find = function () {
+                var config = {
+                    params: {}
+                };
+                return this.ajaXUtility.Get({
+                    Url: this.apiUrl,
+                    Config: config
+                });
+            };
+            CountryddService.prototype.GetCountryName = function (data) {
+                var list = Array();
+                for (var _i = 0, data_19 = data; _i < data_19.length; _i++) {
+                    var item = data_19[_i];
+                    list.push({
+                        CountryID: item.CountryID.toString(),
+                        Country: item.Country,
+                    });
+                }
+                return list;
+            };
+            CountryddService.$inject = ["$http", "$q"];
+            return CountryddService;
+        }(GCPL.Service.BaseService));
+        Service.CountryddService = CountryddService;
+        app.AddService("CountryddService", CountryddService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var StateddService = /** @class */ (function (_super) {
+            __extends(StateddService, _super);
+            function StateddService($http, $q) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this.apiUrl = "";
+                _this.apiUrl = _this.url + "/" + "StateDDWP";
+                return _this;
+            }
+            StateddService.prototype.Find = function (data) {
+                var CountryID;
+                if (data == undefined) {
+                    CountryID = '95';
+                }
+                else {
+                    CountryID = data;
+                }
+                var config = {
+                    params: {
+                        CountryID: '95'
+                    }
+                };
+                return this.ajaXUtility.Get({
+                    Url: this.apiUrl,
+                    Config: config
+                });
+            };
+            StateddService.prototype.GetStateName = function (data) {
+                var list = Array();
+                for (var _i = 0, data_20 = data; _i < data_20.length; _i++) {
+                    var item = data_20[_i];
+                    list.push({
+                        StateID: item.StateID.toString(),
+                        State: item.State,
+                    });
+                }
+                return list;
+            };
+            StateddService.$inject = ["$http", "$q"];
+            return StateddService;
+        }(GCPL.Service.BaseService));
+        Service.StateddService = StateddService;
+        app.AddService("StateddService", StateddService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var DistrictService = /** @class */ (function (_super) {
+            __extends(DistrictService, _super);
+            function DistrictService($http, $q) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this.apiUrl = "";
+                _this.apiUrl = _this.url + "/" + "DistrictDD";
+                return _this;
+            }
+            DistrictService.prototype.Find = function (data) {
+                var StateID;
+                if (data == undefined) {
+                    StateID = "";
+                }
+                else {
+                    StateID = data;
+                }
+                var config = {
+                    params: {
+                        StateID: StateID
+                    }
+                };
+                return this.ajaXUtility.Get({
+                    Url: this.apiUrl,
+                    Config: config
+                });
+            };
+            DistrictService.prototype.GetDistrictName = function (data) {
+                var list = Array();
+                for (var _i = 0, data_21 = data; _i < data_21.length; _i++) {
+                    var item = data_21[_i];
+                    list.push({
+                        DistrictID: item.DistrictID.toString(),
+                        District: item.District,
+                    });
+                }
+                return list;
+            };
+            DistrictService.$inject = ["$http", "$q"];
+            return DistrictService;
+        }(GCPL.Service.BaseService));
+        Service.DistrictService = DistrictService;
+        app.AddService("DistrictService", DistrictService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
 //# sourceMappingURL=CreateQuotationService.js.map

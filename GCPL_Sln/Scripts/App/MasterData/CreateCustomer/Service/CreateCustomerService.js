@@ -61,9 +61,9 @@ var GCPL;
     var Service;
     (function (Service) {
         var app = GCPL.app;
-        var StateddService = /** @class */ (function (_super) {
-            __extends(StateddService, _super);
-            function StateddService($http, $q) {
+        var StateService = /** @class */ (function (_super) {
+            __extends(StateService, _super);
+            function StateService($http, $q) {
                 var _this = _super.call(this, $http, $q) || this;
                 _this.$http = $http;
                 _this.$q = $q;
@@ -71,7 +71,7 @@ var GCPL;
                 _this.apiUrl = _this.url + "/" + "StateDDWP";
                 return _this;
             }
-            StateddService.prototype.Find = function (data) {
+            StateService.prototype.Find = function (data) {
                 var CountryID;
                 if (data == undefined) {
                     CountryID = '95';
@@ -89,7 +89,7 @@ var GCPL;
                     Config: config
                 });
             };
-            StateddService.prototype.GetStateName = function (data) {
+            StateService.prototype.GetStateName = function (data) {
                 var list = Array();
                 for (var _i = 0, data_2 = data; _i < data_2.length; _i++) {
                     var item = data_2[_i];
@@ -100,11 +100,11 @@ var GCPL;
                 }
                 return list;
             };
-            StateddService.$inject = ["$http", "$q"];
-            return StateddService;
+            StateService.$inject = ["$http", "$q"];
+            return StateService;
         }(GCPL.Service.BaseService));
-        Service.StateddService = StateddService;
-        app.AddService("StateddService", StateddService);
+        Service.StateService = StateService;
+        app.AddService("StateService", StateService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
 //Insert

@@ -514,10 +514,14 @@ var GCPL;
                         LeadID: item.LeadID,
                         ItemID: item.ItemID,
                         ProductDesc: item.ProductDesc,
+                        ProductCode: item.ProductCode,
                         Quantity: item.Quantity,
                         Status: item.Status,
                         ModelID: item.ModelID,
-                        ItemStatus: item.ItemStatus
+                        ItemStatus: item.ItemStatus,
+                        MRPUnit: item.MRPUnit,
+                        GST: item.GST,
+                        NetAmount: item.NetAmount
                     });
                 }
                 return list;
@@ -1078,7 +1082,16 @@ var GCPL;
                     obj.ProductID = data.ProductID,
                     obj.ProductDesc = data.ProductDesc,
                     obj.ProjectID = data.ProjectID,
-                    obj.LeadStatusId = data.ItemStatusID;
+                    obj.LeadStatusId = data.ItemStatusID,
+                    obj.MRPUnit = data.MRPUnit,
+                    obj.GST = data.GST,
+                    obj.HSN = data.HSN,
+                    obj.Discount = data.Discount,
+                    obj.DiscountedPricePerUnit = data.DiscountedPricePerUnit,
+                    obj.TotalPrice = data.TotalPrice,
+                    obj.TotalGST = data.TotalGST,
+                    obj.NetAmount = data.NetAmount,
+                    obj.ProductCode = data.ProductCode;
                 return obj;
             };
             EditItemList.$inject = ["$http", "$q"];

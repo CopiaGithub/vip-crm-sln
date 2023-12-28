@@ -102,6 +102,10 @@ namespace GCPL.Service {
             obj.SPEmail = data.SPEmail;
             obj.SPDesignation = data.SPDesignation;
             obj.TcDetails = data.TcDetails;
+            obj.WhenEntered = data.WhenEntered;
+            obj.Description = data.Description;
+            obj.Notes = data.Notes;
+            obj.ProductCode = data.ProductCode;
 
             return obj;
 

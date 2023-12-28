@@ -50,12 +50,12 @@ namespace GCPL.Service {
     import app = GCPL.app;
     import model = GCPL.Model;
 
-    export interface IStateddService {
+    export interface IStateService {
 
         Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
         GetStateName(data: any): Array<model.StateddlModel>;
     }
-    export class StateddService extends GCPL.Service.BaseService implements IStateddService {
+    export class StateService extends GCPL.Service.BaseService implements IStateService {
 
         private apiUrl: string = "";
         static $inject = ["$http", "$q"];
@@ -96,7 +96,7 @@ namespace GCPL.Service {
         }
     }
 
-    app.AddService("StateddService", StateddService);
+    app.AddService("StateService", StateService);
 }
 //Insert
 namespace GCPL.Service {

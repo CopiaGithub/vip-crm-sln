@@ -15,6 +15,7 @@
 
 
     interface ICreateQuotationController {
+        /*LeadAssessment: LeadAssess;*/
         Accessory1DropDown: Array<Model.Accessory1ddlModel>
         Option1DropDown: Array<Model.Option1ddlModel>
         Accessory2DropDown: Array<Model.Accessory2ddlModel>
@@ -27,6 +28,29 @@
         Option5DropDown: Array<Model.Option5ddlModel>
         Accessory6DropDown: Array<Model.Accessory6ddlModel>
         Option6DropDown: Array<Model.Option6ddlModel>
+        CountryDropDown: Array<Model.CountryddlModel>
+        StateDropDown: Array<Model.StateddlModel>
+        DistrictDropDown: Array<Model.DistrictddlModel>
+        AddConCountryDropDown: Array<Model.CountryddlModel>
+        AddConStateDropDown: Array<Model.StateddlModel>
+        AddConDistrictDropDown: Array<Model.DistrictddlModel>
+        DepartmentDropDown: Array<Model.DepartmentddlModel>
+        DesignationDropDown: Array<Model.DesignationddlModel>
+        LeadStatusDropDown: Array<Model.LeadStatusddlModel>
+        LeadSalesOfficeDropDown: Array<Model.SalesOfficeddlModel>
+        LeadTypeDropDown: Array<Model.LeadTypeddlModel>
+        LeadCategoryDropDown: Array<Model.LeadCategoryddlModel>
+        ProjectNameDD: Array<Model.GetProjectNameDDModel>
+        IndustryDivisionDropDown: Array<Model.IndustryDivisionddlModel>
+        IndustrialSegmentDropDown: Array<Model.IndustrialSegmentddlModel>
+        PurchaseTimlinedd: Array<Model.PurchaseTimelineModel>
+        CategoryDropDown: Array<Model.CategoryddlModel>
+        DivisionDropDownP: Array<Model.DivisionDDPModel>
+        ProductDropDown: Array<Model.ProductddlModel>
+        ModelDropDown: Array<Model.ModelDDModel>
+        ChannelDD: Array<Model.ChannelDDModel>
+        LeadSourcedd: Array<Model.LeadSourceDetailsModel>
+        
         OpportunitySAPNo: any;
         InsertLeadChange: LeadChangeInsert;
         InsertQuotation: Quotation;
@@ -42,10 +66,12 @@
         QuotationID: any;
         GetOption1(): void;
         LeadID: any;
-
+        ModelID: any;
+        ProductID: any;
     }
 
     class CreateQuotationController implements ICreateQuotationController {
+        LeadAssessment = null;
         numRecords: number = 10;
         page: number = 0;
         incre: number = 0;
@@ -86,9 +112,33 @@
         QuotationID = null;
         Total = null;
         LeadID = null;
+        CountryDropDown = null;
+        StateDropDown = null;
+        DistrictDropDown = null;
+        AddConCountryDropDown = null;
+        AddConStateDropDown = null;
+        AddConDistrictDropDown = null;
+        DepartmentDropDown = null;
+        DesignationDropDown = null;
+        LeadStatusDropDown = null;
+        LeadSalesOfficeDropDown = null;
+        LeadTypeDropDown = null;
+        LeadCategoryDropDown = null;
+        ProjectNameDD = null;
+        IndustryDivisionDropDown = null;
+        IndustrialSegmentDropDown = null;
+        PurchaseTimlinedd = null;
+        CategoryDropDown = null;
+        DivisionDropDownP = null;
+        ProductDropDown = null;
+        ModelDropDown = null;
+        ChannelDD = null;
+        LeadSourcedd = null;
+        ModelID = null;
+        ProductID = null;
 
         TotalPriceModel: GCPL.Model.TotalPriceModel = null;
-
+        private LeadAssessmentService: Service.ILeadAssessmentService;
         private Accessory1Service: Service.IAccessory1DDService;
         private Option1Service: Service.IOption1DDService;
         private Accessory2Service: Service.IAccessory2DDService;
@@ -115,19 +165,42 @@
         private ListItemservice: Service.ILeadItemListService;
         private EditItemService: Service.IEditItemList;
         private InsertItemAssessment: Service.IInsertItemDetailsService;
+        private CountryddService: Service.ICountryddService;
+        private StateService: Service.IStateService;
+        private DistrictService: Service.IDistrictService;
+        private DepartmentService: Service.IDepartmentService;
+        private DesignationService: Service.IDesignationService;
+        private LeadStatusService: Service.ILeadStatusddService;
+        private SalesOfficeService: Service.ISalesOfficeService;
+        private LeadTypeService: Service.ILeadTypeddService;
+        private LeadCategoryService: Service.ILeadCategoryDDService;
+        private ProjectNameService: Service.IProjectNameService;
+        private IndustryDivisionService: Service.IIndustryDivisionService;
+        private IndustrialSegmentService: Service.IIndustrialSegmentService;
+        private PurchaseTimlineDDService: Service.IPurchaseTimelineService;
+        private CategoryService: Service.ICategoryddService;
+        private DivisionPService: Service.IDivisionDDPService;
+        private ProductService: Service.IProductddService;
+        private ModelService: Service.IModelDDService;
+        private ChannelDDService: Service.IChannelDDService;
+        private LeadSourceDDService: Service.ILeadSourceDetailsService;
+        private ProductDescAutofill: Service.IProductDescAutoFillService;
 
 
 
-        static $inject = ["Accessory1DDService", "Option1Service", "Accessory2DDService", "Option2Service", "Accessory3DDService",
+        static $inject = ["LeadAssessmentService","Accessory1DDService", "Option1Service", "Accessory2DDService", "Option2Service", "Accessory3DDService",
             "Option3Service", "Accessory4DDService", "Option4Service", "Accessory5DDService", "Option5Service", "Accessory6DDService",
             "Option6Service", "Configuration1DDService", "Configuration2DDService", "ScopeofSupplyService", "CoveringLetterInfoService",
             "ProductFeaturesInfoService", "TermsConditionInfoService", "OfferingInfoService", "CapabilitiesInfoService", "TotalPriceService",
-            "InsertQuotationService", "$location", "$cookieStore", "LeadChangeEditService", "LeadItemListService", "EditItemList", "InsertItemDetailsService"];
+            "InsertQuotationService", "$location", "$cookieStore", "LeadChangeEditService", "LeadItemListService", "EditItemList", "InsertItemDetailsService",
+            "CountryddService", "StateService", "DistrictService", "DepartmentService", "DesignationService", "LeadStatusddService", "SalesOfficeService", "LeadTypeddService",
+            "LeadCategoryDDService", "ProjectNameService", "IndustryDivisionService", "IndustrialSegmentService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService",
+            "ProductddService", "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "ProductDescAutoFillService"];
 
 
         //constructor define with Serivce _Name:Service.IServiceName//
 
-        constructor(_Accessory1Service: Service.IAccessory1DDService, _Option1Service: Service.IOption1DDService,
+        constructor(_leadassessmentService: Service.ILeadAssessmentService,_Accessory1Service: Service.IAccessory1DDService, _Option1Service: Service.IOption1DDService,
             _Accessory2Service: Service.IAccessory2DDService, _Option2Service: Service.IOption2DDService,
             _Accessory3Service: Service.IAccessory3DDService, _Option3Service: Service.IOption3DDService,
             _Accessory4Service: Service.IAccessory4DDService, _Option4Service: Service.IOption4DDService,
@@ -139,8 +212,14 @@
             _OfferService: Service.IOfferingInfoService, _CapabilityService: Service.ICapabilitiesInfoService,
             _TotalPriceCalService: Service.ITotalPriceService, _InsertService: Service.IInsertQuotationService,
             private $location: ng.ILocationService, private _cookieStore: any, _EditService: Service.ILeadChangeEditService, _LeadItemListService: Service.ILeadItemListService,
-            _EditItemList: Service.IEditItemList, _InsertItemAssessment: Service.IInsertItemDetailsService,) {
+            _EditItemList: Service.IEditItemList, _InsertItemAssessment: Service.IInsertItemDetailsService, _CountryddService: Service.ICountryddService, _StateService: Service.IStateService,
+            _DistrictService: Service.IDistrictService, _DepartmentService: Service.IDepartmentService, _DesignationService: Service.IDesignationService, _LeadStatusService: Service.ILeadStatusddService, 
+            _SalesOfficeService: Service.ISalesOfficeService, _LeadTypeService: Service.ILeadTypeddService, _LeadCategoryService: Service.ILeadCategoryDDService, _ProjectNameService: Service.IProjectNameService,
+            _IndustryDivisionService: Service.IIndustryDivisionService, _IndustrialSegmentService: Service.IIndustrialSegmentService, _PurchaseTimlineDDService: Service.IPurchaseTimelineService, _CategoryService: Service.ICategoryddService,
+            _DivisionPService: Service.IDivisionDDPService, _ProductService: Service.IProductddService, _ModelService: Service.IModelDDService, _ChannelDDService: Service.IChannelDDService, _LeadSourceDDService: Service.ILeadSourceDetailsService,
+            _ProductDescAutofill: Service.IProductDescAutoFillService) {
 
+            this.LeadAssessmentService = _leadassessmentService;
             this.Accessory1Service = _Accessory1Service;
             this.Option1Service = _Option1Service;
             this.Accessory2Service = _Accessory2Service;
@@ -171,11 +250,34 @@
             this.QuotationRefernce = $location.search().QuotationRefernce;
             this.InsertService = _InsertService;
             this.InsertItemAssessment = _InsertItemAssessment;
+            this.CountryddService = _CountryddService;
+            this.StateService = _StateService;
+            this.DistrictService = _DistrictService;
+            this.DepartmentService = _DepartmentService;
+            this.DesignationService = _DesignationService;
+            this.LeadStatusService = _LeadStatusService;
+            this.SalesOfficeService = _SalesOfficeService;
+            this.LeadTypeService = _LeadTypeService;
+            this.LeadCategoryService = _LeadCategoryService;
+            this.ProjectNameService = _ProjectNameService;
+            this.IndustryDivisionService = _IndustryDivisionService;
+            this.IndustrialSegmentService = _IndustrialSegmentService;
+            this.PurchaseTimlineDDService = _PurchaseTimlineDDService;
+            this.CategoryService = _CategoryService;
+            this.DivisionPService = _DivisionPService;
+            this.ProductService = _ProductService;
+            this.ModelService = _ModelService;
+            this.ChannelDDService = _ChannelDDService;
+            this.LeadSourceDDService = _LeadSourceDDService;
+            this.ProductDescAutofill = _ProductDescAutofill;
 
             this.InsertQuotation = new Quotation();
             this.Cookie = _cookieStore;
             this.UserID = this.Cookie.get('UserInfo')['UserID'];
             this.LeadID = $location.search().LeadID;
+            //this.ModelID = $location.search().Model;
+            //this.ProductID = $location.search().Product;
+            /*this.LeadAssessment = new LeadAssess();*/
             
         }
 
@@ -212,7 +314,13 @@
                 this.FillGridItems();
 
             }
+           
+        }
 
+        Model(data: any): void {
+            this.ModelDropDown = this.ModelService.Find(this.LeadAssessment.ProductID).then((response => {
+                this.ModelDropDown = this.ModelService.GetModelDD(response.data.Result);
+            }));
         }
 
         EditItem(data: any): void {
@@ -243,7 +351,85 @@
                 this.InsertQuotation.SPEmail = this.InsertLeadChange.SPEmail;
                 this.InsertQuotation.SPDesignation = this.InsertLeadChange.SPDesignation
                 this.InsertQuotation.TCDetails = this.InsertQuotation.TCDetails
+                this.CountryDropDown = this.CountryddService.Find().then((response => {
+                    this.CountryDropDown = this.CountryddService.GetCountryName(response.data.Result);
 
+                }));
+
+              
+                this.StateDropDown = this.StateService.Find(this.InsertLeadChange.CountryID).then((response => {
+                        this.StateDropDown = this.StateService.GetStateName(response.data.Result);
+                }));
+
+                this.DistrictDropDown = this.DistrictService.Find(this.InsertLeadChange.StateID).then((response => {
+                    this.DistrictDropDown = this.DistrictService.GetDistrictName(response.data.Result);
+                }));
+
+                this.AddConCountryDropDown = this.CountryddService.Find().then((response => {
+                    this.AddConCountryDropDown = this.CountryddService.GetCountryName(response.data.Result);
+                }));
+
+                this.AddConStateDropDown = this.StateService.Find(this.InsertLeadChange.ContactCountryID).then((response => {
+                    this.AddConStateDropDown = this.StateService.GetStateName(response.data.Result);
+                }));
+                this.AddConDistrictDropDown = this.DistrictService.Find(this.InsertLeadChange.ContactStateID).then((response => {
+                    this.AddConDistrictDropDown = this.DistrictService.GetDistrictName(response.data.Result);
+                }));
+
+                this.DepartmentDropDown = this.DepartmentService.Find().then((response => {
+                    this.DepartmentDropDown = this.DepartmentService.GetDepartmentName(response.data.Result);
+                }));
+                this.DesignationDropDown = this.DesignationService.Find().then((response => {
+                    this.DesignationDropDown = this.DesignationService.GetDesignationName(response.data.Result);
+                }));
+
+                this.LeadStatusDropDown = this.LeadStatusService.Find().then((response => {
+                    this.LeadStatusDropDown = this.LeadStatusService.GetLeadStatusName(response.data.Result);
+
+                }));
+                this.LeadSalesOfficeDropDown = this.SalesOfficeService.Find().then((response => {
+                    this.LeadSalesOfficeDropDown = this.SalesOfficeService.GetSalesOfficeName(response.data.Result);
+                }));
+                this.LeadTypeDropDown = this.LeadTypeService.Find().then((response => {
+                    this.LeadTypeDropDown = this.LeadTypeService.GetLeadTypeName(response.data.Result);
+                    this.InsertItem.LeadType = "5";
+                }));
+                this.LeadCategoryDropDown = this.LeadCategoryService.Find().then((response => {
+                    this.LeadCategoryDropDown = this.LeadCategoryService.GetLeadCategoryName(response.data.Result);
+
+                }));
+                this.ProjectNameDD = this.ProjectNameService.FindProjectNameDD(this.UserID).then((response => {
+                    this.ProjectNameDD = this.ProjectNameService.GetProjectNameDD(response.data.Result);
+                }));
+                this.IndustryDivisionDropDown = this.IndustryDivisionService.Find().then((response => {
+                    this.IndustryDivisionDropDown = this.IndustryDivisionService.GetIndustryName(response.data.Result);
+
+                }));
+                this.IndustrialSegmentDropDown = this.IndustrialSegmentService.Find().then((response => {
+                    this.IndustrialSegmentDropDown = this.IndustrialSegmentService.GetIndustrialSegmentName(response.data.Result);
+
+                }));
+                this.PurchaseTimlinedd = this.PurchaseTimlineDDService.Find().then((response => {
+                    this.PurchaseTimlinedd = this.PurchaseTimlineDDService.GetPurchaseTimeline(response.data.Result);
+                }));
+                this.CategoryDropDown = this.CategoryService.Find().then((response => {
+                    this.CategoryDropDown = this.CategoryService.GetCategoryName(response.data.Result);
+                }));
+                this.DivisionDropDownP = this.DivisionPService.Find(this.LeadAssessment.CategoryID).then((response => {
+                    this.DivisionDropDownP = this.DivisionPService.GetDivisionDDP(response.data.Result);
+
+                }));
+                this.ProductDropDown = this.ProductService.Find(0).then((response => {
+                    this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
+
+                }));
+                
+                this.ChannelDD = this.ChannelDDService.Find().then((response => {
+                    this.ChannelDD = this.ChannelDDService.GetChannelDDnew(response.data.Result);
+                }));
+                this.LeadSourcedd = this.LeadSourceDDService.Find(this.LeadAssessment.ChannelID).then((response => {
+                    this.LeadSourcedd = this.LeadSourceDDService.GetLeadSourceDetails(response.data.Result);
+                }));
                 //this.LeadStatusOpenDD = this.LeadStatusForOpenDDService.Find(this.LeadID).then((response => {
                 //    this.LeadStatusOpenDD = this.LeadStatusForOpenDDService.GetLeadOpen(response.data.Result);             
                 //}));
@@ -252,6 +438,36 @@
                 //    this.LeadOpenReasonDD = this.ReasonForLeadOpenDDService.GetReason(response.data.Result);
                 //    this.InsertLeadChange.LeadOpenReason = reason;
                 //}));
+                let that = this;
+                $("#txtProductDesc").autocomplete({
+                    //  source:['1a0','anjali','archana'],
+                    source: function (request, res) {
+                        that.ProductDescAutofill.FilterAutoComplete(request).then((response => {
+
+                            let data = that.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
+                            res($.map(data, function (item, index) {
+                                return {
+                                    label: item.ProductDesc,
+                                    value: item.ProductDesc,
+                                    id: item.ProductID
+
+                                }
+                            }));
+                        }));
+
+                    },
+                    minLength: 2,
+                    focus: (event, ui) => {
+
+                        event.preventDefault();
+                    },
+                    select: function (e, ui) {
+                        that.InsertItem.ProductID = ui.item.id;
+                    },
+                    change: function () {
+
+                    }
+                });
 
                 if (this.InsertLeadChange.LeadStatusID == "8" || this.InsertLeadChange.LeadStatusID == "9") {
                     $("#txtstatus").prop("disabled", false);
@@ -275,6 +491,7 @@
                 $('#txtstate').val(this.InsertLeadChange.StateID);
                 /* this.District(this.InsertLeadChange.StateID);*/
                 $('#txtdistrict').val(this.InsertLeadChange.DistrictID);
+
                 //this.SearchRegion.StateID = this.InsertLeadChange.StateID;
                 //this.SearchRegion.DistrictID = this.InsertLeadChange.DistrictID;
                 //this.InsertLeadChange.RegionID = "";
@@ -304,6 +521,8 @@
                 $('#txtFop').val(this.InsertLeadChange.FOPID);
                 $('#txtaddress').val(this.InsertLeadChange.Address);
                 $('#txtconcountry').val(this.InsertLeadChange.ContactCountryID);
+                $('#txtdesignation').val(this.InsertLeadChange.Designation);
+                $('#txtdept').val(this.InsertLeadChange.DepartmentID);
                 //this.AddConState(this.InsertLeadChange.ContactCountryID);
                 //$('#txtconstate').val(this.InsertLeadChange.ContactStateID);
                 //this.AddConDistrict(this.InsertLeadChange.ContactCountryID);
@@ -486,30 +705,30 @@
                 this.HideShow();
                 this.popupMessage("Please Select Category", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
             }
-            else if (this.InsertItem.DivisionID == undefined || this.InsertItem.DivisionID == null || this.InsertItem.DivisionID == "") {
-                this.HideShow();
-                this.popupMessage("Please Select Division", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-            }
+            //else if (this.InsertItem.DivisionID == undefined || this.InsertItem.DivisionID == null || this.InsertItem.DivisionID == "") {
+            //    this.HideShow();
+            //    this.popupMessage("Please Select Division", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            //}
 
-            else if (this.InsertItem.ProductID == undefined || this.InsertItem.ProductID == null || this.InsertItem.ProductID == "") {
-                this.HideShow();
-                this.popupMessage("Please Select Product", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-            }
+            //else if (this.InsertItem.ProductID == undefined || this.InsertItem.ProductID == null || this.InsertItem.ProductID == "") {
+            //    this.HideShow();
+            //    this.popupMessage("Please Select Product", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            //}
 
-            else if (this.InsertItem.ModelID == undefined || this.InsertItem.ModelID == null || this.InsertItem.ModelID == "") {
-                this.HideShow();
-                this.popupMessage("Please Select Model", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-            }
+            //else if (this.InsertItem.ModelID == undefined || this.InsertItem.ModelID == null || this.InsertItem.ModelID == "") {
+            //    this.HideShow();
+            //    this.popupMessage("Please Select Model", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            //}
 
-            else if (this.InsertItem.ChannelID == undefined || this.InsertItem.ChannelID == null || this.InsertItem.ChannelID == "") {
+            //else if (this.InsertItem.ChannelID == undefined || this.InsertItem.ChannelID == null || this.InsertItem.ChannelID == "") {
 
-                this.HideShow();
-                this.popupMessage("Please Select Channel", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-            }
-            else if (this.InsertItem.LeadSourceID == undefined || this.InsertItem.LeadSourceID == null || this.InsertItem.LeadSourceID == "") {
-                this.HideShow();
-                this.popupMessage("Please Select Opportunity Source", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-            }
+            //    this.HideShow();
+            //    this.popupMessage("Please Select Channel", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            //}
+            //else if (this.InsertItem.LeadSourceID == undefined || this.InsertItem.LeadSourceID == null || this.InsertItem.LeadSourceID == "") {
+            //    this.HideShow();
+            //    this.popupMessage("Please Select Opportunity Source", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            //}
             else {
                 debugger;
                 $("#Item-submit").prop("disabled", true);

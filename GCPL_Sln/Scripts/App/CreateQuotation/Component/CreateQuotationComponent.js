@@ -9,9 +9,10 @@ var GCPL;
             var GSTCalculation = GCPL.Model.TotalPriceModel;
             var CreateQuotationController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function CreateQuotationController(_Accessory1Service, _Option1Service, _Accessory2Service, _Option2Service, _Accessory3Service, _Option3Service, _Accessory4Service, _Option4Service, _Accessory5Service, _Option5Service, _Accessory6Service, _Option6Service, _Configuration1Service, _Configuration2Service, _SOSService, _COLService, _PFService, _TCService, _OfferService, _CapabilityService, _TotalPriceCalService, _InsertService, $location, _cookieStore, _EditService, _LeadItemListService, _EditItemList, _InsertItemAssessment) {
+                function CreateQuotationController(_leadassessmentService, _Accessory1Service, _Option1Service, _Accessory2Service, _Option2Service, _Accessory3Service, _Option3Service, _Accessory4Service, _Option4Service, _Accessory5Service, _Option5Service, _Accessory6Service, _Option6Service, _Configuration1Service, _Configuration2Service, _SOSService, _COLService, _PFService, _TCService, _OfferService, _CapabilityService, _TotalPriceCalService, _InsertService, $location, _cookieStore, _EditService, _LeadItemListService, _EditItemList, _InsertItemAssessment, _CountryddService, _StateService, _DistrictService, _DepartmentService, _DesignationService, _LeadStatusService, _SalesOfficeService, _LeadTypeService, _LeadCategoryService, _ProjectNameService, _IndustryDivisionService, _IndustrialSegmentService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _ProductDescAutofill) {
                     this.$location = $location;
                     this._cookieStore = _cookieStore;
+                    this.LeadAssessment = null;
                     this.numRecords = 10;
                     this.page = 0;
                     this.incre = 0;
@@ -52,7 +53,32 @@ var GCPL;
                     this.QuotationID = null;
                     this.Total = null;
                     this.LeadID = null;
+                    this.CountryDropDown = null;
+                    this.StateDropDown = null;
+                    this.DistrictDropDown = null;
+                    this.AddConCountryDropDown = null;
+                    this.AddConStateDropDown = null;
+                    this.AddConDistrictDropDown = null;
+                    this.DepartmentDropDown = null;
+                    this.DesignationDropDown = null;
+                    this.LeadStatusDropDown = null;
+                    this.LeadSalesOfficeDropDown = null;
+                    this.LeadTypeDropDown = null;
+                    this.LeadCategoryDropDown = null;
+                    this.ProjectNameDD = null;
+                    this.IndustryDivisionDropDown = null;
+                    this.IndustrialSegmentDropDown = null;
+                    this.PurchaseTimlinedd = null;
+                    this.CategoryDropDown = null;
+                    this.DivisionDropDownP = null;
+                    this.ProductDropDown = null;
+                    this.ModelDropDown = null;
+                    this.ChannelDD = null;
+                    this.LeadSourcedd = null;
+                    this.ModelID = null;
+                    this.ProductID = null;
                     this.TotalPriceModel = null;
+                    this.LeadAssessmentService = _leadassessmentService;
                     this.Accessory1Service = _Accessory1Service;
                     this.Option1Service = _Option1Service;
                     this.Accessory2Service = _Accessory2Service;
@@ -82,10 +108,33 @@ var GCPL;
                     this.QuotationRefernce = $location.search().QuotationRefernce;
                     this.InsertService = _InsertService;
                     this.InsertItemAssessment = _InsertItemAssessment;
+                    this.CountryddService = _CountryddService;
+                    this.StateService = _StateService;
+                    this.DistrictService = _DistrictService;
+                    this.DepartmentService = _DepartmentService;
+                    this.DesignationService = _DesignationService;
+                    this.LeadStatusService = _LeadStatusService;
+                    this.SalesOfficeService = _SalesOfficeService;
+                    this.LeadTypeService = _LeadTypeService;
+                    this.LeadCategoryService = _LeadCategoryService;
+                    this.ProjectNameService = _ProjectNameService;
+                    this.IndustryDivisionService = _IndustryDivisionService;
+                    this.IndustrialSegmentService = _IndustrialSegmentService;
+                    this.PurchaseTimlineDDService = _PurchaseTimlineDDService;
+                    this.CategoryService = _CategoryService;
+                    this.DivisionPService = _DivisionPService;
+                    this.ProductService = _ProductService;
+                    this.ModelService = _ModelService;
+                    this.ChannelDDService = _ChannelDDService;
+                    this.LeadSourceDDService = _LeadSourceDDService;
+                    this.ProductDescAutofill = _ProductDescAutofill;
                     this.InsertQuotation = new Quotation();
                     this.Cookie = _cookieStore;
                     this.UserID = this.Cookie.get('UserInfo')['UserID'];
                     this.LeadID = $location.search().LeadID;
+                    //this.ModelID = $location.search().Model;
+                    //this.ProductID = $location.search().Product;
+                    /*this.LeadAssessment = new LeadAssess();*/
                 }
                 CreateQuotationController.prototype.$onInit = function () {
                     var that = this;
@@ -111,6 +160,12 @@ var GCPL;
                         this.FillGridItems();
                     }
                 };
+                CreateQuotationController.prototype.Model = function (data) {
+                    var _this = this;
+                    this.ModelDropDown = this.ModelService.Find(this.LeadAssessment.ProductID).then((function (response) {
+                        _this.ModelDropDown = _this.ModelService.GetModelDD(response.data.Result);
+                    }));
+                };
                 CreateQuotationController.prototype.EditItem = function (data) {
                     var _this = this;
                     console.log(data);
@@ -131,6 +186,70 @@ var GCPL;
                         _this.InsertQuotation.SPEmail = _this.InsertLeadChange.SPEmail;
                         _this.InsertQuotation.SPDesignation = _this.InsertLeadChange.SPDesignation;
                         _this.InsertQuotation.TCDetails = _this.InsertQuotation.TCDetails;
+                        _this.CountryDropDown = _this.CountryddService.Find().then((function (response) {
+                            _this.CountryDropDown = _this.CountryddService.GetCountryName(response.data.Result);
+                        }));
+                        _this.StateDropDown = _this.StateService.Find(_this.InsertLeadChange.CountryID).then((function (response) {
+                            _this.StateDropDown = _this.StateService.GetStateName(response.data.Result);
+                        }));
+                        _this.DistrictDropDown = _this.DistrictService.Find(_this.InsertLeadChange.StateID).then((function (response) {
+                            _this.DistrictDropDown = _this.DistrictService.GetDistrictName(response.data.Result);
+                        }));
+                        _this.AddConCountryDropDown = _this.CountryddService.Find().then((function (response) {
+                            _this.AddConCountryDropDown = _this.CountryddService.GetCountryName(response.data.Result);
+                        }));
+                        _this.AddConStateDropDown = _this.StateService.Find(_this.InsertLeadChange.ContactCountryID).then((function (response) {
+                            _this.AddConStateDropDown = _this.StateService.GetStateName(response.data.Result);
+                        }));
+                        _this.AddConDistrictDropDown = _this.DistrictService.Find(_this.InsertLeadChange.ContactStateID).then((function (response) {
+                            _this.AddConDistrictDropDown = _this.DistrictService.GetDistrictName(response.data.Result);
+                        }));
+                        _this.DepartmentDropDown = _this.DepartmentService.Find().then((function (response) {
+                            _this.DepartmentDropDown = _this.DepartmentService.GetDepartmentName(response.data.Result);
+                        }));
+                        _this.DesignationDropDown = _this.DesignationService.Find().then((function (response) {
+                            _this.DesignationDropDown = _this.DesignationService.GetDesignationName(response.data.Result);
+                        }));
+                        _this.LeadStatusDropDown = _this.LeadStatusService.Find().then((function (response) {
+                            _this.LeadStatusDropDown = _this.LeadStatusService.GetLeadStatusName(response.data.Result);
+                        }));
+                        _this.LeadSalesOfficeDropDown = _this.SalesOfficeService.Find().then((function (response) {
+                            _this.LeadSalesOfficeDropDown = _this.SalesOfficeService.GetSalesOfficeName(response.data.Result);
+                        }));
+                        _this.LeadTypeDropDown = _this.LeadTypeService.Find().then((function (response) {
+                            _this.LeadTypeDropDown = _this.LeadTypeService.GetLeadTypeName(response.data.Result);
+                            _this.InsertItem.LeadType = "5";
+                        }));
+                        _this.LeadCategoryDropDown = _this.LeadCategoryService.Find().then((function (response) {
+                            _this.LeadCategoryDropDown = _this.LeadCategoryService.GetLeadCategoryName(response.data.Result);
+                        }));
+                        _this.ProjectNameDD = _this.ProjectNameService.FindProjectNameDD(_this.UserID).then((function (response) {
+                            _this.ProjectNameDD = _this.ProjectNameService.GetProjectNameDD(response.data.Result);
+                        }));
+                        _this.IndustryDivisionDropDown = _this.IndustryDivisionService.Find().then((function (response) {
+                            _this.IndustryDivisionDropDown = _this.IndustryDivisionService.GetIndustryName(response.data.Result);
+                        }));
+                        _this.IndustrialSegmentDropDown = _this.IndustrialSegmentService.Find().then((function (response) {
+                            _this.IndustrialSegmentDropDown = _this.IndustrialSegmentService.GetIndustrialSegmentName(response.data.Result);
+                        }));
+                        _this.PurchaseTimlinedd = _this.PurchaseTimlineDDService.Find().then((function (response) {
+                            _this.PurchaseTimlinedd = _this.PurchaseTimlineDDService.GetPurchaseTimeline(response.data.Result);
+                        }));
+                        _this.CategoryDropDown = _this.CategoryService.Find().then((function (response) {
+                            _this.CategoryDropDown = _this.CategoryService.GetCategoryName(response.data.Result);
+                        }));
+                        _this.DivisionDropDownP = _this.DivisionPService.Find(_this.LeadAssessment.CategoryID).then((function (response) {
+                            _this.DivisionDropDownP = _this.DivisionPService.GetDivisionDDP(response.data.Result);
+                        }));
+                        _this.ProductDropDown = _this.ProductService.Find(0).then((function (response) {
+                            _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
+                        }));
+                        _this.ChannelDD = _this.ChannelDDService.Find().then((function (response) {
+                            _this.ChannelDD = _this.ChannelDDService.GetChannelDDnew(response.data.Result);
+                        }));
+                        _this.LeadSourcedd = _this.LeadSourceDDService.Find(_this.LeadAssessment.ChannelID).then((function (response) {
+                            _this.LeadSourcedd = _this.LeadSourceDDService.GetLeadSourceDetails(response.data.Result);
+                        }));
                         //this.LeadStatusOpenDD = this.LeadStatusForOpenDDService.Find(this.LeadID).then((response => {
                         //    this.LeadStatusOpenDD = this.LeadStatusForOpenDDService.GetLeadOpen(response.data.Result);             
                         //}));
@@ -139,6 +258,31 @@ var GCPL;
                         //    this.LeadOpenReasonDD = this.ReasonForLeadOpenDDService.GetReason(response.data.Result);
                         //    this.InsertLeadChange.LeadOpenReason = reason;
                         //}));
+                        var that = _this;
+                        $("#txtProductDesc").autocomplete({
+                            //  source:['1a0','anjali','archana'],
+                            source: function (request, res) {
+                                that.ProductDescAutofill.FilterAutoComplete(request).then((function (response) {
+                                    var data = that.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
+                                    res($.map(data, function (item, index) {
+                                        return {
+                                            label: item.ProductDesc,
+                                            value: item.ProductDesc,
+                                            id: item.ProductID
+                                        };
+                                    }));
+                                }));
+                            },
+                            minLength: 2,
+                            focus: function (event, ui) {
+                                event.preventDefault();
+                            },
+                            select: function (e, ui) {
+                                that.InsertItem.ProductID = ui.item.id;
+                            },
+                            change: function () {
+                            }
+                        });
                         if (_this.InsertLeadChange.LeadStatusID == "8" || _this.InsertLeadChange.LeadStatusID == "9") {
                             $("#txtstatus").prop("disabled", false);
                         }
@@ -184,6 +328,8 @@ var GCPL;
                         $('#txtFop').val(_this.InsertLeadChange.FOPID);
                         $('#txtaddress').val(_this.InsertLeadChange.Address);
                         $('#txtconcountry').val(_this.InsertLeadChange.ContactCountryID);
+                        $('#txtdesignation').val(_this.InsertLeadChange.Designation);
+                        $('#txtdept').val(_this.InsertLeadChange.DepartmentID);
                         //this.AddConState(this.InsertLeadChange.ContactCountryID);
                         //$('#txtconstate').val(this.InsertLeadChange.ContactStateID);
                         //this.AddConDistrict(this.InsertLeadChange.ContactCountryID);
@@ -333,26 +479,26 @@ var GCPL;
                         this.HideShow();
                         this.popupMessage("Please Select Category", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                     }
-                    else if (this.InsertItem.DivisionID == undefined || this.InsertItem.DivisionID == null || this.InsertItem.DivisionID == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Select Division", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertItem.ProductID == undefined || this.InsertItem.ProductID == null || this.InsertItem.ProductID == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Select Product", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertItem.ModelID == undefined || this.InsertItem.ModelID == null || this.InsertItem.ModelID == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Select Model", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertItem.ChannelID == undefined || this.InsertItem.ChannelID == null || this.InsertItem.ChannelID == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Select Channel", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
-                    else if (this.InsertItem.LeadSourceID == undefined || this.InsertItem.LeadSourceID == null || this.InsertItem.LeadSourceID == "") {
-                        this.HideShow();
-                        this.popupMessage("Please Select Opportunity Source", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
+                    //else if (this.InsertItem.DivisionID == undefined || this.InsertItem.DivisionID == null || this.InsertItem.DivisionID == "") {
+                    //    this.HideShow();
+                    //    this.popupMessage("Please Select Division", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    //}
+                    //else if (this.InsertItem.ProductID == undefined || this.InsertItem.ProductID == null || this.InsertItem.ProductID == "") {
+                    //    this.HideShow();
+                    //    this.popupMessage("Please Select Product", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    //}
+                    //else if (this.InsertItem.ModelID == undefined || this.InsertItem.ModelID == null || this.InsertItem.ModelID == "") {
+                    //    this.HideShow();
+                    //    this.popupMessage("Please Select Model", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    //}
+                    //else if (this.InsertItem.ChannelID == undefined || this.InsertItem.ChannelID == null || this.InsertItem.ChannelID == "") {
+                    //    this.HideShow();
+                    //    this.popupMessage("Please Select Channel", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    //}
+                    //else if (this.InsertItem.LeadSourceID == undefined || this.InsertItem.LeadSourceID == null || this.InsertItem.LeadSourceID == "") {
+                    //    this.HideShow();
+                    //    this.popupMessage("Please Select Opportunity Source", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    //}
                     else {
                         debugger;
                         $("#Item-submit").prop("disabled", true);
@@ -444,11 +590,14 @@ var GCPL;
                 CreateQuotationController.prototype.Close = function () {
                     location.href = "#!/QuotationList";
                 };
-                CreateQuotationController.$inject = ["Accessory1DDService", "Option1Service", "Accessory2DDService", "Option2Service", "Accessory3DDService",
+                CreateQuotationController.$inject = ["LeadAssessmentService", "Accessory1DDService", "Option1Service", "Accessory2DDService", "Option2Service", "Accessory3DDService",
                     "Option3Service", "Accessory4DDService", "Option4Service", "Accessory5DDService", "Option5Service", "Accessory6DDService",
                     "Option6Service", "Configuration1DDService", "Configuration2DDService", "ScopeofSupplyService", "CoveringLetterInfoService",
                     "ProductFeaturesInfoService", "TermsConditionInfoService", "OfferingInfoService", "CapabilitiesInfoService", "TotalPriceService",
-                    "InsertQuotationService", "$location", "$cookieStore", "LeadChangeEditService", "LeadItemListService", "EditItemList", "InsertItemDetailsService"];
+                    "InsertQuotationService", "$location", "$cookieStore", "LeadChangeEditService", "LeadItemListService", "EditItemList", "InsertItemDetailsService",
+                    "CountryddService", "StateService", "DistrictService", "DepartmentService", "DesignationService", "LeadStatusddService", "SalesOfficeService", "LeadTypeddService",
+                    "LeadCategoryDDService", "ProjectNameService", "IndustryDivisionService", "IndustrialSegmentService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService",
+                    "ProductddService", "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "ProductDescAutoFillService"];
                 return CreateQuotationController;
             }());
             var CreateQuotationComponentController = /** @class */ (function () {

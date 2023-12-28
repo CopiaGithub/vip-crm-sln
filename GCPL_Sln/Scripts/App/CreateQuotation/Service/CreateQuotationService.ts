@@ -1233,3 +1233,158 @@ namespace GCPL.Service {
 
     app.AddService("InsertQuotationService", InsertQuotationService);
 }
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface ICountryddService {
+
+        Find(): ng.IPromise<Utility.Ajax.IResponse>;
+        GetCountryName(data: any): Array<model.CountryddlModel>;
+    }
+    export class CountryddService extends GCPL.Service.BaseService implements ICountryddService {
+
+        private apiUrl: string = "";
+        static $inject = ["$http", "$q"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"CountryDD"}`;
+        }
+
+
+        Find(): ng.IPromise<Utility.Ajax.IResponse> {
+            let config = {
+                params: {
+
+                }
+            };
+            return this.ajaXUtility.Get({
+                Url: this.apiUrl,
+                Config: config
+            });
+        }
+
+        GetCountryName(data: any): Array<model.CountryddlModel> {
+            let list = Array<model.CountryddlModel>();
+            for (let item of data) {
+                list.push({
+                    CountryID: item.CountryID.toString(),
+                    Country: item.Country,
+                });
+            }
+            return list;
+        }
+    }
+
+    app.AddService("CountryddService", CountryddService);
+}
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IStateddService {
+
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        GetStateName(data: any): Array<model.StateddlModel>;
+    }
+    export class StateddService extends GCPL.Service.BaseService implements IStateddService {
+
+        private apiUrl: string = "";
+        static $inject = ["$http", "$q"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"StateDDWP"}`;
+        }
+
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+            var CountryID;
+            if (data == undefined) {
+                CountryID = '95';
+            }
+            else {
+                CountryID = data;
+            }
+            let config = {
+                params: {
+                    CountryID: '95'
+                }
+            };
+            return this.ajaXUtility.Get({
+                Url: this.apiUrl,
+                Config: config
+            });
+        }
+
+        GetStateName(data: any): Array<model.StateddlModel> {
+            let list = Array<model.StateddlModel>();
+            for (let item of data) {
+                list.push({
+                    StateID: item.StateID.toString(),
+                    State: item.State,
+                });
+            }
+            return list;
+        }
+    }
+
+    app.AddService("StateddService", StateddService);
+}
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IDistrictService {
+
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        GetDistrictName(data: any): Array<model.DistrictddlModel>;
+    }
+    export class DistrictService extends GCPL.Service.BaseService implements IDistrictService {
+
+        private apiUrl: string = "";
+        static $inject = ["$http", "$q"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"DistrictDD"}`;
+        }
+
+
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+            var StateID;
+
+            if (data == undefined) {
+                StateID = "";
+            }
+            else {
+                StateID = data;
+            }
+            let config = {
+                params: {
+                    StateID: StateID
+                }
+            };
+            return this.ajaXUtility.Get({
+                Url: this.apiUrl,
+                Config: config
+            });
+        }
+
+        GetDistrictName(data: any): Array<model.DistrictddlModel> {
+            let list = Array<model.DistrictddlModel>();
+            for (let item of data) {
+                list.push({
+                    DistrictID: item.DistrictID.toString(),
+                    District: item.District,
+                });
+            }
+            return list;
+        }
+    }
+
+    app.AddService("DistrictService", DistrictService);
+}

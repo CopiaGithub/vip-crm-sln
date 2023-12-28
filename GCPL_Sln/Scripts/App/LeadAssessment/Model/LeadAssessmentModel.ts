@@ -343,6 +343,15 @@
         ProductDesc: string;
         ProjectID: string;
         ItemStatusID: string;
+        MRPUnit: string;
+        GST: string;
+        HSN: string;
+        Discount: string;
+        DiscountedPricePerUnit: string;
+        TotalPrice: string;
+        TotalGST: string;
+        NetAmount: string;
+        ProductCode: string;
     }
 
 
@@ -427,10 +436,14 @@
         LeadID: string;
         ItemID: string;
         ProductDesc: string;
+        ProductCode: string
         Quantity: string;
         Status: string;
         ModelID: string;
         ItemStatus: string;
+        MRPUnit: string;
+        GST: string;
+        NetAmount: string;
     }
 
     export class LeadQueAnsModel {

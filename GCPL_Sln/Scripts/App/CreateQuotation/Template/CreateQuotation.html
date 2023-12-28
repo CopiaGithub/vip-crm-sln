@@ -28,7 +28,7 @@
                             <div class="form-group">
                                 <label for="Address">Date</label>
                                 <input id="hfDate" type="hidden" name="hfFromDate">
-                                <input name="txtBirDate" placeholder="DD MMM YYYY" ng-model="$ctrl.InsertLeadChange.WhenEntered" input="hfBirDate" data-intro="true" id="txtDeliveryDate1" style="width: 108%;" class="form-control" disabled="disabled">
+                                <input name="txtBirDate" placeholder="DD MMM YYYY" ng-model="$ctrl.InsertLeadChange.WhenEntered" input="hfBirDate" data-intro="true" id="txtDeliveryDate1" style="width: 100%;" class="form-control" disabled="disabled">
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -87,8 +87,11 @@
                                                         <th>Sr. No.</th>
                                                         <th>ItemCode</th>
                                                         <th>Item Description</th>
-                                                        <th>Quantity</th>
                                                         <th>Item Status</th>
+                                                        <th>Quantity</th>
+                                                        <th>MRP/Unit</th>
+                                                        <th>GST %</th>
+                                                        <th>Net Amount</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -96,10 +99,13 @@
                                                     <tr ng-repeat="item in $ctrl.LeadItemlist">
 
                                                         <td>{{item.ItemID}}</td>
-                                                        <td>{{item.ItemCode}}</td>
+                                                        <td>{{item.ProductCode}}</td>
                                                         <td>{{item.ProductDesc}}</td>
-                                                        <td>{{item.Quantity}}</td>
                                                         <td>{{item.ItemStatus}}</td>
+                                                        <td>{{item.Quantity}}</td>
+                                                        <td>{{item.MRPUnit}}</td>
+                                                        <td>{{item.GST}}</td>
+                                                        <td>{{item.NetAmount}}</td>
                                                         <td>
                                                             <span class="edit-table-link" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.EditItem(item.ItemID);"><i class="fa fa-edit" aria-hidden="true"></i></span>
                                                         </td>
@@ -223,7 +229,7 @@
         <div class="modal-content " style="position: relative">
             <div class="modal-header modal-head">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title modal-head-title"> ITEM DETAILS | Sr. No. - {{$ctrl.AssessmentInfo.LeadID}}</h3>
+                <h3 class="modal-title modal-head-title"> ITEM DETAILS </h3>
             </div>
 
             <div id="div-1" class="modal-body">
@@ -332,8 +338,8 @@
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <b>Product<span class="Mandatory">*</span></b>
-                            <select id="txtProduct" name="Product" ng-model="$ctrl.InsertItem.ProductID" class="form-control leader-create-dropdown" tabindex="2" required disabled>
+                            <b>Product Code<span class="Mandatory">*</span></b>
+                            <select id="txtProduct" name="Product" ng-model="$ctrl.InsertItem.ProductID" class="form-control leader-create-dropdown" tabindex="2" required >
                                 <option value="">Select</option>
                                 <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
 
@@ -400,41 +406,41 @@
                         </div>
                         <div class="col-md-3">
                             <b>MRP/Unit </b>
-                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.Comments" name="quantity" class="form-control" />
+                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.MRPUnit" name="quantity" class="form-control" />
                         </div>
                         <div class="col-md-3">
                             <b>GST % </b>
-                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.Comments" name="quantity" class="form-control" />
+                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.GST" name="quantity" class="form-control" />
                         </div>
                         <div class="col-md-3">
                             <b>HSN/SAC </b>
-                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.Comments" name="quantity" class="form-control" />
+                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.HSN" name="quantity" class="form-control" />
                         </div>
 
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
                             <b>Discount </b>
-                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.Comments" name="quantity" class="form-control" />
+                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.Discount" name="quantity" class="form-control" />
                         </div>
                         <div class="col-md-3">
                             <b> Discounted Price/Unit</b>
-                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.Comments" name="quantity" class="form-control" />
+                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.DiscountedPricePerUnit" name="quantity" class="form-control" disabled/>
                         </div>
                         <div class="col-md-3">
                             <b> Total Price</b>
-                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.Comments" name="quantity" class="form-control" />
+                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.TotalPrice" name="quantity" class="form-control" disabled/>
                         </div>
                         <div class="col-md-3">
                             <b> Total GST </b>
-                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.Comments" name="quantity" class="form-control" />
+                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.TotalGST" name="quantity" class="form-control" disabled/>
                         </div>
                        
                     </div>
                     <div class="form-group">
                         <div class="col-md-3">
                             <b> Net Amount</b>
-                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.Comments" name="quantity" class="form-control" />
+                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.NetAmount" name="quantity" class="form-control" disabled/>
                         </div>
                         <div class="col-md-3">
                             <b>Comments </b>
@@ -482,7 +488,7 @@
                         </div>
                         <div class="col-md-3">
                             <b>Opportunity Status </b>
-                            <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.InsertLeadChange.LeadStatusId" style="width:100%" disabled>
+                            <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.InsertLeadChange.LeadStatusID" style="width:100%" disabled>
                                 <option value="">Select</option>
                                 <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
                             </select>
@@ -631,7 +637,11 @@
                         </div>
                         <div class="col-md-3">
                             <b>Designation </b>
-                            <input id="txtdesignation" type="text" class="form-control" placeholder="Designation" ng-model="$ctrl.InsertLeadChange.Designation" disabled />
+                            <select id="txtdesignation" class="form-control" ng-model="$ctrl.InsertLeadChange.FOPID" disabled>
+                                <option value="">Select Designation</option>
+                                <option ng-repeat="item in $ctrl.DesignationDropDown" value={{item.FOPID}}>{{item.FOP}}</option>
+
+                            </select>
                         </div>
                         <div class="col-md-3">
                             <b>Department </b>
