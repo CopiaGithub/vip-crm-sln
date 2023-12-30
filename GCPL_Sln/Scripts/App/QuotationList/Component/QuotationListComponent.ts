@@ -42,7 +42,7 @@
         constructor(_Listservice: Service.IQuotationlistService, _CustomerSapAutofill: Service.ICustomerSapIdAutoFillService, private $location: ng.ILocationService, private _cookieStore: any) {
             this.Listservice = _Listservice;
             this.QuotationSearch = Array<GCPL.Model.QuotationSearchModel>();
-            
+
             this.CustomerSapAutofill = _CustomerSapAutofill;
             this.InsertContact = new ContactMaster();
             this.QuotationDataHeaderID = $location.search().QuotationDataHeaderID;
@@ -55,7 +55,7 @@
         $onInit() {
             this.Init();
             $('#search-btn-loader').hide();
-            
+
 
         }
 
@@ -63,7 +63,7 @@
         Init(): void {
             let that = this;
 
-            
+
 
             $("#txtCustomerName").autocomplete({
                 //  source:['1a0','anjali','archana'],
@@ -95,17 +95,17 @@
                 },
                 change: function () {
                 }
-            });  
+            });
         }
         SearchQuotationList(): void {
             $('#search-btn-loader').show();
 
-            
-            
+
+
             this.numRecords = this.NoOfRds;
             this.FillGrid(this.numRecords);
-            
-            
+
+
         }
         FillGrid(NoOfRecords): void {
             let that = this;
@@ -115,16 +115,16 @@
             that.page = 0;
             that.maxPages = 0;
             that.shownItems = [];
-            
+
             this.Quotationlist = this.Listservice.Find(this.QuotationSearch).then((response => {
                 this.Quotationlist = this.Listservice.GetQuotationlist(response.data.Result);
 
                 $('#search-btn-loader').hide();
                 console.log(this.Quotationlist);
                 //$('#txtID').val(this.Quotationlist.QuotationDataHeaderID);
-                
+
                 if (this.Quotationlist.length > 0) {
-                   
+
                     $("#nullDataDiv").hide();
                     $("#dataTable").show();
                     this.Quotationlist.forEach(function (value, key) {
@@ -138,7 +138,7 @@
                     this.ShowNext = that.maxPages > 1 ? true : false;
                     this.shownItems = this.Quotationlist.slice(0, that.numRecords);
 
-                    
+
                 }
                 else {
                     $("#nullDataDiv").show();
@@ -149,7 +149,7 @@
                     this.ShowNext = false;
                     this.ShowBack = false;
                 }
-                
+
                 //if (this.QuotationDataHeaderID > 0) {
                 //    $("#HideCreate").hide();
                 //}
@@ -201,14 +201,14 @@
             this.QuotationSearch.CustomerID = "";
             this.QuotationSearch.OppNumber = "";
             this.QuotationSearch.QuotationNo = "";
-           // this.QuotationSearch.UserID = "";
+            // this.QuotationSearch.UserID = "";
             //this.numRecords = this.NoOfRds;
             //this.FillGrid(this.numRecords);
-            
+
             $("#txtCustomerName").val("");
             $("#txtOppNumber").val("");
             $("#txtQuotationNo").val("");
-         
+
         }
         public Search1(data: any): void {
             this.CustomerSapAutofill.FindCustomerSAPID(data).then((response => {
@@ -218,10 +218,10 @@
         }
 
         PDF(data): void {
-            
-             this.Listservice.PDFView(data).then((response => {
-                 this.Quotationlist = this.Listservice.GetPDF(response.data.Result);
-               
+
+            this.Listservice.PDFView(data).then((response => {
+                this.Quotationlist = this.Listservice.GetPDF(response.data.Result);
+
             }));
         }
 

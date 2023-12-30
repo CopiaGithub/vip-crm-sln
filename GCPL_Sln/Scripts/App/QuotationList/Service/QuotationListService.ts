@@ -28,7 +28,7 @@
             var LeadID;
             var CustomerName;
             //var UserID;
-            
+
 
             if (data.ID == undefined) {
                 ID = '';
@@ -83,10 +83,10 @@
                     ContactName: item.ContactName,
                     SPName: item.SPName,
                     SPMobileNo: item.SPMobileNo,
-                    SPDesignation: item.SPDesignation,  
+                    SPDesignation: item.SPDesignation,
                     CreatedBy: item.CreatedBy,
-                    WhenCreated: item.WhenCreated,
-                   
+                    WhenCreated: item.WhenCreated
+
 
                 });
             }

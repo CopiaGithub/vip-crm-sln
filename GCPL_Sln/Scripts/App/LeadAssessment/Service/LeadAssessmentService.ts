@@ -496,7 +496,8 @@ namespace GCPL.Service {
                     ReferenceOpportunity: item.ReferenceOpportunity,
                     StartDate: item.StartDate,
                     EndDate: item.EndDate,
-                    ActivityNumber: item.ActivityNumber
+                    ActivityNumber: item.ActivityNumber,
+                    LeadStatusId: item.LeadStatusId
                 });
             }
             return list;
@@ -552,14 +553,15 @@ namespace GCPL.Service {
                     LeadID: item.LeadID,
                     ItemID: item.ItemID,
                     ProductDesc: item.ProductDesc,
-                    ProductCode: item.ProductCode,
                     Quantity: item.Quantity,
                     Status: item.Status,
                     ModelID: item.ModelID,
                     ItemStatus: item.ItemStatus,
+                    ItemCode: item.ProductCode,
                     MRPUnit: item.MRPUnit,
                     GST: item.GST,
-                    NetAmount: item.NetAmount
+                    NetAmount: item.NetAmount,
+                    DeliveryStatus: item.DeliveryStatus
                 });
             }
             return list;
@@ -1173,11 +1175,14 @@ namespace GCPL.Service {
                 obj.StateID = data.StateID,
                 obj.Area = data.Area,
                 obj.LeadCategoryID = data.CategoryID,
+                obj.CategoryID = data.ItemCategoryID,
                 obj.DivisionID = data.DivisionID,
                 obj.ProductID = data.ProductID,
+                obj.ProductCode = data.ProductCode,
                 obj.ProductDesc = data.ProductDesc,
                 obj.ProjectID = data.ProjectID,
-                obj.LeadStatusId = data.ItemStatusID,
+                obj.LeadStatusId = data.ItemStatusID
+                obj.Comments = data.Comments
                 obj.MRPUnit = data.MRPUnit,
                 obj.GST = data.GST,
                 obj.HSN = data.HSN,
@@ -1186,7 +1191,9 @@ namespace GCPL.Service {
                 obj.TotalPrice = data.TotalPrice,
                 obj.TotalGST = data.TotalGST,
                 obj.NetAmount = data.NetAmount,
-                obj.ProductCode = data. ProductCode
+                obj.ProductCode = data.ProductCode
+
+            console.log("Op", obj);
 
 
             return obj;

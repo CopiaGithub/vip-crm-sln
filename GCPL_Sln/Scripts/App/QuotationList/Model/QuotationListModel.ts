@@ -12,15 +12,14 @@
         SPDesignation: string;
         CreatedBy: string;
         WhenCreated: string;
-       
+
     }
 
     export class QuotationSearchModel {
         constructor() {
         }
-        CustomerID: string;
-        OppNumber: string;
-        QuotationNo: string;
-        //UserID: string;
+        ID: string;
+        LeadID: string;
+        CustomerName: string;
     }
 }

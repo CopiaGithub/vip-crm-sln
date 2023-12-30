@@ -53,16 +53,9 @@
         RefUserName: string;
         CampaignID: string;
         ProjectID: string;
-        ID: string;
-        SPName: string;
-        SPMobileNo: string;
-        SPEmail: string;
-        SPDesignation: string;
-        TcDetails: string;
         WhenEntered: string;
         Description: string;
         Notes: string;
-        ProductCode: string;
     }
 
    

@@ -9,7 +9,7 @@ var GCPL;
             var GSTCalculation = GCPL.Model.TotalPriceModel;
             var CreateQuotationController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function CreateQuotationController(_leadassessmentService, _Accessory1Service, _Option1Service, _Accessory2Service, _Option2Service, _Accessory3Service, _Option3Service, _Accessory4Service, _Option4Service, _Accessory5Service, _Option5Service, _Accessory6Service, _Option6Service, _Configuration1Service, _Configuration2Service, _SOSService, _COLService, _PFService, _TCService, _OfferService, _CapabilityService, _TotalPriceCalService, _InsertService, $location, _cookieStore, _EditService, _LeadItemListService, _EditItemList, _InsertItemAssessment, _CountryddService, _StateService, _DistrictService, _DepartmentService, _DesignationService, _LeadStatusService, _SalesOfficeService, _LeadTypeService, _LeadCategoryService, _ProjectNameService, _IndustryDivisionService, _IndustrialSegmentService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _ProductDescAutofill) {
+                function CreateQuotationController(_leadassessmentService, _Accessory1Service, _Option1Service, _Accessory2Service, _Option2Service, _Accessory3Service, _Option3Service, _Accessory4Service, _Option4Service, _Accessory5Service, _Option5Service, _Accessory6Service, _Option6Service, _Configuration1Service, _Configuration2Service, _SOSService, _COLService, _PFService, _TCService, _OfferService, _CapabilityService, _TotalPriceCalService, _InsertService, $location, _cookieStore, _EditService, _LeadItemListService, _EditItemList, _InsertItemAssessment, _CountryddService, _DistrictService, _DepartmentService, _DesignationService, _LeadStatusService, _SalesOfficeService, _LeadTypeService, _LeadCategoryService, _ProjectNameService, _IndustryDivisionService, _IndustrialSegmentService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _ProductDescAutofill) {
                     this.$location = $location;
                     this._cookieStore = _cookieStore;
                     this.LeadAssessment = null;
@@ -106,10 +106,12 @@ var GCPL;
                     this.TotalPriceModel = new GSTCalculation();
                     this.OpportunitySAPNo = $location.search().OpportunitySAPNo;
                     this.QuotationRefernce = $location.search().QuotationRefernce;
+                    this.ModelID = $location.search().Model;
+                    this.ProductID = $location.search().Product;
                     this.InsertService = _InsertService;
                     this.InsertItemAssessment = _InsertItemAssessment;
                     this.CountryddService = _CountryddService;
-                    this.StateService = _StateService;
+                    /*this.StateService = _StateService;*/
                     this.DistrictService = _DistrictService;
                     this.DepartmentService = _DepartmentService;
                     this.DesignationService = _DesignationService;
@@ -137,8 +139,6 @@ var GCPL;
                     /*this.LeadAssessment = new LeadAssess();*/
                 }
                 CreateQuotationController.prototype.$onInit = function () {
-                    var that = this;
-                    this.Init();
                     $("#errorclose").hide();
                     $('#search-btn-loader').hide();
                     $("#close").hide();
@@ -148,30 +148,128 @@ var GCPL;
                             this.classList.toggle("toggle-spl-minus");
                         });
                     }
+                    this.Init();
                 };
                 CreateQuotationController.prototype.selectFromDate = function (e) {
                     document.getElementById("txtFromDate").value = e;
                 };
                 //Page Load Define Values//
                 CreateQuotationController.prototype.Init = function () {
+                    var _this = this;
+                    $("#errorclose").hide();
+                    $("#txtDays").hide();
+                    $("#ee-date").hide();
+                    $("#txtAllocated").hide();
+                    $("#txtDays2").hide();
+                    $("#close").hide();
+                    $('#Campaignfield').hide();
+                    $('#UserNamefield').hide();
+                    $("#txtAllocated1").hide();
+                    $("#ass-btn-loader").hide();
+                    $("#act-btn-loader").hide();
+                    $("#txtDisqual").hide();
                     if (this.LeadID != undefined || this.LeadID != null || this.LeadID != "") {
                         this.Edit(this.LeadID);
                         console.log(this.LeadID);
                         this.FillGridItems();
                     }
+                    this.LeadStatusDropDown = this.LeadStatusService.Find().then((function (response) {
+                        _this.LeadStatusDropDown = _this.LeadStatusService.GetLeadStatusName(response.data.Result);
+                    }));
+                    this.IndustryDivisionDropDown = this.IndustryDivisionService.Find().then((function (response) {
+                        _this.IndustryDivisionDropDown = _this.IndustryDivisionService.GetIndustryName(response.data.Result);
+                    }));
+                    this.IndustrialSegmentDropDown = this.IndustrialSegmentService.Find().then((function (response) {
+                        _this.IndustrialSegmentDropDown = _this.IndustrialSegmentService.GetIndustrialSegmentName(response.data.Result);
+                    }));
+                    this.LeadSalesOfficeDropDown = this.SalesOfficeService.Find().then((function (response) {
+                        _this.LeadSalesOfficeDropDown = _this.SalesOfficeService.GetSalesOfficeName(response.data.Result);
+                    }));
+                    this.LeadTypeDropDown = this.LeadTypeService.Find().then((function (response) {
+                        _this.LeadTypeDropDown = _this.LeadTypeService.GetLeadTypeName(response.data.Result);
+                        _this.InsertItem.LeadType = "5";
+                    }));
+                    this.LeadCategoryDropDown = this.LeadCategoryService.Find().then((function (response) {
+                        _this.LeadCategoryDropDown = _this.LeadCategoryService.GetLeadCategoryName(response.data.Result);
+                    }));
+                    //this.SalesAreaDropDown = this.SalesAreaService.Find().then((response => {
+                    //    this.SalesAreaDropDown = this.SalesAreaService.GetSalesAreaName(response.data.Result);
+                    //}));
+                    this.PurchaseTimlinedd = this.PurchaseTimlineDDService.Find().then((function (response) {
+                        _this.PurchaseTimlinedd = _this.PurchaseTimlineDDService.GetPurchaseTimeline(response.data.Result);
+                    }));
+                    this.CategoryDropDown = this.CategoryService.Find().then((function (response) {
+                        _this.CategoryDropDown = _this.CategoryService.GetCategoryName(response.data.Result);
+                    }));
+                    this.ChannelDD = this.ChannelDDService.Find().then((function (response) {
+                        _this.ChannelDD = _this.ChannelDDService.GetChannelDDnew(response.data.Result);
+                    }));
+                    this.DivisionDropDownP = this.DivisionPService.Find(this.LeadAssessment.CategoryID).then((function (response) {
+                        _this.DivisionDropDownP = _this.DivisionPService.GetDivisionDDP(response.data.Result);
+                    }));
+                    this.ProjectNameDD = this.ProjectNameService.FindProjectNameDD(this.UserID).then((function (response) {
+                        _this.ProjectNameDD = _this.ProjectNameService.GetProjectNameDD(response.data.Result);
+                    }));
+                    this.ProductDropDown = this.ProductService.Find(0).then((function (response) {
+                        _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
+                    }));
+                    var that = this;
+                    $("#txtProductDesc").autocomplete({
+                        //  source:['1a0','anjali','archana'],
+                        source: function (request, res) {
+                            that.ProductDescAutofill.FilterAutoComplete(request).then((function (response) {
+                                var data = that.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
+                                res($.map(data, function (item, index) {
+                                    return {
+                                        label: item.ProductDesc,
+                                        value: item.ProductDesc,
+                                        id: item.ProductID
+                                    };
+                                }));
+                            }));
+                        },
+                        minLength: 2,
+                        focus: function (event, ui) {
+                            event.preventDefault();
+                        },
+                        select: function (e, ui) {
+                            that.InsertItem.ProductID = ui.item.id;
+                        },
+                        change: function () {
+                        }
+                    });
                 };
+                CreateQuotationController.prototype.Division = function (data) {
+                    var _this = this;
+                    this.DivisionDropDownP = this.DivisionPService.Find(this.LeadAssessment.CategoryID).then((function (response) {
+                        _this.DivisionDropDownP = _this.DivisionPService.GetDivisionDDP(response.data.Result);
+                    }));
+                };
+                //Product(data: any): void {
+                //    this.ProductDropDown = this.ProductService.Find(this.InsertLeadChange.DivisionID).then((response => {
+                //        this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
+                //    }));
+                //}
                 CreateQuotationController.prototype.Model = function (data) {
                     var _this = this;
                     this.ModelDropDown = this.ModelService.Find(this.LeadAssessment.ProductID).then((function (response) {
                         _this.ModelDropDown = _this.ModelService.GetModelDD(response.data.Result);
                     }));
                 };
+                CreateQuotationController.prototype.LeadSource = function (data) {
+                    var _this = this;
+                    this.LeadSourcedd = this.LeadSourceDDService.Find(this.LeadAssessment.ChannelID).then((function (response) {
+                        _this.LeadSourcedd = _this.LeadSourceDDService.GetLeadSourceDetails(response.data.Result);
+                    }));
+                };
                 CreateQuotationController.prototype.EditItem = function (data) {
                     var _this = this;
                     console.log(data);
                     this.EditItemService.Find(data).then((function (response) {
-                        console.log(response);
                         _this.InsertItem = _this.EditItemService.GetItemEdit(response.data.Result);
+                        console.log("GetItemEdit", response.data.Result);
+                        _this.Model(_this.InsertItem.ProductID);
+                        _this.InsertItem.ModelID = _this.InsertItem.ModelID;
                         $("myModalAdd").show();
                     }));
                 };
@@ -189,100 +287,9 @@ var GCPL;
                         _this.CountryDropDown = _this.CountryddService.Find().then((function (response) {
                             _this.CountryDropDown = _this.CountryddService.GetCountryName(response.data.Result);
                         }));
-                        _this.StateDropDown = _this.StateService.Find(_this.InsertLeadChange.CountryID).then((function (response) {
-                            _this.StateDropDown = _this.StateService.GetStateName(response.data.Result);
-                        }));
-                        _this.DistrictDropDown = _this.DistrictService.Find(_this.InsertLeadChange.StateID).then((function (response) {
-                            _this.DistrictDropDown = _this.DistrictService.GetDistrictName(response.data.Result);
-                        }));
-                        _this.AddConCountryDropDown = _this.CountryddService.Find().then((function (response) {
-                            _this.AddConCountryDropDown = _this.CountryddService.GetCountryName(response.data.Result);
-                        }));
-                        _this.AddConStateDropDown = _this.StateService.Find(_this.InsertLeadChange.ContactCountryID).then((function (response) {
-                            _this.AddConStateDropDown = _this.StateService.GetStateName(response.data.Result);
-                        }));
-                        _this.AddConDistrictDropDown = _this.DistrictService.Find(_this.InsertLeadChange.ContactStateID).then((function (response) {
-                            _this.AddConDistrictDropDown = _this.DistrictService.GetDistrictName(response.data.Result);
-                        }));
-                        _this.DepartmentDropDown = _this.DepartmentService.Find().then((function (response) {
-                            _this.DepartmentDropDown = _this.DepartmentService.GetDepartmentName(response.data.Result);
-                        }));
-                        _this.DesignationDropDown = _this.DesignationService.Find().then((function (response) {
-                            _this.DesignationDropDown = _this.DesignationService.GetDesignationName(response.data.Result);
-                        }));
-                        _this.LeadStatusDropDown = _this.LeadStatusService.Find().then((function (response) {
-                            _this.LeadStatusDropDown = _this.LeadStatusService.GetLeadStatusName(response.data.Result);
-                        }));
-                        _this.LeadSalesOfficeDropDown = _this.SalesOfficeService.Find().then((function (response) {
-                            _this.LeadSalesOfficeDropDown = _this.SalesOfficeService.GetSalesOfficeName(response.data.Result);
-                        }));
-                        _this.LeadTypeDropDown = _this.LeadTypeService.Find().then((function (response) {
-                            _this.LeadTypeDropDown = _this.LeadTypeService.GetLeadTypeName(response.data.Result);
-                            _this.InsertItem.LeadType = "5";
-                        }));
-                        _this.LeadCategoryDropDown = _this.LeadCategoryService.Find().then((function (response) {
-                            _this.LeadCategoryDropDown = _this.LeadCategoryService.GetLeadCategoryName(response.data.Result);
-                        }));
-                        _this.ProjectNameDD = _this.ProjectNameService.FindProjectNameDD(_this.UserID).then((function (response) {
-                            _this.ProjectNameDD = _this.ProjectNameService.GetProjectNameDD(response.data.Result);
-                        }));
-                        _this.IndustryDivisionDropDown = _this.IndustryDivisionService.Find().then((function (response) {
-                            _this.IndustryDivisionDropDown = _this.IndustryDivisionService.GetIndustryName(response.data.Result);
-                        }));
-                        _this.IndustrialSegmentDropDown = _this.IndustrialSegmentService.Find().then((function (response) {
-                            _this.IndustrialSegmentDropDown = _this.IndustrialSegmentService.GetIndustrialSegmentName(response.data.Result);
-                        }));
-                        _this.PurchaseTimlinedd = _this.PurchaseTimlineDDService.Find().then((function (response) {
-                            _this.PurchaseTimlinedd = _this.PurchaseTimlineDDService.GetPurchaseTimeline(response.data.Result);
-                        }));
-                        _this.CategoryDropDown = _this.CategoryService.Find().then((function (response) {
-                            _this.CategoryDropDown = _this.CategoryService.GetCategoryName(response.data.Result);
-                        }));
-                        _this.DivisionDropDownP = _this.DivisionPService.Find(_this.LeadAssessment.CategoryID).then((function (response) {
-                            _this.DivisionDropDownP = _this.DivisionPService.GetDivisionDDP(response.data.Result);
-                        }));
-                        _this.ProductDropDown = _this.ProductService.Find(0).then((function (response) {
-                            _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
-                        }));
-                        _this.ChannelDD = _this.ChannelDDService.Find().then((function (response) {
-                            _this.ChannelDD = _this.ChannelDDService.GetChannelDDnew(response.data.Result);
-                        }));
-                        _this.LeadSourcedd = _this.LeadSourceDDService.Find(_this.LeadAssessment.ChannelID).then((function (response) {
-                            _this.LeadSourcedd = _this.LeadSourceDDService.GetLeadSourceDetails(response.data.Result);
-                        }));
-                        //this.LeadStatusOpenDD = this.LeadStatusForOpenDDService.Find(this.LeadID).then((response => {
-                        //    this.LeadStatusOpenDD = this.LeadStatusForOpenDDService.GetLeadOpen(response.data.Result);             
+                        //this.StateDropDown = this.StateService.Find(this.InsertLeadChange.CountryID).then((response => {
+                        //        this.StateDropDown = this.StateService.GetStateName(response.data.Result);
                         //}));
-                        //var reason = this.InsertLeadChange.LeadOpenReason
-                        //this.LeadOpenReasonDD = this.ReasonForLeadOpenDDService.Find().then((response => {
-                        //    this.LeadOpenReasonDD = this.ReasonForLeadOpenDDService.GetReason(response.data.Result);
-                        //    this.InsertLeadChange.LeadOpenReason = reason;
-                        //}));
-                        var that = _this;
-                        $("#txtProductDesc").autocomplete({
-                            //  source:['1a0','anjali','archana'],
-                            source: function (request, res) {
-                                that.ProductDescAutofill.FilterAutoComplete(request).then((function (response) {
-                                    var data = that.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
-                                    res($.map(data, function (item, index) {
-                                        return {
-                                            label: item.ProductDesc,
-                                            value: item.ProductDesc,
-                                            id: item.ProductID
-                                        };
-                                    }));
-                                }));
-                            },
-                            minLength: 2,
-                            focus: function (event, ui) {
-                                event.preventDefault();
-                            },
-                            select: function (e, ui) {
-                                that.InsertItem.ProductID = ui.item.id;
-                            },
-                            change: function () {
-                            }
-                        });
                         if (_this.InsertLeadChange.LeadStatusID == "8" || _this.InsertLeadChange.LeadStatusID == "9") {
                             $("#txtstatus").prop("disabled", false);
                         }
@@ -375,51 +382,6 @@ var GCPL;
                         //$('#txtCommnets').val(this.InsertLeadChange.Comments);
                     }));
                 };
-                //Edit(data: any): void {
-                //    this.SOSService.Find(data).then((response => {
-                //        this.ViewSOS = this.SOSService.GetSOS(response.data.Result);
-                //        this.InsertQuotation.StdConfiguration = this.ViewSOS.StdConfiguration;
-                //        this.InsertQuotation.Price = this.ViewSOS.Price;
-                //        this.InsertQuotation.Quantity = this.ViewSOS.Quantity;
-                //        this.InsertQuotation.GSTRate = this.ViewSOS.GSTRate;
-                //        this.InsertQuotation.ModelID = this.ViewSOS.ModelID;
-                //        this.InsertQuotation.ModelDescription = this.ViewSOS.ModelDescription;
-                //        this.Accessory1DropDown = this.Accessory1Service.Find(this.InsertQuotation.ModelID).then((response => {
-                //            this.Accessory1DropDown = this.Accessory1Service.GetAccessoryName(response.data.Result);
-                //        }));
-                //        this.Accessory2DropDown = this.Accessory2Service.Find(this.InsertQuotation.ModelID).then((response => {
-                //            this.Accessory2DropDown = this.Accessory2Service.GetAccessoryName(response.data.Result);
-                //        }));
-                //        this.Accessory3DropDown = this.Accessory3Service.Find(this.InsertQuotation.ModelID).then((response => {
-                //            this.Accessory3DropDown = this.Accessory3Service.GetAccessoryName(response.data.Result);
-                //        }));
-                //        this.Accessory4DropDown = this.Accessory4Service.Find(this.InsertQuotation.ModelID).then((response => {
-                //            this.Accessory4DropDown = this.Accessory4Service.GetAccessoryName(response.data.Result);
-                //        }));
-                //        this.Accessory5DropDown = this.Accessory5Service.Find(this.InsertQuotation.ModelID).then((response => {
-                //            this.Accessory5DropDown = this.Accessory5Service.GetAccessoryName(response.data.Result);
-                //        }));
-                //        this.Accessory6DropDown = this.Accessory6Service.Find(this.InsertQuotation.ModelID).then((response => {
-                //            this.Accessory6DropDown = this.Accessory6Service.GetAccessoryName(response.data.Result);
-                //        }));
-                //    }));
-                //    this.COLService.Find(data).then((response => {
-                //        this.ViewCOL = this.COLService.GetCL(response.data.Result);
-                //        this.InsertQuotation.QuoteRange = this.ViewCOL.QuoteRange;
-                //    }));
-                //    this.PFService.Find(data).then((response => {
-                //        this.ViewPF = this.PFService.GetPF(response.data.Result);
-                //    }));
-                //    this.TCService.Find().then((response => {
-                //        this.ViewTC = this.TCService.GetTC(response.data.Result);
-                //    }));
-                //    this.OfferService.Find().then((response => {
-                //        this.ViewOffer = this.OfferService.GetOffer(response.data.Result);
-                //    }));
-                //    this.CapabilityService.Find().then((response => {
-                //        this.ViewCapability = this.CapabilityService.GetCapability(response.data.Result);
-                //    }));
-                //}
                 CreateQuotationController.prototype.FillGridItems = function () {
                     var _this = this;
                     this.LeadItemlist = this.ListItemservice.Find(this.LeadID).then((function (response) {
@@ -439,18 +401,13 @@ var GCPL;
                 };
                 CreateQuotationController.prototype.CheckPrice = function () {
                     var _this = this;
-                    this.InsertQuotation.TotalPrice = null;
-                    this.InsertQuotation.TotalTax = null;
-                    this.TotalPriceModel.Price = this.InsertQuotation.Price;
-                    this.TotalPriceModel.Quantity = this.InsertQuotation.Quantity;
-                    this.TotalPriceModel.GSTRate = this.InsertQuotation.GSTRate;
-                    this.Total = this.TotalPriceCalService.FindChange(this.TotalPriceModel).then((function (response) {
+                    this.InsertItem.MRPUnit = this.InsertItem.MRPUnit;
+                    this.InsertItem.Quantity = this.InsertItem.Quantity;
+                    this.InsertItem.GST = this.InsertItem.GST;
+                    this.InsertItem.Discount = this.InsertItem.Discount;
+                    this.Total = this.TotalPriceCalService.FindChange(this.InsertItem).then((function (response) {
                         _this.Total = _this.TotalPriceCalService.GetTotalPriceChange(response.data.Result);
-                        //this.TotalPriceModel.Price = this.Total.Price;
-                        _this.InsertQuotation.TotalPrice = _this.Total.TotalPrice;
-                        _this.InsertQuotation.TotalTax = _this.Total.TotalTax;
-                        //this.TotalPriceModel.Quantity = this.Total.Quantity;
-                        // this.TotalPriceModel.ConvertedGST = this.Total.ConvertedGST;
+                        console.log("GetTotalPriceChange", response.data.Result);
                     }));
                 };
                 CreateQuotationController.prototype.SubmitItem = function () {
@@ -595,7 +552,7 @@ var GCPL;
                     "Option6Service", "Configuration1DDService", "Configuration2DDService", "ScopeofSupplyService", "CoveringLetterInfoService",
                     "ProductFeaturesInfoService", "TermsConditionInfoService", "OfferingInfoService", "CapabilitiesInfoService", "TotalPriceService",
                     "InsertQuotationService", "$location", "$cookieStore", "LeadChangeEditService", "LeadItemListService", "EditItemList", "InsertItemDetailsService",
-                    "CountryddService", "StateService", "DistrictService", "DepartmentService", "DesignationService", "LeadStatusddService", "SalesOfficeService", "LeadTypeddService",
+                    "CountryddService", "DistrictService", "DepartmentService", "DesignationService", "LeadStatusddService", "SalesOfficeService", "LeadTypeddService",
                     "LeadCategoryDDService", "ProjectNameService", "IndustryDivisionService", "IndustrialSegmentService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService",
                     "ProductddService", "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "ProductDescAutoFillService"];
                 return CreateQuotationController;

@@ -1,4 +1,4 @@
-﻿namespace GCPL.Component.Home {
+﻿﻿namespace GCPL.Component.Home {
 
     import app = GCPL.app;
     import Service = GCPL.Service;
@@ -10,7 +10,8 @@
     import OfferList = GCPL.Model.OfferModel;
     import Capabilities = GCPL.Model.CapabilityModel;
     import GSTCalculation = GCPL.Model.TotalPriceModel;
-    import LeadChangeInsert = GCPL.Model.UpdateLeadChangeModel;
+     import LeadChangeInsert = GCPL.Model.UpdateLeadChangeModel;
+     import LeadItem = GCPL.Model.LeadItemCreateModel;
 
 
 
@@ -59,10 +60,12 @@
         ViewPF: ProductFeatures;
         ViewTC: TermsConditions;
         ViewOffer: OfferList;
+        InsertItem: LeadItem;
         ViewCapability: Capabilities;
         TotalPriceModel: GSTCalculation;
         Submit(): void;
         Edit(data: any): void;
+        EditItem(data: any): void;
         QuotationID: any;
         GetOption1(): void;
         LeadID: any;
@@ -166,7 +169,7 @@
         private EditItemService: Service.IEditItemList;
         private InsertItemAssessment: Service.IInsertItemDetailsService;
         private CountryddService: Service.ICountryddService;
-        private StateService: Service.IStateService;
+        /*private StateService: Service.IStateService;*/
         private DistrictService: Service.IDistrictService;
         private DepartmentService: Service.IDepartmentService;
         private DesignationService: Service.IDesignationService;
@@ -193,7 +196,7 @@
             "Option6Service", "Configuration1DDService", "Configuration2DDService", "ScopeofSupplyService", "CoveringLetterInfoService",
             "ProductFeaturesInfoService", "TermsConditionInfoService", "OfferingInfoService", "CapabilitiesInfoService", "TotalPriceService",
             "InsertQuotationService", "$location", "$cookieStore", "LeadChangeEditService", "LeadItemListService", "EditItemList", "InsertItemDetailsService",
-            "CountryddService", "StateService", "DistrictService", "DepartmentService", "DesignationService", "LeadStatusddService", "SalesOfficeService", "LeadTypeddService",
+            "CountryddService", "DistrictService", "DepartmentService", "DesignationService", "LeadStatusddService", "SalesOfficeService", "LeadTypeddService",
             "LeadCategoryDDService", "ProjectNameService", "IndustryDivisionService", "IndustrialSegmentService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService",
             "ProductddService", "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "ProductDescAutoFillService"];
 
@@ -212,7 +215,7 @@
             _OfferService: Service.IOfferingInfoService, _CapabilityService: Service.ICapabilitiesInfoService,
             _TotalPriceCalService: Service.ITotalPriceService, _InsertService: Service.IInsertQuotationService,
             private $location: ng.ILocationService, private _cookieStore: any, _EditService: Service.ILeadChangeEditService, _LeadItemListService: Service.ILeadItemListService,
-            _EditItemList: Service.IEditItemList, _InsertItemAssessment: Service.IInsertItemDetailsService, _CountryddService: Service.ICountryddService, _StateService: Service.IStateService,
+            _EditItemList: Service.IEditItemList, _InsertItemAssessment: Service.IInsertItemDetailsService, _CountryddService: Service.ICountryddService,
             _DistrictService: Service.IDistrictService, _DepartmentService: Service.IDepartmentService, _DesignationService: Service.IDesignationService, _LeadStatusService: Service.ILeadStatusddService, 
             _SalesOfficeService: Service.ISalesOfficeService, _LeadTypeService: Service.ILeadTypeddService, _LeadCategoryService: Service.ILeadCategoryDDService, _ProjectNameService: Service.IProjectNameService,
             _IndustryDivisionService: Service.IIndustryDivisionService, _IndustrialSegmentService: Service.IIndustrialSegmentService, _PurchaseTimlineDDService: Service.IPurchaseTimelineService, _CategoryService: Service.ICategoryddService,
@@ -248,10 +251,12 @@
             this.TotalPriceModel = new GSTCalculation();
             this.OpportunitySAPNo = $location.search().OpportunitySAPNo;
             this.QuotationRefernce = $location.search().QuotationRefernce;
+            this.ModelID = $location.search().Model;
+            this.ProductID = $location.search().Product;
             this.InsertService = _InsertService;
             this.InsertItemAssessment = _InsertItemAssessment;
             this.CountryddService = _CountryddService;
-            this.StateService = _StateService;
+            /*this.StateService = _StateService;*/
             this.DistrictService = _DistrictService;
             this.DepartmentService = _DepartmentService;
             this.DesignationService = _DesignationService;
@@ -284,11 +289,12 @@
 
 
         $onInit() {
-            let that = this;
-            this.Init();
+            
+            
             $("#errorclose").hide();
             $('#search-btn-loader').hide();
             $("#close").hide();
+            
 
             var splTab = document.getElementsByClassName("spl-tab");
 
@@ -298,6 +304,7 @@
                 })
             }
 
+            this.Init();
 
 
         }
@@ -306,7 +313,18 @@
         }
         //Page Load Define Values//
         Init(): void {
-
+            $("#errorclose").hide();
+            $("#txtDays").hide();
+            $("#ee-date").hide();
+            $("#txtAllocated").hide();
+            $("#txtDays2").hide();
+            $("#close").hide();
+            $('#Campaignfield').hide();
+            $('#UserNamefield').hide();
+            $("#txtAllocated1").hide();
+            $("#ass-btn-loader").hide();
+            $("#act-btn-loader").hide();
+            $("#txtDisqual").hide();
 
             if (this.LeadID != undefined || this.LeadID != null || this.LeadID != "") {
                 this.Edit(this.LeadID);
@@ -314,12 +332,123 @@
                 this.FillGridItems();
 
             }
+            this.LeadStatusDropDown = this.LeadStatusService.Find().then((response => {
+                this.LeadStatusDropDown = this.LeadStatusService.GetLeadStatusName(response.data.Result);
+
+            }));
+
+            this.IndustryDivisionDropDown = this.IndustryDivisionService.Find().then((response => {
+                this.IndustryDivisionDropDown = this.IndustryDivisionService.GetIndustryName(response.data.Result);
+
+            }));
+
+            this.IndustrialSegmentDropDown = this.IndustrialSegmentService.Find().then((response => {
+                this.IndustrialSegmentDropDown = this.IndustrialSegmentService.GetIndustrialSegmentName(response.data.Result);
+
+            }));
+            this.LeadSalesOfficeDropDown = this.SalesOfficeService.Find().then((response => {
+                this.LeadSalesOfficeDropDown = this.SalesOfficeService.GetSalesOfficeName(response.data.Result);
+            }));
+
+            this.LeadTypeDropDown = this.LeadTypeService.Find().then((response => {
+                this.LeadTypeDropDown = this.LeadTypeService.GetLeadTypeName(response.data.Result);
+                this.InsertItem.LeadType = "5";
+            }));
+
+            this.LeadCategoryDropDown = this.LeadCategoryService.Find().then((response => {
+                this.LeadCategoryDropDown = this.LeadCategoryService.GetLeadCategoryName(response.data.Result);
+
+            }));
+
+            //this.SalesAreaDropDown = this.SalesAreaService.Find().then((response => {
+            //    this.SalesAreaDropDown = this.SalesAreaService.GetSalesAreaName(response.data.Result);
+            //}));
+
+            this.PurchaseTimlinedd = this.PurchaseTimlineDDService.Find().then((response => {
+                this.PurchaseTimlinedd = this.PurchaseTimlineDDService.GetPurchaseTimeline(response.data.Result);
+            }));
+
+            this.CategoryDropDown = this.CategoryService.Find().then((response => {
+                this.CategoryDropDown = this.CategoryService.GetCategoryName(response.data.Result);
+            }));
+
+            this.ChannelDD = this.ChannelDDService.Find().then((response => {
+                this.ChannelDD = this.ChannelDDService.GetChannelDDnew(response.data.Result);
+            }));
+
+            this.DivisionDropDownP = this.DivisionPService.Find(this.LeadAssessment.CategoryID).then((response => {
+                this.DivisionDropDownP = this.DivisionPService.GetDivisionDDP(response.data.Result);
+
+            }));
+
+
+           
+            this.ProjectNameDD = this.ProjectNameService.FindProjectNameDD(this.UserID).then((response => {
+                this.ProjectNameDD = this.ProjectNameService.GetProjectNameDD(response.data.Result);
+            }));
+            
+
+            this.ProductDropDown = this.ProductService.Find(0).then((response => {
+                this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
+
+            }));
+            let that = this;
+            $("#txtProductDesc").autocomplete({
+                //  source:['1a0','anjali','archana'],
+                source: function (request, res) {
+                    that.ProductDescAutofill.FilterAutoComplete(request).then((response => {
+
+                        let data = that.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
+                        res($.map(data, function (item, index) {
+                            return {
+                                label: item.ProductDesc,
+                                value: item.ProductDesc,
+                                id: item.ProductID
+
+                            }
+                        }));
+                    }));
+
+                },
+                minLength: 2,
+                focus: (event, ui) => {
+
+                    event.preventDefault();
+                },
+                select: function (e, ui) {
+                    that.InsertItem.ProductID = ui.item.id;
+                },
+                change: function () {
+
+                }
+            });
            
         }
+
+        Division(data: any): void {
+
+            this.DivisionDropDownP = this.DivisionPService.Find(this.LeadAssessment.CategoryID).then((response => {
+                this.DivisionDropDownP = this.DivisionPService.GetDivisionDDP(response.data.Result);
+
+            }));
+        }
+        //Product(data: any): void {
+
+        //    this.ProductDropDown = this.ProductService.Find(this.InsertLeadChange.DivisionID).then((response => {
+        //        this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
+
+        //    }));
+        //}
 
         Model(data: any): void {
             this.ModelDropDown = this.ModelService.Find(this.LeadAssessment.ProductID).then((response => {
                 this.ModelDropDown = this.ModelService.GetModelDD(response.data.Result);
+            }));
+        }
+        LeadSource(data: any): void {
+
+            this.LeadSourcedd = this.LeadSourceDDService.Find(this.LeadAssessment.ChannelID).then((response => {
+                this.LeadSourcedd = this.LeadSourceDDService.GetLeadSourceDetails(response.data.Result);
             }));
         }
 
@@ -328,9 +457,11 @@
 
 
             this.EditItemService.Find(data).then((response => {
-                console.log(response);
 
                 this.InsertItem = this.EditItemService.GetItemEdit(response.data.Result);
+                console.log("GetItemEdit", response.data.Result);
+                this.Model(this.InsertItem.ProductID);
+                this.InsertItem.ModelID = this.InsertItem.ModelID;
 
 
 
@@ -357,117 +488,11 @@
                 }));
 
               
-                this.StateDropDown = this.StateService.Find(this.InsertLeadChange.CountryID).then((response => {
-                        this.StateDropDown = this.StateService.GetStateName(response.data.Result);
-                }));
+                //this.StateDropDown = this.StateService.Find(this.InsertLeadChange.CountryID).then((response => {
+                //        this.StateDropDown = this.StateService.GetStateName(response.data.Result);
+                //}));
 
-                this.DistrictDropDown = this.DistrictService.Find(this.InsertLeadChange.StateID).then((response => {
-                    this.DistrictDropDown = this.DistrictService.GetDistrictName(response.data.Result);
-                }));
-
-                this.AddConCountryDropDown = this.CountryddService.Find().then((response => {
-                    this.AddConCountryDropDown = this.CountryddService.GetCountryName(response.data.Result);
-                }));
-
-                this.AddConStateDropDown = this.StateService.Find(this.InsertLeadChange.ContactCountryID).then((response => {
-                    this.AddConStateDropDown = this.StateService.GetStateName(response.data.Result);
-                }));
-                this.AddConDistrictDropDown = this.DistrictService.Find(this.InsertLeadChange.ContactStateID).then((response => {
-                    this.AddConDistrictDropDown = this.DistrictService.GetDistrictName(response.data.Result);
-                }));
-
-                this.DepartmentDropDown = this.DepartmentService.Find().then((response => {
-                    this.DepartmentDropDown = this.DepartmentService.GetDepartmentName(response.data.Result);
-                }));
-                this.DesignationDropDown = this.DesignationService.Find().then((response => {
-                    this.DesignationDropDown = this.DesignationService.GetDesignationName(response.data.Result);
-                }));
-
-                this.LeadStatusDropDown = this.LeadStatusService.Find().then((response => {
-                    this.LeadStatusDropDown = this.LeadStatusService.GetLeadStatusName(response.data.Result);
-
-                }));
-                this.LeadSalesOfficeDropDown = this.SalesOfficeService.Find().then((response => {
-                    this.LeadSalesOfficeDropDown = this.SalesOfficeService.GetSalesOfficeName(response.data.Result);
-                }));
-                this.LeadTypeDropDown = this.LeadTypeService.Find().then((response => {
-                    this.LeadTypeDropDown = this.LeadTypeService.GetLeadTypeName(response.data.Result);
-                    this.InsertItem.LeadType = "5";
-                }));
-                this.LeadCategoryDropDown = this.LeadCategoryService.Find().then((response => {
-                    this.LeadCategoryDropDown = this.LeadCategoryService.GetLeadCategoryName(response.data.Result);
-
-                }));
-                this.ProjectNameDD = this.ProjectNameService.FindProjectNameDD(this.UserID).then((response => {
-                    this.ProjectNameDD = this.ProjectNameService.GetProjectNameDD(response.data.Result);
-                }));
-                this.IndustryDivisionDropDown = this.IndustryDivisionService.Find().then((response => {
-                    this.IndustryDivisionDropDown = this.IndustryDivisionService.GetIndustryName(response.data.Result);
-
-                }));
-                this.IndustrialSegmentDropDown = this.IndustrialSegmentService.Find().then((response => {
-                    this.IndustrialSegmentDropDown = this.IndustrialSegmentService.GetIndustrialSegmentName(response.data.Result);
-
-                }));
-                this.PurchaseTimlinedd = this.PurchaseTimlineDDService.Find().then((response => {
-                    this.PurchaseTimlinedd = this.PurchaseTimlineDDService.GetPurchaseTimeline(response.data.Result);
-                }));
-                this.CategoryDropDown = this.CategoryService.Find().then((response => {
-                    this.CategoryDropDown = this.CategoryService.GetCategoryName(response.data.Result);
-                }));
-                this.DivisionDropDownP = this.DivisionPService.Find(this.LeadAssessment.CategoryID).then((response => {
-                    this.DivisionDropDownP = this.DivisionPService.GetDivisionDDP(response.data.Result);
-
-                }));
-                this.ProductDropDown = this.ProductService.Find(0).then((response => {
-                    this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
-
-                }));
                 
-                this.ChannelDD = this.ChannelDDService.Find().then((response => {
-                    this.ChannelDD = this.ChannelDDService.GetChannelDDnew(response.data.Result);
-                }));
-                this.LeadSourcedd = this.LeadSourceDDService.Find(this.LeadAssessment.ChannelID).then((response => {
-                    this.LeadSourcedd = this.LeadSourceDDService.GetLeadSourceDetails(response.data.Result);
-                }));
-                //this.LeadStatusOpenDD = this.LeadStatusForOpenDDService.Find(this.LeadID).then((response => {
-                //    this.LeadStatusOpenDD = this.LeadStatusForOpenDDService.GetLeadOpen(response.data.Result);             
-                //}));
-                //var reason = this.InsertLeadChange.LeadOpenReason
-                //this.LeadOpenReasonDD = this.ReasonForLeadOpenDDService.Find().then((response => {
-                //    this.LeadOpenReasonDD = this.ReasonForLeadOpenDDService.GetReason(response.data.Result);
-                //    this.InsertLeadChange.LeadOpenReason = reason;
-                //}));
-                let that = this;
-                $("#txtProductDesc").autocomplete({
-                    //  source:['1a0','anjali','archana'],
-                    source: function (request, res) {
-                        that.ProductDescAutofill.FilterAutoComplete(request).then((response => {
-
-                            let data = that.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
-                            res($.map(data, function (item, index) {
-                                return {
-                                    label: item.ProductDesc,
-                                    value: item.ProductDesc,
-                                    id: item.ProductID
-
-                                }
-                            }));
-                        }));
-
-                    },
-                    minLength: 2,
-                    focus: (event, ui) => {
-
-                        event.preventDefault();
-                    },
-                    select: function (e, ui) {
-                        that.InsertItem.ProductID = ui.item.id;
-                    },
-                    change: function () {
-
-                    }
-                });
 
                 if (this.InsertLeadChange.LeadStatusID == "8" || this.InsertLeadChange.LeadStatusID == "9") {
                     $("#txtstatus").prop("disabled", false);
@@ -579,64 +604,7 @@
 
             }));
         }
-        //Edit(data: any): void {
-
-        //    this.SOSService.Find(data).then((response => {
-        //        this.ViewSOS = this.SOSService.GetSOS(response.data.Result);
-
-        //        this.InsertQuotation.StdConfiguration = this.ViewSOS.StdConfiguration;
-        //        this.InsertQuotation.Price = this.ViewSOS.Price;
-        //        this.InsertQuotation.Quantity = this.ViewSOS.Quantity;
-        //        this.InsertQuotation.GSTRate = this.ViewSOS.GSTRate;
-        //        this.InsertQuotation.ModelID = this.ViewSOS.ModelID;
-        //        this.InsertQuotation.ModelDescription = this.ViewSOS.ModelDescription;
-        //        this.Accessory1DropDown = this.Accessory1Service.Find(this.InsertQuotation.ModelID).then((response => {
-        //            this.Accessory1DropDown = this.Accessory1Service.GetAccessoryName(response.data.Result);
-
-        //        }));
-        //        this.Accessory2DropDown = this.Accessory2Service.Find(this.InsertQuotation.ModelID).then((response => {
-        //            this.Accessory2DropDown = this.Accessory2Service.GetAccessoryName(response.data.Result);
-
-        //        }));
-        //        this.Accessory3DropDown = this.Accessory3Service.Find(this.InsertQuotation.ModelID).then((response => {
-        //            this.Accessory3DropDown = this.Accessory3Service.GetAccessoryName(response.data.Result);
-
-        //        }));
-        //        this.Accessory4DropDown = this.Accessory4Service.Find(this.InsertQuotation.ModelID).then((response => {
-        //            this.Accessory4DropDown = this.Accessory4Service.GetAccessoryName(response.data.Result);
-
-        //        }));
-        //        this.Accessory5DropDown = this.Accessory5Service.Find(this.InsertQuotation.ModelID).then((response => {
-        //            this.Accessory5DropDown = this.Accessory5Service.GetAccessoryName(response.data.Result);
-
-        //        }));
-        //        this.Accessory6DropDown = this.Accessory6Service.Find(this.InsertQuotation.ModelID).then((response => {
-        //            this.Accessory6DropDown = this.Accessory6Service.GetAccessoryName(response.data.Result);
-
-        //        }));
-
-        //    }));
-
-        //    this.COLService.Find(data).then((response => {
-        //        this.ViewCOL = this.COLService.GetCL(response.data.Result);
-        //        this.InsertQuotation.QuoteRange = this.ViewCOL.QuoteRange;
-
-
-        //    }));
-        //    this.PFService.Find(data).then((response => {
-        //        this.ViewPF = this.PFService.GetPF(response.data.Result);
-
-        //    }));
-        //    this.TCService.Find().then((response => {
-        //        this.ViewTC = this.TCService.GetTC(response.data.Result);
-        //    }));
-        //    this.OfferService.Find().then((response => {
-        //        this.ViewOffer = this.OfferService.GetOffer(response.data.Result);
-        //    }));
-        //    this.CapabilityService.Find().then((response => {
-        //        this.ViewCapability = this.CapabilityService.GetCapability(response.data.Result);
-        //    }));
-        //}
+        
 
         FillGridItems(): void {
 
@@ -660,20 +628,16 @@
 
         CheckPrice(): void {
 
-            this.InsertQuotation.TotalPrice = null;
-            this.InsertQuotation.TotalTax = null;
-            this.TotalPriceModel.Price = this.InsertQuotation.Price;
-            this.TotalPriceModel.Quantity = this.InsertQuotation.Quantity;
-            this.TotalPriceModel.GSTRate = this.InsertQuotation.GSTRate;
-            this.Total = this.TotalPriceCalService.FindChange(this.TotalPriceModel).then((response => {
+            
+            this.InsertItem.MRPUnit = this.InsertItem.MRPUnit;
+            this.InsertItem.Quantity = this.InsertItem.Quantity;
+            this.InsertItem.GST = this.InsertItem.GST;
+            this.InsertItem.Discount = this.InsertItem.Discount;
+            this.Total = this.TotalPriceCalService.FindChange(this.InsertItem).then((response => {
                 this.Total = this.TotalPriceCalService.GetTotalPriceChange(response.data.Result);
 
 
-                //this.TotalPriceModel.Price = this.Total.Price;
-                this.InsertQuotation.TotalPrice = this.Total.TotalPrice;
-                this.InsertQuotation.TotalTax = this.Total.TotalTax;
-                //this.TotalPriceModel.Quantity = this.Total.Quantity;
-                // this.TotalPriceModel.ConvertedGST = this.Total.ConvertedGST;
+                console.log("GetTotalPriceChange",response.data.Result)
 
 
             }));

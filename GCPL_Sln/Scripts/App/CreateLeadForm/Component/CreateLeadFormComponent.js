@@ -448,7 +448,10 @@ var GCPL;
                                 "ChannelID": this.InsertLead.ChannelID,
                                 "ChannelName": this.InsertLead.ChannelID == "" ? "" : $("#txtChannel option:selected").text(),
                                 "LeadSourceID": this.InsertLead.LeadSourceID,
+                                "LeadCategoryID": this.InsertLead.LeadCategoryID,
+                                "UserID": this.UserID,
                                 "LeadSourceName": this.InsertLead.LeadSourceID == "" ? "" : $("#ddlleadsource option:selected").text(),
+                                "Comments": this.InsertLead.Comments == "" ? "" : $("#Comments option:selected").text(),
                             });
                             console.log(this.InsertToCart);
                             this.TotalItemList = this.InsertToCart;
@@ -582,10 +585,10 @@ var GCPL;
                         this.HideShow();
                         this.popupMessage("Please Select LeadSource", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                     }
-                    else if (this.InsertLead.LeadSourceID == "2" && (this.InsertLead.RefUserID == undefined || this.InsertLead.RefUserID == null || this.InsertLead.RefUserID == "")) {
-                        this.HideShow();
-                        this.popupMessage("Please Enter Ref User Name", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                    }
+                    //else if (this.InsertLead.LeadSourceID == "2" && (this.InsertLead.RefUserID == undefined || this.InsertLead.RefUserID == null || this.InsertLead.RefUserID == "")) {
+                    //    this.HideShow();
+                    //    this.popupMessage("Please Enter Ref User Name", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    //}
                     else if ((this.InsertLead.LeadSourceID == "10" || this.InsertLead.LeadSourceID == "24") && (this.InsertLead.CampaignID == undefined || this.InsertLead.CampaignID == null || this.InsertLead.CampaignID == "")) {
                         this.HideShow();
                         this.popupMessage("Please Select Campaign", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
@@ -616,7 +619,7 @@ var GCPL;
                             this.InsertLead.StateID = this.InsertCust.StateID;
                             this.InsertLead.DistrictID = this.InsertCust.DistrictID;
                             this.InsertLead.City = this.InsertCust.City;
-                            this.InsertLead.LeadStatusID = this.InsertCust.LeadStatusID;
+                            //this.InsertLead.LeadStatusID = this.InsertCust.LeadStatusID;
                             this.InsertLead.IndustryDivisionID = this.InsertCust.IndustryDivisionID;
                             this.InsertLead.IndustrialSegmentID = this.InsertCust.IndustrialSegmentID;
                             this.InsertLead.CustomerRatingID = this.InsertCust.CustomerRatingID;

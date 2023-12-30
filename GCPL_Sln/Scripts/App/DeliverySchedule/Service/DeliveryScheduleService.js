@@ -69,7 +69,7 @@ var GCPL;
                 var config = {
                     params: {
                         // UserID: this.Cookie.get('UserInfo')['UserID'],
-                        LeadID: data
+                        ItemID: data
                     }
                 };
                 return this.ajaXUtility.Get({
@@ -85,11 +85,13 @@ var GCPL;
                         ID: item.ID,
                         ItemID: item.ItemID,
                         ProductID: item.ProductID,
+                        ProductCode: item.ProductCode,
                         ProductDesc: item.ProductDesc,
                         UserID: item.UserID,
                         LeadID: item.LeadID,
                         DeliveryDate: item.DeliveryDate,
-                        DeliveryQty: item.DeliveryQty
+                        DeliveryQty: item.DeliveryQty,
+                        EditState: item.EditState
                     });
                 }
                 return list;
@@ -169,6 +171,158 @@ var GCPL;
         }(GCPL.Service.BaseService));
         Service.InsertDsDetailsService = InsertDsDetailsService;
         app.AddService("InsertDsDetailsService", InsertDsDetailsService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var model = GCPL.Model;
+        var EditDSListService = /** @class */ (function (_super) {
+            __extends(EditDSListService, _super);
+            function EditDSListService($http, $q) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this.apiUrl = "";
+                _this.apiUrl = _this.url + "/" + "DSListEdit";
+                return _this;
+            }
+            EditDSListService.prototype.Find = function (data) {
+                var ID;
+                if (data == undefined) {
+                    ID = "";
+                }
+                else {
+                    ID = data;
+                }
+                var config = {
+                    params: {
+                        ID: ID
+                    }
+                };
+                console.log(config);
+                return this.ajaXUtility.Get({
+                    Url: this.apiUrl,
+                    Config: config
+                });
+            };
+            EditDSListService.prototype.GetDSEdit = function (data) {
+                var obj = new model.DeliveryScheduleModel();
+                obj.ID = data.ID,
+                    obj.ItemID = data.ItemID,
+                    obj.ProductID = data.ProductID,
+                    obj.ProductCode = data.ProductCode,
+                    obj.ProductDesc = data.ProductDesc,
+                    obj.UserID = data.UserID,
+                    obj.LeadID = data.LeadID,
+                    obj.DeliveryDate = data.DeliveryDate,
+                    obj.DeliveryQty = data.DeliveryQty;
+                obj.EditState = data.EditState;
+                console.log("EditDSListService", obj);
+                return obj;
+            };
+            EditDSListService.$inject = ["$http", "$q"];
+            return EditDSListService;
+        }(GCPL.Service.BaseService));
+        Service.EditDSListService = EditDSListService;
+        app.AddService("EditDSListService", EditDSListService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var LeadItemNewDSListService = /** @class */ (function (_super) {
+            __extends(LeadItemNewDSListService, _super);
+            function LeadItemNewDSListService($http, $q, _cookieStore) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this._cookieStore = _cookieStore;
+                _this.apiUrl = "";
+                _this.Cookie = null;
+                _this.apiUrl = "" + _this.url;
+                _this.Cookie = _cookieStore;
+                return _this;
+            }
+            LeadItemNewDSListService.prototype.Find = function (data) {
+                var url = this.apiUrl + "/ItemListNewDS";
+                var config = {
+                    params: {
+                        // UserID: this.Cookie.get('UserInfo')['UserID'],
+                        LeadID: data
+                    }
+                };
+                return this.ajaXUtility.Get({
+                    Url: url,
+                    Config: config
+                });
+            };
+            LeadItemNewDSListService.prototype.GetLeadItemNewDSList = function (data) {
+                var list = Array();
+                for (var _i = 0, data_2 = data; _i < data_2.length; _i++) {
+                    var item = data_2[_i];
+                    list.push({
+                        LeadID: item.LeadID,
+                        ItemID: item.ItemID,
+                        ProductDesc: item.ProductDesc,
+                        Quantity: item.Quantity,
+                        Status: item.Status,
+                        ModelID: item.ModelID,
+                        ItemStatus: item.ItemStatus,
+                        ItemCode: item.ProductCode,
+                        MRPUnit: item.MRPUnit,
+                        GST: item.GST,
+                        NetAmount: item.NetAmount,
+                        DeliveryStatus: item.DeliveryStatus
+                    });
+                }
+                return list;
+            };
+            LeadItemNewDSListService.$inject = ["$http", "$q", "$cookieStore"];
+            return LeadItemNewDSListService;
+        }(GCPL.Service.BaseService));
+        Service.LeadItemNewDSListService = LeadItemNewDSListService;
+        app.AddService("LeadItemNewDSListService", LeadItemNewDSListService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var DeleteDSItemService = /** @class */ (function (_super) {
+            __extends(DeleteDSItemService, _super);
+            function DeleteDSItemService($http, $q) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this.apiUrl = "";
+                _this.apiUrl = _this.url + "/" + "DeleteDSItem";
+                return _this;
+            }
+            DeleteDSItemService.prototype.Find = function (data) {
+                var config = {
+                    params: {
+                        ItemID: data
+                    }
+                };
+                return this.ajaXUtility.Post({
+                    Url: this.apiUrl,
+                    data: data,
+                    Config: config
+                });
+            };
+            DeleteDSItemService.prototype.postDSItemDelete = function (data) {
+                var url = this.apiUrl;
+                this.$http.post(url, data).then(function (response) {
+                });
+            };
+            DeleteDSItemService.$inject = ["$http", "$q"];
+            return DeleteDSItemService;
+        }(GCPL.Service.BaseService));
+        Service.DeleteDSItemService = DeleteDSItemService;
+        app.AddService("DeleteDSItemService", DeleteDSItemService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
 //# sourceMappingURL=DeliveryScheduleService.js.map

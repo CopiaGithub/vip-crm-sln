@@ -1046,7 +1046,7 @@ var GCPL;
                 return _this;
             }
             TotalPriceService.prototype.FindChange = function (TotalPriceModel) {
-                var url = this.url + "/" + "GetTotalPrice";
+                var url = this.url + "/" + "GetPrice";
                 var config = {
                     params: {
                         dto: TotalPriceModel,
@@ -1059,12 +1059,15 @@ var GCPL;
             };
             TotalPriceService.prototype.GetTotalPriceChange = function (data) {
                 var list = new model.TotalPriceModel();
-                list.TotalPrice = data.TotalPrice;
-                list.TotalTax = data.TotalTax;
-                list.Quantity = data.Quantity;
-                list.ConvertedGST = data.ConvertedGST;
-                list.GSTRate = data.GSTRate;
-                list.Price = data.Price;
+                list.Quantity = data.Quantity,
+                    list.MRPUnit = data.MRPUnit,
+                    list.GST = data.GST,
+                    list.HSN = data.HSN,
+                    list.Discount = data.Discount,
+                    list.DiscountedPricePerUnit = data.DiscountedPricePerUnit,
+                    list.TotalPrice = data.TotalPrice,
+                    list.TotalGST = data.TotalGST,
+                    list.NetAmount = data.NetAmount;
                 return list;
             };
             TotalPriceService.$inject = ["$http", "$q", "$cookieStore"];
@@ -1147,56 +1150,51 @@ var GCPL;
         app.AddService("CountryddService", CountryddService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
-(function (GCPL) {
-    var Service;
-    (function (Service) {
-        var app = GCPL.app;
-        var StateddService = /** @class */ (function (_super) {
-            __extends(StateddService, _super);
-            function StateddService($http, $q) {
-                var _this = _super.call(this, $http, $q) || this;
-                _this.$http = $http;
-                _this.$q = $q;
-                _this.apiUrl = "";
-                _this.apiUrl = _this.url + "/" + "StateDDWP";
-                return _this;
-            }
-            StateddService.prototype.Find = function (data) {
-                var CountryID;
-                if (data == undefined) {
-                    CountryID = '95';
-                }
-                else {
-                    CountryID = data;
-                }
-                var config = {
-                    params: {
-                        CountryID: '95'
-                    }
-                };
-                return this.ajaXUtility.Get({
-                    Url: this.apiUrl,
-                    Config: config
-                });
-            };
-            StateddService.prototype.GetStateName = function (data) {
-                var list = Array();
-                for (var _i = 0, data_20 = data; _i < data_20.length; _i++) {
-                    var item = data_20[_i];
-                    list.push({
-                        StateID: item.StateID.toString(),
-                        State: item.State,
-                    });
-                }
-                return list;
-            };
-            StateddService.$inject = ["$http", "$q"];
-            return StateddService;
-        }(GCPL.Service.BaseService));
-        Service.StateddService = StateddService;
-        app.AddService("StateddService", StateddService);
-    })(Service = GCPL.Service || (GCPL.Service = {}));
-})(GCPL || (GCPL = {}));
+//namespace GCPL.Service {
+//    import app = GCPL.app;
+//    import model = GCPL.Model;
+//    export interface IStateddService {
+//        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+//        GetStateName(data: any): Array<model.StateddlModel>;
+//    }
+//    export class StateddService extends GCPL.Service.BaseService implements IStateddService {
+//        private apiUrl: string = "";
+//        static $inject = ["$http", "$q"];
+//        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+//            super($http, $q);
+//            this.apiUrl = `${this.url}/${"StateDDWP"}`;
+//        }
+//        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+//            var CountryID;
+//            if (data == undefined) {
+//                CountryID = '95';
+//            }
+//            else {
+//                CountryID = data;
+//            }
+//            let config = {
+//                params: {
+//                    CountryID: '95'
+//                }
+//            };
+//            return this.ajaXUtility.Get({
+//                Url: this.apiUrl,
+//                Config: config
+//            });
+//        }
+//        GetStateName(data: any): Array<model.StateddlModel> {
+//            let list = Array<model.StateddlModel>();
+//            for (let item of data) {
+//                list.push({
+//                    StateID: item.StateID.toString(),
+//                    State: item.State,
+//                });
+//            }
+//            return list;
+//        }
+//    }
+//    app.AddService("StateddService", StateddService);
+//}
 (function (GCPL) {
     var Service;
     (function (Service) {
@@ -1231,8 +1229,8 @@ var GCPL;
             };
             DistrictService.prototype.GetDistrictName = function (data) {
                 var list = Array();
-                for (var _i = 0, data_21 = data; _i < data_21.length; _i++) {
-                    var item = data_21[_i];
+                for (var _i = 0, data_20 = data; _i < data_20.length; _i++) {
+                    var item = data_20[_i];
                     list.push({
                         DistrictID: item.DistrictID.toString(),
                         District: item.District,

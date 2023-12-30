@@ -157,6 +157,7 @@
         ProjectID: string;
         Description: string;
         Notes: string;
+        WhenEntered: string;
     }
 
     export class CrtAssessmtModel {
@@ -340,9 +341,12 @@
         CategoryID: string;
         DivisionID: string;
         ProductID: string;
+        ProductCode: string;
         ProductDesc: string;
         ProjectID: string;
         ItemStatusID: string;
+        WhenEntered: string;
+        EditState: string;
         MRPUnit: string;
         GST: string;
         HSN: string;
@@ -350,8 +354,7 @@
         DiscountedPricePerUnit: string;
         TotalPrice: string;
         TotalGST: string;
-        NetAmount: string;
-        ProductCode: string;
+        NetAmount: string;       
     }
 
 
@@ -418,6 +421,7 @@
         ActivityName: string;
         ActivityDate: string;
         Status: string;
+        LeadStatusId: string;
         IsActive: string;
         Purpose: string;
         Mode: string;
@@ -434,16 +438,17 @@
         constructor() {
         }
         LeadID: string;
-        ItemID: string;
+        ItemID: string;      
         ProductDesc: string;
-        ProductCode: string
         Quantity: string;
         Status: string;
         ModelID: string;
         ItemStatus: string;
+        ItemCode: string;
         MRPUnit: string;
-        GST: string;
+        GST: string;     
         NetAmount: string;
+        DeliveryStatus: string;
     }
 
     export class LeadQueAnsModel {

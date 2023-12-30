@@ -460,7 +460,6 @@ var GCPL;
                 var url = this.apiUrl + "/CheckRegionID";
                 var StateID;
                 var DistrictID;
-                debugger;
                 if (data.StateID == undefined) {
                     StateID = '';
                 }

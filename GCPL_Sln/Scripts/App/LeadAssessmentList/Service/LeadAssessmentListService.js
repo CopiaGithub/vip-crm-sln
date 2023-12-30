@@ -34,7 +34,7 @@ var GCPL;
             AssessmentListService.prototype.Find = function (data) {
                 var url = this.apiUrl + "/LeadAssessmentList";
                 var SearchInput;
-                var StatusID;
+                var LeadStatusID;
                 var UserID;
                 var RoleID;
                 var LeadID;
@@ -44,11 +44,11 @@ var GCPL;
                 else {
                     SearchInput = data.SearchInput;
                 }
-                if (data.StatusID == undefined) {
-                    StatusID = '';
+                if (data.LeadStatusID == undefined) {
+                    LeadStatusID = '';
                 }
                 else {
-                    StatusID = data.StatusID;
+                    LeadStatusID = data.LeadStatusID;
                 }
                 if (data.UserID == undefined) {
                     UserID = '';
@@ -71,7 +71,7 @@ var GCPL;
                 var config = {
                     params: {
                         SearchInput: SearchInput,
-                        StatusID: StatusID,
+                        StatusID: LeadStatusID,
                         UserID: this.Cookie.get('UserInfo')['UserID'],
                         RoleID: this.Cookie.get('UserInfo')['RoleID'],
                         LeadID: LeadID

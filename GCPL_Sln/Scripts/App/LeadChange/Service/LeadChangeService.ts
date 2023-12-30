@@ -48,7 +48,6 @@ namespace GCPL.Service {
             let obj = new model.EditLeadChangeModel();
 
             obj.LeadID = data.LeadID;
-
             obj.LeadStatusID = data.LeadStatusID;
             obj.LeadReason = data.LeadReason;
             obj.CompanyName = data.CompanyName;
@@ -65,7 +64,6 @@ namespace GCPL.Service {
             obj.RegionID = data.RegionID;
             obj.City = data.City;
             obj.PinCode = data.PinCode;
-
             obj.ContactName = data.ContactName;
             obj.ContactEmail = data.ContactEmail;
             obj.ContactMobileNo = data.ContactMobileNo;
@@ -79,7 +77,6 @@ namespace GCPL.Service {
             obj.ContactDistrictID = data.ContactDistrictID;
             obj.ContactCity = data.ContactCity;
             obj.PostalCode = data.PostalCode;
-
             obj.LeadType = data.LeadType;
             obj.CategoryID = data.CategoryID;
             obj.DivisionID = data.DivisionID;
@@ -96,16 +93,9 @@ namespace GCPL.Service {
             obj.RefUserName = data.RefUserName;
             obj.CampaignID = data.CampaignID;
             obj.ProjectID = data.ProjectID;
-            obj.ID = data.ID;
-            obj.SPName = data.SPName;
-            obj.SPMobileNo = data.SPMobileNo;
-            obj.SPEmail = data.SPEmail;
-            obj.SPDesignation = data.SPDesignation;
-            obj.TcDetails = data.TcDetails;
             obj.WhenEntered = data.WhenEntered;
             obj.Description = data.Description;
             obj.Notes = data.Notes;
-            obj.ProductCode = data.ProductCode;
 
             return obj;
 

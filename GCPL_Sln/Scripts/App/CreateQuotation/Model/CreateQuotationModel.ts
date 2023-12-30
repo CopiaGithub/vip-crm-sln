@@ -198,13 +198,16 @@
     }
     export class TotalPriceModel {
         constructor() {
-        }
-        Price: number;
-        Quantity: number;
-        GSTRate: number;
-        ConvertedGST: number;
-        TotalPrice: string;
-        TotalTax: string;
+        }       
+        Quantity: number;      
+        MRPUnit: number;
+        GST: number;
+        HSN: number;
+        Discount: number;
+        DiscountedPricePerUnit: number;
+        TotalPrice: number;
+        TotalGST: number;
+        NetAmount: number;
     }
 
 

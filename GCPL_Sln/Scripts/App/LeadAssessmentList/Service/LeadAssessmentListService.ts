@@ -23,7 +23,7 @@
         Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
             var url = this.apiUrl + "/LeadAssessmentList";
             var SearchInput;
-            var StatusID;
+            var LeadStatusID;
             var UserID;
             var RoleID;
             var LeadID;
@@ -37,11 +37,11 @@
             }
 
 
-            if (data.StatusID == undefined) {
-                StatusID = '';
+            if (data.LeadStatusID == undefined) {
+                LeadStatusID = '';
             }
             else {
-                StatusID = data.StatusID;
+                LeadStatusID = data.LeadStatusID;
 
             }
             if (data.UserID == undefined) {
@@ -68,7 +68,7 @@
             let config = {
                 params: {
                     SearchInput: SearchInput,
-                    StatusID: StatusID,
+                    StatusID: LeadStatusID,
                     UserID: this.Cookie.get('UserInfo')['UserID'],
                     RoleID: this.Cookie.get('UserInfo')['RoleID'],
                     LeadID: LeadID

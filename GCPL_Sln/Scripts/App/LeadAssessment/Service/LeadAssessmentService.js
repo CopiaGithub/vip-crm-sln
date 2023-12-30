@@ -463,7 +463,8 @@ var GCPL;
                         ReferenceOpportunity: item.ReferenceOpportunity,
                         StartDate: item.StartDate,
                         EndDate: item.EndDate,
-                        ActivityNumber: item.ActivityNumber
+                        ActivityNumber: item.ActivityNumber,
+                        LeadStatusId: item.LeadStatusId
                     });
                 }
                 return list;
@@ -514,14 +515,15 @@ var GCPL;
                         LeadID: item.LeadID,
                         ItemID: item.ItemID,
                         ProductDesc: item.ProductDesc,
-                        ProductCode: item.ProductCode,
                         Quantity: item.Quantity,
                         Status: item.Status,
                         ModelID: item.ModelID,
                         ItemStatus: item.ItemStatus,
+                        ItemCode: item.ProductCode,
                         MRPUnit: item.MRPUnit,
                         GST: item.GST,
-                        NetAmount: item.NetAmount
+                        NetAmount: item.NetAmount,
+                        DeliveryStatus: item.DeliveryStatus
                     });
                 }
                 return list;
@@ -1078,12 +1080,15 @@ var GCPL;
                     obj.StateID = data.StateID,
                     obj.Area = data.Area,
                     obj.LeadCategoryID = data.CategoryID,
+                    obj.CategoryID = data.ItemCategoryID,
                     obj.DivisionID = data.DivisionID,
                     obj.ProductID = data.ProductID,
+                    obj.ProductCode = data.ProductCode,
                     obj.ProductDesc = data.ProductDesc,
                     obj.ProjectID = data.ProjectID,
-                    obj.LeadStatusId = data.ItemStatusID,
-                    obj.MRPUnit = data.MRPUnit,
+                    obj.LeadStatusId = data.ItemStatusID;
+                obj.Comments = data.Comments;
+                obj.MRPUnit = data.MRPUnit,
                     obj.GST = data.GST,
                     obj.HSN = data.HSN,
                     obj.Discount = data.Discount,
@@ -1092,6 +1097,7 @@ var GCPL;
                     obj.TotalGST = data.TotalGST,
                     obj.NetAmount = data.NetAmount,
                     obj.ProductCode = data.ProductCode;
+                console.log("Op", obj);
                 return obj;
             };
             EditItemList.$inject = ["$http", "$q"];

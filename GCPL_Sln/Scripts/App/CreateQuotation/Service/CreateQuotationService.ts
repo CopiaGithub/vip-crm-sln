@@ -1163,7 +1163,7 @@ namespace GCPL.Service {
 
         FindChange(TotalPriceModel: any): ng.IPromise<Utility.Ajax.IResponse> {
 
-            let url = `${this.url}/${"GetTotalPrice"}`;
+            let url = `${this.url}/${"GetPrice"}`;
 
             let config = {
                 params: {
@@ -1185,13 +1185,16 @@ namespace GCPL.Service {
             let list = new model.TotalPriceModel();
 
 
-            list.TotalPrice = data.TotalPrice;
-            list.TotalTax = data.TotalTax;
-            list.Quantity = data.Quantity;
-            list.ConvertedGST = data.ConvertedGST;
-            list.GSTRate = data.GSTRate;
-            list.Price = data.Price;
-
+            list.Quantity = data.Quantity,
+                list.MRPUnit = data.MRPUnit,
+                list.GST = data.GST,
+                list.HSN = data.HSN,
+                list.Discount = data.Discount,
+                list.DiscountedPricePerUnit = data.DiscountedPricePerUnit,
+                list.TotalPrice = data.TotalPrice,
+                list.TotalGST = data.TotalGST,
+                list.NetAmount = data.NetAmount
+      
             return list;
 
         }
@@ -1281,58 +1284,58 @@ namespace GCPL.Service {
     app.AddService("CountryddService", CountryddService);
 }
 
-namespace GCPL.Service {
-    import app = GCPL.app;
-    import model = GCPL.Model;
+//namespace GCPL.Service {
+//    import app = GCPL.app;
+//    import model = GCPL.Model;
 
-    export interface IStateddService {
+//    export interface IStateddService {
 
-        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
-        GetStateName(data: any): Array<model.StateddlModel>;
-    }
-    export class StateddService extends GCPL.Service.BaseService implements IStateddService {
+//        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+//        GetStateName(data: any): Array<model.StateddlModel>;
+//    }
+//    export class StateddService extends GCPL.Service.BaseService implements IStateddService {
 
-        private apiUrl: string = "";
-        static $inject = ["$http", "$q"];
-        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+//        private apiUrl: string = "";
+//        static $inject = ["$http", "$q"];
+//        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
 
-            super($http, $q);
-            this.apiUrl = `${this.url}/${"StateDDWP"}`;
-        }
+//            super($http, $q);
+//            this.apiUrl = `${this.url}/${"StateDDWP"}`;
+//        }
 
-        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
-            var CountryID;
-            if (data == undefined) {
-                CountryID = '95';
-            }
-            else {
-                CountryID = data;
-            }
-            let config = {
-                params: {
-                    CountryID: '95'
-                }
-            };
-            return this.ajaXUtility.Get({
-                Url: this.apiUrl,
-                Config: config
-            });
-        }
+//        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+//            var CountryID;
+//            if (data == undefined) {
+//                CountryID = '95';
+//            }
+//            else {
+//                CountryID = data;
+//            }
+//            let config = {
+//                params: {
+//                    CountryID: '95'
+//                }
+//            };
+//            return this.ajaXUtility.Get({
+//                Url: this.apiUrl,
+//                Config: config
+//            });
+//        }
 
-        GetStateName(data: any): Array<model.StateddlModel> {
-            let list = Array<model.StateddlModel>();
-            for (let item of data) {
-                list.push({
-                    StateID: item.StateID.toString(),
-                    State: item.State,
-                });
-            }
-            return list;
-        }
-    }
+//        GetStateName(data: any): Array<model.StateddlModel> {
+//            let list = Array<model.StateddlModel>();
+//            for (let item of data) {
+//                list.push({
+//                    StateID: item.StateID.toString(),
+//                    State: item.State,
+//                });
+//            }
+//            return list;
+//        }
+//    }
 
-    app.AddService("StateddService", StateddService);
-}
+//    app.AddService("StateddService", StateddService);
+//}
 
 namespace GCPL.Service {
     import app = GCPL.app;

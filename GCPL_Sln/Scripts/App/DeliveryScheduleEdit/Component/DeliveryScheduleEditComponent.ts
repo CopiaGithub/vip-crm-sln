@@ -10,10 +10,11 @@
     import SearchRefUser = GCPL.Model.SearchRefUserModel;
     import LeadItem = GCPL.Model.LeadItemCreateModel;
 
-    interface IDeliveryScheduleEditController {
+    interface IDeliveryScheduleEditController  {
         InsertLeadChange: LeadChangeInsert;
         Submit(data: any): void;
         Edit(data: any): void;
+        EditDSList(data: any): void;
         LeadOpenReasonDD: Array<Model.ReasonForLeadOpenDDModel>
         LeadStatusOpenDD: Array<Model.LeadStatusForOpenDDModel>
         SalesOfficeDropDown: Array<Model.SalesOfficeddlModel>
@@ -28,6 +29,7 @@
         AddConCountryDropDown: Array<Model.CountryddlModel>
         AddConStateDropDown: Array<Model.StateddlModel>
         AddConDistrictDropDown: Array<Model.DistrictddlModel>
+        LeadStatusDropDown: Array<Model.LeadStatusddlModel>
 
         LeadTypeDropDown: Array<Model.LeadTypeddlModel>
         CategoryDropDown: Array<Model.CategoryddlModel>
@@ -45,6 +47,7 @@
         Campaigndd: Array<Model.CampaignDetailsModel>
         UserID: GCPL.Model.UserIDModel
         LeadID: any;
+        ItemID: any;
         LeadStatusID: GCPL.Model.LeadStatusIDModel
         ProjectNameDD: Array<Model.GetProjectNameDDModel>;
         InsertItem: LeadItem;
@@ -52,7 +55,7 @@
 
 
 
-    class DeliveryScheduleEditController implements IDeliveryScheduleEditController {
+    class DeliveryScheduleEditController  implements IDeliveryScheduleEditController  {
         numRecords: number = 10;
         page: number = 0;
         incre: number = 0;
@@ -63,10 +66,12 @@
         NoOfRds: number = 10;
         alert = null;
         LeadID = null;
+        ItemID = null;
         LeadOpenReasonDD = null;
         LeadStatusOpenDD = null;
         SalesOfficeDropDown = null;
         CountryDropDown = null;
+        LeadStatusDropDown = null;
         StateDropDown = null;
         DistrictDropDown = null;
         RegionDropDown = null;
@@ -99,10 +104,13 @@
         RoleID = null;
         LeadStatusID = null;
         ProjectNameDD = null;
-        LeadItemlist = null;
+        LeadItemNewDSlist = null;
         InsertItem = null;
         DeliverySchedulelist = null;
         TotalDsList = null;
+        TotalDsQty = null;
+        TotalDSItemQty = 0;
+        SubmitEnable: boolean = false;
 
         private ProjectNameService: Service.IProjectNameService;
         private InsertService: Service.IUpdateLeadChangeService;
@@ -135,45 +143,52 @@
         private getAutoUser: Service.IUserCodeAutoFillService;
         private Cookie: any = null;
         private EditService: Service.ILeadChangeEditService;
-        private ListItemservice: Service.ILeadItemListService;
+        private ListItemNewDSservice: Service.ILeadItemNewDSListService;
         private EditItemService: Service.IEditItemList;
         private DsListService: Service.IDeliveryScheduleListService;
         private DeleteService: Service.IDeleteDsFromAddToCartService;
         private InsertDsDetailsService: Service.IInsertDsDetailsService;
+        private LeadStatusService: Service.ILeadStatusddService;
+        private EditDSListService: Service.IEditDSListService;
+        private DeleteDSItemService: Service.IDeleteDSItemService;
 
         static $inject = ["LeadChangeEditService", "ReasonForLeadOpenDDService", "LeadStatusForOpenDDService",
-                          "SalesOfficeService", "CountryService", "StateddService", "DistrictddService", "RegionddService",
-                          "IndustrialSegmentService", "DepartmentService", "DesignationService", "LeadTypeddService",
-                          "CategoryddService", "DivisionDDPService", "ProductddService", "ModelDDService",
-                          "PurchaseTimelineService", "ChannelDDService", "LeadSourceDetailsService", "LeadCategoryDDService",
+            "SalesOfficeService", "CountryService", "StateddService", "DistrictddService", "RegionddService",
+            "IndustrialSegmentService", "DepartmentService", "DesignationService", "LeadTypeddService",
+            "CategoryddService", "DivisionDDPService", "ProductddService", "ModelDDService",
+            "PurchaseTimelineService", "ChannelDDService", "LeadSourceDetailsService", "LeadCategoryDDService",
             "SalesAreaService", "UpdateLeadChangeService", "CheckRegionService", "CheckSalesAreaDataService", "ProjectNameService",
-            "$location", "$cookieStore", "CampaignDetailsService", "UserCodeAutoFillService", "LeadItemListService", "EditItemList",
-            "AddToCartDsService", "DeliveryScheduleListService", "DeleteDsFromAddToCartService", "InsertDsDetailsService"];
+            "$location", "$cookieStore", "CampaignDetailsService", "UserCodeAutoFillService", "LeadItemNewDSListService", "EditItemList",
+            "AddToCartDsService", "DeliveryScheduleListService", "DeleteDsFromAddToCartService", "InsertDsDetailsService",
+            "LeadStatusddService", "EditDSListService", "DeleteDSItemService"];
+       
 
         //constructor define with Serivce _Name:Service.IServiceName//
         constructor(_EditService: Service.ILeadChangeEditService, _ReasonForLeadOpenDDService: Service.IReasonForLeadOpenDDService,
-                     _LeadStatusForOpenDDService: Service.ILeadStatusForOpenDDService, _SalesOfficeService: Service.ISalesOfficeService,
-                     _CountryService: Service.ICountryService, _StateService: Service.IStateddService,
-                     _DistrictService: Service.IDistrictddService, _RegionService: Service.IRegionddService,
-                     _IndustrialSegmentService: Service.IIndustrialSegmentService,
-                     _DepartmentService: Service.IDepartmentService, _DesignationService: Service.IDesignationService,
-                     _LeadTypeService: Service.ILeadTypeddService,
-                     _CategoryService: Service.ICategoryddService,
-                     _DivisionPService: Service.IDivisionDDPService,
-                     _ProductService: Service.IProductddService,
-                     _ModelService: Service.IModelDDService, _PurchaseTimlineDDService: Service.IPurchaseTimelineService,
-                     _ChannelDDService: Service.IChannelDDService, _LeadSourceDDService: Service.ILeadSourceDetailsService,
-                     _LeadCategoryService: Service.ILeadCategoryDDService, _SalesAreaService: Service.ISalesAreaService,
-                     _InsertService: Service.IUpdateLeadChangeService, _CheckRegionService: Service.ICheckRegionService,
-            _CheckSalesAreaService: Service.ICheckSalesAreaDataService, _ProjectNameService: Service.IProjectNameService,private $location: ng.ILocationService,
-                     private _cookieStore: any, _CampaignDDService: Service.ICampaignDetailsService,
-            _getAutoUser: Service.IUserCodeAutoFillService, _LeadItemListService: Service.ILeadItemListService, _EditItemList: Service.IEditItemList, _AddToCartDsService: Service.IAddToCartDsService,
-            _DsListService: Service.IDeliveryScheduleListService, _deleteItem: Service.IDeleteDsFromAddToCartService, _InsertDsDetailsService: Service.IInsertDsDetailsService) {
+            _LeadStatusForOpenDDService: Service.ILeadStatusForOpenDDService, _SalesOfficeService: Service.ISalesOfficeService,
+            _CountryService: Service.ICountryService, _StateService: Service.IStateddService,
+            _DistrictService: Service.IDistrictddService, _RegionService: Service.IRegionddService, _IndustrialSegmentService: Service.IIndustrialSegmentService,
+            _DepartmentService: Service.IDepartmentService, _DesignationService: Service.IDesignationService, _LeadTypeService: Service.ILeadTypeddService,
+            _CategoryService: Service.ICategoryddService, _DivisionPService: Service.IDivisionDDPService,
+            _ProductService: Service.IProductddService, _ModelService: Service.IModelDDService, _PurchaseTimlineDDService: Service.IPurchaseTimelineService,
+            _ChannelDDService: Service.IChannelDDService, _LeadSourceDDService: Service.ILeadSourceDetailsService,
+            _LeadCategoryService: Service.ILeadCategoryDDService, _SalesAreaService: Service.ISalesAreaService,
+            _InsertService: Service.IUpdateLeadChangeService, _CheckRegionService: Service.ICheckRegionService,
+            _CheckSalesAreaService: Service.ICheckSalesAreaDataService, _ProjectNameService: Service.IProjectNameService,
+            private $location: ng.ILocationService, private _cookieStore: any, _CampaignDDService: Service.ICampaignDetailsService,
+            _getAutoUser: Service.IUserCodeAutoFillService, _LeadItemNewDSListService: Service.ILeadItemNewDSListService,
+            _EditItemList: Service.IEditItemList
+            , _AddToCartDsService: Service.IAddToCartDsService,
+            _DsListService: Service.IDeliveryScheduleListService, _deleteItem: Service.IDeleteDsFromAddToCartService,
+            _InsertDsDetailsService: Service.IInsertDsDetailsService, _LeadStatusService: Service.ILeadStatusddService,
+            _EditDSListService: Service.IEditDSListService, _DeleteDSItemService: Service.IDeleteDSItemService) {
 
-
+            //this.LeadStatusService = _LeadStatusService;
+            this.LeadStatusService = _LeadStatusService;
             this.InsertService = _InsertService;
             this.ProjectNameService = _ProjectNameService;
             this.InsertLeadChange = new LeadItem();
+            this.InsertItem = new LeadItem();
             this.ReasonForLeadOpenDDService = _ReasonForLeadOpenDDService;
             this.LeadStatusForOpenDDService = _LeadStatusForOpenDDService;
             this.SalesOfficeService = _SalesOfficeService;
@@ -199,15 +214,18 @@
             this.CheckSalesAreaService = _CheckSalesAreaService;
             this.SearchSalesArea = new SalesAreaSearch();
             this.EditService = _EditService;
-            this.LeadID = $location.search().LeadID;
+            this.ItemID = $location.search().ItemID;
+            //this.LeadID = $location.search().LeadID;
             this.CampaignDDService = _CampaignDDService;
             this.SearchUser = new SearchRefUser();
             this.getAutoUser = _getAutoUser;
-            this.ListItemservice = _LeadItemListService;
+            this.ListItemNewDSservice = _LeadItemNewDSListService;
             this.EditItemService = _EditItemList;
             this.AddToCartDsService = _AddToCartDsService;
             this.DsListService = _DsListService;
             this.DeleteService = _deleteItem;
+            this.DeleteDSItemService = _DeleteDSItemService;
+            this.EditDSListService = _EditDSListService;
             this.InsertDsDetailsService = _InsertDsDetailsService;
             this.Cookie = _cookieStore;
             this.UserID = this.Cookie.get('UserInfo')['UserID'];
@@ -215,6 +233,8 @@
         }
 
         $onInit() {
+            console.log(this.ItemID);        
+
             let that = this;
             this.Init();
             $("#errorclose").hide();
@@ -228,42 +248,72 @@
                     this.classList.toggle("toggle-spl-minus");
                 })
             }
+
+            $("#txtDeliveryDate").datepicker({
+                dateFormat: 'dd M yy', changeMonth: true,
+                changeYear: true,
+                onSelect: this.selectFromDate
+            });
+            $("#txtDeliveryDateEdit").datepicker({
+                dateFormat: 'dd M yy', changeMonth: true,
+                changeYear: true,
+                onSelect: this.selectDeliveryDateEdit
+            });
+
         }
 
         selectFromDate(e) {
             (<HTMLInputElement>document.getElementById("txtDeliveryDate")).value = e;
         }
+        selectDeliveryDateEdit(e) {
+            (<HTMLInputElement>document.getElementById("txtDeliveryDateEdit")).value = e;
+        }
 
         //Page Load Define Values//
         Init(): void {
-            debugger;
+            console.log(this.ItemID);
 
+            if (this.ItemID != undefined || this.ItemID != null || this.ItemID != "") {
+                this.FetchItemData(this.ItemID);
+                console.log(this.ItemID);
+
+                //this.FillGridItems();
+                this.FillGridDeliverySchedule();
+                //this.AddDsToCart(this.LeadID);
+            }
+
+            let that = this;
             var n = new Date();
             n.setDate(n.getDate() - 7);
             var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             var m = months[n.getMonth()];
             var d = n.getDate();
             var y = n.getFullYear();
-            (<HTMLInputElement>document.getElementById("txtDeliveryDate")).innerHTML = d + " " + m + " " + y;
-            $('#txtDeliveryDate').val(d + " " + m + " " + y);
+            (<HTMLInputElement>document.getElementById("txtDeliveryDate")).innerHTML = d + "-" + m + "-" + y;
+            $('#txtDeliveryDate').val(d + "-" + m + "-" + y);
             (<HTMLInputElement>document.getElementById("txtDeliveryDate")).value;
             $("#txtDeliveryDate").datepicker({
                 dateFormat: 'dd M yy', changeMonth: true,
                 changeYear: true,
                 onSelect: this.selectFromDate
             });
-
-
-            let that = this;
-
-            $('#Campaignfield').hide();
-            $('#UserNamefield').hide();
-            $("#errorclose").hide();
-            $("#close").hide();
+            (<HTMLInputElement>document.getElementById("txtDeliveryDateEdit")).innerHTML = d + "-" + m + "-" + y;
+            $('#txtDeliveryDateEdit').val(d + "-" + m + "-" + y);
+            (<HTMLInputElement>document.getElementById("txtDeliveryDateEdit")).value;
+            $("#txtDeliveryDateEdit").datepicker({
+                dateFormat: 'dd M yy', changeMonth: true,
+                changeYear: true,
+                onSelect: this.selectDeliveryDateEdit
+            });
 
 
             this.LeadOpenReasonDD = this.ReasonForLeadOpenDDService.Find().then((response => {
                 this.LeadOpenReasonDD = this.ReasonForLeadOpenDDService.GetReason(response.data.Result);
+
+            }));
+            this.LeadStatusDropDown = this.LeadStatusService.Find().then((response => {
+                this.LeadStatusDropDown = this.LeadStatusService.GetLeadStatusName(response.data.Result);
+                console.log("LeadStatusDropDown", this.LeadStatusDropDown);
 
             }));
 
@@ -329,12 +379,7 @@
                 //this.InsertLeadChange.LeadStatusID = LeadStatus
             }));
 
-            if (this.LeadID != undefined || this.LeadID != null || this.LeadID != "") {
-                this.Edit(this.LeadID);
 
-                this.FillGridItems();
-                this.FillGridDeliverySchedule();
-            }
             //else {
 
             //    this.Edit(this.LeadID);
@@ -381,22 +426,33 @@
 
         FillGridItems(): void {
 
-            this.LeadItemlist = this.ListItemservice.Find(this.LeadID).then((response => {
-                this.LeadItemlist = this.ListItemservice.GetLeadItemList(response.data.Result);
+            this.LeadItemNewDSlist = this.ListItemNewDSservice.Find(this.LeadID).then((response => {
+                this.LeadItemNewDSlist = this.ListItemNewDSservice.GetLeadItemNewDSList(response.data.Result);
 
             }));
         }
-        
+
 
         FillGridDeliverySchedule(): void {
 
-            this.DeliverySchedulelist = this.DsListService.Find(this.LeadID).then((response => {
+            this.DeliverySchedulelist = this.DsListService.Find(this.ItemID).then((response => {
                 this.DeliverySchedulelist = this.DsListService.GetLeadItemList(response.data.Result);
                 console.log("this.DeliverySchedulelist", this.DeliverySchedulelist);
 
             }));
 
-            
+
+        }
+
+        EditDSList(data: any): void {
+            console.log("Op", data);
+            this.EditDSListService.Find(data).then((response => {
+                this.InsertItem = this.EditDSListService.GetDSEdit(response.data.Result);
+
+                $("myModalEditDS").show();
+
+            }));
+
         }
 
         State(data: any): void {
@@ -517,6 +573,12 @@
 
             this.InsertItem.UserID = this.UserID;
             this.InsertItem.LeadID = this.LeadID;
+            if ($("#txtDeliveryDate").val() != null) {
+                this.InsertItem.DeliveryDate = (<HTMLInputElement>document.getElementById("txtDeliveryDate")).value;
+                console.log(this.InsertItem.DeliveryDate)
+            }
+
+
 
             //if (this.InsertItem.DeliveryDate == undefined || this.InsertItem.DeliveryDate == null || this.InsertItem.DeliveryDate == "") {
             //    this.HideShow();
@@ -538,17 +600,79 @@
                 if (this.UserID != null || this.UserID != "") {
                     this.InsertItem.UserID = this.UserID;
                 }
-
+                //debugger
                 this.AddToCartDsService.PostDeliveryScheduleToCart(this.InsertItem).then((response => {
 
-                    console.log(this.InsertItem);
+                    console.log("ADDTOCART Model", this.InsertItem);
 
                     //if (response.data.Result != null) {
                     if (response.data.Result > 0) {
+                        this.InsertItem.DeliveryQty = "";
+                        this.InsertItem.DeliveryDate = "";
+                        $("#txtDeliveryDate").val("");
+                        $("#DeliveryQty").val("");
+                        console.log("ItemID", this.InsertItem.ItemID)
                         $("#errorclose").hide();
                         $("#close").show();
                         this.popupMessage("Delivery Schedule Successfully Added to Cart.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
                         this.InsertLeadChange = null;
+                        this.InsertLeadChange.ID = "";
+                    }
+                    else {
+
+                        this.HideShow();
+                        this.popupMessage("Couldn't Add Delivery Schedule.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+
+                }));
+
+            }
+        }
+        AddDsToCartEdit(data: any) {
+
+            this.InsertItem.UserID = this.UserID;
+            this.InsertItem.LeadID = this.LeadID;
+
+            if ($("#txtDeliveryDateEdit").val() != null) {
+                this.InsertItem.DeliveryDate = (<HTMLInputElement>document.getElementById("txtDeliveryDateEdit")).value;
+                console.log(this.InsertItem.DeliveryDate)
+            }
+
+
+            //if (this.InsertItem.DeliveryDate == undefined || this.InsertItem.DeliveryDate == null || this.InsertItem.DeliveryDate == "") {
+            //    this.HideShow();
+            //    this.popupMessage("Please Select Delivery Date", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            //}
+            /*else*/
+            if (this.InsertItem.DeliveryQty == undefined || this.InsertItem.DeliveryQty == null || this.InsertItem.DeliveryQty == "") {
+                this.HideShow();
+                this.popupMessage("Please Enter Delivery Quantity", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else if (this.InsertItem.ItemID == undefined || this.InsertItem.ItemID == null || this.InsertItem.ItemID == "") {
+                this.HideShow();
+                this.popupMessage("Please Select Item to Create Delivery Schedule", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else {
+
+                console.log(this.InsertItem.DeliveryDate, "this.InsertItem.DeliveryDate11111");
+
+                if (this.UserID != null || this.UserID != "") {
+                    this.InsertItem.UserID = this.UserID;
+                }
+                //debugger
+                this.AddToCartDsService.PostDeliveryScheduleToCart(this.InsertItem).then((response => {
+
+                    console.log("ADDTOCART Model", this.InsertItem);
+
+                    //if (response.data.Result != null) {
+                    if (response.data.Result > 0) {
+                        console.log("ItemID", this.InsertItem.ItemID)
+                        $("#myModalEditDS").modal("hide");
+                        $("#errorclose").hide();
+                        $("#close").show();
+                        this.popupMessage("Delivery Schedule Successfully Added to Cart.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                        this.InsertLeadChange = null;
+                        this.InsertLeadChange.ID = "";
                     }
                     else {
 
@@ -562,10 +686,10 @@
         }
 
         DeleteDsFromCart(DsID): void {
-            debugger;
+            //debugger;
             this.DeleteService.Find(DsID).then((response => {
                 this.DeleteService.postDsDelete(response.data.Result);
-                this.Init();
+               this.FillGridDeliverySchedule();
                 $("#errorclose").hide();
                 $("#close").show();
                 this.popupMessage("Record deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
@@ -573,115 +697,116 @@
             }));
         }
 
+        DeleteDSItem() {
+            this.DeleteDSItemService.Find(this.ItemID).then((response => {
+                this.DeleteDSItemService.postDSItemDelete(response.data.Result);
+                this.SubmitEnable = true;
+            }))
+        }
+
+
+
 
         Submit(data: any): void {
-            debugger;
-
-            var err = 0;
-            var flag = 0;
-            var failureCount = 0;
-            var SuccessCount = 0;
-
-            if (this.DeliverySchedulelist == undefined || this.TotalDsList == null) {
-
-            } else {
-                this.TotalDsList = this.DeliverySchedulelist;
+            if (this.SubmitEnable == false) {
+                this.HideShow();
+                this.popupMessage("Please delete previous delivery records for this item", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
             }
+            else {
+                debugger;
 
-            
-            //if (this.InsertItem.DeliveryDate == undefined || this.InsertItem.DeliveryDate == null || this.InsertItem.DeliveryDate == "") {
-            //    this.HideShow();
-            //    this.popupMessage("Please Select Delivery Date", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-            //}
-            //else
-            //if (this.InsertItem.DeliveryQty == undefined || this.InsertItem.DeliveryQty == null || this.InsertItem.DeliveryQty == "") {
-            //    this.HideShow();
-            //    this.popupMessage("Please Enter Delivery Quantity", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-            //}
-            //else if (this.InsertItem.ItemID == undefined || this.InsertItem.ItemID == null || this.InsertItem.ItemID == "") {
-            //    this.HideShow();
-            //    this.popupMessage("Please Select Item to Create Delivery Schedule", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-            //}
-            //else {
 
-            //this.InsertItem.LeadID;
-            //debugger;
-            //this.InsertItem.DeliveryDate;
-            //debugger;
-            //this.InsertItem.DeliveryQty;
-            //debugger;
-            //this.InsertItem.ItemID;
-            //debugger;
-            //this.InsertItem.ProductID;
+                var err = 0;
+                var flag = 0;
+                var failureCount = 0;
+                var SuccessCount = 0;
 
-                //if (this.UserID != null || this.UserID != "") {
-                //    this.InsertItem.UserID = this.UserID;
-                //}
+                if (this.DeliverySchedulelist == undefined || this.TotalDsList == null) {
 
-            for (var i = 0; i < this.DeliverySchedulelist.length; i++) {
-                if (this.UserID != null || this.UserID != "") {
-                    this.DeliverySchedulelist[i].UserID = this.UserID;
+                } else {
+
+                    this.TotalDsList = this.DeliverySchedulelist;
                 }
 
-                this.InsertItem = this.DeliverySchedulelist[i];
+                for (var i = 0; i < this.DeliverySchedulelist.length; i++) {
+                    if (this.UserID != null || this.UserID != "") {
+                        this.DeliverySchedulelist[i].UserID = this.UserID;
+                        //this.TotalDsQty = this.DeliverySchedulelist[i].DeliveryQty;
+                        //this.TotalDSItemQty = this.TotalDSItemQty + this.TotalDsQty;
+                        //console.log(this.TotalDSItemQty);
+                    }
 
-                debugger;
-                this.InsertDsDetailsService.PostDS(this.InsertItem).then((response => {
-                        if (response.data == "Success") {
-                            flag = 0;
-                            SuccessCount++;
+
+
+
+                    this.InsertItem = this.DeliverySchedulelist[i];
+
+                    debugger;
+
+                    this.InsertDsDetailsService.PostDS(this.InsertItem).then((response => {
+                        if (response.data.Result > 0) {
+
+
+
+                            //flag = 0;
+                            //SuccessCount++;
                             this.HideShow();
                             this.popupMessage("Delivery Schedule Created Successfully", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
 
                         } else {
-                            flag = 1;
-                            failureCount++;
+                            //flag = 1;
+                            //failureCount++;
                             this.HideShow();
-                            this.popupMessage("Error Occured While Creating Delivery Schedule Please Try again.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                            this.popupMessage("Delivery Qty should be equal to Item Qty.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
 
                         }
 
                     }));
                 }
-                
 
-            //}
-
+            }
 
         }
 
+        locationreload() {
+
+            // To reload the entire page from the server
+            location.reload();
+        }
+
         FetchItemData(data: any): void {
-                console.log(data,"data11111");
-                this.EditItemService.Find(data).then((response => {
-                    
-                    this.InsertItem = this.EditItemService.GetItemEdit(response.data.Result);
-                    console.log("this.InsertItem11111", this.InsertItem);
+            console.log(data, "data11111");
+            this.EditItemService.Find(data).then((response => {
 
-                    $("myModalAdd").show();
+                this.InsertItem = this.EditItemService.GetItemEdit(response.data.Result);
+                console.log("this.InsertItem11111", this.InsertItem);
 
-                }));
+                $("myModalAdd").show();
+
+            }));
 
 
         }
 
         Edit(data: any): void {
-            debugger;
+
             this.EditService.Find(data).then((response => {
                 this.InsertLeadChange = this.EditService.GetEdit(response.data.Result);
-              
-                // this.LeadStatusID = this.InsertLeadChange.LeadStatusID;
-                var status = this.InsertLeadChange.LeadStatusID;
+
+                this.LeadStatusID = this.InsertLeadChange.LeadStatusID;
+                /*var status = this.InsertLeadChange.LeadStatusID;*/
                 this.LeadStatusOpenDD = this.LeadStatusForOpenDDService.Find(this.LeadID).then((response => {
                     this.LeadStatusOpenDD = this.LeadStatusForOpenDDService.GetLeadOpen(response.data.Result);
 
-                    this.InsertLeadChange.LeadStatusID = status; //this.LeadStatusOpenDD[0].LeadStatusID.toString();
+                    /*this.InsertLeadChange.LeadStatusID = status;*/
+                    //this.LeadStatusOpenDD[0].LeadStatusID.toString();
                 }));
-                var reason = this.InsertLeadChange.LeadOpenReason
-                this.LeadOpenReasonDD = this.ReasonForLeadOpenDDService.Find().then((response => {
-                    this.LeadOpenReasonDD = this.ReasonForLeadOpenDDService.GetReason(response.data.Result);
-                    this.InsertLeadChange.LeadOpenReason = reason;
-                }));
-                debugger;
+                //var reason = this.InsertLeadChange.LeadOpenReason
+                //this.LeadOpenReasonDD = this.ReasonForLeadOpenDDService.Find().then((response => {
+                //    this.LeadOpenReasonDD = this.ReasonForLeadOpenDDService.GetReason(response.data.Result);
+                //    this.InsertLeadChange.LeadOpenReason = reason;
+                //}));
+
                 if (this.InsertLeadChange.LeadStatusID == "8" || this.InsertLeadChange.LeadStatusID == "9") {
                     $("#txtstatus").prop("disabled", false);
                 }
@@ -727,6 +852,7 @@
                 $('#txtcontactemail').val(this.InsertLeadChange.ContactEmail);
                 $('#txtContactMobNo').val(this.InsertLeadChange.ContactMobileNo);
                 $('#txtContactPhno').val(this.InsertLeadChange.ContactPhoneNo);
+                //$('#txtLeadStatusId').val(this.InsertLeadChange.LeadStatusID);
                 $('#txtdesignation').val(this.InsertLeadChange.Designation);
                 $('#txtdept').val(this.InsertLeadChange.DepartmentID);
                 $('#txtFop').val(this.InsertLeadChange.FOPID);
@@ -784,7 +910,8 @@
                 //this.LeadSource(this.InsertLeadChange.ChannelID);
                 //$('#ddlleadsource').val(this.InsertLeadChange.LeadSourceID);
                 //$('#txtCommnets').val(this.InsertLeadChange.Comments);
-
+                console.log(this.InsertLeadChange)
+                console.log("LeadStatusID", this.InsertLeadChange.LeadStatusID)
 
             }));
         }
@@ -806,6 +933,7 @@
         Close(): void {
 
             this.FillGridDeliverySchedule();
+            //this.locationreload();
             //location.href = "#!/LeadChangeList";
 
         }

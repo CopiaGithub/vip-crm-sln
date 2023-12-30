@@ -87,7 +87,7 @@ var GCPL;
                         SPMobileNo: item.SPMobileNo,
                         SPDesignation: item.SPDesignation,
                         CreatedBy: item.CreatedBy,
-                        WhenCreated: item.WhenCreated,
+                        WhenCreated: item.WhenCreated
                     });
                 }
                 return list;
