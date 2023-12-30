@@ -1678,7 +1678,6 @@ E:\Pratima\CRM Project\VIP_CRM_Sln\GCPL_Sln\bin\Microsoft.AI.DependencyCollector
 E:\Pratima\CRM Project\VIP_CRM_Sln\GCPL_Sln\bin\Microsoft.AI.WindowsServer.xml
 E:\Pratima\CRM Project\VIP_CRM_Sln\GCPL_Sln\bin\Microsoft.AI.Web.xml
 E:\Pratima\CRM Project\VIP_CRM_Sln\GCPL_Sln\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-E:\Pratima\CRM Project\VIP_CRM_Sln\GCPL_Sln\obj\Debug\GCPL_Sln.csproj.AssemblyReference.cache
 E:\Pratima\CRM Project\VIP_CRM_Sln\GCPL_Sln\obj\Debug\GCPL_Sln.csproj.CoreCompileInputs.cache
 E:\Pratima\CRM Project\VIP_CRM_Sln\GCPL_Sln\obj\Debug\GCPL_Sln.csproj.CopyComplete
 E:\Pratima\CRM Project\VIP_CRM_Sln\GCPL_Sln\obj\Debug\GCPL_Sln.dll

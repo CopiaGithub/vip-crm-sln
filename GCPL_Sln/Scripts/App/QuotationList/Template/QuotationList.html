@@ -54,6 +54,7 @@
                         <th>Sales Person Name</th>
                         <th>Quotation Date</th>
                         <th>Action</th>
+                        <th>Share</th>
                         
                     </tr>
                 </thead>
@@ -65,12 +66,17 @@
                         <td>{{item.ContactName}}</td>
                         <td>{{item.SPName}}</td>
                         <td>{{item.WhenCreated}}</td>
-                        
+
                         <td>
 
                             <a href="/#!/CreateQuotation?LeadID={{item.LeadID}}" class="btn search-btn" title="CreateQuotation">Edit</a>
                         </td>
-                        
+                        <td class="text-center">
+                            <a ng-disabled="item.LeadID == ''" id="btnView" class="btn btn-primary pdf-btn" href="http://localhost:57684/api/QuotPDFCRM?LeadID={{item.LeadID}}">
+                                <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                            </a>
+                           
+                        </td>
                     </tr>
                 </tbody>
 
