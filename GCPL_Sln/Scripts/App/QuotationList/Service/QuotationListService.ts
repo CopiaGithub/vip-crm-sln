@@ -23,12 +23,12 @@
         }
 
         Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
-            var url = this.apiUrl + "/QuatationListDetails";
+            var url = this.apiUrl + "/QuotationList";
             var ID;
             var LeadID;
             var CustomerName;
             //var UserID;
-            
+
 
             if (data.ID == undefined) {
                 ID = '';
@@ -83,9 +83,10 @@
                     ContactName: item.ContactName,
                     SPName: item.SPName,
                     SPMobileNo: item.SPMobileNo,
-                    SPDesignation: item.SPDesignation,  
+                    SPDesignation: item.SPDesignation,
                     CreatedBy: item.CreatedBy,
-                   
+                    WhenCreated: item.WhenCreated
+
 
                 });
             }

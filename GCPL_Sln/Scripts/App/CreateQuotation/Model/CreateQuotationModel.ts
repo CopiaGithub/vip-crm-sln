@@ -100,7 +100,7 @@
     export class SOSModel {
         constructor() {
         }
-        
+
         ModelDescription: string;
         ModelID: string;
         ModelNo: string;
@@ -129,7 +129,7 @@
         ModifiedBy: string;
         WhenCreated: string;
         WhenModified: string;
-        
+
     }
     export class COLModel {
         constructor() {
@@ -160,13 +160,13 @@
         FeatureName: string;
         ProductFeaturesID: string;
         PictureID: string;
-        
+
 
     }
     export class ProdFModel {
         constructor() {
-        }       
-        FeatureDescription: string;       
+        }
+        FeatureDescription: string;
         FeatureName: string;
         ProductFeaturesID: string;
         PictureID: string;
@@ -198,14 +198,17 @@
     }
     export class TotalPriceModel {
         constructor() {
-        }
-        Price: number;
-        Quantity: number;
-        GSTRate: number;
-        ConvertedGST: number;
-        TotalPrice: string;
-        TotalTax: string;
+        }       
+        Quantity: number;      
+        MRPUnit: number;
+        GST: number;
+        HSN: number;
+        Discount: number;
+        DiscountedPricePerUnit: number;
+        TotalPrice: number;
+        TotalGST: number;
+        NetAmount: number;
     }
 
-   
+
 }

@@ -1274,6 +1274,7 @@
 
             this.LeadItemlist = this.ListItemservice.Find(this.LeadID).then((response => {
                 this.LeadItemlist = this.ListItemservice.GetLeadItemList(response.data.Result);
+                console.log("GetLeadItemList", response.data.Result)
 
             }));
         }
@@ -1331,20 +1332,12 @@
         }
 
         EditItem(data: any): void {
-            console.log(data);
-
+         
 
             this.EditItemService.Find(data).then((response => {
-                console.log(response);
-
+              
                 this.InsertItem = this.EditItemService.GetItemEdit(response.data.Result);
-                console.log("Api Model", response.data.Result);
-
-
-                console.log("Frontend Model", this.InsertItem);
-
-
-
+                
                 $("myModalAdd").show();
 
             }));

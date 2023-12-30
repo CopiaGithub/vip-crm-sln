@@ -53,6 +53,9 @@
         RefUserName: string;
         CampaignID: string;
         ProjectID: string;
+        WhenEntered: string;
+        Description: string;
+        Notes: string;
     }
 
    

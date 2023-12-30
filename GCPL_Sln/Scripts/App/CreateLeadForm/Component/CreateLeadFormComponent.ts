@@ -643,7 +643,10 @@
                         "ChannelID": this.InsertLead.ChannelID,
                         "ChannelName": this.InsertLead.ChannelID == "" ? "" : $("#txtChannel option:selected").text(),
                         "LeadSourceID": this.InsertLead.LeadSourceID,
+                        "LeadCategoryID": this.InsertLead.LeadCategoryID,
+                        "UserID": this.UserID,
                         "LeadSourceName": this.InsertLead.LeadSourceID == "" ? "" : $("#ddlleadsource option:selected").text(),
+                        "Comments": this.InsertLead.Comments == "" ? "" : $("#Comments option:selected").text(),
                     })
 
                     console.log(this.InsertToCart)
@@ -825,7 +828,7 @@
                     this.InsertLead.StateID = this.InsertCust.StateID;
                     this.InsertLead.DistrictID = this.InsertCust.DistrictID;
                     this.InsertLead.City = this.InsertCust.City;
-                    this.InsertLead.LeadStatusID = this.InsertCust.LeadStatusID;
+                    //this.InsertLead.LeadStatusID = this.InsertCust.LeadStatusID;
                     this.InsertLead.IndustryDivisionID = this.InsertCust.IndustryDivisionID;
                     this.InsertLead.IndustrialSegmentID = this.InsertCust.IndustrialSegmentID;
                     this.InsertLead.CustomerRatingID = this.InsertCust.CustomerRatingID;
@@ -848,7 +851,7 @@
                             console.log(response.data.Result, "Testing Lead 1111");
                             this.InsertLead.LeadID = response.data.Result;
                             for (var i = 0; i < this.TotalItemList.length; i++) {
-                                this.TotalItemList[i].LeadID = this.InsertLead.LeadID;
+                                this.TotalItemList[i].LeadID = this.InsertLead.LeadID;                               
                                 this.InsertLead = this.TotalItemList[i];
                                 this.InsertItemService.PostItem(this.InsertLead).then((response => {
                                     if (response.data == "Success") {

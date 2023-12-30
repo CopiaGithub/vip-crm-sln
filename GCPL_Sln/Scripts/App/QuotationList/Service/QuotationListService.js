@@ -32,7 +32,7 @@ var GCPL;
                 return _this;
             }
             QuotationlistService.prototype.Find = function (data) {
-                var url = this.apiUrl + "/QuatationListDetails";
+                var url = this.apiUrl + "/QuotationList";
                 var ID;
                 var LeadID;
                 var CustomerName;
@@ -87,6 +87,7 @@ var GCPL;
                         SPMobileNo: item.SPMobileNo,
                         SPDesignation: item.SPDesignation,
                         CreatedBy: item.CreatedBy,
+                        WhenCreated: item.WhenCreated
                     });
                 }
                 return list;

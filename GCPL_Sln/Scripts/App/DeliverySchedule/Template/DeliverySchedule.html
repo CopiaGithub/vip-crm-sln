@@ -17,7 +17,7 @@
         <br />
         <form>
             <ul class="validate-lead-list">
-                <li class="laed-id-container">
+                <!--<li class="laed-id-container">
                     <span class="acco-tab spl-tab toggle-spl-plus" data-toggle="collapse" data-target="#acco1">Opportunity ID - {{$ctrl.LeadID}}</span>
                     <div class="collapse" id="acco1">
                         <div class="row">
@@ -31,18 +31,18 @@
                                 <div class="form-group">
                                     <label for="Address">Date</label>
                                     <input id="hfDate" type="hidden" name="hfFromDate">
-                                    <input name="txtBirDate" placeholder="DD MMM YYYY" ng-model="$ctrl.InsertLeadChange.BirthDate" input="hfBirDate" data-intro="true" id="txtDeliveryDate1" style="width: 108%;" class="form-control" disabled="disabled">
+                                    <input name="txtBirDate" placeholder="DD MMM YYYY" ng-model="$ctrl.InsertLeadChange.WhenEntered" input="hfBirDate" data-intro="true" id="txtDeliveryDate1" style="width: 100%;" class="form-control" disabled="disabled">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Opportunity Status</label>
-                                    <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.InsertLeadChange.LeadStatusID" style="width:100%" disabled>
+                                    <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.InsertLeadChange.LeadStatusID" disabled>
                                         <option value="">Select</option>
                                         <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div>                      
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Customer Name</label>
@@ -67,9 +67,9 @@
 
 
                     </div>
-                </li>
+                </li>-->
 
-                <li class="laed-id-container">
+                <!--<li class="laed-id-container">
                     <span class="acco-tab spl-tab toggle-spl-plus" id="LeadID" data-toggle="collapse" data-target="#acco10">Item List</span>
                     <div class="collapse" id="acco10">
                         <div class="row">
@@ -100,7 +100,7 @@
                                                             <td>{{item.Quantity}}</td>
                                                             <td>{{item.ItemStatus}}</td>
                                                             <td style="text-align: center;">
-                                                                <span class="edit-table-link" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.FetchItemData(item.ItemID);"><i class="fa fa-plus-square" style="font-size: 24px;" aria-hidden="true"></i></span>
+                                                                <span class="edit-table-link" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.FetchItemData(item.ItemID);"><i class="fa fa-plus-square" style="font-size: 24px;" ng-disabled="$ctrl.InsertItem.length > 0" aria-hidden="true"></i></span>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -114,37 +114,42 @@
                         </div>
                     </div>
 
-                </li>
+                </li>-->
                 <li>
-                    <span data-toggle="collapse" data-target="#acco2" title="Personal Detail" class="acco-tab spl-tab toggle-spl-plus">Delivery Details</span>
-                    <div id="acco2" class="collapse customer-form acco-content transition">
+                    <span  data-target="#acco2" title="Personal Detail" class="acco-tab spl-tab toggle-spl-plus">Delivery Details</span>
+                    <div id="acco2" class="customer-form acco-content transition">
                         <div class="row">
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label>Sr. No.</label>
+                                    <label>Item Sr No</label>
                                     <input type="text" id="txtItemNo" ng-model="$ctrl.InsertItem.ItemID" name="txtItemNo" class="form-control" required disabled>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Item Code</label>
-                                    <input type="text" id="txtItemNo" ng-model="$ctrl.InsertItem.ProductID" name="txtItemNo" class="form-control" required disabled>
+                                    <input type="text" id="txtItemNo" ng-model="$ctrl.InsertItem.ProductCode" name="txtItemNo" class="form-control" required disabled>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Item Description</label>
                                     <input type="text" id="txtItemDescription" ng-model="$ctrl.InsertItem.ProductDesc" name="txtItemDescription" class="form-control" required disabled>
-                                    <!--<select id="txtProduct" name="Product" ng-model="$ctrl.InsertItem.ProductID" class="form-control leader-create-dropdown" tabindex="2" required disabled>
-                <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.ProductDesc}}</option>
-
-            </select>-->
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="Address">Delivery Date</label>
-                                    <input name="DeliveryDate" placeholder="DD MMM YYYY" ng-model="$ctrl.InsertItem.DeliveryDate" input="hfDeliveryDate" data-intro="true" id="txtDeliveryDate" style="width: 108%;" class="form-control">
+                                    <label>Item Quantity</label>
+                                    <input type="text" id="Quantity" ng-model="$ctrl.InsertItem.Quantity" name="Quantity" class="form-control" required disabled>
+                                </div>
+                            </div>
+
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Delivery Date</label>
+                                    <input id="hfDeliveryDate" type="hidden" name="hfDeliveryDate">
+                                    <input name="txtDeliveryDate" placeholder="DD MMM YYYY" input="hfDeliveryDate" ng-model="$ctrl.InsertItem.DeliveryDate" data-intro="true" id="txtDeliveryDate" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -156,7 +161,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-9 text-right">
+                            <div class="col-md-6 text-right">
                                 <div class="form-group">
                                     <label class="label-block">&nbsp;</label>
                                     <input type="submit" value="Add to cart" id="btnSubmit" ng-click="$ctrl.AddDsToCart();" class="btn search-btn">
@@ -185,7 +190,7 @@
                                                     <tbody>
                                                         <tr ng-repeat="item in $ctrl.DeliverySchedulelist">
                                                             <td>{{item.ID}}</td>
-                                                            <td>{{item.ProductID}}</td>
+                                                            <td>{{item.ProductCode}}</td>
                                                             <td>{{item.ProductDesc}}</td>
                                                             <td>{{item.DeliveryDate}}</td>
                                                             <td>{{item.DeliveryQty}}</td>
@@ -203,16 +208,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-12 text-right">
+                            <div class="form-group">
+                                <label class="label-block">&nbsp;</label>
+                                <input type="submit" value="Submit" id="btnSubmitDS" ng-click="$ctrl.Submit();" class="btn search-btn">
+                                <!--<input type="submit" value="Submit" id="btnSubmit" style="margin-top: 20px;margin:8px;background-color: #f48c41;border: none;color:black;margin-right: -65px;" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myAlert">-->
+                            </div>
+                        </div>
                     </div>
                 </li>
 
-                <div class="col-md-12 text-right">
-                    <div class="form-group">
-                        <label class="label-block">&nbsp;</label>
-                        <input type="submit" value="Submit" id="btnSubmitDS" ng-click="$ctrl.Submit();" class="btn search-btn">
-                        <!--<input type="submit" value="Submit" id="btnSubmit" style="margin-top: 20px;margin:8px;background-color: #f48c41;border: none;color:black;margin-right: -65px;" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myAlert">-->
-                    </div>
-                </div>
+                
 
                 <!--<li class="laed-id-container">
                     <span class="acco-tab spl-tab toggle-spl-plus" id="DSID" data-toggle="collapse" ng-click="$ctrl.FillGridDeliverySchedule()" data-target="#acco30">Add To Cart List</span>
@@ -450,10 +456,10 @@
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Item Code</label>
-                                    <input type="text" id="txtItemNo" ng-model="$ctrl.InsertItem.ProductID" name="txtItemNo" class="form-control" required disabled>
+                                    <input type="text" id="txtItemNo" ng-model="$ctrl.InsertItem.ProductCode" name="txtItemNo" class="form-control" required disabled>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Item Description</label>
                                     <input type="text" id="txtItemDescription" ng-model="$ctrl.InsertItem.ProductDesc" name="txtItemDescription" class="form-control" required disabled>
@@ -462,11 +468,12 @@
 
             </select>-->
                                 </div>
-                            </div>
+                            </div>                          
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label for="Address">Delivery Date</label>
-                                    <input name="DeliveryDate" placeholder="DD MMM YYYY" ng-model="$ctrl.InsertItem.DeliveryDate" input="hfDeliveryDate" data-intro="true" id="txtDeliveryDate" style="width: 108%;" class="form-control">
+                                    <label>Delivery Date</label>
+                                    <input id="hfDeliveryDateEdit" type="hidden" name="hfDeliveryDateEdit">
+                                    <input name="txtDDeliveryDateEdit" placeholder="DD MMM YYYY" input="hfDeliveryDateEdit" ng-model="$ctrl.InsertItem.DeliveryDate" data-intro="true" id="txtDeliveryDateEdit" class="form-control">
                                 </div>
                             </div>
                             <div class="col-lg-3">
@@ -482,7 +489,7 @@
 
                             <div class="row">
                                 <div class="col-md-12 text-right">
-                                    <input type="submit" id="Item-submit" value="Submit" ng-click="$ctrl.AddDsToCart();" class="btn search-btn">
+                                    <input type="submit" id="Item-submit" value="Submit" ng-click="$ctrl.AddDsToCartEdit();" class="btn search-btn">
                                 </div>
                             </div>
                         </div>

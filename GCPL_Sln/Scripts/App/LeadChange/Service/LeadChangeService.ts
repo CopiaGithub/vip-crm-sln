@@ -93,6 +93,9 @@ namespace GCPL.Service {
             obj.RefUserName = data.RefUserName;
             obj.CampaignID = data.CampaignID;
             obj.ProjectID = data.ProjectID;
+            obj.WhenEntered = data.WhenEntered;
+            obj.Description = data.Description;
+            obj.Notes = data.Notes;
 
             return obj;
 

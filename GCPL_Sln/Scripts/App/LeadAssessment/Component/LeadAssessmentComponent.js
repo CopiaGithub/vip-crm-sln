@@ -1006,6 +1006,7 @@ var GCPL;
                     var _this = this;
                     this.LeadItemlist = this.ListItemservice.Find(this.LeadID).then((function (response) {
                         _this.LeadItemlist = _this.ListItemservice.GetLeadItemList(response.data.Result);
+                        console.log("GetLeadItemList", response.data.Result);
                     }));
                 };
                 LeadAssessmentController.prototype.FillGrid1 = function () {
@@ -1052,12 +1053,8 @@ var GCPL;
                 };
                 LeadAssessmentController.prototype.EditItem = function (data) {
                     var _this = this;
-                    console.log(data);
                     this.EditItemService.Find(data).then((function (response) {
-                        console.log(response);
                         _this.InsertItem = _this.EditItemService.GetItemEdit(response.data.Result);
-                        console.log("Api Model", response.data.Result);
-                        console.log("Frontend Model", _this.InsertItem);
                         $("myModalAdd").show();
                     }));
                 };

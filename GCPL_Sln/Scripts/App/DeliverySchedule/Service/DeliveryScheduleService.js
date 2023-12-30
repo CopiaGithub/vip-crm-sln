@@ -69,7 +69,7 @@ var GCPL;
                 var config = {
                     params: {
                         // UserID: this.Cookie.get('UserInfo')['UserID'],
-                        LeadID: data
+                        ItemID: data
                     }
                 };
                 return this.ajaXUtility.Get({
@@ -85,11 +85,13 @@ var GCPL;
                         ID: item.ID,
                         ItemID: item.ItemID,
                         ProductID: item.ProductID,
+                        ProductCode: item.ProductCode,
                         ProductDesc: item.ProductDesc,
                         UserID: item.UserID,
                         LeadID: item.LeadID,
                         DeliveryDate: item.DeliveryDate,
-                        DeliveryQty: item.DeliveryQty
+                        DeliveryQty: item.DeliveryQty,
+                        EditState: item.EditState
                     });
                 }
                 return list;
@@ -210,12 +212,14 @@ var GCPL;
                 obj.ID = data.ID,
                     obj.ItemID = data.ItemID,
                     obj.ProductID = data.ProductID,
+                    obj.ProductCode = data.ProductCode,
                     obj.ProductDesc = data.ProductDesc,
                     obj.UserID = data.UserID,
                     obj.LeadID = data.LeadID,
                     obj.DeliveryDate = data.DeliveryDate,
                     obj.DeliveryQty = data.DeliveryQty;
-                console.log(obj);
+                obj.EditState = data.EditState;
+                console.log("EditDSListService", obj);
                 return obj;
             };
             EditDSListService.$inject = ["$http", "$q"];
@@ -267,7 +271,11 @@ var GCPL;
                         Status: item.Status,
                         ModelID: item.ModelID,
                         ItemStatus: item.ItemStatus,
-                        ItemCode: item.ProductID
+                        ItemCode: item.ProductCode,
+                        MRPUnit: item.MRPUnit,
+                        GST: item.GST,
+                        NetAmount: item.NetAmount,
+                        DeliveryStatus: item.DeliveryStatus
                     });
                 }
                 return list;
@@ -277,6 +285,44 @@ var GCPL;
         }(GCPL.Service.BaseService));
         Service.LeadItemNewDSListService = LeadItemNewDSListService;
         app.AddService("LeadItemNewDSListService", LeadItemNewDSListService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var DeleteDSItemService = /** @class */ (function (_super) {
+            __extends(DeleteDSItemService, _super);
+            function DeleteDSItemService($http, $q) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this.apiUrl = "";
+                _this.apiUrl = _this.url + "/" + "DeleteDSItem";
+                return _this;
+            }
+            DeleteDSItemService.prototype.Find = function (data) {
+                var config = {
+                    params: {
+                        ItemID: data
+                    }
+                };
+                return this.ajaXUtility.Post({
+                    Url: this.apiUrl,
+                    data: data,
+                    Config: config
+                });
+            };
+            DeleteDSItemService.prototype.postDSItemDelete = function (data) {
+                var url = this.apiUrl;
+                this.$http.post(url, data).then(function (response) {
+                });
+            };
+            DeleteDSItemService.$inject = ["$http", "$q"];
+            return DeleteDSItemService;
+        }(GCPL.Service.BaseService));
+        Service.DeleteDSItemService = DeleteDSItemService;
+        app.AddService("DeleteDSItemService", DeleteDSItemService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
 //# sourceMappingURL=DeliveryScheduleService.js.map

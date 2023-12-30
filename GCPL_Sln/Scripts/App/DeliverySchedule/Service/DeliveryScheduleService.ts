@@ -64,7 +64,7 @@ namespace GCPL.Service {
             let config = {
                 params: {
                     // UserID: this.Cookie.get('UserInfo')['UserID'],
-                    LeadID: data
+                    ItemID: data
                 }
             };
             return this.ajaXUtility.Get({
@@ -80,11 +80,13 @@ namespace GCPL.Service {
                     ID: item.ID,
                     ItemID: item.ItemID,
                     ProductID: item.ProductID,
+                    ProductCode: item.ProductCode,
                     ProductDesc: item.ProductDesc,
                     UserID: item.UserID,
                     LeadID: item.LeadID,
                     DeliveryDate: item.DeliveryDate,
-                    DeliveryQty: item.DeliveryQty
+                    DeliveryQty: item.DeliveryQty,
+                    EditState: item.EditState
 
                 });
             }
@@ -216,12 +218,15 @@ namespace GCPL.Service {
             obj.ID = data.ID,
                 obj.ItemID = data.ItemID,
                 obj.ProductID = data.ProductID,
+                obj.ProductCode = data.ProductCode,
                 obj.ProductDesc = data.ProductDesc,
                 obj.UserID = data.UserID,
                 obj.LeadID = data.LeadID,
                 obj.DeliveryDate = data.DeliveryDate,
                 obj.DeliveryQty = data.DeliveryQty
-            console.log(obj);
+                obj.EditState = data.EditState
+
+            console.log("EditDSListService",obj);
                              
             return obj;
         }
@@ -279,7 +284,11 @@ namespace GCPL.Service {
                     Status: item.Status,
                     ModelID: item.ModelID,
                     ItemStatus: item.ItemStatus,
-                    ItemCode: item.ProductID
+                    ItemCode: item.ProductCode,
+                    MRPUnit: item.MRPUnit,
+                    GST: item.GST,
+                    NetAmount: item.NetAmount,
+                    DeliveryStatus: item.DeliveryStatus
                 });
             }
             return list;
@@ -287,5 +296,47 @@ namespace GCPL.Service {
 
     }
     app.AddService("LeadItemNewDSListService", LeadItemNewDSListService);
+}
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IDeleteDSItemService {
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        postDSItemDelete(data: any): void;
+    }
+    export class DeleteDSItemService extends GCPL.Service.BaseService implements IDeleteDSItemService {
+
+        private apiUrl: string = "";
+        static $inject = ["$http", "$q"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"DeleteDSItem"}`;
+        }
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+
+            let config = {
+                params: {
+                    ItemID: data
+                }
+            };
+            return this.ajaXUtility.Post({
+
+                Url: this.apiUrl,
+                data,
+                Config: config
+            });
+        }
+
+        postDSItemDelete(data): void {
+            let url = this.apiUrl;
+            this.$http.post(url, data).then(function (response) {
+            });
+
+        }
+    }
+
+    app.AddService("DeleteDSItemService", DeleteDSItemService);
 }
 

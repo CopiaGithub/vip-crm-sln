@@ -56,7 +56,11 @@ var GCPL;
                         Status: item.Status,
                         ModelID: item.ModelID,
                         ItemStatus: item.ItemStatus,
-                        ItemCode: item.ProductID
+                        ItemCode: item.ProductCode,
+                        MRPUnit: item.MRPUnit,
+                        GST: item.GST,
+                        NetAmount: item.NetAmount,
+                        DeliveryStatus: item.DeliveryStatus
                     });
                 }
                 return List;
@@ -90,7 +94,7 @@ var GCPL;
                 var config = {
                     params: {
                         // UserID: this.Cookie.get('UserInfo')['UserID'],
-                        LeadID: data
+                        ItemID: data
                     }
                 };
                 return this.ajaXUtility.Get({
@@ -106,11 +110,13 @@ var GCPL;
                         ID: item.ID,
                         ItemID: item.ItemID,
                         ProductID: item.ProductID,
+                        ProductCode: item.ProductCode,
                         ProductDesc: item.ProductDesc,
                         UserID: item.UserID,
                         LeadID: item.LeadID,
                         DeliveryDate: item.DeliveryDate,
-                        DeliveryQty: item.DeliveryQty
+                        DeliveryQty: item.DeliveryQty,
+                        EditState: item.EditState
                     });
                 }
                 return list;
