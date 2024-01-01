@@ -1067,4 +1067,54 @@ var GCPL;
         app.AddService("InsertSAPCustomerService", InsertSAPCustomerService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var StateddService = /** @class */ (function (_super) {
+            __extends(StateddService, _super);
+            function StateddService($http, $q) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this.apiUrl = "";
+                _this.apiUrl = _this.url + "/" + "StateDDWP";
+                return _this;
+            }
+            StateddService.prototype.Find = function (data) {
+                var CountryID;
+                if (data == undefined) {
+                    CountryID = '95';
+                }
+                else {
+                    CountryID = data;
+                }
+                var config = {
+                    params: {
+                        CountryID: '95'
+                    }
+                };
+                return this.ajaXUtility.Get({
+                    Url: this.apiUrl,
+                    Config: config
+                });
+            };
+            StateddService.prototype.GetStateName = function (data) {
+                var list = Array();
+                for (var _i = 0, data_16 = data; _i < data_16.length; _i++) {
+                    var item = data_16[_i];
+                    list.push({
+                        StateID: item.StateID.toString(),
+                        State: item.State,
+                    });
+                }
+                return list;
+            };
+            StateddService.$inject = ["$http", "$q"];
+            return StateddService;
+        }(GCPL.Service.BaseService));
+        Service.StateddService = StateddService;
+        app.AddService("StateddService", StateddService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
 //# sourceMappingURL=CreateCustomerService.js.map

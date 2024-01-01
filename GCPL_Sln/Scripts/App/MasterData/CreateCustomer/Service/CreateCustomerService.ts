@@ -1188,3 +1188,55 @@ namespace GCPL.Service {
 
     app.AddService("InsertSAPCustomerService", InsertSAPCustomerService);
 }
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IStateddService {
+
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        GetStateName(data: any): Array<model.StateddlModel>;
+    }
+    export class StateddService extends GCPL.Service.BaseService implements IStateddService {
+
+        private apiUrl: string = "";
+        static $inject = ["$http", "$q"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"StateDDWP"}`;
+        }
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+            var CountryID;
+            if (data == undefined) {
+                CountryID = '95';
+            }
+            else {
+                CountryID = data;
+            }
+            let config = {
+                params: {
+                    CountryID: '95'
+                }
+            };
+            return this.ajaXUtility.Get({
+                Url: this.apiUrl,
+                Config: config
+            });
+        }
+
+        GetStateName(data: any): Array<model.StateddlModel> {
+            let list = Array<model.StateddlModel>();
+            for (let item of data) {
+                list.push({
+                    StateID: item.StateID.toString(),
+                    State: item.State,
+                });
+            }
+            return list;
+        }
+    }
+
+    app.AddService("StateddService", StateddService);
+}
