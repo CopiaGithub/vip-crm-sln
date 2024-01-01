@@ -180,11 +180,10 @@
         }
         CheckPrice(): void {
 
-            this.Update.TotalPrice = null;
-            this.Update.TotalTax = null;
-            this.TotalPriceModel.Price = this.Update.Price;
+          
+            this.TotalPriceModel.MRPUnit = this.Update.MRPUnit;
             this.TotalPriceModel.Quantity = this.Update.Quantity;
-            this.TotalPriceModel.GSTRate = this.Update.GSTRate;
+            this.TotalPriceModel.GST = this.Update.GST;
             this.Total = this.TotalPriceCalService.FindChange(this.TotalPriceModel).then((response => {
                 this.Total = this.TotalPriceCalService.GetTotalPriceChange(response.data.Result);
                 this.Update.Price = null;

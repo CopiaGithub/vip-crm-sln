@@ -313,7 +313,7 @@
                             <div class="col-lg-3 col-md-3">
                                 <div class="form-group">
                                     <label for="mail" class="form-label">State</label>
-                                    <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.Country" name="mail" class="form-control" disabled />
+                                    <input type="email" id="txtCustEmail" ng-model="$ctrl.AssessmentInfo.State" name="mail" class="form-control" disabled />
                                 </div>
                             </div>
                         </div>
@@ -988,9 +988,9 @@
                     <div class="col-md-12 page-title-right-container text-right">
 
 
-                        <a href="/#!/DeliveryScheduleEdit?LeadID={{$ctrl.AssessmentInfo.LeadID}}" style="margin-top: 5px; margin-right: 10px;" class="btn search-btn" title="LeadAssessment">Delivery Schedule Edit</a>
+                        <!--<a href="/#!/DeliveryScheduleEdit?LeadID={{$ctrl.AssessmentInfo.LeadID}}" style="margin-top: 5px; margin-right: 10px;" class="btn search-btn" title="LeadAssessment">Delivery Schedule Edit</a>
 
-                        <a href="/#!/DeliverySchedule?LeadID={{$ctrl.AssessmentInfo.LeadID}}" style="margin-top: 5px; margin-right: 10px;" class="btn search-btn" title="LeadAssessment">Delivery Schedule</a>
+                        <a href="/#!/DeliverySchedule?LeadID={{$ctrl.AssessmentInfo.LeadID}}" style="margin-top: 5px; margin-right: 10px;" class="btn search-btn" title="LeadAssessment">Delivery Schedule</a>-->
 
                         <button id="#" style="margin-top:5px;" class="btn create-btn pull-right" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.AddItem();">Add New</button>
 
@@ -1010,8 +1010,7 @@
                                         <table id="myTable" cellspacing="0" rules="all" class="table table-bordered table-condensed customer-list-table table-responsive" border="1" style="width:100%;border-collapse:collapse;">
                                             <thead class="customer-list-heading">
 
-                                                <tr>
-
+                                                <tr>                                                 
                                                     <th>Sr. No.</th>
                                                     <th>Item Description</th>
                                                     <th>Quantity</th>
@@ -1021,16 +1020,20 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr ng-repeat="item in $ctrl.LeadItemlist">
-
+                                                <tr ng-repeat="item in $ctrl.LeadItemlist">                                                   
                                                     <td>{{item.ItemID}}</td>
                                                     <td>{{item.ProductDesc}}</td>
                                                     <td>{{item.Quantity}}</td>
                                                     <td>{{item.ItemStatus}}</td>
                                                     <td>
-                                                        <span class="edit-table-link" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.EditItem(item.ItemID);"><i class="fa fa-edit" aria-hidden="true"></i></span>
+                                                    <span class="edit-table-link" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.EditItem(item.ItemID);"><i class="fa fa-edit" aria-hidden="true"></i></span>
+                                                    
+                                                    <a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.DeleteItem(item.ItemID);"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                     </td>
-                                                    <td><a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.DeleteItem(item.ItemID);"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                                    <td>
+                                                        <span ng-if ="item.DeliveryStatus == '0'"><a href="/#!/DeliverySchedule?ItemID={{item.ItemID}}" style="margin-top: 5px; margin-right: 10px;" class="btn search-btn" title="LeadAssessment">Plan Delivery Schedule</a></span>
+                                                        <span ng-if ="item.DeliveryStatus == '1'"><a href="/#!/DeliveryScheduleEdit?ItemID={{item.ItemID}}" style="margin-top: 5px; margin-right: 10px; background-color: forestgreen;" class="btn clear-btn" title="LeadAssessment">Edit Delivery Schedule</a></span>                                                       
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -1084,8 +1087,12 @@
                                                     <td>{{item.ActivityDate}}</td>
                                                     <td>{{item.Status}}</td>
                                                     <td>{{item.Note}}</td>
-                                                    <td>Market Platform</td>
-                                                    <td><a id="lnkview" ng-click="$ctrl.Edit(item.ActivityNumber)" data-toggle="modal" ng-show="item.Status == 'Pending'" data-target="#myModalAddNew" style="cursor: pointer">Edit</a></td>
+                                                    <td>{{item.LeadStatusId}}</td>
+                                                    <td>
+                                                        <!--<a class="edit-table-link"id="lnkview" ng-click="$ctrl.Edit(item.ActivityNumber)" data-toggle="modal" ng-show="item.Status == 'Pending'" data-target="#myModalAddNew" style="cursor: pointer">Edit</a>-->
+                                                        <span class="edit-table-link"id="lnkview" ng-click="$ctrl.Edit(item.ActivityNumber)" data-toggle="modal" ng-show="item.Status == 'Pending'" data-target="#myModalAddNew"><i class="fa fa-edit" aria-hidden="true"></i></span>
+                                                    </td>
+
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -1529,7 +1536,7 @@
                         </div>
                         <div class="col-md-3">
                             <b>Category </b>
-                            <select id="txtCategory" name="Category" ng-model="$ctrl.InsertItem.CategoryID" ng-change="$ctrl.Division();" class="form-control leader-create-dropdown" tabindex="2" required>
+                            <select id="txtCategory" name="Category" ng-model="$ctrl.InsertItem.CategoryID"  class="form-control leader-create-dropdown" tabindex="2" required>
                                 <option value="">Select</option>
                                 <option ng-repeat="item in $ctrl.CategoryDropDown" value={{item.CategoryID}}>{{item.Category}}</option>
                             </select>

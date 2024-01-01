@@ -782,8 +782,8 @@ namespace GCPL.Service {
         Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
             var url = this.apiUrl + "/CreateQuotation";
             var OpportunitySAPNo;
-           
-            
+
+
 
             if (data == undefined) {
                 OpportunitySAPNo = "";
@@ -793,7 +793,7 @@ namespace GCPL.Service {
 
             }
 
-            
+
             let config = {
                 params: {
                     OpportunitySAPNo: OpportunitySAPNo
@@ -805,9 +805,9 @@ namespace GCPL.Service {
                 Config: config
             });
         }
-        GetSOS(data: any): model.SOSModel {          
+        GetSOS(data: any): model.SOSModel {
             let obj = new model.SOSModel();
-            
+
             obj.ModelDescription = data.ModelDescription;
             obj.ModelID = data.ModelID;
             obj.ModelNo = data.ModelNo;
@@ -816,7 +816,7 @@ namespace GCPL.Service {
             obj.Price = data.Price;
             obj.Quantity = data.Quantity;
             return obj;
-               
+
         }
 
     }
@@ -851,7 +851,7 @@ namespace GCPL.Service {
             var url = this.apiUrl + "/CoveringLetter";
             var OpportunitySAPNo;
 
-            
+
 
             if (data == undefined) {
                 OpportunitySAPNo = "";
@@ -928,7 +928,7 @@ namespace GCPL.Service {
             var url = this.apiUrl + "/ProductFeatures";
             var OpportunitySAPNo;
 
-            
+
 
             if (data == undefined) {
                 OpportunitySAPNo = "";
@@ -941,7 +941,7 @@ namespace GCPL.Service {
             let config = {
                 params: {
                     OpportunitySAPNo: OpportunitySAPNo
-                   
+
                 }
             };
             return this.ajaXUtility.Get({
@@ -950,7 +950,7 @@ namespace GCPL.Service {
             });
         }
         GetPF(data: any): Array<model.ProductFModel> {
-           
+
             let list = Array<model.ProductFModel>();
             for (let item of data) {
                 list.push({
@@ -995,10 +995,10 @@ namespace GCPL.Service {
         }
 
         Find(): ng.IPromise<Utility.Ajax.IResponse> {
-            var url = this.apiUrl + "/TermsConditions";         
+            var url = this.apiUrl + "/TermsConditions";
 
             let config = {
-                params: {                  
+                params: {
 
                 }
             };
@@ -1007,16 +1007,16 @@ namespace GCPL.Service {
                 Config: config
             });
         }
-        
+
         GetTC(data: any): Array<model.TermsCModel> {
-            
+
             let list = Array<model.TermsCModel>();
             for (let item of data) {
                 list.push({
                     TACID: item.TACID,
                     Description: item.Description,
                     TACName: item.TACName
-                 
+
                 });
             }
             return list;
@@ -1145,7 +1145,7 @@ namespace GCPL.Service {
 
     export interface ITotalPriceService {
 
-        FindChange(TotalPriceModel:any): ng.IPromise<Utility.Ajax.IResponse>;
+        FindChange(TotalPriceModel: any): ng.IPromise<Utility.Ajax.IResponse>;
         GetTotalPriceChange(data: any): model.TotalPriceModel;
 
     }
@@ -1163,7 +1163,7 @@ namespace GCPL.Service {
 
         FindChange(TotalPriceModel: any): ng.IPromise<Utility.Ajax.IResponse> {
 
-            let url = `${this.url}/${"GetTotalPrice"}`;
+            let url = `${this.url}/${"GetPrice"}`;
 
             let config = {
                 params: {
@@ -1184,14 +1184,17 @@ namespace GCPL.Service {
 
             let list = new model.TotalPriceModel();
 
-            
-            list.TotalPrice = data.TotalPrice;            
-            list.TotalTax = data.TotalTax;
-            list.Quantity = data.Quantity;
-            list.ConvertedGST = data.ConvertedGST;
-            list.GSTRate = data.GSTRate;
-            list.Price = data.Price;
 
+            list.Quantity = data.Quantity,
+                list.MRPUnit = data.MRPUnit,
+                list.GST = data.GST,
+                list.HSN = data.HSN,
+                list.Discount = data.Discount,
+                list.DiscountedPricePerUnit = data.DiscountedPricePerUnit,
+                list.TotalPrice = data.TotalPrice,
+                list.TotalGST = data.TotalGST,
+                list.NetAmount = data.NetAmount
+      
             return list;
 
         }
@@ -1216,7 +1219,7 @@ namespace GCPL.Service {
         constructor(private $http: ng.IHttpService, private $q: ng.IQService, private _cookieStore: any) {
             super($http, $q);
 
-            this.apiUrl = `${this.url}/${"InsertQuotationMaster"}`;
+            this.apiUrl = `${this.url}/${"InsertQuotation"}`;
             this.Cookie = _cookieStore;
         }
         Find(): ng.IPromise<Utility.Ajax.IResponse> {
@@ -1226,10 +1229,165 @@ namespace GCPL.Service {
         }
         PostQuote(data: any): ng.IPromise<Utility.Ajax.IResponse> {
             let url = this.apiUrl;
-            // console.log(url);
+            console.log(data);
             return this.ajaXUtility.Post({ Url: url, data: data });
         }
     }
 
     app.AddService("InsertQuotationService", InsertQuotationService);
+}
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface ICountryddService {
+
+        Find(): ng.IPromise<Utility.Ajax.IResponse>;
+        GetCountryName(data: any): Array<model.CountryddlModel>;
+    }
+    export class CountryddService extends GCPL.Service.BaseService implements ICountryddService {
+
+        private apiUrl: string = "";
+        static $inject = ["$http", "$q"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"CountryDD"}`;
+        }
+
+
+        Find(): ng.IPromise<Utility.Ajax.IResponse> {
+            let config = {
+                params: {
+
+                }
+            };
+            return this.ajaXUtility.Get({
+                Url: this.apiUrl,
+                Config: config
+            });
+        }
+
+        GetCountryName(data: any): Array<model.CountryddlModel> {
+            let list = Array<model.CountryddlModel>();
+            for (let item of data) {
+                list.push({
+                    CountryID: item.CountryID.toString(),
+                    Country: item.Country,
+                });
+            }
+            return list;
+        }
+    }
+
+    app.AddService("CountryddService", CountryddService);
+}
+
+//namespace GCPL.Service {
+//    import app = GCPL.app;
+//    import model = GCPL.Model;
+
+//    export interface IStateddService {
+
+//        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+//        GetStateName(data: any): Array<model.StateddlModel>;
+//    }
+//    export class StateddService extends GCPL.Service.BaseService implements IStateddService {
+
+//        private apiUrl: string = "";
+//        static $inject = ["$http", "$q"];
+//        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+
+//            super($http, $q);
+//            this.apiUrl = `${this.url}/${"StateDDWP"}`;
+//        }
+
+//        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+//            var CountryID;
+//            if (data == undefined) {
+//                CountryID = '95';
+//            }
+//            else {
+//                CountryID = data;
+//            }
+//            let config = {
+//                params: {
+//                    CountryID: '95'
+//                }
+//            };
+//            return this.ajaXUtility.Get({
+//                Url: this.apiUrl,
+//                Config: config
+//            });
+//        }
+
+//        GetStateName(data: any): Array<model.StateddlModel> {
+//            let list = Array<model.StateddlModel>();
+//            for (let item of data) {
+//                list.push({
+//                    StateID: item.StateID.toString(),
+//                    State: item.State,
+//                });
+//            }
+//            return list;
+//        }
+//    }
+
+//    app.AddService("StateddService", StateddService);
+//}
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IDistrictService {
+
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        GetDistrictName(data: any): Array<model.DistrictddlModel>;
+    }
+    export class DistrictService extends GCPL.Service.BaseService implements IDistrictService {
+
+        private apiUrl: string = "";
+        static $inject = ["$http", "$q"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"DistrictDD"}`;
+        }
+
+
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+            var StateID;
+
+            if (data == undefined) {
+                StateID = "";
+            }
+            else {
+                StateID = data;
+            }
+            let config = {
+                params: {
+                    StateID: StateID
+                }
+            };
+            return this.ajaXUtility.Get({
+                Url: this.apiUrl,
+                Config: config
+            });
+        }
+
+        GetDistrictName(data: any): Array<model.DistrictddlModel> {
+            let list = Array<model.DistrictddlModel>();
+            for (let item of data) {
+                list.push({
+                    DistrictID: item.DistrictID.toString(),
+                    District: item.District,
+                });
+            }
+            return list;
+        }
+    }
+
+    app.AddService("DistrictService", DistrictService);
 }

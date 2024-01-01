@@ -23,33 +23,33 @@
         }
 
         Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
-            var url = this.apiUrl + "/QuatationListDetails";
-            var CustomerID;
-            var OppNumber;
-            var QuotationNo;
+            var url = this.apiUrl + "/QuotationList";
+            var ID;
+            var LeadID;
+            var CustomerName;
             //var UserID;
-            
 
-            if (data.CustomerID == undefined) {
-                CustomerID = '';
+
+            if (data.ID == undefined) {
+                ID = '';
             }
             else {
-                CustomerID = data.CustomerID;
+                ID = data.ID;
 
             }
 
-            if (data.OppNumber == undefined) {
-                OppNumber = '';
+            if (data.LeadID == undefined) {
+                LeadID = '';
             }
             else {
-                OppNumber = data.OppNumber;
+                LeadID = data.LeadID;
 
             }
-            if (data.QuotationNo == undefined) {
-                QuotationNo = '';
+            if (data.CustomerName == undefined) {
+                CustomerName = '';
             }
             else {
-                QuotationNo = data.QuotationNo;
+                CustomerName = data.CustomerName;
 
             }
             //if (data.UserID == undefined) {
@@ -61,9 +61,9 @@
             //}
             let config = {
                 params: {
-                    CustomerID: CustomerID,
-                    OppNumber: OppNumber,
-                    QuotationNo: QuotationNo,
+                    ID: ID,
+                    LeadID: LeadID,
+                    CustomerName: CustomerName,
                     UserID: this.Cookie.get('UserInfo')['UserID']
                 }
             };
@@ -77,18 +77,16 @@
 
             for (let item of data) {
                 list.push({
-                    OpportunityID: item.OpportunityID,
-                    OpportunitySAPNo: item.OpportunitySAPNo,
-                    OpportunityDate: item.OpportunityDate,
-                    CustomerID: item.CustomerID,
+                    ID: item.ID,
+                    LeadID: item.LeadID,
                     CustomerName: item.CustomerName,
-                    OppStatus: item.OppStatus,
-                    OppStage: item.OppStage,
-                    ModelNo: item.ModelNo,
-                    UserID: item.UserID,
+                    ContactName: item.ContactName,
+                    SPName: item.SPName,
+                    SPMobileNo: item.SPMobileNo,
+                    SPDesignation: item.SPDesignation,
                     CreatedBy: item.CreatedBy,
-                    QuotationRefernce: item.QuotationRefernce,
-                    QuotationDate: item.QuotationDate,
+                    WhenCreated: item.WhenCreated
+
 
                 });
             }

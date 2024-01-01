@@ -114,11 +114,9 @@ var GCPL;
                 };
                 EditQuotationController.prototype.CheckPrice = function () {
                     var _this = this;
-                    this.Update.TotalPrice = null;
-                    this.Update.TotalTax = null;
-                    this.TotalPriceModel.Price = this.Update.Price;
+                    this.TotalPriceModel.MRPUnit = this.Update.MRPUnit;
                     this.TotalPriceModel.Quantity = this.Update.Quantity;
-                    this.TotalPriceModel.GSTRate = this.Update.GSTRate;
+                    this.TotalPriceModel.GST = this.Update.GST;
                     this.Total = this.TotalPriceCalService.FindChange(this.TotalPriceModel).then((function (response) {
                         _this.Total = _this.TotalPriceCalService.GetTotalPriceChange(response.data.Result);
                         _this.Update.Price = null;

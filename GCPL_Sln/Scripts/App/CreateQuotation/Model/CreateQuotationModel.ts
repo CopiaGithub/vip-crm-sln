@@ -100,7 +100,7 @@
     export class SOSModel {
         constructor() {
         }
-        
+
         ModelDescription: string;
         ModelID: string;
         ModelNo: string;
@@ -114,68 +114,22 @@
     export class InsertQuotationModel {
         constructor() {
         }
-        OpportunitySAPNo: string;
-        ModelID: number;
-        ModelDescription: string;
-        StdConfiguration: string;
-        Accessory1ID: string;
-        Option1ID: string;
-        Accessory2ID: string;
-        Option2ID: string;
-        Accessory3ID: string;
-        Option3ID: string;
-        Accessory4ID: string;
-        Option4ID: string;
-        Accessory5ID: string;
-        Option5ID: string;
-        Accessory6ID: string;
-        Option6ID: string;
-        GSTRate: string;
-        Price: string;
-        Quantity: number;
-        QuotationID: number;
-        QuoteRange: string;
-        TC1: string;
-        TC2: string;
-        TC3: string;
-        TC4: string;
-        TC5: string;
-        TC6: string;
-        TC7: string;
-        TC8: string;
-        PF1: string;
-        PF2: string;
-        PF3: string;
-        PF4: string;
-        PF5: string;
-        PF6: string;
-        PF7: string;
-        Offer1: string;
-        Offer2: string;
-        Offer3: string;
-        Offer4: string;
-        Offer5: string;
-        Offer6: string;
-        Capability1: string;
-        Capability2: string;
-        Capability3: string;
-        Capability4: string;
-        TotalPrice: string;
-        QuoteDate: string;
-        TotalTax: string;
-        UserID: number;
+        ID: string;
+        LeadId: number;
+        CustomerName: string;
         ContactName: string;
-        CustomerAddress: string;
-        Capability5: string;
-        Capability6: string;
-        TC1ID: string;
-        TC2ID: string;
-        TC3ID: string;
-        TC4ID: string;
-        TC5ID: string;
-        TC6ID: string;
-        TC7ID: string;
-        TC8ID: string;
+        CustomerID: string;
+        ContactID: string;
+        TCDetails: string;
+        SPName: string;
+        SPMobileNo: string;
+        SPEmail: string;
+        SPDesignation: string;
+        CreatedBy: string;
+        ModifiedBy: string;
+        WhenCreated: string;
+        WhenModified: string;
+
     }
     export class COLModel {
         constructor() {
@@ -206,13 +160,13 @@
         FeatureName: string;
         ProductFeaturesID: string;
         PictureID: string;
-        
+
 
     }
     export class ProdFModel {
         constructor() {
-        }       
-        FeatureDescription: string;       
+        }
+        FeatureDescription: string;
         FeatureName: string;
         ProductFeaturesID: string;
         PictureID: string;
@@ -244,14 +198,17 @@
     }
     export class TotalPriceModel {
         constructor() {
-        }
-        Price: number;
-        Quantity: number;
-        GSTRate: number;
-        ConvertedGST: number;
-        TotalPrice: string;
-        TotalTax: string;
+        }       
+        Quantity: number;      
+        MRPUnit: number;
+        GST: number;
+        HSN: number;
+        Discount: number;
+        DiscountedPricePerUnit: number;
+        TotalPrice: number;
+        TotalGST: number;
+        NetAmount: number;
     }
 
-   
+
 }

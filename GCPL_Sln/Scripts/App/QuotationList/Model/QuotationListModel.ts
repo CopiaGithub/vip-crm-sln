@@ -3,27 +3,23 @@
         constructor() {
 
         }
-        OpportunityID: string;
-        OpportunitySAPNo: string;
-        OpportunityDate: string;
-        CustomerID: string;
+        ID: string;
+        LeadID: string;
         CustomerName: string;
-        OppStatus: string;
-        OppStage: string;
-        ModelNo: string;
-        UserID: string;
+        ContactName: string;
+        SPName: string;
+        SPMobileNo: string;
+        SPDesignation: string;
         CreatedBy: string;
-        QuotationRefernce: string;
-        QuotationDate: string;
-       
+        WhenCreated: string;
+
     }
 
     export class QuotationSearchModel {
         constructor() {
         }
-        CustomerID: string;
-        OppNumber: string;
-        QuotationNo: string;
-        //UserID: string;
+        ID: string;
+        LeadID: string;
+        CustomerName: string;
     }
 }
