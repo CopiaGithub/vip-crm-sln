@@ -1096,7 +1096,8 @@ var GCPL;
                     obj.TotalPrice = data.TotalPrice,
                     obj.TotalGST = data.TotalGST,
                     obj.NetAmount = data.NetAmount,
-                    obj.ProductCode = data.ProductCode;
+                    obj.ProductCode = data.ProductCode,
+                    obj.DeliveryStatus = data.DeliveryStatus;
                 console.log("Op", obj);
                 return obj;
             };

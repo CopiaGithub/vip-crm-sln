@@ -375,11 +375,20 @@
             this.ChannelDD = this.ChannelDDService.Find().then((response => {
                 this.ChannelDD = this.ChannelDDService.GetChannelDDnew(response.data.Result);
             }));
+            this.ProductDropDown = this.ProductService.Find(0).then((response => {
+                this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
 
-            this.DivisionDropDownP = this.DivisionPService.Find(this.LeadAssessment.CategoryID).then((response => {
+            }));
+
+            this.DivisionDropDownP = this.DivisionPService.Find(0).then((response => {
                 this.DivisionDropDownP = this.DivisionPService.GetDivisionDDP(response.data.Result);
 
             }));
+            this.ModelDropDown = this.ModelService.Find(1).then((response => {
+                this.ModelDropDown = this.ModelService.GetModelDD(response.data.Result);
+            }));
+            
+            
 
 
            
@@ -387,11 +396,9 @@
                 this.ProjectNameDD = this.ProjectNameService.GetProjectNameDD(response.data.Result);
             }));
             
+            
 
-            this.ProductDropDown = this.ProductService.Find(0).then((response => {
-                this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
-
-            }));
+            
             let that = this;
             $("#txtProductDesc").autocomplete({
                 //  source:['1a0','anjali','archana'],
@@ -421,8 +428,14 @@
                 change: function () {
 
                 }
-            });
+            });         
            
+        }
+
+        Model(data: any): void {
+            this.ModelDropDown = this.ModelService.Find(this.LeadAssessment.ProductID).then((response => {
+                this.ModelDropDown = this.ModelService.GetModelDD(response.data.Result);
+            }));
         }
 
         Division(data: any): void {
@@ -440,11 +453,7 @@
         //    }));
         //}
 
-        Model(data: any): void {
-            this.ModelDropDown = this.ModelService.Find(this.LeadAssessment.ProductID).then((response => {
-                this.ModelDropDown = this.ModelService.GetModelDD(response.data.Result);
-            }));
-        }
+        
         LeadSource(data: any): void {
 
             this.LeadSourcedd = this.LeadSourceDDService.Find(this.LeadAssessment.ChannelID).then((response => {
@@ -459,9 +468,15 @@
             this.EditItemService.Find(data).then((response => {
 
                 this.InsertItem = this.EditItemService.GetItemEdit(response.data.Result);
+                $('#TotalPrice').val(this.InsertItem.TotalPrice);
+                $('#TotalGST').val(this.InsertItem.TotalGST);
+                $('#DiscountedPricePerUnit').val(this.InsertItem.DiscountedPricePerUnit);
+                $('#NetAmount').val(this.InsertItem.NetAmount);
+                //this.Total.TotalPrice = this.InsertItem.TotalPrice;
                 console.log("GetItemEdit", response.data.Result);
                 this.Model(this.InsertItem.ProductID);
                 this.InsertItem.ModelID = this.InsertItem.ModelID;
+
 
 
 
@@ -633,6 +648,7 @@
             this.InsertItem.Quantity = this.InsertItem.Quantity;
             this.InsertItem.GST = this.InsertItem.GST;
             this.InsertItem.Discount = this.InsertItem.Discount;
+            //this.Total.TotalPrice = this.InsertItem.TotalPrice;
             this.Total = this.TotalPriceCalService.FindChange(this.InsertItem).then((response => {
                 this.Total = this.TotalPriceCalService.GetTotalPriceChange(response.data.Result);
 

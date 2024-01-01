@@ -352,9 +352,11 @@
         HSN: string;
         Discount: string;
         DiscountedPricePerUnit: string;
-        TotalPrice: string;
+        TotalPrice: number;
         TotalGST: string;
-        NetAmount: string;       
+        NetAmount: string;
+        DeliveryStatus: string;
+
     }
 
 

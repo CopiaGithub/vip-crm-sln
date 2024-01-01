@@ -1031,8 +1031,8 @@
                                                     <a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.DeleteItem(item.ItemID);"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                     </td>
                                                     <td>
-                                                        <span ng-if ="item.DeliveryStatus == '0'"><a href="/#!/DeliverySchedule?ItemID={{item.ItemID}}" style="margin-top: 5px; margin-right: 10px;" class="btn search-btn" title="LeadAssessment">Delivery Schedule</a></span>
-                                                        <span ng-if ="item.DeliveryStatus == '1'"><a href="/#!/DeliveryScheduleEdit?ItemID={{item.ItemID}}" style="margin-top: 5px; margin-right: 10px;" class="btn clear-btn" title="LeadAssessment">Delivery Schedule Edit</a></span>                                                       
+                                                        <span ng-if ="item.DeliveryStatus == '0'"><a href="/#!/DeliverySchedule?ItemID={{item.ItemID}}" style="margin-top: 5px; margin-right: 10px;" class="btn search-btn" title="LeadAssessment">Plan Delivery Schedule</a></span>
+                                                        <span ng-if ="item.DeliveryStatus == '1'"><a href="/#!/DeliveryScheduleEdit?ItemID={{item.ItemID}}" style="margin-top: 5px; margin-right: 10px; background-color: forestgreen;" class="btn clear-btn" title="LeadAssessment">Edit Delivery Schedule</a></span>                                                       
                                                     </td>
                                                 </tr>
                                             </tbody>
