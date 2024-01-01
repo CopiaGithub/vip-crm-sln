@@ -844,6 +844,7 @@ var GCPL;
                         this.InsertItem.ItemStatusID = this.InsertItem.LeadStatusId;
                         this.InsertItem.CategoryID = this.InsertItem.CategoryID;
                         this.InsertItem.LeadCategoryID = this.InsertItem.LeadCategoryID;
+                        this.InsertItem.DeliveryStatus = this.LeadItemlist.DeliveryStatus;
                         console.log("OP", this.InsertItem);
                         //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
                         this.InsertItemAssessment.PostItem(this.InsertItem).then((function (response) {
@@ -1055,6 +1056,7 @@ var GCPL;
                     var _this = this;
                     this.EditItemService.Find(data).then((function (response) {
                         _this.InsertItem = _this.EditItemService.GetItemEdit(response.data.Result);
+                        console.log("InsertItem", response.data.Result);
                         $("myModalAdd").show();
                     }));
                 };

@@ -204,14 +204,17 @@ var GCPL;
                     this.ChannelDD = this.ChannelDDService.Find().then((function (response) {
                         _this.ChannelDD = _this.ChannelDDService.GetChannelDDnew(response.data.Result);
                     }));
-                    this.DivisionDropDownP = this.DivisionPService.Find(this.LeadAssessment.CategoryID).then((function (response) {
+                    this.ProductDropDown = this.ProductService.Find(0).then((function (response) {
+                        _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
+                    }));
+                    this.DivisionDropDownP = this.DivisionPService.Find(0).then((function (response) {
                         _this.DivisionDropDownP = _this.DivisionPService.GetDivisionDDP(response.data.Result);
+                    }));
+                    this.ModelDropDown = this.ModelService.Find(1).then((function (response) {
+                        _this.ModelDropDown = _this.ModelService.GetModelDD(response.data.Result);
                     }));
                     this.ProjectNameDD = this.ProjectNameService.FindProjectNameDD(this.UserID).then((function (response) {
                         _this.ProjectNameDD = _this.ProjectNameService.GetProjectNameDD(response.data.Result);
-                    }));
-                    this.ProductDropDown = this.ProductService.Find(0).then((function (response) {
-                        _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
                     }));
                     var that = this;
                     $("#txtProductDesc").autocomplete({
@@ -239,6 +242,12 @@ var GCPL;
                         }
                     });
                 };
+                CreateQuotationController.prototype.Model = function (data) {
+                    var _this = this;
+                    this.ModelDropDown = this.ModelService.Find(this.LeadAssessment.ProductID).then((function (response) {
+                        _this.ModelDropDown = _this.ModelService.GetModelDD(response.data.Result);
+                    }));
+                };
                 CreateQuotationController.prototype.Division = function (data) {
                     var _this = this;
                     this.DivisionDropDownP = this.DivisionPService.Find(this.LeadAssessment.CategoryID).then((function (response) {
@@ -250,12 +259,6 @@ var GCPL;
                 //        this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
                 //    }));
                 //}
-                CreateQuotationController.prototype.Model = function (data) {
-                    var _this = this;
-                    this.ModelDropDown = this.ModelService.Find(this.LeadAssessment.ProductID).then((function (response) {
-                        _this.ModelDropDown = _this.ModelService.GetModelDD(response.data.Result);
-                    }));
-                };
                 CreateQuotationController.prototype.LeadSource = function (data) {
                     var _this = this;
                     this.LeadSourcedd = this.LeadSourceDDService.Find(this.LeadAssessment.ChannelID).then((function (response) {
@@ -267,6 +270,11 @@ var GCPL;
                     console.log(data);
                     this.EditItemService.Find(data).then((function (response) {
                         _this.InsertItem = _this.EditItemService.GetItemEdit(response.data.Result);
+                        $('#TotalPrice').val(_this.InsertItem.TotalPrice);
+                        $('#TotalGST').val(_this.InsertItem.TotalGST);
+                        $('#DiscountedPricePerUnit').val(_this.InsertItem.DiscountedPricePerUnit);
+                        $('#NetAmount').val(_this.InsertItem.NetAmount);
+                        //this.Total.TotalPrice = this.InsertItem.TotalPrice;
                         console.log("GetItemEdit", response.data.Result);
                         _this.Model(_this.InsertItem.ProductID);
                         _this.InsertItem.ModelID = _this.InsertItem.ModelID;
@@ -405,6 +413,7 @@ var GCPL;
                     this.InsertItem.Quantity = this.InsertItem.Quantity;
                     this.InsertItem.GST = this.InsertItem.GST;
                     this.InsertItem.Discount = this.InsertItem.Discount;
+                    //this.Total.TotalPrice = this.InsertItem.TotalPrice;
                     this.Total = this.TotalPriceCalService.FindChange(this.InsertItem).then((function (response) {
                         _this.Total = _this.TotalPriceCalService.GetTotalPriceChange(response.data.Result);
                         console.log("GetTotalPriceChange", response.data.Result);
