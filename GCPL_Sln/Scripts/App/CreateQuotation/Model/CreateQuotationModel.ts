@@ -178,7 +178,7 @@
         }
         TACID: string;
         Description: string;
-        TACName: string;
+        
     }
     export class OfferModel {
         constructor() {

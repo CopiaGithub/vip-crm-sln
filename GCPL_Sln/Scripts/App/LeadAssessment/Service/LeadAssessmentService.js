@@ -1097,8 +1097,8 @@ var GCPL;
                     obj.TotalGST = data.TotalGST,
                     obj.NetAmount = data.NetAmount,
                     obj.ProductCode = data.ProductCode,
-                    obj.DeliveryStatus = data.DeliveryStatus;
-                console.log("Op", obj);
+                    obj.DeliveryStatus = data.DeliveryStatus,
+                    console.log("Op", obj);
                 return obj;
             };
             EditItemList.$inject = ["$http", "$q"];

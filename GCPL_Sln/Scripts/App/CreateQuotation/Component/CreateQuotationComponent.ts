@@ -313,6 +313,8 @@
         }
         //Page Load Define Values//
         Init(): void {
+
+            
             $("#errorclose").hide();
             $("#txtDays").hide();
             $("#ee-date").hide();
@@ -325,6 +327,12 @@
             $("#ass-btn-loader").hide();
             $("#act-btn-loader").hide();
             $("#txtDisqual").hide();
+
+            if (this.LeadID != undefined || this.LeadID != null || this.LeadID != "") {
+
+                this.Edit(this.LeadID);
+                //$('#Heading').hide();
+            }
 
             if (this.LeadID != undefined || this.LeadID != null || this.LeadID != "") {
                 this.Edit(this.LeadID);
@@ -476,6 +484,7 @@
                 console.log("GetItemEdit", response.data.Result);
                 this.Model(this.InsertItem.ProductID);
                 this.InsertItem.ModelID = this.InsertItem.ModelID;
+                
 
 
 
@@ -492,6 +501,7 @@
                 this.InsertLeadChange = this.EditService.GetEdit(response.data.Result);
                 console.log(this.InsertLeadChange)
                 this.InsertQuotation.ID = this.InsertLeadChange.ID;
+                this.InsertQuotation.QID = this.InsertLeadChange.QID;
                 this.InsertQuotation.SPName = this.InsertLeadChange.SPName;
                  this.InsertQuotation.SPMobileNo = this.InsertLeadChange.SPMobileNo;
                 this.InsertQuotation.SPEmail = this.InsertLeadChange.SPEmail;
@@ -616,6 +626,74 @@
                 //$('#ddlleadsource').val(this.InsertLeadChange.LeadSourceID);
                 //$('#txtCommnets').val(this.InsertLeadChange.Comments);
 
+                //if (this.InsertQuotation.TC1 != "NA" || this.InsertQuotation.TC2 != "NA" || this.InsertQuotation.TC3 != "NA" || this.InsertQuotation.TC4 != "NA" || this.InsertQuotation.TC5 == "NA" || this.InsertQuotation.TC6 != "NA" || this.InsertQuotation.TC7 != "NA") {
+                //    this.InsertQuotation.TC1 = this.InsertQuotation.TC1.toString();
+                //    this.InsertQuotation.TC2 = this.InsertQuotation.TC2.toString();
+                //    this.InsertQuotation.TC3 = this.InsertQuotation.TC3.toString();
+                //    this.InsertQuotation.TC4 = this.InsertQuotation.TC4.toString();
+                //    this.InsertQuotation.TC5 = this.InsertQuotation.TC5.toString();
+                //    this.InsertQuotation.TC6 = this.InsertQuotation.TC6.toString();
+                //    this.InsertQuotation.TC7 = this.InsertQuotation.TC7.toString();
+                //    this.InsertQuotation.TC8 = this.InsertQuotation.TC8.toString();
+
+
+
+
+                //}
+                //console.log("QID1", this.InsertQuotation.QID)
+                //if (this.InsertQuotation.QID == undefined || this.InsertQuotation.QID == null || this.InsertQuotation.QID == "")
+                //{
+                    console.log("QID2", this.InsertQuotation.QID)
+                  this.TCService.Find().then((response => {
+                        this.ViewTC = this.TCService.GetTC(response.data.Result);
+                        console.log("TC", response.data.Result)
+                        for (var i = 0; i < this.ViewTC.length; i++) {
+                            if (i === 0) {
+
+                                this.InsertQuotation.TC1 = this.ViewTC[0].Description.toString();
+                                //var TAC1 = this.ViewTC[0].TACID;
+                            }
+                            if (i === 1) {
+
+                                this.InsertQuotation.TC2 = this.ViewTC[1].Description.toString();
+                                //var TAC2 = this.ViewTC[1].TACID;
+                            }
+                            if (i === 2) {
+
+                                this.InsertQuotation.TC3 = this.ViewTC[2].Description.toString();
+                                //var TAC3 = this.ViewTC[2].TACID;
+                            }
+                            if (i === 3) {
+
+                                this.InsertQuotation.TC4 = this.ViewTC[3].Description.toString();
+                                //var TAC4 = this.ViewTC[3].TACID;
+                            }
+                            if (i === 4) {
+
+                                this.InsertQuotation.TC5 = this.ViewTC[4].Description.toString();
+                                //var TAC5 = this.ViewTC[4].TACID;
+                            }
+                            if (i === 5) {
+
+                                this.InsertQuotation.TC6 = this.ViewTC[5].Description.toString();
+                                //var TAC6 = this.ViewTC[5].TACID;
+                            }
+                            if (i === 6) {
+
+                                this.InsertQuotation.TC7 = this.ViewTC[6].Description.toString();
+                                //var TAC7 = this.ViewTC[6].TACID;
+                            }
+                            if (i === 7) {
+
+                                this.InsertQuotation.TC8 = this.ViewTC[7].Description.toString();
+                                //var TAC8 = this.ViewTC[7].TACID;
+                            }
+                        }
+
+                  }));
+              /*  }*/
+
+                
 
             }));
         }
@@ -629,6 +707,7 @@
             }));
         }
 
+        
         HideShow() {
             $("#errorclose").show();
             $("#close").hide();
@@ -755,6 +834,7 @@
 
             this.InsertQuotation.CreatedBy = this.UserID;
             this.InsertQuotation.LeadID = this.LeadID;
+            this.InsertQuotation.QID = this.InsertLeadChange.QID;
             
             if (this.UserID != null || this.UserID != "") {
                 this.InsertQuotation.CreatedBy = this.UserID;
@@ -818,6 +898,10 @@
                 this.Option6DropDown = this.Option6Service.GetAccessory(response.data.Result);
 
             }));
+
+
+            
+            
         }
 
         Close(): void {

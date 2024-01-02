@@ -1192,7 +1192,9 @@ namespace GCPL.Service {
                 obj.TotalGST = data.TotalGST,
                 obj.NetAmount = data.NetAmount,
                 obj.ProductCode = data.ProductCode,
-                obj.DeliveryStatus = data.DeliveryStatus
+                obj.DeliveryStatus = data.DeliveryStatus,
+                    
+
 
 
             console.log("Op", obj);

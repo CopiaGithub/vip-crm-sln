@@ -56,6 +56,32 @@
         WhenEntered: string;
         Description: string;
         Notes: string;
+
+        TC1Heading: string;
+        TC1ID: string;
+        TC2Heading: string;
+        TC2ID: string;
+        TC3Heading: string;
+        TC3ID: string;
+        TC4Heading: string;
+        TC4ID: string;
+        TC5Heading: string;
+        TC5ID: string;
+        TC6Heading: string;
+        TC6ID: string;
+        TC7Heading: string;
+        TC7ID: string;
+        TC8Heading: string;
+        TC8ID: string;
+        TC1: string;
+        TC2: string;
+        TC3: string;
+        TC4: string;
+        TC5: string;
+        TC6: string;
+        TC7: string;
+        TC8: string;
+        QID: string;
     }
 
    
