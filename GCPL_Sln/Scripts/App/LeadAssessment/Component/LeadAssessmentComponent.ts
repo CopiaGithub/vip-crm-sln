@@ -17,6 +17,7 @@
     import LeadItem = GCPL.Model.LeadItemCreateModel;
     import SearchRefUser = GCPL.Model.SearchRefUserModel;
     import LeadToOpp = GCPL.Model.InsertSubmitModel;
+    import ContactMaster = GCPL.Model.InsertContactMaster;
     interface ILeadAssessmentController {
         Edit(data: any): void;
         EditItem(data: any): void;
@@ -100,6 +101,8 @@
         Campaigndd = null;
         ValidReferred = null;
         AssessmentInfo = null;
+        InsertContact = null;
+        EMAIL_REGEXP = null;
         ContactInfo = null;
         LeadID = null;
         ModelID = null;
@@ -107,6 +110,11 @@
         ModelNo = null;
         ProductD = null;
         InsertAssessment = null;
+        ConCountryDropDown = null;
+        ConStateDropDown = null;
+        ConDistrictDropDown = null;
+        DepartmentDropDown = null;
+        DesignationDropDown = null;
         CrtAssessmt = null;
         ReturnModel = null;
         InsertLeadActivity = null;
@@ -116,6 +124,7 @@
         alert = null;
         InsertAct = null;
         InsertItem = null;
+        RemarksHistory = null;
         SubmitData = null;
         private Cookie: any = null;
         ProjectNameDD = null;
@@ -125,6 +134,14 @@
         lat = null;
         lng = null;
         UpdateLeadData = null;
+        numRecords: number = 10;
+        page: number = 0;
+        incre: number = 0;
+        shownItems = [];
+        maxPages: number = 0;
+        ShowNext: boolean = true;
+        ShowBack: boolean = true;
+        NoOfRds: number = 10;
 
         private ProjectNameService: Service.IProjectNameService;
         private SubmitService: Service.IInsertLeadToOppSAPService;
@@ -162,6 +179,7 @@
         private SalesAreaService: Service.ISalesAreaService;
         private SalesOfficeService: Service.ISalesOfficeService;
         private EditService: Service.IEditActivityList;
+        private EditContactService: Service.IContactEditService;
         private EditItemService: Service.IEditItemList;
         private LeadReturnService: Service.ILeadReturnService;
         private CreateInSAPLeadActivityService: Service.ICreateInSAPLeadActivityService;
@@ -170,12 +188,21 @@
         private LeadStatusDDService: Service.ILeadStatusDDService;
         private UpdateLeadDataService: Service.IUpdateLeadDataService;
         private ProductDescAutofill: Service.IProductDescAutoFillService;
+        private ProductCodeAutofill: Service.IProductCodeAutoFillService;
         private DeleteService: Service.IDeleteItemService;
+        private DeleteActService: Service.IDeleteActivityService;
+        private CountryService: Service.ICountryService;
+        private StateService: Service.IStateddService;
+        private DistrictService: Service.IDistrictddService;
+        private DepartmentService: Service.IDepartmentService;
+        private DesignationService: Service.IDesignationService;
+        private InsertContactService: Service.IInsertContactService;
 
         static $inject = ["LeadStatusddService", "IndustryDivisionService", "IndustrialSegmentService", "LeadTypeddService", "LeadCategoryDDService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService", "ProductddService",
             "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "CampaignDetailsService", "ValidateReferredEmployeeService", "LeadAssessmentService", "LeadContactDetailsService", "CrtAssessmtServiceService",
             "LeadActivityListService", "LeadItemListService", "LeadQueAnsService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertItemDetailsService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service", "LeadOpportunity",
-            "SalesAreaService", "SalesOfficeService", "EditActivityList", "EditItemList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "ProductDescAutoFillService", "DeleteItemService", "$location", "$cookieStore"];
+            "SalesAreaService", "SalesOfficeService", "EditActivityList", "ContactEditService", "EditItemList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "ProductDescAutoFillService", "ProductCodeAutoFillService",
+            "DeleteItemService", "DeleteActivityService", "CountryService", "StateddService", "DistrictddService", "DepartmentService", "DesignationService", "InsertContactService", "$location", "$cookieStore"];
 
 
         //constructor define with Serivce _Name:Service.IServiceName//
@@ -185,8 +212,9 @@
             _LeadSourceDDService: Service.ILeadSourceDetailsService, _CampaignDDService: Service.ICampaignDetailsService, _ValidReferredEmpService: Service.IValidateReferredEmployeeService, _leadassessmentService: Service.ILeadAssessmentService, _ContactInfoService: Service.ILeadContactDetailsService,
             _CrtAssessmtService: Service.ICrtAssessmtServiceService, _LeadActivityListService: Service.ILeadActivityListService, _LeadItemListService: Service.ILeadItemListService, _LeadQueAnsService: Service.ILeadQueAnsService, _ModeActivityService: Service.IModeActivityService, _LeadActivityStatusDDservice: Service.ILeadActivityStatusDDservice,
             _LeadActivityPurposeDDservice: Service.ILeadActivityPurposeDDservice, _LeadActivityLocationDDservice: Service.ILeadActivityLocationDDservice, _InsertLeadAssessment: Service.IInsertLeadActivityService, _InsertItemAssessment: Service.IInsertItemDetailsService,
-            _InsertLeadQuestions: Service.IInsertLeadQuestionsService, _Ans1Service: Service.IQAns1Service, _Ans2Service: Service.IQAns2Service, _Ans3Service: Service.IQAns3Service, _LeadOpportunity: Service.ILeadOpportunity, _SalesAreaService: Service.ISalesAreaService, _SalesOfficeService: Service.ISalesOfficeService, _EditActivityList: Service.IEditActivityList, _EditItemList: Service.IEditItemList, _LeadReturnService: Service.ILeadReturnService, _CreateInSAPLeadActivityService: Service.ICreateInSAPLeadActivityService,
-            _SubmitService: Service.IInsertLeadToOppSAPService, _ProjectNameService: Service.IProjectNameService, _DisqualificationReasonDDService: Service.IDisqualificationReasonDDService, _LeadStageDDService: Service.ILeadStageDDService, _LeadStatusDDService: Service.ILeadStatusDDService, _UpdateLeadDataService: Service.IUpdateLeadDataService, _ProductDescAutofill: Service.IProductDescAutoFillService, _deleteItem: Service.IDeleteItemService, private $location: ng.ILocationService, private _cookieStore: any) {
+            _InsertLeadQuestions: Service.IInsertLeadQuestionsService, _Ans1Service: Service.IQAns1Service, _Ans2Service: Service.IQAns2Service, _Ans3Service: Service.IQAns3Service, _LeadOpportunity: Service.ILeadOpportunity, _SalesAreaService: Service.ISalesAreaService, _SalesOfficeService: Service.ISalesOfficeService, _EditActivityList: Service.IEditActivityList, _EditContactService: Service.IContactEditService, _EditItemList: Service.IEditItemList, _LeadReturnService: Service.ILeadReturnService, _CreateInSAPLeadActivityService: Service.ICreateInSAPLeadActivityService,
+            _SubmitService: Service.IInsertLeadToOppSAPService, _ProjectNameService: Service.IProjectNameService, _DisqualificationReasonDDService: Service.IDisqualificationReasonDDService, _LeadStageDDService: Service.ILeadStageDDService, _LeadStatusDDService: Service.ILeadStatusDDService, _UpdateLeadDataService: Service.IUpdateLeadDataService, _ProductDescAutofill: Service.IProductDescAutoFillService, _ProductCodeAutofill: Service.IProductCodeAutoFillService, _deleteItem: Service.IDeleteItemService, _DeleteActService: Service.IDeleteActivityService, _CountryService: Service.ICountryService,
+            _StateService: Service.IStateddService, _DistrictService: Service.IDistrictddService, _DepartmentService: Service.IDepartmentService, _DesignationService: Service.IDesignationService, _InsertContactService: Service.IInsertContactService, private $location: ng.ILocationService, private _cookieStore: any) {
 
             this.LeadStatusService = _LeadStatusService;
             this.LeadStatusService = _LeadStatusService;
@@ -200,6 +228,14 @@
             this.PurchaseTimlineDDService = _PurchaseTimlineDDService;
             this.ProductDescAutofill = _ProductDescAutofill;
             this.DeleteService = _deleteItem;
+            this.DeleteActService = _DeleteActService;
+            this.CountryService = _CountryService;
+            this.StateService = _StateService;
+            this.DistrictService = _DistrictService;
+            this.DepartmentService = _DepartmentService;
+            this.DesignationService = _DesignationService;
+            this.InsertContactService = _InsertContactService;
+            this.InsertContact = new ContactMaster();
             this.CategoryService = _CategoryService;
             this.DivisionPService = _DivisionPService;
             this.ProductService = _ProductService;
@@ -229,6 +265,7 @@
             this.Ans1Service = _Ans1Service;
             this.Ans2Service = _Ans2Service;
             this.Ans3Service = _Ans3Service;
+            this.ProductCodeAutofill = _ProductCodeAutofill;
             this.LeadReturnService = _LeadReturnService;
             this.SubmitService = _SubmitService;
             this.DisqualificationReasonDDService = _DisqualificationReasonDDService;
@@ -242,6 +279,7 @@
             this.InsertAct = new Activity();
             this.InsertItem = new LeadItem();
             this.EditService = _EditActivityList;
+            this.EditContactService = _EditContactService;
             this.EditItemService = _EditItemList;
             this.AssessmentInfo = new ViewAssessment();
             this.ValidReferred = new ValidRefrredEmployee();
@@ -335,6 +373,23 @@
                 this.LeadStatusDropDown = this.LeadStatusService.GetLeadStatusName(response.data.Result);
 
             }));
+
+            this.ConCountryDropDown = this.CountryService.Find().then((response => {
+                this.ConCountryDropDown = this.CountryService.GetCountryName(response.data.Result);
+            }));
+
+            this.ConStateDropDown = this.StateService.Find(this.InsertContact.CountryID = '95').then((response => {
+                this.ConStateDropDown = this.StateService.GetStateName(response.data.Result);
+            }));
+
+            this.DepartmentDropDown = this.DepartmentService.Find().then((response => {
+                this.DepartmentDropDown = this.DepartmentService.GetDepartmentName(response.data.Result);
+            }));
+
+            this.DesignationDropDown = this.DesignationService.Find().then((response => {
+                this.DesignationDropDown = this.DesignationService.GetDesignationName(response.data.Result);
+            }));
+
 
             this.IndustryDivisionDropDown = this.IndustryDivisionService.Find().then((response => {
                 this.IndustryDivisionDropDown = this.IndustryDivisionService.GetIndustryName(response.data.Result);
@@ -431,6 +486,39 @@
 
             let that = this;
 
+            $("#txtProductCode").autocomplete({
+                //  source:['1a0','anjali','archana'],
+                source: function (request, res) {
+                    that.ProductCodeAutofill.FilterAutoComplete(request).then((response => {
+
+                        let data = that.ProductCodeAutofill.GetAutoProductCode(response.data.Result);
+                        res($.map(data, function (item, index) {
+                            return {
+                                label: item.Product,
+                                value: item.Product,
+                                id: item.ProductDesc,
+                                productid: item.ProductID
+                            }
+                        }));
+                    }));
+
+                },
+                minLength: 2,
+                focus: (event, ui) => {
+
+                    event.preventDefault();
+                },
+                select: function (e, ui) {
+                    that.InsertItem.ProductDesc = ui.item.id;
+                    that.InsertItem.ProductID = ui.item.productid;
+                    that.Product();
+                    /*that.Search(ui.item.id);*/
+                },
+                change: function () {
+
+                }
+            });
+
             $("#txtProductDesc").autocomplete({
                 //  source:['1a0','anjali','archana'],
                 source: function (request, res) {
@@ -441,7 +529,8 @@
                             return {
                                 label: item.ProductDesc,
                                 value: item.ProductDesc,
-                                id: item.ProductID
+                                id: item.Product,
+                                productid: item.ProductID
 
                             }
                         }));
@@ -454,12 +543,46 @@
                     event.preventDefault();
                 },
                 select: function (e, ui) {
-                    that.InsertItem.ProductID = ui.item.id;
+
+                    that.InsertItem.Product = ui.item.id;
+                    that.InsertItem.ProductID = ui.item.productid;
+                    that.Product();
+
                 },
                 change: function () {
 
                 }
             });
+
+            //$("#txtProductCode").autocomplete({
+            //    //  source:['1a0','anjali','archana'],
+            //    source: function (request, res) {
+            //        that.ProductCodeAutofill.FilterAutoComplete(request).then((response => {
+
+            //            let data = that.ProductCodeAutofill.GetAutoProductCode(response.data.Result);
+            //            res($.map(data, function (item, index) {
+            //                return {
+            //                    label: item.ProductCode,
+            //                    value: item.ProductCode,
+            //                    id: item.ProductID
+
+            //                }
+            //            }));
+            //        }));
+
+            //    },
+            //    minLength: 2,
+            //    focus: (event, ui) => {
+
+            //        event.preventDefault();
+            //    },
+            //    select: function (e, ui) {
+            //        that.InsertItem.ProductID = ui.item.id;
+            //    },
+            //    change: function () {
+
+            //    }
+            //});
 
         }
 
@@ -521,6 +644,18 @@
             }));
         }
 
+        Product(): void {
+
+            this.ProductDropDown = this.ProductService.Find(this.InsertItem.ProductID).then((response => {
+                this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
+                this.InsertItem.Product = this.ProductDropDown.Product;
+                this.InsertItem.ProductDesc = this.ProductDropDown.ProductDesc;
+                //$('#txtProductDesc').val(this.ProductDropDown.ProductDesc);
+                //(<HTMLInputElement>document.getElementById("txtProductDesc")).value = this.ProductDropDown.ProductDesc
+            }));
+
+        }
+
         //Product(data: any): void {
 
         //    this.ProductDropDown = this.ProductService.Find(data).then((response => {
@@ -560,6 +695,17 @@
             }));
         }
 
+        DeleteActivity(ActivityID): void {
+            this.DeleteActService.Find(ActivityID).then((response => {
+                this.DeleteActService.postActivityDelete(response.data.Result);
+                this.Init();
+                $("#errorclose").hide();
+                $("#close").show();
+                this.popupMessage("Activity deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+
+            }));
+        }
+
         Assessment(data: any): void {
 
 
@@ -580,6 +726,9 @@
                 this.AssessmentInfo.ModelID = this.AssessmentInfo.ModelID;
                 this.LeadSource(this.AssessmentInfo.ChannelID);
                 this.LeadSourceChange();
+                this.ContactDetail();
+
+                this.RemarksHistory = this.AssessmentInfo.RemarksHistoryList;
 
                 this.InsertAct.erpid = this.AssessmentInfo.EmployeeCode;
                 $("#txtUserName").val(this.AssessmentInfo.RefUser);
@@ -663,9 +812,10 @@
             }
         }
 
+
         ContactDetail(): void {
 
-            this.ContactInfo = this.ContactInfoService.Find(this.LeadAssessment.CustomerID).then((response => {
+            this.ContactInfo = this.ContactInfoService.Find(this.AssessmentInfo.CustomerID).then((response => {
                 this.ContactInfo = this.ContactInfoService.GetLeadContactInfo(response.data.Result);
             }));
 
@@ -749,6 +899,13 @@
             this.UpdateLeadData.reason = "";
             this.UpdateLeadData.description = this.AssessmentInfo.Description;
 
+            //if (!$("input[name=contactradio]:checked").val()) {
+            //    this.HideShow();
+            //    this.popupMessage("Please Select Contact Checkbox", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            //}
+
+            this.UpdateLeadData.contactID = $('.messageCheckbox:checked').val();
+
             if (this.UpdateLeadData.SalesStage == this.AssessmentInfo.SalesStage) {
                 $("#pg-load").show();
                 debugger;
@@ -791,6 +948,8 @@
 
 
 
+
+
         SubmitReturn(): void {
             if (this.CrtAssessmt.Comments == undefined || this.CrtAssessmt.Comments == null || this.CrtAssessmt.Comments == "") {
                 this.HideShow();
@@ -825,6 +984,76 @@
             }
 
         }
+        SubmitContact(): void {
+            debugger;
+
+            this.InsertContact.CustomerID = this.AssessmentInfo.CustomerID;
+            if (this.InsertContact.CustomerID.length == 0) {
+                this.HideShow();
+                this.popupMessage("First Select Customer And Then Add Contact", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else if (this.InsertContact.ContactName == undefined || this.InsertContact.ContactName == null || this.InsertContact.ContactName == "") {
+                this.HideShow();
+                this.popupMessage("Please Enter Contact Name ", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else if (this.InsertContact.MobileNo == undefined || this.InsertContact.MobileNo == null || this.InsertContact.MobileNo == "") {
+                this.HideShow();
+                this.popupMessage("Please Enter Contact MobileNo", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else if ((this.InsertContact.MobileNo != undefined && this.InsertContact.MobileNo != null && this.InsertContact.MobileNo != "") && (isNaN(this.InsertContact.MobileNo) || this.InsertContact.MobileNo.length != 10)) {
+                this.HideShow();
+                this.popupMessage("Please Enter Valid Contact Mobile No", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else if ((this.InsertContact.PhoneNo != undefined && this.InsertContact.PhoneNo != null && this.InsertContact.PhoneNo != "") && (isNaN(this.InsertContact.PhoneNo) || this.InsertContact.PhoneNo.length != 10)) {
+                this.HideShow();
+                this.popupMessage("Please Enter Valid Contact Phone No", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else if (this.InsertContact.Email != undefined && this.InsertContact.Email != null && this.InsertContact.Email != "" && !(this.EMAIL_REGEXP.test(this.InsertContact.Email))) {
+                this.HideShow();
+                this.popupMessage("Please Enter Valid Contact Email", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+
+            else if ((this.InsertContact.PostalCode != undefined && this.InsertContact.PostalCode != null && this.InsertContact.PostalCode != "") && (isNaN(this.InsertContact.PostalCode) || this.InsertContact.PostalCode.length != 6)) {
+                this.HideShow();
+                this.popupMessage("Please Enter Valid Postal Code", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else if (this.InsertContact.DepartmentID == undefined || this.InsertContact.DepartmentID == null || this.InsertContact.DepartmentID == "") {
+                this.HideShow();
+                this.popupMessage("Please Select Department ", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else if (this.InsertContact.FOPID == undefined || this.InsertContact.FOPID == null || this.InsertContact.FOPID == "") {
+                this.HideShow();
+                this.popupMessage("Please Select Designation  ", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+            }
+            else {
+                this.InsertContact.CountryID = '95';
+                this.InsertContact.Status = '1';
+                this.InsertContactService.PostContact(this.InsertContact).then((response => {
+                    if (response.data.Result != null) {
+                        if (this.InsertContact.ContactID > 0) {
+                            $("#errorclose").hide();
+                            $("#close").show();
+                            this.popupMessage("Contact ID - " + this.InsertContact.ContactID + " Successfully Updated.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                            $('#edit-contact').click();
+                        }
+                        else {
+                            $("#errorclose").hide();
+                            $("#close").show();
+                            this.popupMessage("Contact ID - " + response.data.Result + " Successfully Created.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                            $('#create-contact').click();
+                        }
+                        this.InsertContact = null;
+                    }
+                    else {
+                        this.HideShow();
+                        this.popupMessage("Contact already exists with the entered details.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+
+                }));
+            }
+
+        }
+
         SubmitCrtAssessmt(): void {
             debugger;
             // $("#ass-btn-loader").show();
@@ -1028,6 +1257,7 @@
             debugger;
             this.InsertItem.LeadID = this.LeadID;
             this.InsertItem.UserID = this.UserID;
+            this.InsertItem.ProductID = this.InsertItem.ProductID;
             console.log("OP", this.InsertItem);
             if (this.InsertItem.LeadType == undefined || this.InsertItem.LeadType == null || this.InsertItem.LeadType == "") {
                 this.HideShow();
@@ -1083,6 +1313,8 @@
                 this.InsertItem.CategoryID = this.InsertItem.CategoryID;
                 this.InsertItem.LeadCategoryID = this.InsertItem.LeadCategoryID;
                 this.InsertItem.DeliveryStatus = this.LeadItemlist.DeliveryStatus;
+                this.InsertItem.ProductID = this.InsertItem.ProductID;
+
 
                 console.log("OP", this.InsertItem);
                 //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
@@ -1332,6 +1564,7 @@
 
         }
 
+
         EditItem(data: any): void {
          
 
@@ -1343,6 +1576,110 @@
 
             }));
 
+        }
+
+        CheckContact(data) {
+            if (this.AssessmentInfo.ContactID == data) {
+                return true;
+            }
+            else {
+                return false;
+            }
+
+        }
+
+        //EditContact
+        EditContact(data: any): void {
+            this.EditContactService.Find(data).then((response => {
+                this.InsertContact = this.EditContactService.GetConEdit(response.data.Result);
+
+                //var temp = this.InsertContact.StateID;
+                //this.ConStateDropDown = this.StateService.Find(this.InsertContact.CountryID).then((response => {
+                //    this.ConStateDropDown = this.StateService.GetStateName(response.data.Result);                
+                //    this.InsertContact.StateID = temp;
+                //}));
+                var temp = this.InsertContact.DistrictID;
+                this.ConDistrictDropDown = this.DistrictService.Find(this.InsertContact.StateID).then((response => {
+                    this.ConDistrictDropDown = this.DistrictService.GetDistrictName(response.data.Result);
+                    this.InsertContact.DistrictID = temp;
+                }));
+
+                $("#txtCustomerName").val(this.InsertContact.CompanyName);
+                if (this.InsertContact.Status == "True") {
+                    this.InsertContact.Status = "1";
+                }
+                else {
+                    this.InsertContact.Status = "0";
+                }
+                if (this.InsertContact.MaritalStatus == "True") {
+                    this.InsertContact.MaritalStatus = "1";
+                }
+                else if (this.InsertContact.MaritalStatus == "False") {
+                    this.InsertContact.MaritalStatus = "0";
+                }
+                else {
+                    this.InsertContact.MaritalStatus = "";
+                }
+                if (this.InsertContact.SmokingPreference == "True") {
+                    this.InsertContact.SmokingPreference = "1";
+                }
+                else if (this.InsertContact.SmokingPreference == "False") {
+                    this.InsertContact.SmokingPreference = "0";
+                }
+                else {
+                    this.InsertContact.SmokingPreference = "";
+                }
+                if (this.InsertContact.DrinkingPreference == "True") {
+                    this.InsertContact.DrinkingPreference = "1";
+                }
+                else if (this.InsertContact.DrinkingPreference == "False") {
+                    this.InsertContact.DrinkingPreference = "0";
+                }
+                else {
+                    this.InsertContact.DrinkingPreference = "";
+                }
+                if (this.InsertContact.MealPreference == "True") {
+                    this.InsertContact.MealPreference = "1";
+                }
+                else if (this.InsertContact.MealPreference == "False") {
+                    this.InsertContact.MealPreference = "0";
+                }
+                else {
+                    this.InsertContact.MealPreference = "";
+                }
+            }));
+
+        }
+
+        ConDistrict(): void {
+
+            this.ConDistrictDropDown = this.DistrictService.Find(this.InsertContact.StateID).then((response => {
+                this.ConDistrictDropDown = this.DistrictService.GetDistrictName(response.data.Result);
+            }));
+        }
+
+
+        ValidContact(data: any): void {
+            this.EditContactService.Find(data).then((response => {
+                this.InsertContact = this.EditContactService.GetConEdit(response.data.Result);
+
+                this.AssessmentInfo.ContactID = this.InsertContact.ContactID;
+                this.AssessmentInfo.ContactName = this.InsertContact.ContactName;
+                this.AssessmentInfo.ContactPhoneNo = this.InsertContact.PhoneNo;
+                this.AssessmentInfo.ContactEmail = this.InsertContact.Email;
+                this.AssessmentInfo.ContactAddress = this.InsertContact.Address;
+                this.AssessmentInfo.ContactMobileNo = this.InsertContact.MobileNo;
+                this.AssessmentInfo.ContactPincode = this.InsertContact.PostalCode;
+                this.AssessmentInfo.DepartmentID = this.InsertContact.DepartmentID;
+                this.AssessmentInfo.Department = this.InsertContact.Department;
+                this.AssessmentInfo.FOPID = this.InsertContact.FOPID;
+                this.AssessmentInfo.ContactStateID = this.InsertContact.StateID;
+                this.AssessmentInfo.ContactDistrictID = this.InsertContact.DistrictID;
+                this.AssessmentInfo.ContactCountryID = this.InsertContact.CountryID;
+                this.AssessmentInfo.ContactCity = this.InsertContact.City;
+                this.AssessmentInfo.ContactSAPID = this.InsertContact.SAPID;
+
+            }));
         }
 
 

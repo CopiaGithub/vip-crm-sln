@@ -17,9 +17,10 @@ var GCPL;
             var LeadItem = GCPL.Model.LeadItemCreateModel;
             var SearchRefUser = GCPL.Model.SearchRefUserModel;
             var LeadToOpp = GCPL.Model.InsertSubmitModel;
+            var ContactMaster = GCPL.Model.InsertContactMaster;
             var LeadAssessmentController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function LeadAssessmentController(_LeadStatusService, _IndustryDivisionService, _IndustrialSegmentService, _LeadTypeService, _LeadCategoryService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _CampaignDDService, _ValidReferredEmpService, _leadassessmentService, _ContactInfoService, _CrtAssessmtService, _LeadActivityListService, _LeadItemListService, _LeadQueAnsService, _ModeActivityService, _LeadActivityStatusDDservice, _LeadActivityPurposeDDservice, _LeadActivityLocationDDservice, _InsertLeadAssessment, _InsertItemAssessment, _InsertLeadQuestions, _Ans1Service, _Ans2Service, _Ans3Service, _LeadOpportunity, _SalesAreaService, _SalesOfficeService, _EditActivityList, _EditItemList, _LeadReturnService, _CreateInSAPLeadActivityService, _SubmitService, _ProjectNameService, _DisqualificationReasonDDService, _LeadStageDDService, _LeadStatusDDService, _UpdateLeadDataService, _ProductDescAutofill, _deleteItem, $location, _cookieStore) {
+                function LeadAssessmentController(_LeadStatusService, _IndustryDivisionService, _IndustrialSegmentService, _LeadTypeService, _LeadCategoryService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _CampaignDDService, _ValidReferredEmpService, _leadassessmentService, _ContactInfoService, _CrtAssessmtService, _LeadActivityListService, _LeadItemListService, _LeadQueAnsService, _ModeActivityService, _LeadActivityStatusDDservice, _LeadActivityPurposeDDservice, _LeadActivityLocationDDservice, _InsertLeadAssessment, _InsertItemAssessment, _InsertLeadQuestions, _Ans1Service, _Ans2Service, _Ans3Service, _LeadOpportunity, _SalesAreaService, _SalesOfficeService, _EditActivityList, _EditContactService, _EditItemList, _LeadReturnService, _CreateInSAPLeadActivityService, _SubmitService, _ProjectNameService, _DisqualificationReasonDDService, _LeadStageDDService, _LeadStatusDDService, _UpdateLeadDataService, _ProductDescAutofill, _ProductCodeAutofill, _deleteItem, _DeleteActService, _CountryService, _StateService, _DistrictService, _DepartmentService, _DesignationService, _InsertContactService, $location, _cookieStore) {
                     this.$location = $location;
                     this._cookieStore = _cookieStore;
                     this.LeadActivitylist = null;
@@ -54,6 +55,8 @@ var GCPL;
                     this.Campaigndd = null;
                     this.ValidReferred = null;
                     this.AssessmentInfo = null;
+                    this.InsertContact = null;
+                    this.EMAIL_REGEXP = null;
                     this.ContactInfo = null;
                     this.LeadID = null;
                     this.ModelID = null;
@@ -61,6 +64,11 @@ var GCPL;
                     this.ModelNo = null;
                     this.ProductD = null;
                     this.InsertAssessment = null;
+                    this.ConCountryDropDown = null;
+                    this.ConStateDropDown = null;
+                    this.ConDistrictDropDown = null;
+                    this.DepartmentDropDown = null;
+                    this.DesignationDropDown = null;
                     this.CrtAssessmt = null;
                     this.ReturnModel = null;
                     this.InsertLeadActivity = null;
@@ -70,6 +78,7 @@ var GCPL;
                     this.alert = null;
                     this.InsertAct = null;
                     this.InsertItem = null;
+                    this.RemarksHistory = null;
                     this.SubmitData = null;
                     this.Cookie = null;
                     this.ProjectNameDD = null;
@@ -79,6 +88,14 @@ var GCPL;
                     this.lat = null;
                     this.lng = null;
                     this.UpdateLeadData = null;
+                    this.numRecords = 10;
+                    this.page = 0;
+                    this.incre = 0;
+                    this.shownItems = [];
+                    this.maxPages = 0;
+                    this.ShowNext = true;
+                    this.ShowBack = true;
+                    this.NoOfRds = 10;
                     this.LeadStatusService = _LeadStatusService;
                     this.LeadStatusService = _LeadStatusService;
                     this.ProjectNameService = _ProjectNameService;
@@ -91,6 +108,14 @@ var GCPL;
                     this.PurchaseTimlineDDService = _PurchaseTimlineDDService;
                     this.ProductDescAutofill = _ProductDescAutofill;
                     this.DeleteService = _deleteItem;
+                    this.DeleteActService = _DeleteActService;
+                    this.CountryService = _CountryService;
+                    this.StateService = _StateService;
+                    this.DistrictService = _DistrictService;
+                    this.DepartmentService = _DepartmentService;
+                    this.DesignationService = _DesignationService;
+                    this.InsertContactService = _InsertContactService;
+                    this.InsertContact = new ContactMaster();
                     this.CategoryService = _CategoryService;
                     this.DivisionPService = _DivisionPService;
                     this.ProductService = _ProductService;
@@ -120,6 +145,7 @@ var GCPL;
                     this.Ans1Service = _Ans1Service;
                     this.Ans2Service = _Ans2Service;
                     this.Ans3Service = _Ans3Service;
+                    this.ProductCodeAutofill = _ProductCodeAutofill;
                     this.LeadReturnService = _LeadReturnService;
                     this.SubmitService = _SubmitService;
                     this.DisqualificationReasonDDService = _DisqualificationReasonDDService;
@@ -133,6 +159,7 @@ var GCPL;
                     this.InsertAct = new Activity();
                     this.InsertItem = new LeadItem();
                     this.EditService = _EditActivityList;
+                    this.EditContactService = _EditContactService;
                     this.EditItemService = _EditItemList;
                     this.AssessmentInfo = new ViewAssessment();
                     this.ValidReferred = new ValidRefrredEmployee();
@@ -210,6 +237,18 @@ var GCPL;
                     this.LeadStatusDropDown = this.LeadStatusService.Find().then((function (response) {
                         _this.LeadStatusDropDown = _this.LeadStatusService.GetLeadStatusName(response.data.Result);
                     }));
+                    this.ConCountryDropDown = this.CountryService.Find().then((function (response) {
+                        _this.ConCountryDropDown = _this.CountryService.GetCountryName(response.data.Result);
+                    }));
+                    this.ConStateDropDown = this.StateService.Find(this.InsertContact.CountryID = '95').then((function (response) {
+                        _this.ConStateDropDown = _this.StateService.GetStateName(response.data.Result);
+                    }));
+                    this.DepartmentDropDown = this.DepartmentService.Find().then((function (response) {
+                        _this.DepartmentDropDown = _this.DepartmentService.GetDepartmentName(response.data.Result);
+                    }));
+                    this.DesignationDropDown = this.DesignationService.Find().then((function (response) {
+                        _this.DesignationDropDown = _this.DesignationService.GetDesignationName(response.data.Result);
+                    }));
                     this.IndustryDivisionDropDown = this.IndustryDivisionService.Find().then((function (response) {
                         _this.IndustryDivisionDropDown = _this.IndustryDivisionService.GetIndustryName(response.data.Result);
                     }));
@@ -281,16 +320,17 @@ var GCPL;
                     this.FillGrid1();
                     //this.getLocation();
                     var that = this;
-                    $("#txtProductDesc").autocomplete({
+                    $("#txtProductCode").autocomplete({
                         //  source:['1a0','anjali','archana'],
                         source: function (request, res) {
-                            that.ProductDescAutofill.FilterAutoComplete(request).then((function (response) {
-                                var data = that.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
+                            that.ProductCodeAutofill.FilterAutoComplete(request).then((function (response) {
+                                var data = that.ProductCodeAutofill.GetAutoProductCode(response.data.Result);
                                 res($.map(data, function (item, index) {
                                     return {
-                                        label: item.ProductDesc,
-                                        value: item.ProductDesc,
-                                        id: item.ProductID
+                                        label: item.Product,
+                                        value: item.Product,
+                                        id: item.ProductDesc,
+                                        productid: item.ProductID
                                     };
                                 }));
                             }));
@@ -300,11 +340,65 @@ var GCPL;
                             event.preventDefault();
                         },
                         select: function (e, ui) {
-                            that.InsertItem.ProductID = ui.item.id;
+                            that.InsertItem.ProductDesc = ui.item.id;
+                            that.InsertItem.ProductID = ui.item.productid;
+                            that.Product();
+                            /*that.Search(ui.item.id);*/
                         },
                         change: function () {
                         }
                     });
+                    $("#txtProductDesc").autocomplete({
+                        //  source:['1a0','anjali','archana'],
+                        source: function (request, res) {
+                            that.ProductDescAutofill.FilterAutoComplete(request).then((function (response) {
+                                var data = that.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
+                                res($.map(data, function (item, index) {
+                                    return {
+                                        label: item.ProductDesc,
+                                        value: item.ProductDesc,
+                                        id: item.Product,
+                                        productid: item.ProductID
+                                    };
+                                }));
+                            }));
+                        },
+                        minLength: 2,
+                        focus: function (event, ui) {
+                            event.preventDefault();
+                        },
+                        select: function (e, ui) {
+                            that.InsertItem.Product = ui.item.id;
+                            that.InsertItem.ProductID = ui.item.productid;
+                            that.Product();
+                        },
+                        change: function () {
+                        }
+                    });
+                    //$("#txtProductCode").autocomplete({
+                    //    //  source:['1a0','anjali','archana'],
+                    //    source: function (request, res) {
+                    //        that.ProductCodeAutofill.FilterAutoComplete(request).then((response => {
+                    //            let data = that.ProductCodeAutofill.GetAutoProductCode(response.data.Result);
+                    //            res($.map(data, function (item, index) {
+                    //                return {
+                    //                    label: item.ProductCode,
+                    //                    value: item.ProductCode,
+                    //                    id: item.ProductID
+                    //                }
+                    //            }));
+                    //        }));
+                    //    },
+                    //    minLength: 2,
+                    //    focus: (event, ui) => {
+                    //        event.preventDefault();
+                    //    },
+                    //    select: function (e, ui) {
+                    //        that.InsertItem.ProductID = ui.item.id;
+                    //    },
+                    //    change: function () {
+                    //    }
+                    //});
                 };
                 //getLocation() {
                 //    if (navigator.geolocation) {
@@ -349,6 +443,16 @@ var GCPL;
                         _this.DivisionDropDownP = _this.DivisionPService.GetDivisionDDP(response.data.Result);
                     }));
                 };
+                LeadAssessmentController.prototype.Product = function () {
+                    var _this = this;
+                    this.ProductDropDown = this.ProductService.Find(this.InsertItem.ProductID).then((function (response) {
+                        _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
+                        _this.InsertItem.Product = _this.ProductDropDown.Product;
+                        _this.InsertItem.ProductDesc = _this.ProductDropDown.ProductDesc;
+                        //$('#txtProductDesc').val(this.ProductDropDown.ProductDesc);
+                        //(<HTMLInputElement>document.getElementById("txtProductDesc")).value = this.ProductDropDown.ProductDesc
+                    }));
+                };
                 //Product(data: any): void {
                 //    this.ProductDropDown = this.ProductService.Find(data).then((response => {
                 //        this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
@@ -383,6 +487,16 @@ var GCPL;
                         _this.popupMessage("Record deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
                     }));
                 };
+                LeadAssessmentController.prototype.DeleteActivity = function (ActivityID) {
+                    var _this = this;
+                    this.DeleteActService.Find(ActivityID).then((function (response) {
+                        _this.DeleteActService.postActivityDelete(response.data.Result);
+                        _this.Init();
+                        $("#errorclose").hide();
+                        $("#close").show();
+                        _this.popupMessage("Activity deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                    }));
+                };
                 LeadAssessmentController.prototype.Assessment = function (data) {
                     var _this = this;
                     this.LeadAssessmentService.Find(data).then((function (response) {
@@ -398,6 +512,8 @@ var GCPL;
                         _this.AssessmentInfo.ModelID = _this.AssessmentInfo.ModelID;
                         _this.LeadSource(_this.AssessmentInfo.ChannelID);
                         _this.LeadSourceChange();
+                        _this.ContactDetail();
+                        _this.RemarksHistory = _this.AssessmentInfo.RemarksHistoryList;
                         _this.InsertAct.erpid = _this.AssessmentInfo.EmployeeCode;
                         $("#txtUserName").val(_this.AssessmentInfo.RefUser);
                         if (_this.AssessmentInfo.LeadSourceID == "2") {
@@ -472,7 +588,7 @@ var GCPL;
                 };
                 LeadAssessmentController.prototype.ContactDetail = function () {
                     var _this = this;
-                    this.ContactInfo = this.ContactInfoService.Find(this.LeadAssessment.CustomerID).then((function (response) {
+                    this.ContactInfo = this.ContactInfoService.Find(this.AssessmentInfo.CustomerID).then((function (response) {
                         _this.ContactInfo = _this.ContactInfoService.GetLeadContactInfo(response.data.Result);
                     }));
                 };
@@ -546,6 +662,11 @@ var GCPL;
                     this.UpdateLeadData.notes = this.AssessmentInfo.Notes;
                     this.UpdateLeadData.reason = "";
                     this.UpdateLeadData.description = this.AssessmentInfo.Description;
+                    //if (!$("input[name=contactradio]:checked").val()) {
+                    //    this.HideShow();
+                    //    this.popupMessage("Please Select Contact Checkbox", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    //}
+                    this.UpdateLeadData.contactID = $('.messageCheckbox:checked').val();
                     if (this.UpdateLeadData.SalesStage == this.AssessmentInfo.SalesStage) {
                         $("#pg-load").show();
                         debugger;
@@ -611,6 +732,72 @@ var GCPL;
                             else {
                                 _this.HideShow();
                                 _this.popupMessage("Oops Some Error Occured", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                            }
+                        }));
+                    }
+                };
+                LeadAssessmentController.prototype.SubmitContact = function () {
+                    var _this = this;
+                    debugger;
+                    this.InsertContact.CustomerID = this.AssessmentInfo.CustomerID;
+                    if (this.InsertContact.CustomerID.length == 0) {
+                        this.HideShow();
+                        this.popupMessage("First Select Customer And Then Add Contact", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertContact.ContactName == undefined || this.InsertContact.ContactName == null || this.InsertContact.ContactName == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Contact Name ", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertContact.MobileNo == undefined || this.InsertContact.MobileNo == null || this.InsertContact.MobileNo == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Contact MobileNo", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if ((this.InsertContact.MobileNo != undefined && this.InsertContact.MobileNo != null && this.InsertContact.MobileNo != "") && (isNaN(this.InsertContact.MobileNo) || this.InsertContact.MobileNo.length != 10)) {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Valid Contact Mobile No", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if ((this.InsertContact.PhoneNo != undefined && this.InsertContact.PhoneNo != null && this.InsertContact.PhoneNo != "") && (isNaN(this.InsertContact.PhoneNo) || this.InsertContact.PhoneNo.length != 10)) {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Valid Contact Phone No", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertContact.Email != undefined && this.InsertContact.Email != null && this.InsertContact.Email != "" && !(this.EMAIL_REGEXP.test(this.InsertContact.Email))) {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Valid Contact Email", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if ((this.InsertContact.PostalCode != undefined && this.InsertContact.PostalCode != null && this.InsertContact.PostalCode != "") && (isNaN(this.InsertContact.PostalCode) || this.InsertContact.PostalCode.length != 6)) {
+                        this.HideShow();
+                        this.popupMessage("Please Enter Valid Postal Code", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertContact.DepartmentID == undefined || this.InsertContact.DepartmentID == null || this.InsertContact.DepartmentID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Department ", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else if (this.InsertContact.FOPID == undefined || this.InsertContact.FOPID == null || this.InsertContact.FOPID == "") {
+                        this.HideShow();
+                        this.popupMessage("Please Select Designation  ", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                    }
+                    else {
+                        this.InsertContact.CountryID = '95';
+                        this.InsertContact.Status = '1';
+                        this.InsertContactService.PostContact(this.InsertContact).then((function (response) {
+                            if (response.data.Result != null) {
+                                if (_this.InsertContact.ContactID > 0) {
+                                    $("#errorclose").hide();
+                                    $("#close").show();
+                                    _this.popupMessage("Contact ID - " + _this.InsertContact.ContactID + " Successfully Updated.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                                    $('#edit-contact').click();
+                                }
+                                else {
+                                    $("#errorclose").hide();
+                                    $("#close").show();
+                                    _this.popupMessage("Contact ID - " + response.data.Result + " Successfully Created.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                                    $('#create-contact').click();
+                                }
+                                _this.InsertContact = null;
+                            }
+                            else {
+                                _this.HideShow();
+                                _this.popupMessage("Contact already exists with the entered details.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                             }
                         }));
                     }
@@ -797,6 +984,7 @@ var GCPL;
                     debugger;
                     this.InsertItem.LeadID = this.LeadID;
                     this.InsertItem.UserID = this.UserID;
+                    this.InsertItem.ProductID = this.InsertItem.ProductID;
                     console.log("OP", this.InsertItem);
                     if (this.InsertItem.LeadType == undefined || this.InsertItem.LeadType == null || this.InsertItem.LeadType == "") {
                         this.HideShow();
@@ -845,6 +1033,7 @@ var GCPL;
                         this.InsertItem.CategoryID = this.InsertItem.CategoryID;
                         this.InsertItem.LeadCategoryID = this.InsertItem.LeadCategoryID;
                         this.InsertItem.DeliveryStatus = this.LeadItemlist.DeliveryStatus;
+                        this.InsertItem.ProductID = this.InsertItem.ProductID;
                         console.log("OP", this.InsertItem);
                         //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
                         this.InsertItemAssessment.PostItem(this.InsertItem).then((function (response) {
@@ -1060,10 +1249,106 @@ var GCPL;
                         $("myModalAdd").show();
                     }));
                 };
+                LeadAssessmentController.prototype.CheckContact = function (data) {
+                    if (this.AssessmentInfo.ContactID == data) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    }
+                };
+                //EditContact
+                LeadAssessmentController.prototype.EditContact = function (data) {
+                    var _this = this;
+                    this.EditContactService.Find(data).then((function (response) {
+                        _this.InsertContact = _this.EditContactService.GetConEdit(response.data.Result);
+                        //var temp = this.InsertContact.StateID;
+                        //this.ConStateDropDown = this.StateService.Find(this.InsertContact.CountryID).then((response => {
+                        //    this.ConStateDropDown = this.StateService.GetStateName(response.data.Result);                
+                        //    this.InsertContact.StateID = temp;
+                        //}));
+                        var temp = _this.InsertContact.DistrictID;
+                        _this.ConDistrictDropDown = _this.DistrictService.Find(_this.InsertContact.StateID).then((function (response) {
+                            _this.ConDistrictDropDown = _this.DistrictService.GetDistrictName(response.data.Result);
+                            _this.InsertContact.DistrictID = temp;
+                        }));
+                        $("#txtCustomerName").val(_this.InsertContact.CompanyName);
+                        if (_this.InsertContact.Status == "True") {
+                            _this.InsertContact.Status = "1";
+                        }
+                        else {
+                            _this.InsertContact.Status = "0";
+                        }
+                        if (_this.InsertContact.MaritalStatus == "True") {
+                            _this.InsertContact.MaritalStatus = "1";
+                        }
+                        else if (_this.InsertContact.MaritalStatus == "False") {
+                            _this.InsertContact.MaritalStatus = "0";
+                        }
+                        else {
+                            _this.InsertContact.MaritalStatus = "";
+                        }
+                        if (_this.InsertContact.SmokingPreference == "True") {
+                            _this.InsertContact.SmokingPreference = "1";
+                        }
+                        else if (_this.InsertContact.SmokingPreference == "False") {
+                            _this.InsertContact.SmokingPreference = "0";
+                        }
+                        else {
+                            _this.InsertContact.SmokingPreference = "";
+                        }
+                        if (_this.InsertContact.DrinkingPreference == "True") {
+                            _this.InsertContact.DrinkingPreference = "1";
+                        }
+                        else if (_this.InsertContact.DrinkingPreference == "False") {
+                            _this.InsertContact.DrinkingPreference = "0";
+                        }
+                        else {
+                            _this.InsertContact.DrinkingPreference = "";
+                        }
+                        if (_this.InsertContact.MealPreference == "True") {
+                            _this.InsertContact.MealPreference = "1";
+                        }
+                        else if (_this.InsertContact.MealPreference == "False") {
+                            _this.InsertContact.MealPreference = "0";
+                        }
+                        else {
+                            _this.InsertContact.MealPreference = "";
+                        }
+                    }));
+                };
+                LeadAssessmentController.prototype.ConDistrict = function () {
+                    var _this = this;
+                    this.ConDistrictDropDown = this.DistrictService.Find(this.InsertContact.StateID).then((function (response) {
+                        _this.ConDistrictDropDown = _this.DistrictService.GetDistrictName(response.data.Result);
+                    }));
+                };
+                LeadAssessmentController.prototype.ValidContact = function (data) {
+                    var _this = this;
+                    this.EditContactService.Find(data).then((function (response) {
+                        _this.InsertContact = _this.EditContactService.GetConEdit(response.data.Result);
+                        _this.AssessmentInfo.ContactID = _this.InsertContact.ContactID;
+                        _this.AssessmentInfo.ContactName = _this.InsertContact.ContactName;
+                        _this.AssessmentInfo.ContactPhoneNo = _this.InsertContact.PhoneNo;
+                        _this.AssessmentInfo.ContactEmail = _this.InsertContact.Email;
+                        _this.AssessmentInfo.ContactAddress = _this.InsertContact.Address;
+                        _this.AssessmentInfo.ContactMobileNo = _this.InsertContact.MobileNo;
+                        _this.AssessmentInfo.ContactPincode = _this.InsertContact.PostalCode;
+                        _this.AssessmentInfo.DepartmentID = _this.InsertContact.DepartmentID;
+                        _this.AssessmentInfo.Department = _this.InsertContact.Department;
+                        _this.AssessmentInfo.FOPID = _this.InsertContact.FOPID;
+                        _this.AssessmentInfo.ContactStateID = _this.InsertContact.StateID;
+                        _this.AssessmentInfo.ContactDistrictID = _this.InsertContact.DistrictID;
+                        _this.AssessmentInfo.ContactCountryID = _this.InsertContact.CountryID;
+                        _this.AssessmentInfo.ContactCity = _this.InsertContact.City;
+                        _this.AssessmentInfo.ContactSAPID = _this.InsertContact.SAPID;
+                    }));
+                };
                 LeadAssessmentController.$inject = ["LeadStatusddService", "IndustryDivisionService", "IndustrialSegmentService", "LeadTypeddService", "LeadCategoryDDService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService", "ProductddService",
                     "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "CampaignDetailsService", "ValidateReferredEmployeeService", "LeadAssessmentService", "LeadContactDetailsService", "CrtAssessmtServiceService",
                     "LeadActivityListService", "LeadItemListService", "LeadQueAnsService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertItemDetailsService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service", "LeadOpportunity",
-                    "SalesAreaService", "SalesOfficeService", "EditActivityList", "EditItemList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "ProductDescAutoFillService", "DeleteItemService", "$location", "$cookieStore"];
+                    "SalesAreaService", "SalesOfficeService", "EditActivityList", "ContactEditService", "EditItemList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "ProductDescAutoFillService", "ProductCodeAutoFillService",
+                    "DeleteItemService", "DeleteActivityService", "CountryService", "StateddService", "DistrictddService", "DepartmentService", "DesignationService", "InsertContactService", "$location", "$cookieStore"];
                 return LeadAssessmentController;
             }());
             var LeadAssessmentComponentController = /** @class */ (function () {

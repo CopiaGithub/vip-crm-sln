@@ -38,6 +38,7 @@ var GCPL;
                 var UserID;
                 var RoleID;
                 var LeadID;
+                var AllocatedTo;
                 if (data.SearchInput == undefined) {
                     SearchInput = '';
                 }
@@ -68,13 +69,20 @@ var GCPL;
                 else {
                     LeadID = data.LeadID;
                 }
+                if (data.AllocatedTo == undefined) {
+                    AllocatedTo = '';
+                }
+                else {
+                    AllocatedTo = data.AllocatedTo;
+                }
                 var config = {
                     params: {
                         SearchInput: SearchInput,
                         StatusID: LeadStatusID,
                         UserID: this.Cookie.get('UserInfo')['UserID'],
                         RoleID: this.Cookie.get('UserInfo')['RoleID'],
-                        LeadID: LeadID
+                        LeadID: LeadID,
+                        AllocatedTo: AllocatedTo
                     }
                 };
                 return this.ajaXUtility.Get({

@@ -918,8 +918,7 @@ var GCPL;
                     var item = data_16[_i];
                     list.push({
                         TACID: item.TACID,
-                        Description: item.Description,
-                        TACName: item.TACName
+                        Description: item.Description
                     });
                 }
                 return list;

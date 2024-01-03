@@ -143,6 +143,8 @@
         CategoryID: string;
         DivisionID: string;
         ProductID: string;
+        Product: string;
+        ProductDesc: string;     
         ProjectID: string;
     }
 

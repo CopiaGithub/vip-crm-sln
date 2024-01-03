@@ -123,6 +123,7 @@ var GCPL;
                 obj.ProjectID = data.ProjectID;
                 obj.Description = data.Description;
                 obj.Notes = data.Notes;
+                obj.RemarksHistoryList = data.RemarksHistoryList;
                 return obj;
             };
             LeadAssessmentService.prototype.FindModel = function (data) {
@@ -523,7 +524,8 @@ var GCPL;
                         MRPUnit: item.MRPUnit,
                         GST: item.GST,
                         NetAmount: item.NetAmount,
-                        DeliveryStatus: item.DeliveryStatus
+                        DeliveryStatus: item.DeliveryStatus,
+                        index: item.index
                     });
                 }
                 return list;
@@ -1074,7 +1076,6 @@ var GCPL;
                     obj.LeadType = data.LeadType,
                     obj.RefUserName = data.RefUserName,
                     obj.ChannelID = data.ChannelID,
-                    obj.LeadID = data.LeadID,
                     obj.IsNational = data.IsNational,
                     obj.CountryID = data.CountryID,
                     obj.StateID = data.StateID,
@@ -1083,7 +1084,7 @@ var GCPL;
                     obj.CategoryID = data.ItemCategoryID,
                     obj.DivisionID = data.DivisionID,
                     obj.ProductID = data.ProductID,
-                    obj.ProductCode = data.ProductCode,
+                    obj.Product = data.ProductCode,
                     obj.ProductDesc = data.ProductDesc,
                     obj.ProjectID = data.ProjectID,
                     obj.LeadStatusId = data.ItemStatusID;
@@ -1096,9 +1097,11 @@ var GCPL;
                     obj.TotalPrice = data.TotalPrice,
                     obj.TotalGST = data.TotalGST,
                     obj.NetAmount = data.NetAmount,
-                    obj.ProductCode = data.ProductCode,
-                    obj.DeliveryStatus = data.DeliveryStatus;
-                console.log("Op", obj);
+                    obj.Product = data.ProductCode,
+                    obj.DeliveryStatus = data.DeliveryStatus,
+                    obj.LeadID = data.LeadID,
+                    obj.CustomerName = data.CustomerName;
+                console.log("Op", data);
                 return obj;
             };
             EditItemList.$inject = ["$http", "$q"];
@@ -1298,6 +1301,7 @@ var GCPL;
         app.AddService("LeadStatusDDService", LeadStatusDDService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
+// Item Delete
 (function (GCPL) {
     var Service;
     (function (Service) {
@@ -1334,6 +1338,45 @@ var GCPL;
         }(GCPL.Service.BaseService));
         Service.DeleteItemService = DeleteItemService;
         app.AddService("DeleteItemService", DeleteItemService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+// Activity Delete
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var DeleteActivityService = /** @class */ (function (_super) {
+            __extends(DeleteActivityService, _super);
+            function DeleteActivityService($http, $q) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this.apiUrl = "";
+                _this.apiUrl = _this.url + "/" + "DeleteActivity";
+                return _this;
+            }
+            DeleteActivityService.prototype.Find = function (data) {
+                var config = {
+                    params: {
+                        ActivityID: data
+                    }
+                };
+                return this.ajaXUtility.Post({
+                    Url: this.apiUrl,
+                    data: data,
+                    Config: config
+                });
+            };
+            DeleteActivityService.prototype.postActivityDelete = function (data) {
+                var url = this.apiUrl;
+                this.$http.post(url, data).then(function (response) {
+                });
+            };
+            DeleteActivityService.$inject = ["$http", "$q"];
+            return DeleteActivityService;
+        }(GCPL.Service.BaseService));
+        Service.DeleteActivityService = DeleteActivityService;
+        app.AddService("DeleteActivityService", DeleteActivityService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
 //# sourceMappingURL=LeadAssessmentService.js.map

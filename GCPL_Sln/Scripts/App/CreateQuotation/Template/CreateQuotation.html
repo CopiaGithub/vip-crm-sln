@@ -5,139 +5,140 @@
     <title></title>
 </head>
 
-<section>
-    ﻿<div class="row">
-        <div class="col-lg-12 col-md-12">
+
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="header" style="margin-top:12px;">
             <h2 class="page-title">Create Quotation</h2>
         </div>
     </div>
 
-    <form>
-        <ul class="validate-lead-list">
+</div>
+<br />
+<form>
+    <ul class="validate-lead-list">
 
-            <li>
-                <span data-toggle="collapse" data-target="#acco1" title="Contact Detail" class="acco-tab spl-tab toggle-spl-plus">Opportunity Details</span>
-                <div id="acco1" class="collapse customer-form acco-content transition">
-                    <div class="row">
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label>Opportunity No</label>
-                                <input type="text" id="txtSAPID" disabled="disabled" ng-model="$ctrl.LeadID" name="txtSAPID" class="form-control" required>
-                            </div>
+        <li>
+            <span data-toggle="collapse" data-target="#acco1" title="Contact Detail" class="acco-tab spl-tab toggle-spl-plus">Opportunity Details</span>
+            <div id="acco1" class="collapse customer-form acco-content transition">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label>Opportunity No</label>
+                            <input type="text" id="txtSAPID" disabled="disabled" ng-model="$ctrl.LeadID" name="txtSAPID" class="form-control" required>
                         </div>
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label for="Address">Date</label>
-                                <input id="hfDate" type="hidden" name="hfFromDate">
-                                <input name="txtBirDate" placeholder="DD MMM YYYY" ng-model="$ctrl.InsertLeadChange.WhenEntered" input="hfBirDate" data-intro="true" id="txtDeliveryDate1" style="width: 100%;" class="form-control" disabled="disabled">
-                            </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label for="Address">Date</label>
+                            <input id="hfDate" type="hidden" name="hfFromDate">
+                            <input name="txtBirDate" placeholder="DD MMM YYYY" ng-model="$ctrl.InsertLeadChange.WhenEntered" input="hfBirDate" data-intro="true" id="txtDeliveryDate1" style="width: 100%;" class="form-control" disabled="disabled">
                         </div>
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label>Opportunity Status</label>
-                                <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.InsertLeadChange.LeadStatusID" style="width:100%" disabled>
-                                    <option value="">Select</option>
-                                    <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
-                                </select>
-                            </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label>Opportunity Status</label>
+                            <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.InsertLeadChange.LeadStatusID" style="width:100%" disabled>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
+                            </select>
                         </div>
-                        <div class="col-lg-3">
-                            <div class="form-group">
-                                <label>Customer Name</label>
-                                <input id="txtCompanyName" type="text" placeholder="Enter Customer Name" class="form-control" ng-model="$ctrl.InsertLeadChange.CompanyName" disabled />
-                            </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="form-group">
+                            <label>Customer Name</label>
+                            <input id="txtCompanyName" type="text" placeholder="Enter Customer Name" class="form-control" ng-model="$ctrl.InsertLeadChange.CompanyName" disabled />
                         </div>
+                    </div>
 
 
 
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Contact Name</label>
-                                <!--<div class="col-md-3" ng-class="{ 'has-error' : (userForm.txtContactPerson.$invalid && userForm.txtContactPerson.$pristine) }">-->
-                                <input type="text" id="txtContactPerson" disabled="disabled" ng-model="$ctrl.InsertLeadChange.ContactName" name="txtContactPerson" class="form-control" placeholder="Contact Person(min 5 characters)" min="5" required>
-                                <!--<p ng-show="(userForm.txtContactPerson.$invalid && !userForm.txtContactPerson.$pristine)" id="errorWOType" class="help-block" style="color:red">Contact Person is required.</p>-->
-                            </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Contact Name</label>
+                            <!--<div class="col-md-3" ng-class="{ 'has-error' : (userForm.txtContactPerson.$invalid && userForm.txtContactPerson.$pristine) }">-->
+                            <input type="text" id="txtContactPerson" disabled="disabled" ng-model="$ctrl.InsertLeadChange.ContactName" name="txtContactPerson" class="form-control" placeholder="Contact Person(min 5 characters)" min="5" required>
+                            <!--<p ng-show="(userForm.txtContactPerson.$invalid && !userForm.txtContactPerson.$pristine)" id="errorWOType" class="help-block" style="color:red">Contact Person is required.</p>-->
                         </div>
-                        <div class="col-md-9 text-right">
-                            <div class="form-group">
-                                <button id="#" style="margin-top:30px;" class="btn create-btn pull-right" data-toggle="modal" data-target="#myModal" ng-click="$ctrl.Add();">Details</button>
-                            </div>
-
+                    </div>
+                    <div class="col-md-9 text-right">
+                        <div class="form-group">
+                            <button id="#" style="margin-top:30px;" class="btn create-btn pull-right" data-toggle="modal" data-target="#myModal" ng-click="$ctrl.Add();">Details</button>
                         </div>
-
 
                     </div>
+
+
                 </div>
-            </li>
-            <li class="laed-id-container">
-                <span class="acco-tab spl-tab toggle-spl-plus" id="LeadID" data-toggle="collapse" data-target="#acco10">Item List</span>
-                <div class="collapse" id="acco10">
+            </div>
+        </li>
+        <li class="laed-id-container">
+            <span class="acco-tab spl-tab toggle-spl-plus" id="LeadID" data-toggle="collapse" data-target="#acco10">Quotation - Item List</span>
+            <div class="collapse" id="acco10">
 
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-sub-container">
-                                <div id="div-1" class="body" style="overflow:scroll">
-                                    <div class="row" style="margin:0px">
-                                        <div class="col-md-12 table-responsive" style="padding:0px;overflow:auto">
-                                            <table id="myTable" cellspacing="0" rules="all" class="table table-bordered table-condensed customer-list-table table-responsive" border="1" style="width:100%;border-collapse:collapse;">
-                                                <thead class="customer-list-heading">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-sub-container">
+                            <div id="div-1" class="body" style="overflow:scroll">
+                                <div class="row" style="margin:0px">
+                                    <div class="col-md-12 table-responsive" style="padding:0px;overflow:auto">
+                                        <table id="myTable" cellspacing="0" rules="all" class="table table-bordered table-condensed customer-list-table table-responsive" border="1" style="width:100%;border-collapse:collapse;">
+                                            <thead class="customer-list-heading">
 
-                                                    <tr>
+                                                <tr>
 
-                                                        <th>Sr. No.</th>
-                                                        <th>ItemCode</th>
-                                                        <th>Item Description</th>
-                                                        <th>Item Status</th>
-                                                        <th>Quantity</th>
-                                                        <th>MRP/Unit</th>
-                                                        <th>GST %</th>
-                                                        <th>Net Amount</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr ng-repeat="item in $ctrl.LeadItemlist">
+                                                    <th>Sr. No.</th>
+                                                    <th>ItemCode</th>
+                                                    <th>Item Description</th>
+                                                    <th>Item Status</th>
+                                                    <th>Quantity</th>
+                                                    <th>MRP/Unit</th>
+                                                    <th>GST %</th>
+                                                    <th>Net Amount</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in $ctrl.LeadItemlist">
 
-                                                        <td>{{item.ItemID}}</td>
-                                                        <td>{{item.ItemCode}}</td>
-                                                        <td>{{item.ProductDesc}}</td>
-                                                        <td>{{item.ItemStatus}}</td>
-                                                        <td>{{item.Quantity}}</td>
-                                                        <td>{{item.MRPUnit}}</td>
-                                                        <td>{{item.GST}}</td>
-                                                        <td>{{item.NetAmount}}</td>
-                                                        <td>
-                                                            <span class="edit-table-link" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.EditItem(item.ItemID);"><i class="fa fa-edit" aria-hidden="true"></i></span>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                                    <td>{{item.ItemID}}</td>
+                                                    <td>{{item.ItemCode}}</td>
+                                                    <td>{{item.ProductDesc}}</td>
+                                                    <td>{{item.ItemStatus}}</td>
+                                                    <td>{{item.Quantity}}</td>
+                                                    <td>{{item.MRPUnit}}</td>
+                                                    <td>{{item.GST}}</td>
+                                                    <td>{{item.NetAmount}}</td>
+                                                    <td>
+                                                        <span class="edit-table-link" data-toggle="modal" data-target="#myModalAdd" ng-click="$ctrl.EditItem(item.ItemID);"><i class="fa fa-edit" aria-hidden="true"></i></span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-
                             </div>
+
                         </div>
                     </div>
                 </div>
+            </div>
 
-            </li>
-            <li class="laed-id-container">
-                <div class="selection-filter-container">
-                    <h5 data-toggle="collapse" data-target="#div-3" class="section-header-title spl-tab toggle-spl-plus">Terms and Conditions</h5>
-                    <div id="div-3" class="selection-filter-sub-container collapse">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12">
-                                <div class="form-group">
-
-                                    <!--<label>
-                                        {{$ctrl.InsertQuotation.TCDetails}} <input type="checkbox" class="TC-class" ng-checked="$ctrl.EditQuotation.TC1ID != '0' " id="chkTC1" />
-                                    </label>-->
-                                    <div>
-                                        <!--<textarea class="form-control" rows="3" id="txtTC1" style="height: 30rem;" placeholder="" ng-model="$ctrl.InsertQuotation.TCDetails" name="TC"></textarea>-->
-
-                                        <textarea class="form-control" rows="3" id="txtTC1" style="height: 30rem;" ng-model="$ctrl.InsertQuotation.TCDetails" name="TC">1. The above quoted prices are for the MOQ mentioned against the items and are FOR your locations as provided in the mail below.
+        </li>
+        <li class="laed-id-container">
+            <!--<div class="selection-filter-container">
+            <h5 data-toggle="collapse" data-target="#div-3" class="section-header-title spl-tab toggle-spl-plus">Terms and Conditions</h5>
+            <div id="div-3" class="selection-filter-sub-container collapse">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="form-group">-->
+            <!--<label>
+                {{$ctrl.InsertQuotation.TCDetails}} <input type="checkbox" class="TC-class" ng-checked="$ctrl.EditQuotation.TC1ID != '0' " id="chkTC1" />
+            </label>-->
+            <!--<div>-->
+            <!--<textarea class="form-control" rows="3" id="txtTC1" style="height: 30rem;" placeholder="" ng-model="$ctrl.InsertQuotation.TCDetails" name="TC"></textarea>-->
+            <!--<textarea class="form-control" rows="3" id="txtTC1" style="height: 30rem;" ng-model="$ctrl.InsertQuotation.TCDetails" name="TC">1. The above quoted prices are for the MOQ mentioned against the items and are FOR your locations as provided in the mail below.
                                         2. Payment Terms: 100% advance along with the Purchase Order.
                                         3. Delivery – Shall confirm. As of now, it is starting Mid Dec, if the order can be confirmed by 23rd Nov 2023.
                                         4. The Purchase of the above items does not entitle the client for use of the Brands of VIP Industries Ltd if not given in writing specifically otherwise. The Usage of the brand and its other constituents, if agreed to by VIP Industries Ltd, should be strictly as per standards specified by VIP.
@@ -145,92 +146,167 @@
                                         6. The above quote is valid for 15 days from this date.
                                         7. This transaction shall be governed by the laws applicable in India and the parties hereto agree that all disputes arising under these presents shall be subjects to Mumbai Jurisdiction only.
                                         </textarea>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
+
                 </div>
-            </li>
-            <li class="laed-id-container">
-                <span class="acco-tab spl-tab toggle-spl-plus" id="LeadID" data-toggle="collapse" data-target="#acco5">Sales Person Details </span>
-                <div class="collapse" id="acco5">
-
-
+            </div>-->
+            <div class="selection-filter-container">
+                <h5 data-toggle="collapse" data-target="#div-3" class="section-header-title spl-tab toggle-spl-plus">Terms and Conditions</h5>
+                <div id="div-3" class="selection-filter-sub-container collapse">
                     <div class="row">
-                        <div class="col-md-12">
-
-                            <div class="row">
-                                <div class="col-ld-3 col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label">Sales Person Name</label>
-                                        <input type="text" ng-model="$ctrl.InsertQuotation.SPName" id="txtSalesPersonName" class="form-control" name="sales-person-name" />
-                                    </div>
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <div>
+                                    <textarea class="form-control" rows="3" id="txtTC1">{{$ctrl.InsertQuotation.TC1}}</textarea>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <div>
+                                    <textarea class="form-control" rows="3" id="txtTC2">{{$ctrl.InsertQuotation.TC2}}</textarea>
 
-
-                                <div class="col-ld-3 col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label">Mobile No</label>
-                                        <input type="text" ng-model="$ctrl.InsertQuotation.SPMobileNo" id="txtMobileNo" class="form-control" name="mobile-no" />
-                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <div>
+                                    <textarea class="form-control" rows="3" id="txtTC3">{{$ctrl.InsertQuotation.TC3}}</textarea>
 
-                                <div class="col-ld-3 col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label">Email</label>
-                                        <input type="text" ng-model="$ctrl.InsertQuotation.SPEmail" id="txtEmail" class="form-control" name="Email" />
-                                    </div>
                                 </div>
-                                <div class="col-ld-3 col-md-3">
-                                    <div class="form-group">
-                                        <label class="form-label">Designation</label>
-                                        <input type="text" ng-model="$ctrl.InsertQuotation.SPDesignation" id="txtDesignation" class="form-control" name="Designation" />
-                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <div>
+                                    <textarea class="form-control" rows="3" id="txtTC4">{{$ctrl.InsertQuotation.TC4}}</textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <div>
+                                    <textarea class="form-control" rows="3" id="txtTC5">{{$ctrl.InsertQuotation.TC5}}</textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <div>
+                                    <textarea class="form-control" rows="3" id="txtTC6">{{$ctrl.InsertQuotation.TC6}}</textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <div>
+                                    <textarea class="form-control" rows="3" id="txtTC7">{{$ctrl.InsertQuotation.TC7}}</textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </li>
+        <li class="laed-id-container">
+            <span class="acco-tab spl-tab toggle-spl-plus" id="LeadID" data-toggle="collapse" data-target="#acco5">Sales Person Details </span>
+            <div class="collapse" id="acco5">
+
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="row">
+                            <div class="col-ld-3 col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Sales Person Name</label>
+                                    <input type="text" ng-model="$ctrl.InsertQuotation.SPName" id="txtSalesPersonName" class="form-control" name="sales-person-name" />
                                 </div>
                             </div>
 
 
-                            <br />
+                            <div class="col-ld-3 col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Mobile No</label>
+                                    <input type="text" ng-model="$ctrl.InsertQuotation.SPMobileNo" id="txtMobileNo" class="form-control" name="mobile-no" />
+                                </div>
+                            </div>
 
+                            <div class="col-ld-3 col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Email</label>
+                                    <input type="text" ng-model="$ctrl.InsertQuotation.SPEmail" id="txtEmail" class="form-control" name="Email" />
+                                </div>
+                            </div>
+                            <div class="col-ld-3 col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Designation</label>
+                                    <input type="text" ng-model="$ctrl.InsertQuotation.SPDesignation" id="txtDesignation" class="form-control" name="Designation" />
+                                </div>
+                            </div>
                         </div>
 
 
+                        <br />
+
                     </div>
-                </div>
-
-            </li>
 
 
-        </ul>
-        <div class="row">
-            <div class="col-md-12 text-right">
-                <div class="form-group">
-                    <label class="label-block" style="margin-top: 25px;">&nbsp;</label>
-                    <input type="submit" value="Submit" id="btnSubmit" ng-click="$ctrl.Submit();" class="btn search-btn">
-                    <!--<input type="submit" value="Submit" id="btnSubmit" style="margin-top: 20px;margin:8px;background-color: #f48c41;border: none;color:black;margin-right: -65px;" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myAlert">-->
                 </div>
             </div>
-        </div>
+
+        </li>
 
 
-
-        <!-- Page Loader Started -->
-        <div class="loader-page" id="pg-load">
-            <div class="search-loader-container">
-                <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+    </ul>
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <div class="form-group">
+                <label class="label-block" style="margin-top: 25px;">&nbsp;</label>
+                <input type="submit" value="Submit" id="btnSubmit" ng-click="$ctrl.Submit();" class="btn search-btn">
+                <!--<input type="submit" value="Submit" id="btnSubmit" style="margin-top: 20px;margin:8px;background-color: #f48c41;border: none;color:black;margin-right: -65px;" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myAlert">-->
             </div>
         </div>
+    </div>
 
-    </form>
-</section>
+
+
+    <!-- Page Loader Started -->
+    <div class="loader-page" id="pg-load">
+        <div class="search-loader-container">
+            <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
+        </div>
+    </div>
+
+</form>
+
 <div class="modal fade" id="myModalAdd" tabindex="-2" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
     <div class="modal-dialog modal-2">
         <div class="modal-content " style="position: relative">
             <div class="modal-header modal-head">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3 class="modal-title modal-head-title"> ITEM DETAILS </h3>
+                <h3 class="modal-title modal-head-title">QUOTATION - ITEM DETAILS </h3>
             </div>
 
             <div id="div-1" class="modal-body">
@@ -254,15 +330,26 @@
 
                             <input type="text" placeholder="New Item" ng-model="$ctrl.InsertItem.ItemID" name="leadid" class="form-control" disabled />
                         </div>
+
                         <div class="col-md-3">
-                            <b>Item Status </b>
-                            <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.InsertItem.LeadStatusId" style="width:100%">
-                                <option value="">Select</option>
-                                <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
-                            </select>
+                            <b>Item Code<span class="Mandatory">*</span></b>
+                            <input type="text" placeholder="New Item" ng-model="$ctrl.InsertItem.Product" name="Product" id="txtProduct" class="form-control" disabled />
+
+                            <!--<select id="txtProduct" name="Product" ng-model="$ctrl.InsertItem.Product" class="form-control leader-create-dropdown" tabindex="2" required>
+        <option value="">Select</option>
+        <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
+
+    </select>-->
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
+                            <b>Item Description</b>
+
+                            <input type="text" id="txtProductDesc" placeholder="Product Description" ng-model="$ctrl.InsertItem.ProductDesc" name="txtProductDesc" class="form-control" ng-change="$ctrl.Product($ctrl.InsertItem.ProductID)" />
+                        </div>
+                        
+
+                        <!--<div class="col-md-3">
                             <b>Sales Office </b>
                             <select id="txtSalesoff" name="Sales" ng-model="$ctrl.InsertItem.SalesOfficeID" class="form-control leader-create-dropdown">
                                 <option value="">Select</option>
@@ -277,11 +364,11 @@
                                 <option value="">Select</option>
                                 <option ng-repeat="item in $ctrl.LeadTypeDropDown" value={{item.ID}}>{{item.LeadTypeDesc}}</option>
                             </select>
-                        </div>
+                        </div>-->
 
                     </div>
 
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <div class="col-md-3">
                             <b>Opportunity Category </b>
 
@@ -313,8 +400,8 @@
                         </div>
 
 
-                    </div>
-                    <div class="form-group">
+                    </div>-->
+                    <!--<div class="form-group">
                         <div class="col-md-3">
                             <b>Plan to Purchase Within </b>
                             <select id="purchaseddl" class="form-control leader-create-dropdown" ng-model="$ctrl.InsertItem.PurchaseTimelineID">
@@ -323,7 +410,7 @@
                             </select>
                         </div>
 
-                        
+
                         <div class="col-md-3">
                             <b>Category </b>
                             <select id="txtCategory" name="Category" ng-model="$ctrl.InsertItem.CategoryID" class="form-control leader-create-dropdown" tabindex="2" required>
@@ -339,19 +426,10 @@
                                 <option ng-repeat="item in $ctrl.DivisionDropDownP" value={{item.DivisionID}}>{{item.Division}}</option>
                             </select>
                         </div>
-                        <div class="col-md-3">
-                            <b>Product Code<span class="Mandatory">*</span></b>
-                            <select id="txtProduct" name="Product" ng-model="$ctrl.InsertItem.ProductID" class="form-control leader-create-dropdown" tabindex="2" required>
-                                <option value="">Select</option>
-                                <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
 
-                            </select>
-
-                        </div>
-
-                    </div>
-                    <div class="form-group">
-                        <!--<div class="col-md-3">
+                    </div>-->
+                <div class="form-group">
+                    <!--<div class="col-md-3">
         <b>Product </b>
         <select id="txtProduct" name="Product" ng-model="$ctrl.InsertItem.ProductID" class="form-control leader-create-dropdown" tabindex="2" required>
             <option value="">Select</option>
@@ -359,82 +437,87 @@
 
         </select>
     </div>-->
-                        <!--<div class="col-md-3">
+                    <!--<div class="col-md-3">
         <label>Product Description<span class="Mandatory">*</span></label>
         <input type="text" id="txtProductDesc" name="txtProductDesc" ng-model="$ctrl.InsertItem.ProductDesc" class="form-control" ng-change="$ctrl.Product($ctrl.InsertItem.ProductID)" ; placeholder="Product Description" />
 
     </div>-->
-                        <div class="col-md-3">
-                            <b>Product Description</b>
+                    <div class="col-md-3">
+                        <b>Item Status </b>
+                        <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.InsertItem.LeadStatusId" style="width:100%">
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
+                        </select>
 
-                            <input type="text" id="txtProductDesc" placeholder="Product Description" ng-model="$ctrl.InsertItem.ProductDesc" name="txtProductDesc" class="form-control" ng-change="$ctrl.Product($ctrl.InsertItem.ProductID)" />
-                        </div>               
-                        <div class="col-md-3">
-                            <b>Model </b>
-                            <select id="txtModel" name="Model" ng-model="$ctrl.InsertItem.ModelID" class="form-control leader-create-dropdown" tabindex="2" required>
-                                <option value="">Select</option>
-                                <option ng-repeat="item in $ctrl.ModelDropDown" value={{item.ModelID}}>{{item.ModelNo}}</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <b>Channel </b>
-                            <select id="txtChannel" name="txtChannel" ng-model="$ctrl.InsertItem.ChannelID" class="form-control leader-create-dropdown" ng-change="$ctrl.LeadSource();" tabindex="2">
-                                <option value="">Select</option>
-                                <option ng-repeat="item in $ctrl.ChannelDD" value="{{item.ID}}">{{item.Channel}}</option>
+                    </div>
+                    <div class="col-md-3">
+                        <b>Model </b>
+                        <select id="txtModel" name="Model" ng-model="$ctrl.InsertItem.ModelID" class="form-control leader-create-dropdown" tabindex="2" required>
+                            <option value="">Select</option>
+                            <option ng-repeat="item in $ctrl.ModelDropDown" value={{item.ModelID}}>{{item.ModelNo}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <b>Quantity </b>
+                        <input type="text" placeholder="Select Quantity" ng-model="$ctrl.InsertItem.Quantity" name="quantity" class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <b>HSN/SAC </b>
+                        <input type="text" placeholder="" ng-model="$ctrl.InsertItem.HSN" name="quantity" class="form-control" />
+                    </div>
+                    
+                    <!--<div class="col-md-3">
+        <b>Channel </b>
+        <select id="txtChannel" name="txtChannel" ng-model="$ctrl.InsertItem.ChannelID" class="form-control leader-create-dropdown" ng-change="$ctrl.LeadSource();" tabindex="2">
+            <option value="">Select</option>
+            <option ng-repeat="item in $ctrl.ChannelDD" value="{{item.ID}}">{{item.Channel}}</option>
 
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <b>Opportunity Source  </b>
+        </select>
+    </div>
+    <div class="col-md-3">
+        <b>Opportunity Source  </b>
 
-                            <select id="ddlleadsource" class="form-control leader-create-dropdown" name="LeadSource" ng-model="$ctrl.InsertItem.LeadSourceID" ng-change="$ctrl.LeadSourceChange();">
-                                <option value="">Select</option>
-                                <option ng-repeat="item in $ctrl.LeadSourcedd" value={{item.LeadSourceID}}>{{item.LeadSource}}</option>
-                            </select>
-                        </div>
-                        <!--<div class="col-md-3">
+        <select id="ddlleadsource" class="form-control leader-create-dropdown" name="LeadSource" ng-model="$ctrl.InsertItem.LeadSourceID" ng-change="$ctrl.LeadSourceChange();">
+            <option value="">Select</option>
+            <option ng-repeat="item in $ctrl.LeadSourcedd" value={{item.LeadSourceID}}>{{item.LeadSource}}</option>
+        </select>
+    </div>-->
+                    <!--<div class="col-md-3">
         <b>Sales Area </b>
         <select id="txtSales" name="SalesArea" ng-model="$ctrl.InsertItem.SalesAreaID" class="form-control">
             <option value="">Select</option>
             <option ng-repeat="item in $ctrl.SalesAreaDropDown" value={{item.SalesAreaID}}>{{item.SalesArea}}</option>
         </select>
     </div>-->
-                    </div>
-                    <div class="form-group">
+                </div>
+                    <!--<div class="form-group">
 
-                        <div class="col-md-3">
-                            <b>Quantity </b>
-                            <input type="text" placeholder="Select Quantity" ng-model="$ctrl.InsertItem.Quantity" name="quantity" class="form-control" />
-                        </div>
-                        <div class="col-md-3">
-                            <b>HSN/SAC </b>
-                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.HSN" name="quantity" class="form-control" />
-                        </div>
+
                         <div class="col-md-6">
                             <b>Comments </b>
                             <textarea class="form-control" placeholder="Add Comments" ng-model="$ctrl.InsertItem.Comments" rows="1" id="address"></textarea>
                         </div>
-                        
 
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-3">
-                            <b>MRP/Unit </b>
-                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.MRPUnit" name="quantity" class="form-control" />
-                        </div>
-                        <div class="col-md-3">
-                            <b>GST % </b>
-                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.GST" name="quantity" class="form-control" />
-                        </div>
-                        <div class="col-md-3">
-                            <b>Discount </b>
-                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.Discount" name="quantity" class="form-control" />
-                        </div>
-                        <div class="col-md-3 text-right" style="margin-top: 25px">
-                            <input type="submit" id="Check-submit" value="Check Price" ng-click="$ctrl.CheckPrice();" class="btn search-btn" style="background-color: #367fa9; ">
-                        </div>
 
+                    </div>-->
+                <div class="form-group">
+                    <div class="col-md-3">
+                        <b>MRP/Unit </b>
+                        <input type="text" placeholder="" ng-model="$ctrl.InsertItem.MRPUnit" id="MRPUnit" name="quantity" class="form-control" />
                     </div>
+                    <div class="col-md-3">
+                        <b>GST % </b>
+                        <input type="text" placeholder="" ng-model="$ctrl.InsertItem.GST" name="quantity" class="form-control" />
+                    </div>
+                    <div class="col-md-3">
+                        <b>Discount </b>
+                        <input type="text" placeholder="" ng-model="$ctrl.InsertItem.Discount" name="quantity" class="form-control" />
+                    </div>
+                    <div class="col-md-3 text-right" style="margin-top: 25px">
+                        <input type="submit" id="Check-submit" value="Check Price" ng-click="$ctrl.CheckPrice();" class="btn search-btn" style="background-color: #367fa9; ">
+                    </div>
+
+                </div>
                     <div class="form-group">
                         <div class="col-md-3">
                             <b> Total Price</b>
@@ -446,7 +529,7 @@
                         </div>
                         <div class="col-md-3">
                             <b> Discounted Price/Unit</b>
-                            <input type="text" placeholder="" ng-model="$ctrl.Total.DiscountedPricePerUnit"  id="DiscountedPricePerUnit" name="quantity" class="form-control" disabled />
+                            <input type="text" placeholder="" ng-model="$ctrl.Total.DiscountedPricePerUnit" id="DiscountedPricePerUnit" name="quantity" class="form-control" disabled />
                         </div>
                         <div class="col-md-3">
                             <b> Net Amount</b>
@@ -457,9 +540,9 @@
                     <div class="modal-footer">
 
                         <div class="row">
-                            <div class="col-md-12 text-right">                            
+                            <div class="col-md-12 text-right">
                                 <input type="submit" id="Item-submit" value="Submit" ng-click="$ctrl.SubmitItem();" class="btn search-btn">
-                            </div>                                                                      
+                            </div>
                         </div>
                     </div>
                 </form>

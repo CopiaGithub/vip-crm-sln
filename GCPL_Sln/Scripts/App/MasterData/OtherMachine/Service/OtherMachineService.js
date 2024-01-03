@@ -230,6 +230,7 @@ var GCPL;
                     list.push({
                         ProductID: item.ProductID.toString(),
                         Product: item.Product,
+                        ProductDesc: item.ProductDesc,
                     });
                 }
                 return list;

@@ -68,13 +68,13 @@ var GCPL;
                 _this.$http = $http;
                 _this.$q = $q;
                 _this.apiUrl = "";
-                _this.apiUrl = _this.url + "/" + "ProductDD";
+                _this.apiUrl = _this.url + "/" + "ProductDDNew";
                 return _this;
             }
             ProductddService.prototype.Find = function (data) {
                 var config = {
                     params: {
-                        divisionID: data
+                        ProductID: data
                     }
                 };
                 return this.ajaXUtility.Get({
@@ -89,6 +89,7 @@ var GCPL;
                     list.push({
                         ProductID: item.ProductID.toString(),
                         Product: item.Product,
+                        ProductDesc: item.ProductDesc
                     });
                 }
                 return list;

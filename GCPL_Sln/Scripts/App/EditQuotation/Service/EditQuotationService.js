@@ -389,7 +389,6 @@ var GCPL;
                     list.push({
                         TACID: item.TACID,
                         Description: item.Description,
-                        TACName: item.TACName
                     });
                 }
                 return list;

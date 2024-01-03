@@ -62,6 +62,12 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-3">
+                                    <div class="form-group">
+                                        <label class="form-label">Allocated To</label>
+                                        <input type="text" id="AllocatedTo" name="AllocatedTo" placeholder="Allocated To" ng-model="$ctrl.AssessmentSearch.AllocatedTo" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 text-right">
                                     <button id="btnSearch" ng-click="$ctrl.SearchAssessmentList();" style="margin-top:30px;padding-top: 5px;" type="button" class="btn search-btn">Search</button>
                                     <button id="btnClear" ng-click="$ctrl.Clear();" type="button" style="margin-top:30px;padding-top: 5px;" class="btn clear-btn">Clear</button>
                                 </div>

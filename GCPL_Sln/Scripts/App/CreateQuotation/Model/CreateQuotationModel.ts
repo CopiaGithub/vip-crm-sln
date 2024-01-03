@@ -178,7 +178,7 @@
         }
         TACID: string;
         Description: string;
-        TACName: string;
+
     }
     export class OfferModel {
         constructor() {
@@ -198,8 +198,8 @@
     }
     export class TotalPriceModel {
         constructor() {
-        }       
-        Quantity: number;      
+        }
+        Quantity: number;
         MRPUnit: number;
         GST: number;
         HSN: number;
