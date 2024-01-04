@@ -123,6 +123,7 @@ var GCPL;
                 obj.ProjectID = data.ProjectID;
                 obj.Description = data.Description;
                 obj.Notes = data.Notes;
+                obj.RemarksHistoryList = data.RemarksHistoryList;
                 return obj;
             };
             LeadAssessmentService.prototype.FindModel = function (data) {
@@ -1298,6 +1299,7 @@ var GCPL;
         app.AddService("LeadStatusDDService", LeadStatusDDService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
+// Item Delete
 (function (GCPL) {
     var Service;
     (function (Service) {
@@ -1334,6 +1336,45 @@ var GCPL;
         }(GCPL.Service.BaseService));
         Service.DeleteItemService = DeleteItemService;
         app.AddService("DeleteItemService", DeleteItemService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+// Activity Delete
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
+        var DeleteActivityService = /** @class */ (function (_super) {
+            __extends(DeleteActivityService, _super);
+            function DeleteActivityService($http, $q) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this.apiUrl = "";
+                _this.apiUrl = _this.url + "/" + "DeleteActivity";
+                return _this;
+            }
+            DeleteActivityService.prototype.Find = function (data) {
+                var config = {
+                    params: {
+                        ActivityID: data
+                    }
+                };
+                return this.ajaXUtility.Post({
+                    Url: this.apiUrl,
+                    data: data,
+                    Config: config
+                });
+            };
+            DeleteActivityService.prototype.postActivityDelete = function (data) {
+                var url = this.apiUrl;
+                this.$http.post(url, data).then(function (response) {
+                });
+            };
+            DeleteActivityService.$inject = ["$http", "$q"];
+            return DeleteActivityService;
+        }(GCPL.Service.BaseService));
+        Service.DeleteActivityService = DeleteActivityService;
+        app.AddService("DeleteActivityService", DeleteActivityService);
     })(Service = GCPL.Service || (GCPL.Service = {}));
 })(GCPL || (GCPL = {}));
 //# sourceMappingURL=LeadAssessmentService.js.map

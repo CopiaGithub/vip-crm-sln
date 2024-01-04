@@ -14,6 +14,12 @@ var GCPL;
             return ValidateContactListModel;
         }());
         Model.ValidateContactListModel = ValidateContactListModel;
+        var RemarksHist = /** @class */ (function () {
+            function RemarksHist() {
+            }
+            return RemarksHist;
+        }());
+        Model.RemarksHist = RemarksHist;
         var LeadAssessmentInfoModel = /** @class */ (function () {
             function LeadAssessmentInfoModel() {
             }

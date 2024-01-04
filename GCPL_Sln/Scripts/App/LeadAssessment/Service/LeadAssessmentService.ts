@@ -120,6 +120,7 @@
             obj.ProjectID = data.ProjectID;
             obj.Description = data.Description;
             obj.Notes = data.Notes;
+            obj.RemarksHistoryList = data.RemarksHistoryList;
 
             return obj
         }
@@ -1420,6 +1421,7 @@ namespace GCPL.Service {
     app.AddService("LeadStatusDDService", LeadStatusDDService);
 }
 
+// Item Delete
 namespace GCPL.Service {
     import app = GCPL.app;
     import model = GCPL.Model;
@@ -1460,4 +1462,47 @@ namespace GCPL.Service {
     }
 
     app.AddService("DeleteItemService", DeleteItemService);
+}
+
+// Activity Delete
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IDeleteActivityService {
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        postActivityDelete(data: any): void;
+    }
+    export class DeleteActivityService extends GCPL.Service.BaseService implements IDeleteActivityService {
+
+        private apiUrl: string = "";
+        static $inject = ["$http", "$q"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"DeleteActivity"}`;
+        }
+        Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+
+            let config = {
+                params: {
+                    ActivityID: data
+                }
+            };
+            return this.ajaXUtility.Post({
+
+                Url: this.apiUrl,
+                data,
+                Config: config
+            });
+        }
+
+        postActivityDelete(data): void {
+            let url = this.apiUrl;
+            this.$http.post(url, data).then(function (response) {
+            });
+
+        }
+    }
+
+    app.AddService("DeleteActivityService", DeleteActivityService);
 }

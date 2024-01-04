@@ -84,6 +84,13 @@
         //Comments: string; 
     }
 
+    export class RemarksHist {
+        constructor() { }
+        RemarksHistory: string;
+        index: number;
+    }
+
+
     export class LeadAssessmentInfoModel {
         constructor() {
         }
@@ -158,6 +165,7 @@
         Description: string;
         Notes: string;
         WhenEntered: string;
+        RemarksHistoryList: Array<Model.RemarksHist>;
     }
 
     export class CrtAssessmtModel {

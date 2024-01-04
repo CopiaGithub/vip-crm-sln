@@ -136,6 +136,9 @@ var GCPL;
                     .when("/AllActivities", {
                     templateUrl: "Scripts/App/AllActivities/Template/ParentAllActivities.html",
                 })
+                    .when("/DeliveryScheduleList", {
+                    templateUrl: "Scripts/App/DeliveryScheduleList/Template/ParentDeliveryScheduleList.html",
+                })
                     .when("/AllocationOverride", {
                     templateUrl: "/Scripts/App/AllocationOverride/Template/ParentAllocationOverride.html",
                 })
