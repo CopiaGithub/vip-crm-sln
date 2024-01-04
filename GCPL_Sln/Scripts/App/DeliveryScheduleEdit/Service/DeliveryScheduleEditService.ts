@@ -1,6 +1,6 @@
 ﻿
 namespace GCPL.Service {
-  
+
 }
 
 namespace GCPL.Service {

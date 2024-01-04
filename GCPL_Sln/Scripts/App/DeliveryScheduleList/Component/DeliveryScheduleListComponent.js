@@ -10,14 +10,14 @@ var GCPL;
             var ContactMaster = GCPL.Model.InsertContactMaster;
             var DeliveryScheduleListController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function DeliveryScheduleListController(_AllActivitiesService, _LeadStatusService, _DivisionService, _ProductService, _ModelService, _ZoneDDService, _RegionService, _StateService, _DistrictService, _LSService, _getAutoSalesrep2, _AllLeadReportViewService, _getAutoCampaign, _ActivityTypeService, _AllLeadCountService, _CustomerSapAutofill, _getAutoProjectName, _cookieStore) {
+                function DeliveryScheduleListController(_DeliveryScheduleListService, _LeadStatusService, _DivisionService, _ProductService, _ModelService, _ZoneDDService, _RegionService, _StateService, _DistrictService, _LSService, _getAutoSalesrep2, _AllLeadReportViewService, _getAutoCampaign, _ActivityTypeService, _AllLeadCountService, _CustomerSapAutofill, _getAutoProjectName, _cookieStore) {
                     this._cookieStore = _cookieStore;
                     this.AllStatus = null;
-                    this.FillAllActivitiesGrid = null;
-                    this.DownloadAllActListGrid = null;
-                    this.AllActSearchModel = null;
+                    this.FillDeliveryScheduleGrid = null;
+                    this.DownloadDeliveryScheduleList = null;
+                    this.DeliveryScheduleSearchModel = null;
                     this.numRecords = 10;
-                    this.page = 1;
+                    this.page = 0;
                     this.incre = 0;
                     this.shownItems = [];
                     this.maxPages = 0;
@@ -42,12 +42,12 @@ var GCPL;
                     //RoleID = null;
                     this.Cookie = null;
                     this.getAllLeadCount = null;
-                    this.downloadCSVFromJson = function (filename, DownloadAllActListGrid) {
+                    this.downloadCSVFromJson = function (filename, DownloadDeliveryScheduleList) {
                         console.log('downloadCSVFromJson');
                         // convert JSON to CSV
                         var replacer = function (key, value) { return value === null ? '' : value; }; // specify how you want to handle null values here
-                        var header = Object.keys(DownloadAllActListGrid[0]);
-                        var csv = DownloadAllActListGrid.map(function (row) { return header.map(function (fieldName) {
+                        var header = Object.keys(DownloadDeliveryScheduleList[0]);
+                        var csv = DownloadDeliveryScheduleList.map(function (row) { return header.map(function (fieldName) {
                             return JSON.stringify(row[fieldName], replacer);
                         }).join(','); });
                         csv.unshift(header.join(','));
@@ -61,8 +61,8 @@ var GCPL;
                         link.click();
                         document.body.removeChild(link);
                     };
-                    this.AllActivitiesService = _AllActivitiesService;
-                    this.AllActSearchModel = new GCPL.Model.AllActSearchModel();
+                    this.DeliveryScheduleList = _DeliveryScheduleListService;
+                    this.DeliveryScheduleSearchModel = new GCPL.Model.AllActSearchModel();
                     this.getAutoProjectName = _getAutoProjectName;
                     this.DivisionService = _DivisionService;
                     this.ProductService = _ProductService;
@@ -123,8 +123,8 @@ var GCPL;
                         changeYear: true,
                         onSelect: this.selectToDate
                     });
-                    this.AllActSearchModel.FromDate = document.getElementById("txtFromDate").value;
-                    this.AllActSearchModel.ToDate = document.getElementById("txtToDate").value;
+                    this.DeliveryScheduleSearchModel.FromDate = document.getElementById("txtFromDate").value;
+                    this.DeliveryScheduleSearchModel.ToDate = document.getElementById("txtToDate").value;
                     $("#errorclose").hide();
                     $("#close").hide();
                     var that = this;
@@ -146,12 +146,39 @@ var GCPL;
                             event.preventDefault();
                         },
                         select: function (e, ui) {
-                            that.AllActSearchModel.CreatedBy = ui.item.id;
-                            console.log(that.AllActSearchModel.CreatedBy);
+                            that.DeliveryScheduleSearchModel.CreatedBy = ui.item.id;
+                            console.log(that.DeliveryScheduleSearchModel.CreatedBy);
                         },
                         change: function () {
                         }
                     });
+                    //$("#txtCustomerName").autocomplete({
+                    //    //  source:['1a0','anjali','archana'],
+                    //    source: function (request, res) {
+                    //        that.CustomerSapAutofill.FilterAutoComplete(request).then((response => {
+                    //            let data = that.CustomerSapAutofill.GetAutoCustSAPID(response.data.Result);
+                    //            res($.map(data, function (item, index) {
+                    //                return {
+                    //                    label: item.CustomerName,
+                    //                    value: item.CustomerName,
+                    //                    id: item.CustomerID
+                    //                }
+                    //            }));
+                    //        }));
+                    //    },
+                    //    minLength: 2,
+                    //    focus: (event, ui) => {
+                    //        // Don't populate input field with selected value (pxid)
+                    //        event.preventDefault();
+                    //    },
+                    //    select: function (e, ui) {
+                    //        that.AllLeadsHeaderModel.CustomerID = ui.item.id;
+                    //        that.Search1(ui.item.id);
+                    //        console.log(that.AllLeadsHeaderModel.CustomerID);
+                    //    },
+                    //    change: function () {
+                    //    }
+                    //});
                     this.ActivityTypeDropDown = this.ActivityTypeService.Find().then((function (response) {
                         _this.ActivityTypeDropDown = _this.ActivityTypeService.GetActivityTypeName(response.data.Result);
                     }));
@@ -223,59 +250,77 @@ var GCPL;
                 };
                 DeliveryScheduleListController.prototype.District = function () {
                     var _this = this;
-                    this.DistrictDropDown = this.DistrictService.Find(this.AllActSearchModel.StateIDs).then((function (response) {
+                    this.DistrictDropDown = this.DistrictService.Find(this.DeliveryScheduleSearchModel.StateIDs).then((function (response) {
                         _this.DistrictDropDown = _this.DistrictService.GetDistrictName(response.data.Result);
                     }));
                 };
-                DeliveryScheduleListController.prototype.FillGrid = function (NoOfRecords, page) {
+                DeliveryScheduleListController.prototype.FillGrid = function (NoOfRecords) {
                     var _this = this;
                     var that = this;
                     that.incre = 0;
-                    that.NoOfRds = parseInt(NoOfRecords);
-                    that.page = parseInt(page);
-                    //that.numRecords = NoOfRecords;
-                    //that.page = page;
-                    //that.maxPages = 0;
+                    that.numRecords = parseInt(NoOfRecords);
+                    that.page = 0;
+                    that.maxPages = 0;
                     that.shownItems = [];
-                    //this.AllActSearchModel.StatusID = DeliveryScheduleListController.statusDropdownList.toString();
-                    //this.AllActSearchModel.ActivityType = DeliveryScheduleListController.activityTypeDropdownList.toString();
-                    this.AllActSearchModel.FromDate = document.getElementById("txtFromDate").value;
-                    this.AllActSearchModel.ToDate = document.getElementById("txtToDate").value;
-                    console.log(this.AllActSearchModel);
-                    this.FillAllActivitiesGrid = this.AllActivitiesService.FindGrid(this.AllActSearchModel, this.NoOfRds, this.page).then((function (response) {
-                        _this.FillAllActivitiesGrid = _this.AllActivitiesService.GetAllActList(response.data.Result);
-                        console.log(_this.FillAllActivitiesGrid, 'AllActivity');
+                    //this.DeliveryScheduleSearchModel.StatusID = DeliveryScheduleListController.statusDropdownList.toString();
+                    //this.DeliveryScheduleSearchModel.ActivityType = DeliveryScheduleListController.activityTypeDropdownList.toString();
+                    this.DeliveryScheduleSearchModel.FromDate = document.getElementById("txtFromDate").value;
+                    this.DeliveryScheduleSearchModel.ToDate = document.getElementById("txtToDate").value;
+                    console.log(this.DeliveryScheduleSearchModel);
+                    this.FillDeliveryScheduleGrid = this.DeliveryScheduleList.FindGrid(28).then((function (response) {
+                        _this.FillDeliveryScheduleGrid = _this.DeliveryScheduleList.GetDeliveryScheduleListReport(response.data.Result);
+                        console.log(_this.FillDeliveryScheduleGrid, 'AllActivity');
                         $('#search-btn-loader').hide();
-                        if (_this.FillAllActivitiesGrid.length > 0) {
+                        if (_this.FillDeliveryScheduleGrid.length > 0) {
                             $("#nullDataDiv").hide();
                             $("#dataTable").show();
-                            _this.FillAllActivitiesGrid.forEach(function (value, key) {
+                            _this.FillDeliveryScheduleGrid.forEach(function (value, key) {
                                 that.incre = parseInt(key) + that.numRecords;
                             });
                             $('#search-btn-loader').hide();
-                            _this.ShowBack = _this.page > 1 ? true : false;
-                            _this.ShowNext = _this.FillAllActivitiesGrid.length > 0 ? true : false;
-                            _this.shownItems = _this.FillAllActivitiesGrid;
+                            _this.maxPages = (that.incre / that.numRecords);
+                            _this.ShowBack = false;
+                            _this.ShowNext = that.maxPages > 1 ? true : false;
+                            _this.shownItems = _this.FillDeliveryScheduleGrid.slice(0, that.numRecords);
                         }
                         else {
                             $("#nullDataDiv").show();
                             $("#dataTable").hide();
-                            _this.ShowBack = _this.page > 1 ? true : false;
                         }
-                        if (_this.FillAllActivitiesGrid.length < that.numRecords) {
+                        if (_this.FillDeliveryScheduleGrid.length < that.numRecords) {
                             _this.ShowNext = false;
                             _this.ShowBack = false;
                         }
-                        _this.AllLeadCountService.FindGrid(_this.AllActSearchModel).then((function (response) {
-                            _this.getAllLeadCount = _this.AllLeadCountService.GetLeadsStatusCountGrid(response.data.Result);
-                        }));
+                        //if (this.FillDeliveryScheduleGrid.length > 0) {
+                        //    $("#nullDataDiv").hide();
+                        //    $("#dataTable").show();
+                        //    this.FillDeliveryScheduleGrid.forEach(function (value, key) {
+                        //        that.incre = parseInt(key) + that.numRecords;
+                        //    });
+                        //    $('#search-btn-loader').hide();
+                        //    this.ShowBack = this.page > 1 ? true : false;
+                        //    this.ShowNext = this.FillDeliveryScheduleGrid.length > 0 ? true : false;
+                        //    this.shownItems = this.FillDeliveryScheduleGrid;
+                        //}
+                        //else {
+                        //    $("#nullDataDiv").show();
+                        //    $("#dataTable").hide();
+                        //    this.ShowBack = this.page > 1 ? true : false;
+                        //}
+                        //if (this.FillDeliveryScheduleGrid.length < that.numRecords) {
+                        //    this.ShowNext = false;
+                        //    this.ShowBack = false;
+                        //}
+                        //this.AllLeadCountService.FindGrid(this.DeliveryScheduleSearchModel).then((response => {
+                        //    this.getAllLeadCount = this.AllLeadCountService.GetLeadsStatusCountGrid(response.data.Result);
+                        //}));
                     }));
                 };
                 DeliveryScheduleListController.prototype.Search = function () {
                     console.log("AllActivity123");
                     $('#search-btn-loader').show();
                     $('.chkBox').prop('checked', false);
-                    this.FillGrid(this.NoOfRds, this.page);
+                    this.FillGrid(this.numRecords);
                     DeliveryScheduleListController.statusDropdownList = [];
                     DeliveryScheduleListController.activityTypeDropdownList = [];
                 };
@@ -287,23 +332,23 @@ var GCPL;
                     that.page = 0;
                     that.maxPages = 0;
                     that.shownItems = [];
-                    this.AllActSearchModel.FromDate = document.getElementById("txtFromDate").value;
-                    this.AllActSearchModel.ToDate = document.getElementById("txtToDate").value;
-                    this.DownloadAllActListGrid = this.AllActivitiesService.DownloadGrid(this.AllActSearchModel).then((function (response) {
-                        _this.DownloadAllActListGrid = _this.AllActivitiesService.DownloadAllActList(response.data.Result);
-                        console.log(_this.DownloadAllActListGrid, 'DownloadAllActivity');
+                    this.DeliveryScheduleSearchModel.FromDate = document.getElementById("txtFromDate").value;
+                    this.DeliveryScheduleSearchModel.ToDate = document.getElementById("txtToDate").value;
+                    this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadGrid(this.DeliveryScheduleSearchModel).then((function (response) {
+                        _this.DownloadDeliveryScheduleList = _this.DeliveryScheduleList.DownloadDeliveryScheduleListReport(response.data.Result);
+                        console.log(_this.DownloadDeliveryScheduleList, 'DownloadAllActivity');
                         $('#search-btn-loader').hide();
-                        if (_this.DownloadAllActListGrid.length > 0) {
+                        if (_this.DownloadDeliveryScheduleList.length > 0) {
                             $("#nullDataDiv").hide();
                             $("#dataTable").show();
-                            _this.DownloadAllActListGrid.forEach(function (value, key) {
+                            _this.DownloadDeliveryScheduleList.forEach(function (value, key) {
                                 that.incre = parseInt(key) + that.numRecords;
                             });
                             $('#search-btn-loader').hide();
                             _this.maxPages = (that.incre / that.numRecords);
                             _this.ShowBack = false;
                             _this.ShowNext = that.maxPages > 1 ? true : false;
-                            _this.shownItems = _this.DownloadAllActListGrid.slice(0, that.numRecords);
+                            _this.shownItems = _this.DownloadDeliveryScheduleList.slice(0, that.numRecords);
                         }
                         else {
                             $("#nullDataDiv").show();
@@ -321,29 +366,7 @@ var GCPL;
                 };
                 DeliveryScheduleListController.prototype.Refresh = function () {
                     this.NoOfRds = this.NoOfRds;
-                    this.FillGrid(this.NoOfRds, this.page);
-                };
-                DeliveryScheduleListController.prototype.nextPage = function () {
-                    this.ShowBack = false;
-                    this.ShowNext = false;
-                    this.page += 1;
-                    console.log(this.page);
-                    this.FillGrid(this.NoOfRds, this.page);
-                    this.shownItems = this.FillAllActivitiesGrid;
-                    if (this.FillAllActivitiesGrid.length > 0) {
-                        this.ShowNext = true;
-                    }
-                };
-                DeliveryScheduleListController.prototype.previousPage = function () {
-                    this.ShowBack = false;
-                    this.ShowNext = false;
-                    this.page -= 1;
-                    console.log(this.page);
-                    this.FillGrid(this.NoOfRds, this.page);
-                    this.shownItems = this.FillAllActivitiesGrid;
-                    if (this.FillAllActivitiesGrid.length > 0 && this.page > 1) {
-                        this.ShowBack = true;
-                    }
+                    this.FillGrid(this.numRecords);
                 };
                 DeliveryScheduleListController.prototype.next = function () {
                     this.ShowBack = true;
@@ -351,7 +374,7 @@ var GCPL;
                     this.page += 1;
                     var begin = this.page * this.numRecords;
                     var end = begin + this.numRecords;
-                    this.shownItems = this.FillAllActivitiesGrid.slice(begin, end);
+                    this.shownItems = this.FillDeliveryScheduleGrid.slice(begin, end);
                     if (this.page + 2 >= this.maxPages) {
                         this.ShowNext = false;
                     }
@@ -363,7 +386,7 @@ var GCPL;
                     this.page -= 1;
                     var begin = this.page * this.numRecords;
                     var end = begin + this.numRecords;
-                    this.shownItems = this.FillAllActivitiesGrid.slice(begin, end);
+                    this.shownItems = this.FillDeliveryScheduleGrid.slice(begin, end);
                     if (this.page < 1) {
                         this.ShowBack = false;
                     }
@@ -378,18 +401,18 @@ var GCPL;
                 };
                 DeliveryScheduleListController.prototype.Clear = function () {
                     // this.FillGrid(this.numRecords);
-                    this.AllActSearchModel.ActivityID = "";
-                    this.AllActSearchModel.LeadID = "";
-                    this.AllActSearchModel.OpportunityID = "";
-                    this.AllActSearchModel.CreatedBy = "";
-                    this.AllActSearchModel.ActivityType = "";
+                    this.DeliveryScheduleSearchModel.ActivityID = "";
+                    this.DeliveryScheduleSearchModel.LeadID = "";
+                    this.DeliveryScheduleSearchModel.OpportunityID = "";
+                    this.DeliveryScheduleSearchModel.CreatedBy = "";
+                    this.DeliveryScheduleSearchModel.ActivityType = "";
                     document.getElementById("txtUserName").value = "";
                 };
                 DeliveryScheduleListController.prototype.Close = function () {
-                    location.href = "#!/AllActivities";
+                    location.href = "#!/DeliveryScheduleList";
                 };
                 DeliveryScheduleListController.prototype.ErrorClose = function () {
-                    location.href = "#!/AllActivities";
+                    location.href = "#!/DeliveryScheduleList";
                 };
                 DeliveryScheduleListController.prototype.exportTableToCSV = function (filename) {
                     var _this = this;
@@ -399,13 +422,13 @@ var GCPL;
                     that.page = 0;
                     that.maxPages = 0;
                     that.shownItems = [];
-                    this.AllActSearchModel.FromDate = document.getElementById("txtFromDate").value;
-                    this.AllActSearchModel.ToDate = document.getElementById("txtToDate").value;
-                    this.DownloadAllActListGrid = this.AllActivitiesService.DownloadGrid(this.AllActSearchModel).then((function (response) {
-                        _this.DownloadAllActListGrid = _this.AllActivitiesService.DownloadAllActList(response.data.Result);
-                        console.log(_this.DownloadAllActListGrid, 'DownloadAllActivity');
+                    this.DeliveryScheduleSearchModel.FromDate = document.getElementById("txtFromDate").value;
+                    this.DeliveryScheduleSearchModel.ToDate = document.getElementById("txtToDate").value;
+                    this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadGrid(this.DeliveryScheduleSearchModel).then((function (response) {
+                        _this.DownloadDeliveryScheduleList = _this.DeliveryScheduleList.DownloadDeliveryScheduleListReport(response.data.Result);
+                        console.log(_this.DownloadDeliveryScheduleList, 'DownloadAllActivity');
                         $('#search-btn-loader').hide();
-                        _this.downloadCSVFromJson(filename, _this.DownloadAllActListGrid);
+                        _this.downloadCSVFromJson(filename, _this.DownloadDeliveryScheduleList);
                     }));
                 };
                 DeliveryScheduleListController.prototype.Search1 = function (data) {
@@ -416,7 +439,7 @@ var GCPL;
                 };
                 DeliveryScheduleListController.statusDropdownList = [];
                 DeliveryScheduleListController.activityTypeDropdownList = [];
-                DeliveryScheduleListController.$inject = ["AllActListService", "LeadStatusddService", "DivisionService",
+                DeliveryScheduleListController.$inject = ["DeliveryScheduleListReportService", "LeadStatusddService", "DivisionService",
                     "ProductddService", "LeadTypeProductService", "ZoneDDService",
                     "RegionddService", "StateddPService", "DistrictddService",
                     "LeadSourceddService", "EmployeeAtofillService",

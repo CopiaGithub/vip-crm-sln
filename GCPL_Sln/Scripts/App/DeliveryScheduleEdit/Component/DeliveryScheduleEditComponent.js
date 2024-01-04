@@ -12,11 +12,13 @@ var GCPL;
             var DSModel = GCPL.Model.DeliveryScheduleModel;
             var DeliveryScheduleEditController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function DeliveryScheduleEditController(_EditService, _ReasonForLeadOpenDDService, _LeadStatusForOpenDDService, _SalesOfficeService, _CountryService, _StateService, _DistrictService, _RegionService, _IndustrialSegmentService, _DepartmentService, _DesignationService, _LeadTypeService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _PurchaseTimlineDDService, _ChannelDDService, _LeadSourceDDService, _LeadCategoryService, _SalesAreaService, _InsertService, _CheckRegionService, _CheckSalesAreaService, _ProjectNameService, $location, _cookieStore, _CampaignDDService, _getAutoUser, _LeadItemNewDSListService, _EditItemList, _AddToCartDsService, _DeliveryScheduleEditService, _deleteItem, _InsertDsDetailsService, _LeadStatusService, _EditDSListService, _DeleteDSItemService) {
+                function DeliveryScheduleEditController(_EditService, _ReasonForLeadOpenDDService, _LeadStatusForOpenDDService, _SalesOfficeService, _CountryService, _StateService, _DistrictService, _RegionService, _IndustrialSegmentService, _DepartmentService, _DesignationService, _LeadTypeService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _PurchaseTimlineDDService, _ChannelDDService, _LeadSourceDDService, _LeadCategoryService, _SalesAreaService, _InsertService, _CheckRegionService, _CheckSalesAreaService, _ProjectNameService, $location, _cookieStore, _CampaignDDService, _getAutoUser, _LeadItemNewDSListService, _EditItemList, _AddToCartDsService, _DeliveryScheduleEditService, _deleteItem, _InsertDsDetailsService, _InsertDsDetailsEditService, _LeadStatusService, _EditDSListService, _DeleteDSItemService) {
                     this.$location = $location;
                     this._cookieStore = _cookieStore;
                     this.numRecords = 10;
                     this.page = 0;
+                    this.TotalDSQty = 0;
+                    this.TotalDSItemQty = 0;
                     this.incre = 0;
                     this.shownItems = [];
                     this.maxPages = 0;
@@ -68,8 +70,6 @@ var GCPL;
                     this.DeliverySchedulelist = null;
                     this.InsertToCart = null;
                     this.TotalDsList = null;
-                    this.TotalDsQty = null;
-                    this.TotalDSItemQty = 0;
                     this.SubmitEnable = false;
                     this.Cookie = null;
                     //this.LeadStatusService = _LeadStatusService;
@@ -117,6 +117,7 @@ var GCPL;
                     this.DeleteDSItemService = _DeleteDSItemService;
                     this.EditDSListService = _EditDSListService;
                     this.InsertDsDetailsService = _InsertDsDetailsService;
+                    this.InsertDsDetailsEditService = _InsertDsDetailsEditService;
                     this.Cookie = _cookieStore;
                     this.UserID = this.Cookie.get('UserInfo')['UserID'];
                     this.RoleID = this.Cookie.get('UserInfo')['RoleID'];
@@ -278,6 +279,13 @@ var GCPL;
                     this.DeliverySchedulelist = this.DeliveryScheduleEditService.Find(this.ItemID).then((function (response) {
                         _this.DeliverySchedulelist = _this.DeliveryScheduleEditService.GetLeadItemDSEditList(response.data.Result);
                         console.log("this.DeliverySchedulelist", _this.DeliverySchedulelist);
+                        var counter = 0;
+                        for (var i = 0; i < _this.DeliverySchedulelist.length; i++) {
+                            _this.TotalDSQty = _this.DeliverySchedulelist[i].DeliveryQty;
+                            _this.TotalDSItemQty = _this.TotalDSItemQty + _this.TotalDSQty;
+                            console.log(_this.TotalDSItemQty);
+                        }
+                        console.log(counter); // 6
                     }));
                 };
                 DeliveryScheduleEditController.prototype.EditDSList = function (data) {
@@ -520,45 +528,39 @@ var GCPL;
                 };
                 DeliveryScheduleEditController.prototype.Submit = function (data) {
                     var _this = this;
-                    if (this.SubmitEnable == false) {
-                        this.HideShow();
-                        this.popupMessage("Please delete previous delivery records for this item", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                    debugger;
+                    var err = 0;
+                    var flag = 0;
+                    var failureCount = 0;
+                    var SuccessCount = 0;
+                    if (this.DeliverySchedulelist == undefined || this.TotalDsList == null) {
                     }
                     else {
+                        this.TotalDsList = this.DeliverySchedulelist;
+                    }
+                    for (var i = 0; i < this.DeliverySchedulelist.length; i++) {
+                        if (this.UserID != null || this.UserID != "") {
+                            this.DeliverySchedulelist[i].UserID = this.UserID;
+                            //this.TotalDsQty = this.DeliverySchedulelist[i].DeliveryQty;
+                            //this.TotalDSItemQty = this.TotalDSItemQty + this.TotalDsQty;
+                            //console.log(this.TotalDSItemQty);
+                        }
+                        this.InsertItem = this.DeliverySchedulelist[i];
                         debugger;
-                        var err = 0;
-                        var flag = 0;
-                        var failureCount = 0;
-                        var SuccessCount = 0;
-                        if (this.DeliverySchedulelist == undefined || this.TotalDsList == null) {
-                        }
-                        else {
-                            this.TotalDsList = this.DeliverySchedulelist;
-                        }
-                        for (var i = 0; i < this.DeliverySchedulelist.length; i++) {
-                            if (this.UserID != null || this.UserID != "") {
-                                this.DeliverySchedulelist[i].UserID = this.UserID;
-                                //this.TotalDsQty = this.DeliverySchedulelist[i].DeliveryQty;
-                                //this.TotalDSItemQty = this.TotalDSItemQty + this.TotalDsQty;
-                                //console.log(this.TotalDSItemQty);
+                        this.InsertDsDetailsEditService.PostDSEdit(this.InsertItem).then((function (response) {
+                            if (response.data.Result > 0) {
+                                //flag = 0;
+                                //SuccessCount++;
+                                _this.HideShow();
+                                _this.popupMessage("Delivery Schedule Updated Successfully", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
                             }
-                            this.InsertItem = this.DeliverySchedulelist[i];
-                            debugger;
-                            this.InsertDsDetailsService.PostDS(this.InsertItem).then((function (response) {
-                                if (response.data.Result > 0) {
-                                    //flag = 0;
-                                    //SuccessCount++;
-                                    _this.HideShow();
-                                    _this.popupMessage("Delivery Schedule Created Successfully", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-                                }
-                                else {
-                                    //flag = 1;
-                                    //failureCount++;
-                                    _this.HideShow();
-                                    _this.popupMessage("Delivery Qty should be equal to Item Qty.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                                }
-                            }));
-                        }
+                            else {
+                                //flag = 1;
+                                //failureCount++;
+                                _this.HideShow();
+                                _this.popupMessage("Delivery Qty should be equal to Item Qty.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                            }
+                        }));
                     }
                 };
                 DeliveryScheduleEditController.prototype.locationreload = function () {
@@ -706,7 +708,7 @@ var GCPL;
                     "PurchaseTimelineService", "ChannelDDService", "LeadSourceDetailsService", "LeadCategoryDDService",
                     "SalesAreaService", "UpdateLeadChangeService", "CheckRegionService", "CheckSalesAreaDataService", "ProjectNameService",
                     "$location", "$cookieStore", "CampaignDetailsService", "UserCodeAutoFillService", "LeadItemNewDSListService", "EditItemList",
-                    "AddToCartDsService", "DeliveryScheduleEditService", "DeleteDsFromAddToCartService", "InsertDsDetailsService",
+                    "AddToCartDsService", "DeliveryScheduleEditService", "DeleteDsFromAddToCartService", "InsertDsDetailsService", "InsertDsDetailsEditService",
                     "LeadStatusddService", "EditDSListService", "DeleteDSItemService"];
                 return DeliveryScheduleEditController;
             }());

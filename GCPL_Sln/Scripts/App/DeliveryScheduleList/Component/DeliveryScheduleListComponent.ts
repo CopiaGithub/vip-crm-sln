@@ -9,7 +9,7 @@
 
 
     interface IDeliveryScheduleListController {
-        AllActSearchModel: AllActSearch;
+        DeliveryScheduleSearchModel: AllActSearch;
         Search(): void;
         LeadStatusDropDown: Array<Model.LeadStatusddlModel>
         DivisionDropDown: Array<Model.DivisionModel>
@@ -28,13 +28,13 @@
     }
     class DeliveryScheduleListController implements IDeliveryScheduleListController {
         AllStatus = null;
-        FillAllActivitiesGrid = null;
-        DownloadAllActListGrid = null;
-        AllActSearchModel = null;
+        FillDeliveryScheduleGrid = null;
+        DownloadDeliveryScheduleList = null;
+        DeliveryScheduleSearchModel = null;
         numRecords: number = 10;
         static statusDropdownList = [];
         static activityTypeDropdownList = [];
-        page: number = 1;
+        page: number = 0;
         incre: number = 0;
         shownItems = [];
         maxPages: number = 0;
@@ -59,7 +59,7 @@
         //RoleID = null;
         private Cookie: any = null;
         private getAutoProjectName: Service.IgetAutoProjectNameService;
-        private AllActivitiesService: Service.IAllActListService;
+        private DeliveryScheduleList: Service.IDeliveryScheduleListReportService;
         private DivisionService: Service.IDivisionService;
         private ProductService: Service.IProductddService;
         private ModelService: Service.ILeadTypeProductService;
@@ -73,7 +73,7 @@
         getAllLeadCount: GCPL.Model.LeadStatusModel = null;
 
 
-        static $inject = ["AllActListService", "LeadStatusddService", "DivisionService",
+        static $inject = ["DeliveryScheduleListReportService", "LeadStatusddService", "DivisionService",
             "ProductddService", "LeadTypeProductService", "ZoneDDService",
             "RegionddService", "StateddPService", "DistrictddService",
             "LeadSourceddService", "EmployeeAtofillService",
@@ -81,7 +81,7 @@
             "LeadsStatusCountService", "CustomerSapIdAutoFillService", "getAutoProjectNameService",
             "$cookieStore"];
         //constructor define with Serivce _Name:Service.IServiceName//
-        constructor(_AllActivitiesService: Service.IAllActListService, _LeadStatusService: Service.ILeadStatusddService,
+        constructor(_DeliveryScheduleListService: Service.IDeliveryScheduleListReportService, _LeadStatusService: Service.ILeadStatusddService,
             _DivisionService: Service.IDivisionService, _ProductService: Service.IProductddService,
             _ModelService: Service.ILeadTypeProductService, _ZoneDDService: Service.IZoneDDService,
             _RegionService: Service.IRegionddService, _StateService: Service.IStateddPService,
@@ -91,8 +91,8 @@
             _ActivityTypeService: Service.IActivityTypeddService, _AllLeadCountService: Service.ILeadsStatusCountService,
             _CustomerSapAutofill: Service.ICustomerSapIdAutoFillService,
             _getAutoProjectName: Service.IgetAutoProjectNameService, private _cookieStore: any) {
-            this.AllActivitiesService = _AllActivitiesService;
-            this.AllActSearchModel = new GCPL.Model.AllActSearchModel();
+            this.DeliveryScheduleList = _DeliveryScheduleListService;
+            this.DeliveryScheduleSearchModel = new GCPL.Model.AllActSearchModel();
             this.getAutoProjectName = _getAutoProjectName;
             this.DivisionService = _DivisionService;
             this.ProductService = _ProductService;
@@ -160,8 +160,8 @@
             });
 
 
-            this.AllActSearchModel.FromDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;
-            this.AllActSearchModel.ToDate = (<HTMLInputElement>document.getElementById("txtToDate")).value;
+            this.DeliveryScheduleSearchModel.FromDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;
+            this.DeliveryScheduleSearchModel.ToDate = (<HTMLInputElement>document.getElementById("txtToDate")).value;
 
 
 
@@ -197,15 +197,45 @@
                 },
                 select: function (e, ui) {
 
-                    that.AllActSearchModel.CreatedBy = ui.item.id;
-                    console.log(that.AllActSearchModel.CreatedBy);
+                    that.DeliveryScheduleSearchModel.CreatedBy = ui.item.id;
+                    console.log(that.DeliveryScheduleSearchModel.CreatedBy);
 
                 },
                 change: function () {
 
                 }
             });
+            //$("#txtCustomerName").autocomplete({
+            //    //  source:['1a0','anjali','archana'],
+            //    source: function (request, res) {
+            //        that.CustomerSapAutofill.FilterAutoComplete(request).then((response => {
 
+            //            let data = that.CustomerSapAutofill.GetAutoCustSAPID(response.data.Result);
+            //            res($.map(data, function (item, index) {
+            //                return {
+            //                    label: item.CustomerName,
+            //                    value: item.CustomerName,
+            //                    id: item.CustomerID
+
+            //                }
+            //            }));
+
+            //        }));
+
+            //    },
+            //    minLength: 2,
+            //    focus: (event, ui) => {
+            //        // Don't populate input field with selected value (pxid)
+            //        event.preventDefault();
+            //    },
+            //    select: function (e, ui) {
+            //        that.AllLeadsHeaderModel.CustomerID = ui.item.id;
+            //        that.Search1(ui.item.id);
+            //        console.log(that.AllLeadsHeaderModel.CustomerID);
+            //    },
+            //    change: function () {
+            //    }
+            //});
             
             this.ActivityTypeDropDown = this.ActivityTypeService.Find().then((response => {
                 this.ActivityTypeDropDown = this.ActivityTypeService.GetActivityTypeName(response.data.Result);
@@ -288,63 +318,83 @@
             }));
         }
         District(): void {
-            this.DistrictDropDown = this.DistrictService.Find(this.AllActSearchModel.StateIDs).then((response => {
+            this.DistrictDropDown = this.DistrictService.Find(this.DeliveryScheduleSearchModel.StateIDs).then((response => {
                 this.DistrictDropDown = this.DistrictService.GetDistrictName(response.data.Result);
             }));
         }
 
-        FillGrid(NoOfRecords, page): void {
+        FillGrid(NoOfRecords): void {
 
             let that = this;
             that.incre = 0;
-            that.NoOfRds = parseInt(NoOfRecords);
-            that.page = parseInt(page);
-            //that.numRecords = NoOfRecords;
-            //that.page = page;
-            //that.maxPages = 0;
+            that.numRecords = parseInt(NoOfRecords);
+            that.page = 0;
+            that.maxPages = 0;
             that.shownItems = [];
 
-            //this.AllActSearchModel.StatusID = DeliveryScheduleListController.statusDropdownList.toString();
-            //this.AllActSearchModel.ActivityType = DeliveryScheduleListController.activityTypeDropdownList.toString();
+            //this.DeliveryScheduleSearchModel.StatusID = DeliveryScheduleListController.statusDropdownList.toString();
+            //this.DeliveryScheduleSearchModel.ActivityType = DeliveryScheduleListController.activityTypeDropdownList.toString();
 
-            this.AllActSearchModel.FromDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;
-            this.AllActSearchModel.ToDate = (<HTMLInputElement>document.getElementById("txtToDate")).value;
+            this.DeliveryScheduleSearchModel.FromDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;
+            this.DeliveryScheduleSearchModel.ToDate = (<HTMLInputElement>document.getElementById("txtToDate")).value;
 
-            console.log(this.AllActSearchModel);
+            console.log(this.DeliveryScheduleSearchModel);
 
-            this.FillAllActivitiesGrid = this.AllActivitiesService.FindGrid(this.AllActSearchModel, this.NoOfRds, this.page).then((response => {
-                this.FillAllActivitiesGrid = this.AllActivitiesService.GetAllActList(response.data.Result);
-                console.log(this.FillAllActivitiesGrid, 'AllActivity');
+            this.FillDeliveryScheduleGrid = this.DeliveryScheduleList.FindGrid(28).then((response => {
+                this.FillDeliveryScheduleGrid = this.DeliveryScheduleList.GetDeliveryScheduleListReport(response.data.Result);
+                console.log(this.FillDeliveryScheduleGrid, 'AllActivity');
                 $('#search-btn-loader').hide();
 
-                
-
-                if (this.FillAllActivitiesGrid.length > 0) {
+                if (this.FillDeliveryScheduleGrid.length > 0) {
                     $("#nullDataDiv").hide();
                     $("#dataTable").show();
-                    this.FillAllActivitiesGrid.forEach(function (value, key) {
+                    this.FillDeliveryScheduleGrid.forEach(function (value, key) {
                         that.incre = parseInt(key) + that.numRecords;
                     });
 
                     $('#search-btn-loader').hide();
-                    this.ShowBack = this.page > 1 ? true : false;
-                    this.ShowNext = this.FillAllActivitiesGrid.length > 0 ? true : false;
-                    this.shownItems = this.FillAllActivitiesGrid;
+                    this.maxPages = (that.incre / that.numRecords);
+                    this.ShowBack = false;
+                    this.ShowNext = that.maxPages > 1 ? true : false;
+                    this.shownItems = this.FillDeliveryScheduleGrid.slice(0, that.numRecords);
                 }
                 else {
                     $("#nullDataDiv").show();
                     $("#dataTable").hide();
-                    this.ShowBack = this.page > 1 ? true : false;
                 }
 
-                if (this.FillAllActivitiesGrid.length < that.numRecords) {
+                if (this.FillDeliveryScheduleGrid.length < that.numRecords) {
                     this.ShowNext = false;
                     this.ShowBack = false;
                 }
 
-                this.AllLeadCountService.FindGrid(this.AllActSearchModel).then((response => {
-                    this.getAllLeadCount = this.AllLeadCountService.GetLeadsStatusCountGrid(response.data.Result);
-                }));
+
+                //if (this.FillDeliveryScheduleGrid.length > 0) {
+                //    $("#nullDataDiv").hide();
+                //    $("#dataTable").show();
+                //    this.FillDeliveryScheduleGrid.forEach(function (value, key) {
+                //        that.incre = parseInt(key) + that.numRecords;
+                //    });
+
+                //    $('#search-btn-loader').hide();
+                //    this.ShowBack = this.page > 1 ? true : false;
+                //    this.ShowNext = this.FillDeliveryScheduleGrid.length > 0 ? true : false;
+                //    this.shownItems = this.FillDeliveryScheduleGrid;
+                //}
+                //else {
+                //    $("#nullDataDiv").show();
+                //    $("#dataTable").hide();
+                //    this.ShowBack = this.page > 1 ? true : false;
+                //}
+
+                //if (this.FillDeliveryScheduleGrid.length < that.numRecords) {
+                //    this.ShowNext = false;
+                //    this.ShowBack = false;
+                //}
+
+                //this.AllLeadCountService.FindGrid(this.DeliveryScheduleSearchModel).then((response => {
+                //    this.getAllLeadCount = this.AllLeadCountService.GetLeadsStatusCountGrid(response.data.Result);
+                //}));
             }));
         }
 
@@ -354,7 +404,7 @@
             $('#search-btn-loader').show();
             $('.chkBox').prop('checked', false);
 
-            this.FillGrid(this.NoOfRds, this.page);
+            this.FillGrid(this.numRecords);
             DeliveryScheduleListController.statusDropdownList = [];
             DeliveryScheduleListController.activityTypeDropdownList = [];
         }
@@ -368,17 +418,17 @@
             that.maxPages = 0;
             that.shownItems = [];           
 
-            this.AllActSearchModel.FromDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;
-            this.AllActSearchModel.ToDate = (<HTMLInputElement>document.getElementById("txtToDate")).value;
-            this.DownloadAllActListGrid = this.AllActivitiesService.DownloadGrid(this.AllActSearchModel).then((response => {
-                this.DownloadAllActListGrid = this.AllActivitiesService.DownloadAllActList(response.data.Result);
-                console.log(this.DownloadAllActListGrid, 'DownloadAllActivity');
+            this.DeliveryScheduleSearchModel.FromDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;
+            this.DeliveryScheduleSearchModel.ToDate = (<HTMLInputElement>document.getElementById("txtToDate")).value;
+            this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadGrid(this.DeliveryScheduleSearchModel).then((response => {
+                this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadDeliveryScheduleListReport(response.data.Result);
+                console.log(this.DownloadDeliveryScheduleList, 'DownloadAllActivity');
                 $('#search-btn-loader').hide();
 
-                if (this.DownloadAllActListGrid.length > 0) {
+                if (this.DownloadDeliveryScheduleList.length > 0) {
                     $("#nullDataDiv").hide();
                     $("#dataTable").show();
-                    this.DownloadAllActListGrid.forEach(function (value, key) {
+                    this.DownloadDeliveryScheduleList.forEach(function (value, key) {
                         that.incre = parseInt(key) + that.numRecords;
                     });
 
@@ -386,7 +436,7 @@
                     this.maxPages = (that.incre / that.numRecords);
                     this.ShowBack = false;
                     this.ShowNext = that.maxPages > 1 ? true : false;
-                    this.shownItems = this.DownloadAllActListGrid.slice(0, that.numRecords);
+                    this.shownItems = this.DownloadDeliveryScheduleList.slice(0, that.numRecords);
                 }
                 else {
                     $("#nullDataDiv").show();
@@ -410,31 +460,7 @@
 
         Refresh() {
             this.NoOfRds = this.NoOfRds;
-            this.FillGrid(this.NoOfRds, this.page);
-        }
-
-        nextPage() {
-            this.ShowBack = false;
-            this.ShowNext = false;
-            this.page += 1;
-            console.log(this.page);
-            this.FillGrid(this.NoOfRds, this.page);
-            this.shownItems = this.FillAllActivitiesGrid;
-            if (this.FillAllActivitiesGrid.length > 0) {
-                this.ShowNext = true;
-            }
-        }
-
-        previousPage() {
-            this.ShowBack = false;
-            this.ShowNext = false;
-            this.page -= 1;
-            console.log(this.page);
-            this.FillGrid(this.NoOfRds, this.page);
-            this.shownItems = this.FillAllActivitiesGrid;
-            if (this.FillAllActivitiesGrid.length > 0 && this.page > 1) {
-                this.ShowBack = true;
-            }
+            this.FillGrid(this.numRecords);
         }
 
         next() {
@@ -443,7 +469,7 @@
             this.page += 1;
             var begin = this.page * this.numRecords;
             var end = begin + this.numRecords;
-            this.shownItems = this.FillAllActivitiesGrid.slice(begin, end);
+            this.shownItems = this.FillDeliveryScheduleGrid.slice(begin, end);
             if (this.page + 2 >= this.maxPages) {
                 this.ShowNext = false;
             }
@@ -455,7 +481,7 @@
             this.page -= 1;
             var begin = this.page * this.numRecords;
             var end = begin + this.numRecords;
-            this.shownItems = this.FillAllActivitiesGrid.slice(begin, end);
+            this.shownItems = this.FillDeliveryScheduleGrid.slice(begin, end);
             if (this.page < 1) {
                 this.ShowBack = false;
             }
@@ -471,19 +497,19 @@
 
         Clear() {
             // this.FillGrid(this.numRecords);
-            this.AllActSearchModel.ActivityID = "";
-            this.AllActSearchModel.LeadID = "";
-            this.AllActSearchModel.OpportunityID = "";
-            this.AllActSearchModel.CreatedBy = "";
-            this.AllActSearchModel.ActivityType = "";
+            this.DeliveryScheduleSearchModel.ActivityID = "";
+            this.DeliveryScheduleSearchModel.LeadID = "";
+            this.DeliveryScheduleSearchModel.OpportunityID = "";
+            this.DeliveryScheduleSearchModel.CreatedBy = "";
+            this.DeliveryScheduleSearchModel.ActivityType = "";
             (<HTMLInputElement>document.getElementById("txtUserName")).value = "";
         }
 
         Close(): void {
-            location.href = "#!/AllActivities";
+            location.href = "#!/DeliveryScheduleList";
         }
         ErrorClose(): void {
-            location.href = "#!/AllActivities";
+            location.href = "#!/DeliveryScheduleList";
         }
 
         exportTableToCSV(filename) {
@@ -495,25 +521,25 @@
             that.maxPages = 0;
             that.shownItems = [];
 
-            this.AllActSearchModel.FromDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;
-            this.AllActSearchModel.ToDate = (<HTMLInputElement>document.getElementById("txtToDate")).value;
-            this.DownloadAllActListGrid = this.AllActivitiesService.DownloadGrid(this.AllActSearchModel).then((response => {
-                this.DownloadAllActListGrid = this.AllActivitiesService.DownloadAllActList(response.data.Result);
-                console.log(this.DownloadAllActListGrid, 'DownloadAllActivity');
+            this.DeliveryScheduleSearchModel.FromDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;
+            this.DeliveryScheduleSearchModel.ToDate = (<HTMLInputElement>document.getElementById("txtToDate")).value;
+            this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadGrid(this.DeliveryScheduleSearchModel).then((response => {
+                this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadDeliveryScheduleListReport(response.data.Result);
+                console.log(this.DownloadDeliveryScheduleList, 'DownloadAllActivity');
                 $('#search-btn-loader').hide();
 
-                this.downloadCSVFromJson(filename, this.DownloadAllActListGrid);
+                this.downloadCSVFromJson(filename, this.DownloadDeliveryScheduleList);
 
             }));
 
         }
 
-        downloadCSVFromJson = (filename, DownloadAllActListGrid) => {
+        downloadCSVFromJson = (filename, DownloadDeliveryScheduleList) => {
             console.log('downloadCSVFromJson');
             // convert JSON to CSV
             const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
-            const header = Object.keys(DownloadAllActListGrid[0])
-            let csv = DownloadAllActListGrid.map(row => header.map(fieldName =>
+            const header = Object.keys(DownloadDeliveryScheduleList[0])
+            let csv = DownloadDeliveryScheduleList.map(row => header.map(fieldName =>
                 JSON.stringify(row[fieldName], replacer)).join(','))
             csv.unshift(header.join(','))
             csv = csv.join('\r\n')

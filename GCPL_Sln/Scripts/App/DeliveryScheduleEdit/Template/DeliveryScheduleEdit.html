@@ -194,18 +194,17 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr ng-repeat="item in $ctrl.DeliverySchedulelist" >
+                                                        <tr ng-repeat="item in $ctrl.DeliverySchedulelist">
                                                             <td>{{item.LeadID}}-{{item.index}}</td>
                                                             <td>{{item.ProductCode}}</td>
                                                             <td>{{item.ProductDesc}}</td>
                                                             <!--<td>{{item.DeliveryDate}}</td>-->
-                                                            <td><input id="hfDeliveryDate" type="hidden" name="hfDeliveryDate"><input type="text" id="DeliveryDate" ng-model="item.DeliveryDate" name="DeliveryDate" class="form-control"></td>
+                                                            <td><input id="hfDeliveryDate" type="hidden" name="hfDeliveryDate"><input type="text" id="txtDeliveryDate" ng-model="item.DeliveryDate" name="txtDeliveryDate" input="hfDeliveryDate"  class="form-control"></td>
                                                             <!--<td>{{item.DeliveryQty}}</td>-->
-                                                            <td><input type="text" id="DeliveryQty" ng-model="item.DeliveryQty" name="DeliveryQty" class="form-control"></td>                                       
+                                                            <td><input type="text" id="DeliveryQty" ng-model="item.DeliveryQty" name="DeliveryQty" class="form-control"></td>
                                                             <td><a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.DeleteAssignmentCart(i);"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
 
                                                             <!--<a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.DeleteDsFromCart(item.ID);"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
-
                                                             <!--<td>
                                                                 <span class="edit-table-link" data-toggle="modal" data-target="#myModalEditDS" ng-click="$ctrl.EditDSList(item.ID);"><i class="fa fa-edit" aria-hidden="true"></i></span>
                                                             </td>-->
@@ -222,7 +221,7 @@
                         <div class="col-md-12 text-right">
                             <div class="form-group">
                                 <label class="label-block">&nbsp;</label>
-                                <button id="btnClear" ng-click="$ctrl.DeleteDSItem();" type="button" style="margin-top:0px;padding-top: 5px;" class="btn clear-btn">Delete Previous DS</button>
+                                <!--<button id="btnClear" ng-click="$ctrl.DeleteDSItem();" type="button" style="margin-top:0px;padding-top: 5px;" class="btn clear-btn">Delete Previous DS</button>-->
                                 <input type="submit" value="Submit" id="btnSubmitDS" ng-click="$ctrl.Submit();" class="btn search-btn">
                                 <!--<input type="submit" value="Submit" id="btnSubmit" style="margin-top: 20px;margin:8px;background-color: #f48c41;border: none;color:black;margin-right: -65px;" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myAlert">-->
                             </div>
@@ -442,7 +441,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="myModalEditDS" tabindex="-2" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
+    <!--<div class="modal fade" id="myModalEditDS" tabindex="-2" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
         <div class="modal-dialog modal-2">
             <div class="modal-content " style="position: relative">
                 <div class="modal-header modal-head">
@@ -451,7 +450,7 @@
                 </div>
 
                 <div id="div-1" class="modal-body">
-                    <form>
+                    <form>-->
                         <!--<div class="modal-header">
                             <div class="row">-->
                         <!--<div class="col-md-12 text-right">
@@ -464,7 +463,7 @@
                         <!--</div>
                         </div>-->
 
-                        <div class="row">
+                        <!--<div class="row">
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Item Code</label>
@@ -474,12 +473,12 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Item Description</label>
-                                    <input type="text" id="txtItemDescription" ng-model="$ctrl.InsertItem.ProductDesc" name="txtItemDescription" class="form-control" required disabled>
+                                    <input type="text" id="txtItemDescription" ng-model="$ctrl.InsertItem.ProductDesc" name="txtItemDescription" class="form-control" required disabled>-->
                                     <!--<select id="txtProduct" name="Product" ng-model="$ctrl.InsertItem.ProductID" class="form-control leader-create-dropdown" tabindex="2" required disabled>
                                         <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.ProductDesc}}</option>
 
                                     </select>-->
-                                </div>
+                                <!--</div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
@@ -490,11 +489,11 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label>Delivery Quantity</label>
+                                    <label>Delivery Quantity</label>-->
                                     <!--<div class="col-md-3" ng-class="{ 'has-error' : (userForm.txtCustomerName.$invalid && userForm.txtCustomerName.$pristine) }">-->
-                                    <input type="text" id="DeliveryQty" ng-model="$ctrl.InsertItem.DeliveryQty" name="DeliveryQty" class="form-control">
+                                    <!--<input type="text" id="DeliveryQty" ng-model="$ctrl.InsertItem.DeliveryQty" name="DeliveryQty" class="form-control">-->
                                     <!--<p ng-show="(userForm.txtCustomerName.$invalid && !userForm.txtCustomerName.$pristine)" id="errorWOType" class="help-block" style="color:red">Customer Name is required.</p>-->
-                                </div>
+                                <!--</div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -506,17 +505,17 @@
                             </div>
                         </div>
                     </form>
-                </div>
+                </div>-->
                 <!-- Search Loader Started -->
-                <div class="search-loader" id="ass-btn-loader1" style="display: none;background: rgba(0,0,0,.5)">
+                <!--<div class="search-loader" id="ass-btn-loader1" style="display: none;background: rgba(0,0,0,.5)">
                     <div class="search-loader-container">
                         <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
                     </div>
-                </div>
+                </div>-->
                 <!-- Search Loader Ended -->
-            </div>
+            <!--</div>
         </div>
-    </div>
+    </div>-->
 
 
 

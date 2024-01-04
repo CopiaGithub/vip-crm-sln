@@ -178,6 +178,38 @@ var GCPL;
     var Service;
     (function (Service) {
         var app = GCPL.app;
+        var InsertDsDetailsEditService = /** @class */ (function (_super) {
+            __extends(InsertDsDetailsEditService, _super);
+            function InsertDsDetailsEditService($http, $q, _cookieStore) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this._cookieStore = _cookieStore;
+                _this.apiUrl = "";
+                _this.Cookie = null;
+                _this.apiUrl = _this.url + "/" + "InsertDsDetailsEdit";
+                _this.Cookie = _cookieStore;
+                return _this;
+            }
+            InsertDsDetailsEditService.prototype.Find = function () {
+                return this.ajaXUtility.Get({ Url: this.apiUrl });
+            };
+            InsertDsDetailsEditService.prototype.PostDSEdit = function (data) {
+                var url = this.apiUrl;
+                // console.log(url);
+                return this.ajaXUtility.Post({ Url: url, data: data });
+            };
+            InsertDsDetailsEditService.$inject = ["$http", "$q", "$cookieStore"];
+            return InsertDsDetailsEditService;
+        }(GCPL.Service.BaseService));
+        Service.InsertDsDetailsEditService = InsertDsDetailsEditService;
+        app.AddService("InsertDsDetailsEditService", InsertDsDetailsEditService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
         var model = GCPL.Model;
         var EditDSListService = /** @class */ (function (_super) {
             __extends(EditDSListService, _super);
