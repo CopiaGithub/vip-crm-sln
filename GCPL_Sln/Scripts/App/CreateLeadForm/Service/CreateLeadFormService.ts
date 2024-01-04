@@ -254,6 +254,90 @@ namespace GCPL.Service {
     //inject service
     app.AddService("ProductDescAutoFillService", ProductDescAutoFillService);
 }
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IProductCodeAutoFillService {
+        FilterAutoComplete(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        GetAutoProductCode(data: any): Array<model.ProductAutoModel>;
+        FindProductCode(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+        GetProductCode(data: any): Array<model.ProductCodeModel>;
+    }
+    export class ProductCodeAutoFillService extends GCPL.Service.BaseService implements IProductCodeAutoFillService {
+        private apiUrl: string = "";
+        private Cookie: any = null;
+        static $inject = ["$http", "$q", "$cookieStore"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService, private _cookieStore: any) {
+            super($http, $q);
+            this.apiUrl = `${this.url}/${"FillProductCode"}`;
+            this.Cookie = _cookieStore;
+        }
+        FilterAutoComplete(data): ng.IPromise<Utility.Ajax.IResponse> {
+            var url = this.apiUrl + "/FillProductCode";
+
+            let config = {
+                params: {
+                    Input: data.term
+
+                }
+            };
+            return this.ajaXUtility.Get({
+                Url: url,
+                Config: config
+            });
+        }
+
+        GetAutoProductCode(data: any): Array<model.ProductAutoModel> {
+
+            let list = Array<model.ProductAutoModel>();
+
+
+            for (let item of data) {
+                list.push({
+                    ProductID: item.ProductID.toString(),
+                    Product: item.Product,
+                    ProductDesc: item.ProductDesc
+
+                });
+            }
+            return list;
+        }
+
+        FindProductCode(data): ng.IPromise<Utility.Ajax.IResponse> {
+            var url = this.apiUrl + "/FindProduct";
+
+            let config = {
+                params: {
+                    Input: data.term
+
+                }
+            };
+            return this.ajaXUtility.Get({
+                Url: url,
+                Config: config
+            });
+        }
+
+        GetProductCode(data: any): Array<model.ProductCodeModel> {
+
+            let list = Array<model.ProductCodeModel>();
+
+
+            for (let item of data) {
+                list.push({
+                    ProductID: item.ProductID.toString(),
+                    ProductDesc: item.ProductDesc
+
+                });
+            }
+            return list;
+        }
+
+    }
+    //inject service
+    app.AddService("ProductCodeAutoFillService", ProductCodeAutoFillService);
+}
 
 
 namespace GCPL.Service {
@@ -480,7 +564,6 @@ namespace GCPL.Service {
         Find(data: any): ng.IPromise<Utility.Ajax.IResponse> {
             var url = this.apiUrl + "/GetLeadContactDetails";
             var CustomerID;
-            debugger
             if (data == undefined) {
                 CustomerID = "";
             }
@@ -500,7 +583,7 @@ namespace GCPL.Service {
             });
         }
         GetLeadContactInfo(data: any): Array<model.ContactDetailsListModel> {
-            debugger;
+            
             let list = Array<model.ContactDetailsListModel>();
 
             for (let item of data) {

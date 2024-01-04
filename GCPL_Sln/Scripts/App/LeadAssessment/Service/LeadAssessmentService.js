@@ -524,7 +524,8 @@ var GCPL;
                         MRPUnit: item.MRPUnit,
                         GST: item.GST,
                         NetAmount: item.NetAmount,
-                        DeliveryStatus: item.DeliveryStatus
+                        DeliveryStatus: item.DeliveryStatus,
+                        index: item.index
                     });
                 }
                 return list;
@@ -1075,7 +1076,6 @@ var GCPL;
                     obj.LeadType = data.LeadType,
                     obj.RefUserName = data.RefUserName,
                     obj.ChannelID = data.ChannelID,
-                    obj.LeadID = data.LeadID,
                     obj.IsNational = data.IsNational,
                     obj.CountryID = data.CountryID,
                     obj.StateID = data.StateID,
@@ -1084,7 +1084,7 @@ var GCPL;
                     obj.CategoryID = data.ItemCategoryID,
                     obj.DivisionID = data.DivisionID,
                     obj.ProductID = data.ProductID,
-                    obj.ProductCode = data.ProductCode,
+                    obj.Product = data.ProductCode,
                     obj.ProductDesc = data.ProductDesc,
                     obj.ProjectID = data.ProjectID,
                     obj.LeadStatusId = data.ItemStatusID;
@@ -1097,9 +1097,11 @@ var GCPL;
                     obj.TotalPrice = data.TotalPrice,
                     obj.TotalGST = data.TotalGST,
                     obj.NetAmount = data.NetAmount,
-                    obj.ProductCode = data.ProductCode,
-                    obj.DeliveryStatus = data.DeliveryStatus;
-                console.log("Op", obj);
+                    obj.Product = data.ProductCode,
+                    obj.DeliveryStatus = data.DeliveryStatus,
+                    obj.LeadID = data.LeadID,
+                    obj.CustomerName = data.CustomerName;
+                console.log("Op", data);
                 return obj;
             };
             EditItemList.$inject = ["$http", "$q"];

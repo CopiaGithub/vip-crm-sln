@@ -84,6 +84,7 @@
         //Comments: string; 
     }
 
+
     export class RemarksHist {
         constructor() { }
         RemarksHistory: string;
@@ -168,6 +169,7 @@
         RemarksHistoryList: Array<Model.RemarksHist>;
     }
 
+
     export class CrtAssessmtModel {
         constructor() {
         }
@@ -197,6 +199,7 @@
         notes: string;
         reason: string;
         description: string;
+        contactID: string;
     }
 
     export class ReturnModel {
@@ -341,7 +344,6 @@
         LeadType: string;
         RefUserName: string;
         ChannelID: string;
-        LeadID: number;
         IsNational: string;
         CountryID: string;
         StateID: string;
@@ -349,7 +351,7 @@
         CategoryID: string;
         DivisionID: string;
         ProductID: string;
-        ProductCode: string;
+        Product: string;
         ProductDesc: string;
         ProjectID: string;
         ItemStatusID: string;
@@ -364,6 +366,8 @@
         TotalGST: string;
         NetAmount: string;
         DeliveryStatus: string;
+        LeadID: number;
+        CustomerName: string;
 
     }
 
@@ -459,6 +463,7 @@
         GST: string;     
         NetAmount: string;
         DeliveryStatus: string;
+        index: string;
     }
 
     export class LeadQueAnsModel {

@@ -590,20 +590,26 @@
                             </div>
                         </div>
 
+                        <!--<div class="col-lg-3 col-md-3">
+        <div class="form-group">
+            <label>Item Code<span class="Mandatory">*</span></label>
+            <select id="txtProduct" name="Product" ng-model="$ctrl.InsertLead.ProductID" class="form-control leader-create-dropdown" tabindex="2" required>
+                <option value="">Select</option>
+                <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
+
+            </select>
+        </div>
+    </div>-->
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label>Product<span class="Mandatory">*</span></label>
-                                <select id="txtProduct" name="Product" ng-model="$ctrl.InsertLead.ProductID" class="form-control leader-create-dropdown" tabindex="2" required disabled>
-                                    <option value="">Select</option>
-                                    <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
-
-                                </select>
+                                <label>Item Code<span class="Mandatory">*</span></label>
+                                <input type="text" id="txtProductCode" name="txtProductCode" ng-model="$ctrl.InsertLead.Product" ng-change="$ctrl.Product($ctrl.InsertLead.ProductID)" (keyup)="Product()" placeholder="Enter Item Code" class="form-control" />
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="form-group">
-                                <label>Product Description<span class="Mandatory">*</span></label>
-                                <input type="text" id="txtProductDesc" name="txtProductDesc" ng-model="$ctrl.InsertLead.ProductDesc" ng-change="$ctrl.Product($ctrl.InsertLead.ProductID)"; placeholder="Enter Customer Name" class="form-control" />
+                                <label>Item Description<span class="Mandatory">*</span></label>
+                                <input type="text" id="txtProductDesc" name="txtProductDesc" ng-model="$ctrl.InsertLead.ProductDesc" ng-change="$ctrl.Product($ctrl.InsertLead.ProductID)" (keyup)="Product()" placeholder="Enter Item Name" class="form-control" />
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-3">
@@ -718,7 +724,7 @@
             </div>
         </div>
     </div>-->
-                        <div class="col-lg-3 col-md-3">
+                        <div class="col-lg-3 col-md-3">                         
                             <div class="form-group">
                                 <label>Sales Office<span class="Mandatory">*</span></label>
                                 <select id="txtSalesoff" name="Sales" ng-model="$ctrl.InsertCust.SalesOfficeID" class="form-control leader-create-dropdown">
@@ -806,7 +812,7 @@
                                                     <th>Sales Office</th>
                                                     <th>Category</th>
                                                     <th>Division</th>
-                                                    <th>Product</th>
+                                                    <th>Item Name</th>
                                                     <th>Model</th>
                                                     <th>Quantity</th>
                                                     <th>Action</th>
@@ -818,7 +824,7 @@
                                                     <td>{{ item.SalesOfficeName }}</td>
                                                     <td>{{ item.CategoryName }}</td>
                                                     <td>{{ item.DivisionName }}</td>
-                                                    <td>{{ item.ProductName }}</td>
+                                                    <td>{{ item.ProductDesc }}</td>
                                                     <td>{{ item.ModelName }}</td>
                                                     <td>{{ item.Quantity }}</td>
                                                     <td>

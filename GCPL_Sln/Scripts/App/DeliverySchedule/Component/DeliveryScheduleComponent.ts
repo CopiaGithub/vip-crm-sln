@@ -434,7 +434,7 @@
         FillGridDeliverySchedule(): void {
 
             this.DeliverySchedulelist = this.DsListService.Find(this.ItemID).then((response => {
-                this.DeliverySchedulelist = this.DsListService.GetLeadItemList(response.data.Result);
+                this.DeliverySchedulelist = this.DsListService.GetLeadItemList(response.data.Result);               
                 console.log("this.DeliverySchedulelist", this.DeliverySchedulelist);
 
             }));
@@ -570,7 +570,7 @@
         AddDsToCart(data: any) {
 
             this.InsertItem.UserID = this.UserID;
-            this.InsertItem.LeadID = this.LeadID;
+            this.InsertItem.LeadID = this.InsertItem.LeadID;
             if ($("#txtDeliveryDate").val() != null) {
                 this.InsertItem.DeliveryDate = (<HTMLInputElement>document.getElementById("txtDeliveryDate")).value;
                 console.log(this.InsertItem.DeliveryDate)
@@ -598,7 +598,7 @@
                 if (this.UserID != null || this.UserID != "") {
                     this.InsertItem.UserID = this.UserID;
                 }
-                //debugger
+                debugger
                 this.AddToCartDsService.PostDeliveryScheduleToCart(this.InsertItem).then((response => {
 
                     console.log("ADDTOCART Model", this.InsertItem);
@@ -629,7 +629,9 @@
         AddDsToCartEdit(data: any) {
 
             this.InsertItem.UserID = this.UserID;
-            this.InsertItem.LeadID = this.LeadID;
+            this.InsertItem.LeadID = this.InsertItem.LeadID;
+            //this.InsertItem.LeadID = this.DeliverySchedulelist.LeadID;
+            //this.InsertItem.LeadID = this.LeadID;
           
             if ($("#txtDeliveryDateEdit").val() != null) {
                 this.InsertItem.DeliveryDate = (<HTMLInputElement>document.getElementById("txtDeliveryDateEdit")).value;
@@ -669,8 +671,7 @@
                         $("#errorclose").hide();
                         $("#close").show();
                         this.popupMessage("Delivery Schedule Successfully Added to Cart.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-                        this.InsertLeadChange = null;
-                        this.InsertLeadChange.ID = "";
+                        this.Init();
                     }
                     else {
 
@@ -687,7 +688,7 @@
             //debugger;
             this.DeleteService.Find(DsID).then((response => {
                 this.DeleteService.postDsDelete(response.data.Result);
-                this.Init();
+                //this.Init();
                 $("#errorclose").hide();
                 $("#close").show();
                 this.popupMessage("Record deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
@@ -738,7 +739,7 @@
                 
                     this.InsertDsDetailsService.PostDS(this.InsertItem).then((response => {
                         if (response.data.Result > 0) {
-                            
+                            this.DeleteDSItem();
                             
                             
                             //flag = 0;

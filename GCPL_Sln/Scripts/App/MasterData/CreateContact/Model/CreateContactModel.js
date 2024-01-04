@@ -38,6 +38,12 @@ var GCPL;
             return ProductModel;
         }());
         Model.ProductModel = ProductModel;
+        var ProductCodeModel = /** @class */ (function () {
+            function ProductCodeModel() {
+            }
+            return ProductCodeModel;
+        }());
+        Model.ProductCodeModel = ProductCodeModel;
         var CustomersapAutoModel = /** @class */ (function () {
             function CustomersapAutoModel() {
             }

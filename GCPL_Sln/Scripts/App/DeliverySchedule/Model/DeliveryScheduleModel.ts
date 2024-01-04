@@ -12,6 +12,7 @@
         DeliveryDate: string;
         DeliveryQty: string;
         EditState: string;
+        index: string;
     }
 }
 

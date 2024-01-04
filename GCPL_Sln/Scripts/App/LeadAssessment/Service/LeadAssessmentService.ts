@@ -562,7 +562,9 @@ namespace GCPL.Service {
                     MRPUnit: item.MRPUnit,
                     GST: item.GST,
                     NetAmount: item.NetAmount,
-                    DeliveryStatus: item.DeliveryStatus
+                    DeliveryStatus: item.DeliveryStatus,
+                    index: item.index
+
                 });
             }
             return list;
@@ -1132,7 +1134,7 @@ namespace GCPL.Service {
             obj.RefUserID = data.RefUserID,
                 obj.CustomerID = data.CustomerID,
                 obj.SalesOfficeID = data.SalesOfficeID,
-                obj.CompanyName = data.CompanyName,
+                obj.CompanyName = data.CompanyName,              
                 obj.Email = data.Email,
                 obj.MobileNo = data.MobileNo,
                 obj.Address1 = data.Address1,
@@ -1170,7 +1172,6 @@ namespace GCPL.Service {
                 obj.LeadType = data.LeadType,
                 obj.RefUserName = data.RefUserName,
                 obj.ChannelID = data.ChannelID,
-                obj.LeadID = data.LeadID,
                 obj.IsNational = data.IsNational,
                 obj.CountryID = data.CountryID,
                 obj.StateID = data.StateID,
@@ -1179,7 +1180,7 @@ namespace GCPL.Service {
                 obj.CategoryID = data.ItemCategoryID,
                 obj.DivisionID = data.DivisionID,
                 obj.ProductID = data.ProductID,
-                obj.ProductCode = data.ProductCode,
+                obj.Product = data.ProductCode,
                 obj.ProductDesc = data.ProductDesc,
                 obj.ProjectID = data.ProjectID,
                 obj.LeadStatusId = data.ItemStatusID
@@ -1192,11 +1193,13 @@ namespace GCPL.Service {
                 obj.TotalPrice = data.TotalPrice,
                 obj.TotalGST = data.TotalGST,
                 obj.NetAmount = data.NetAmount,
-                obj.ProductCode = data.ProductCode,
-                obj.DeliveryStatus = data.DeliveryStatus
+                obj.Product = data.ProductCode,
+                obj.DeliveryStatus = data.DeliveryStatus,
+                obj.LeadID = data.LeadID,
+                obj.CustomerName = data.CustomerName
 
 
-            console.log("Op", obj);
+            console.log("Op", data);
 
 
             return obj;
@@ -1422,6 +1425,7 @@ namespace GCPL.Service {
 }
 
 // Item Delete
+
 namespace GCPL.Service {
     import app = GCPL.app;
     import model = GCPL.Model;
@@ -1463,6 +1467,7 @@ namespace GCPL.Service {
 
     app.AddService("DeleteItemService", DeleteItemService);
 }
+
 
 // Activity Delete
 namespace GCPL.Service {

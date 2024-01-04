@@ -1,4 +1,4 @@
-﻿﻿namespace GCPL.Component.Home {
+﻿namespace GCPL.Component.Home {
 
     import app = GCPL.app;
     import Service = GCPL.Service;
@@ -10,8 +10,8 @@
     import OfferList = GCPL.Model.OfferModel;
     import Capabilities = GCPL.Model.CapabilityModel;
     import GSTCalculation = GCPL.Model.TotalPriceModel;
-     import LeadChangeInsert = GCPL.Model.UpdateLeadChangeModel;
-     import LeadItem = GCPL.Model.LeadItemCreateModel;
+    import LeadChangeInsert = GCPL.Model.UpdateLeadChangeModel;
+    import LeadItem = GCPL.Model.LeadItemCreateModel;
 
 
 
@@ -51,7 +51,7 @@
         ModelDropDown: Array<Model.ModelDDModel>
         ChannelDD: Array<Model.ChannelDDModel>
         LeadSourcedd: Array<Model.LeadSourceDetailsModel>
-        
+
         OpportunitySAPNo: any;
         InsertLeadChange: LeadChangeInsert;
         InsertQuotation: Quotation;
@@ -191,7 +191,7 @@
 
 
 
-        static $inject = ["LeadAssessmentService","Accessory1DDService", "Option1Service", "Accessory2DDService", "Option2Service", "Accessory3DDService",
+        static $inject = ["LeadAssessmentService", "Accessory1DDService", "Option1Service", "Accessory2DDService", "Option2Service", "Accessory3DDService",
             "Option3Service", "Accessory4DDService", "Option4Service", "Accessory5DDService", "Option5Service", "Accessory6DDService",
             "Option6Service", "Configuration1DDService", "Configuration2DDService", "ScopeofSupplyService", "CoveringLetterInfoService",
             "ProductFeaturesInfoService", "TermsConditionInfoService", "OfferingInfoService", "CapabilitiesInfoService", "TotalPriceService",
@@ -203,7 +203,7 @@
 
         //constructor define with Serivce _Name:Service.IServiceName//
 
-        constructor(_leadassessmentService: Service.ILeadAssessmentService,_Accessory1Service: Service.IAccessory1DDService, _Option1Service: Service.IOption1DDService,
+        constructor(_leadassessmentService: Service.ILeadAssessmentService, _Accessory1Service: Service.IAccessory1DDService, _Option1Service: Service.IOption1DDService,
             _Accessory2Service: Service.IAccessory2DDService, _Option2Service: Service.IOption2DDService,
             _Accessory3Service: Service.IAccessory3DDService, _Option3Service: Service.IOption3DDService,
             _Accessory4Service: Service.IAccessory4DDService, _Option4Service: Service.IOption4DDService,
@@ -216,7 +216,7 @@
             _TotalPriceCalService: Service.ITotalPriceService, _InsertService: Service.IInsertQuotationService,
             private $location: ng.ILocationService, private _cookieStore: any, _EditService: Service.ILeadChangeEditService, _LeadItemListService: Service.ILeadItemListService,
             _EditItemList: Service.IEditItemList, _InsertItemAssessment: Service.IInsertItemDetailsService, _CountryddService: Service.ICountryddService,
-            _DistrictService: Service.IDistrictService, _DepartmentService: Service.IDepartmentService, _DesignationService: Service.IDesignationService, _LeadStatusService: Service.ILeadStatusddService, 
+            _DistrictService: Service.IDistrictService, _DepartmentService: Service.IDepartmentService, _DesignationService: Service.IDesignationService, _LeadStatusService: Service.ILeadStatusddService,
             _SalesOfficeService: Service.ISalesOfficeService, _LeadTypeService: Service.ILeadTypeddService, _LeadCategoryService: Service.ILeadCategoryDDService, _ProjectNameService: Service.IProjectNameService,
             _IndustryDivisionService: Service.IIndustryDivisionService, _IndustrialSegmentService: Service.IIndustrialSegmentService, _PurchaseTimlineDDService: Service.IPurchaseTimelineService, _CategoryService: Service.ICategoryddService,
             _DivisionPService: Service.IDivisionDDPService, _ProductService: Service.IProductddService, _ModelService: Service.IModelDDService, _ChannelDDService: Service.IChannelDDService, _LeadSourceDDService: Service.ILeadSourceDetailsService,
@@ -283,18 +283,18 @@
             //this.ModelID = $location.search().Model;
             //this.ProductID = $location.search().Product;
             /*this.LeadAssessment = new LeadAssess();*/
-            
+
         }
 
 
 
         $onInit() {
-            
-            
+
+
             $("#errorclose").hide();
             $('#search-btn-loader').hide();
             $("#close").hide();
-            
+
 
             var splTab = document.getElementsByClassName("spl-tab");
 
@@ -313,6 +313,8 @@
         }
         //Page Load Define Values//
         Init(): void {
+
+
             $("#errorclose").hide();
             $("#txtDays").hide();
             $("#ee-date").hide();
@@ -325,6 +327,7 @@
             $("#ass-btn-loader").hide();
             $("#act-btn-loader").hide();
             $("#txtDisqual").hide();
+
 
             if (this.LeadID != undefined || this.LeadID != null || this.LeadID != "") {
                 this.Edit(this.LeadID);
@@ -387,18 +390,18 @@
             this.ModelDropDown = this.ModelService.Find(1).then((response => {
                 this.ModelDropDown = this.ModelService.GetModelDD(response.data.Result);
             }));
-            
-            
 
 
-           
+
+
+
             this.ProjectNameDD = this.ProjectNameService.FindProjectNameDD(this.UserID).then((response => {
                 this.ProjectNameDD = this.ProjectNameService.GetProjectNameDD(response.data.Result);
             }));
-            
-            
 
-            
+
+
+
             let that = this;
             $("#txtProductDesc").autocomplete({
                 //  source:['1a0','anjali','archana'],
@@ -428,8 +431,8 @@
                 change: function () {
 
                 }
-            });         
-           
+            });
+
         }
 
         Model(data: any): void {
@@ -453,7 +456,7 @@
         //    }));
         //}
 
-        
+
         LeadSource(data: any): void {
 
             this.LeadSourcedd = this.LeadSourceDDService.Find(this.LeadAssessment.ChannelID).then((response => {
@@ -468,6 +471,8 @@
             this.EditItemService.Find(data).then((response => {
 
                 this.InsertItem = this.EditItemService.GetItemEdit(response.data.Result);
+                $('#txtProduct').val(this.InsertItem.Product);
+                $('#MRPUnit').val(this.InsertItem.MRPUnit);
                 $('#TotalPrice').val(this.InsertItem.TotalPrice);
                 $('#TotalGST').val(this.InsertItem.TotalGST);
                 $('#DiscountedPricePerUnit').val(this.InsertItem.DiscountedPricePerUnit);
@@ -476,6 +481,7 @@
                 console.log("GetItemEdit", response.data.Result);
                 this.Model(this.InsertItem.ProductID);
                 this.InsertItem.ModelID = this.InsertItem.ModelID;
+
 
 
 
@@ -492,8 +498,9 @@
                 this.InsertLeadChange = this.EditService.GetEdit(response.data.Result);
                 console.log(this.InsertLeadChange)
                 this.InsertQuotation.ID = this.InsertLeadChange.ID;
+                this.InsertQuotation.QID = this.InsertLeadChange.QID;
                 this.InsertQuotation.SPName = this.InsertLeadChange.SPName;
-                 this.InsertQuotation.SPMobileNo = this.InsertLeadChange.SPMobileNo;
+                this.InsertQuotation.SPMobileNo = this.InsertLeadChange.SPMobileNo;
                 this.InsertQuotation.SPEmail = this.InsertLeadChange.SPEmail;
                 this.InsertQuotation.SPDesignation = this.InsertLeadChange.SPDesignation
                 this.InsertQuotation.TCDetails = this.InsertQuotation.TCDetails
@@ -502,12 +509,12 @@
 
                 }));
 
-              
+
                 //this.StateDropDown = this.StateService.Find(this.InsertLeadChange.CountryID).then((response => {
                 //        this.StateDropDown = this.StateService.GetStateName(response.data.Result);
                 //}));
 
-                
+
 
                 if (this.InsertLeadChange.LeadStatusID == "8" || this.InsertLeadChange.LeadStatusID == "9") {
                     $("#txtstatus").prop("disabled", false);
@@ -616,10 +623,89 @@
                 //$('#ddlleadsource').val(this.InsertLeadChange.LeadSourceID);
                 //$('#txtCommnets').val(this.InsertLeadChange.Comments);
 
+                //if (this.InsertQuotation.TC1 != "NA" || this.InsertQuotation.TC2 != "NA" || this.InsertQuotation.TC3 != "NA" || this.InsertQuotation.TC4 != "NA" || this.InsertQuotation.TC5 == "NA" || this.InsertQuotation.TC6 != "NA" || this.InsertQuotation.TC7 != "NA") {
+                //    this.InsertQuotation.TC1 = this.InsertQuotation.TC1.toString();
+                //    this.InsertQuotation.TC2 = this.InsertQuotation.TC2.toString();
+                //    this.InsertQuotation.TC3 = this.InsertQuotation.TC3.toString();
+                //    this.InsertQuotation.TC4 = this.InsertQuotation.TC4.toString();
+                //    this.InsertQuotation.TC5 = this.InsertQuotation.TC5.toString();
+                //    this.InsertQuotation.TC6 = this.InsertQuotation.TC6.toString();
+                //    this.InsertQuotation.TC7 = this.InsertQuotation.TC7.toString();
+                //    this.InsertQuotation.TC8 = this.InsertQuotation.TC8.toString();
+
+
+
+
+                //}
+                console.log("QID1", this.InsertQuotation.QID)
+                console.log("QID2", this.InsertLeadChange.QID)
+                if (this.InsertQuotation.QID == undefined || this.InsertQuotation.QID == null || this.InsertQuotation.QID == "") {
+
+                    console.log("QID3", this.InsertQuotation.QID)
+                    this.TCService.Find().then((response => {
+                        this.ViewTC = this.TCService.GetTC(response.data.Result);
+                        console.log("TC", response.data.Result)
+                        for (var i = 0; i < this.ViewTC.length; i++) {
+                            if (i === 0) {
+
+                                this.InsertQuotation.TC1 = this.ViewTC[0].Description.toString();
+                                //var TAC1 = this.ViewTC[0].TACID;
+                            }
+                            if (i === 1) {
+
+                                this.InsertQuotation.TC2 = this.ViewTC[1].Description.toString();
+                                //var TAC2 = this.ViewTC[1].TACID;
+                            }
+                            if (i === 2) {
+
+                                this.InsertQuotation.TC3 = this.ViewTC[2].Description.toString();
+                                //var TAC3 = this.ViewTC[2].TACID;
+                            }
+                            if (i === 3) {
+
+                                this.InsertQuotation.TC4 = this.ViewTC[3].Description.toString();
+                                //var TAC4 = this.ViewTC[3].TACID;
+                            }
+                            if (i === 4) {
+
+                                this.InsertQuotation.TC5 = this.ViewTC[4].Description.toString();
+                                //var TAC5 = this.ViewTC[4].TACID;
+                            }
+                            if (i === 5) {
+
+                                this.InsertQuotation.TC6 = this.ViewTC[5].Description.toString();
+                                //var TAC6 = this.ViewTC[5].TACID;
+                            }
+                            if (i === 6) {
+
+                                this.InsertQuotation.TC7 = this.ViewTC[6].Description.toString();
+                                //var TAC7 = this.ViewTC[6].TACID;
+                            }
+                            if (i === 7) {
+
+                                this.InsertQuotation.TC8 = this.ViewTC[7].Description.toString();
+                                //var TAC8 = this.ViewTC[7].TACID;
+                            }
+                        }
+
+                    }));
+                }
+                else {
+                    this.InsertQuotation.TC1 = this.InsertLeadChange.TC1;
+                    this.InsertQuotation.TC2 = this.InsertLeadChange.TC2;
+                    this.InsertQuotation.TC3 = this.InsertLeadChange.TC3;
+                    this.InsertQuotation.TC4 = this.InsertLeadChange.TC4;
+                    this.InsertQuotation.TC5 = this.InsertLeadChange.TC5;
+                    this.InsertQuotation.TC6 = this.InsertLeadChange.TC6;
+                    this.InsertQuotation.TC7 = this.InsertLeadChange.TC7;
+
+                }
+
+
 
             }));
         }
-        
+
 
         FillGridItems(): void {
 
@@ -628,6 +714,7 @@
 
             }));
         }
+
 
         HideShow() {
             $("#errorclose").show();
@@ -643,7 +730,7 @@
 
         CheckPrice(): void {
 
-            
+
             this.InsertItem.MRPUnit = this.InsertItem.MRPUnit;
             this.InsertItem.Quantity = this.InsertItem.Quantity;
             this.InsertItem.GST = this.InsertItem.GST;
@@ -653,7 +740,7 @@
                 this.Total = this.TotalPriceCalService.GetTotalPriceChange(response.data.Result);
 
 
-                console.log("GetTotalPriceChange",response.data.Result)
+                console.log("GetTotalPriceChange", response.data.Result)
 
 
             }));
@@ -748,23 +835,30 @@
 
         Submit(): void {
             debugger;
-            this.InsertQuotation.CustomerName = 'Test';
-            this.InsertQuotation.ContactName = 'Testt';
-            this.InsertQuotation.CustomerID = 1123;
-            this.InsertQuotation.ContactID = 1123;
+            this.InsertQuotation.CustomerName = this.InsertLeadChange.CompanyName;
+            this.InsertQuotation.ContactName = this.InsertLeadChange.ContactName;
+            this.InsertQuotation.CustomerID = this.InsertLeadChange.CustomerID;
+            this.InsertQuotation.ContactID = this.InsertLeadChange.ContactID;
 
             this.InsertQuotation.CreatedBy = this.UserID;
             this.InsertQuotation.LeadID = this.LeadID;
-            
+            this.InsertQuotation.QID = this.InsertLeadChange.QID;
+
             if (this.UserID != null || this.UserID != "") {
                 this.InsertQuotation.CreatedBy = this.UserID;
             }
 
-            
 
 
 
-            /*this.InsertQuotation.QuoteDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;*/
+
+            this.InsertQuotation.TC1 = (<HTMLInputElement>document.getElementById("txtTC1")).value;
+            this.InsertQuotation.TC2 = (<HTMLInputElement>document.getElementById("txtTC2")).value;
+            this.InsertQuotation.TC3 = (<HTMLInputElement>document.getElementById("txtTC3")).value;
+            this.InsertQuotation.TC4 = (<HTMLInputElement>document.getElementById("txtTC4")).value;
+            this.InsertQuotation.TC5 = (<HTMLInputElement>document.getElementById("txtTC5")).value;
+            this.InsertQuotation.TC6 = (<HTMLInputElement>document.getElementById("txtTC6")).value;
+            this.InsertQuotation.TC7 = (<HTMLInputElement>document.getElementById("txtTC7")).value;
             this.InsertService.PostQuote(this.InsertQuotation).then((response => {
 
                 if (response.data.Result != null) {
@@ -818,6 +912,10 @@
                 this.Option6DropDown = this.Option6Service.GetAccessory(response.data.Result);
 
             }));
+
+
+
+
         }
 
         Close(): void {

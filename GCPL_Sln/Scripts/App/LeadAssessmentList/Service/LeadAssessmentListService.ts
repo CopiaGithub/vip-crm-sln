@@ -27,6 +27,7 @@
             var UserID;
             var RoleID;
             var LeadID;
+            var AllocatedTo;
             
 
             if (data.SearchInput == undefined) {
@@ -64,6 +65,12 @@
             else {
                 LeadID = data.LeadID;
             }
+            if (data.AllocatedTo == undefined) {
+                AllocatedTo = '';
+            }
+            else {
+                AllocatedTo = data.AllocatedTo;
+            }
 
             let config = {
                 params: {
@@ -71,7 +78,8 @@
                     StatusID: LeadStatusID,
                     UserID: this.Cookie.get('UserInfo')['UserID'],
                     RoleID: this.Cookie.get('UserInfo')['RoleID'],
-                    LeadID: LeadID
+                    LeadID: LeadID,
+                    AllocatedTo: AllocatedTo
 
                 }
             };

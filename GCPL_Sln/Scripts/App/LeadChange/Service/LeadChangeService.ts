@@ -96,6 +96,35 @@ namespace GCPL.Service {
             obj.WhenEntered = data.WhenEntered;
             obj.Description = data.Description;
             obj.Notes = data.Notes;
+            obj.TC1Heading = data.TC1Heading;
+            obj.TC1ID = data.TC1ID;
+            obj.TC1 = data.TC1;
+            obj.TC2Heading = data.TC2Heading;
+            obj.TC2ID = data.TC2ID;
+            obj.TC2 = data.TC2;
+            obj.TC3Heading = data.TC3Heading;
+            obj.TC3ID = data.TC3ID;
+            obj.TC3 = data.TC3;
+            obj.TC4Heading = data.TC4Heading;
+            obj.TC4ID = data.TC4ID;
+            obj.TC4 = data.TC4;
+            obj.TC5Heading = data.TC5Heading;
+            obj.TC5ID = data.TC5ID;
+            obj.TC5 = data.TC5;
+            obj.TC6Heading = data.TC6Heading;
+            obj.TC6ID = data.TC6ID;
+            obj.TC6 = data.TC6;
+            obj.TC7Heading = data.TC7Heading;
+            obj.TC7ID = data.TC7ID;
+            obj.TC7 = data.TC7;
+            obj.TC8Heading = data.TC8Heading;
+            obj.TC8ID = data.TC8ID;
+            obj.TC8 = data.TC8;
+            obj.QID = data.QID;
+            obj.SPName = data.SPName;
+            obj.SPMobileNo = data.SPMobileNo;
+            obj.SPEmail = data.SPEmail;
+            obj.SPDesignation = data.SPDesignation;
 
             return obj;
 

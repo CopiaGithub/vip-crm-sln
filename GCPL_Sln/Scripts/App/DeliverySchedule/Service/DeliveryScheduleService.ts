@@ -86,7 +86,9 @@ namespace GCPL.Service {
                     LeadID: item.LeadID,
                     DeliveryDate: item.DeliveryDate,
                     DeliveryQty: item.DeliveryQty,
-                    EditState: item.EditState
+                    EditState: item.EditState,
+                    index: item.index
+
 
                 });
             }
@@ -288,7 +290,9 @@ namespace GCPL.Service {
                     MRPUnit: item.MRPUnit,
                     GST: item.GST,
                     NetAmount: item.NetAmount,
-                    DeliveryStatus: item.DeliveryStatus
+                    DeliveryStatus: item.DeliveryStatus,
+                    index: item.index
+
                 });
             }
             return list;

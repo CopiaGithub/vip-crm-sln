@@ -103,7 +103,6 @@
         AssessmentInfo = null;
         InsertContact = null;
         EMAIL_REGEXP = null;
-        RemarksHistory = null;
         ContactInfo = null;
         LeadID = null;
         ModelID = null;
@@ -125,6 +124,7 @@
         alert = null;
         InsertAct = null;
         InsertItem = null;
+        RemarksHistory = null;
         SubmitData = null;
         private Cookie: any = null;
         ProjectNameDD = null;
@@ -134,6 +134,14 @@
         lat = null;
         lng = null;
         UpdateLeadData = null;
+        numRecords: number = 10;
+        page: number = 0;
+        incre: number = 0;
+        shownItems = [];
+        maxPages: number = 0;
+        ShowNext: boolean = true;
+        ShowBack: boolean = true;
+        NoOfRds: number = 10;
 
         private ProjectNameService: Service.IProjectNameService;
         private SubmitService: Service.IInsertLeadToOppSAPService;
@@ -180,6 +188,7 @@
         private LeadStatusDDService: Service.ILeadStatusDDService;
         private UpdateLeadDataService: Service.IUpdateLeadDataService;
         private ProductDescAutofill: Service.IProductDescAutoFillService;
+        private ProductCodeAutofill: Service.IProductCodeAutoFillService;
         private DeleteService: Service.IDeleteItemService;
         private DeleteActService: Service.IDeleteActivityService;
         private CountryService: Service.ICountryService;
@@ -192,7 +201,7 @@
         static $inject = ["LeadStatusddService", "IndustryDivisionService", "IndustrialSegmentService", "LeadTypeddService", "LeadCategoryDDService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService", "ProductddService",
             "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "CampaignDetailsService", "ValidateReferredEmployeeService", "LeadAssessmentService", "LeadContactDetailsService", "CrtAssessmtServiceService",
             "LeadActivityListService", "LeadItemListService", "LeadQueAnsService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertItemDetailsService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service", "LeadOpportunity",
-            "SalesAreaService", "SalesOfficeService", "EditActivityList", "ContactEditService", "EditItemList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "ProductDescAutoFillService",
+            "SalesAreaService", "SalesOfficeService", "EditActivityList", "ContactEditService", "EditItemList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "ProductDescAutoFillService", "ProductCodeAutoFillService",
             "DeleteItemService", "DeleteActivityService", "CountryService", "StateddService", "DistrictddService", "DepartmentService", "DesignationService", "InsertContactService", "$location", "$cookieStore"];
 
 
@@ -204,7 +213,7 @@
             _CrtAssessmtService: Service.ICrtAssessmtServiceService, _LeadActivityListService: Service.ILeadActivityListService, _LeadItemListService: Service.ILeadItemListService, _LeadQueAnsService: Service.ILeadQueAnsService, _ModeActivityService: Service.IModeActivityService, _LeadActivityStatusDDservice: Service.ILeadActivityStatusDDservice,
             _LeadActivityPurposeDDservice: Service.ILeadActivityPurposeDDservice, _LeadActivityLocationDDservice: Service.ILeadActivityLocationDDservice, _InsertLeadAssessment: Service.IInsertLeadActivityService, _InsertItemAssessment: Service.IInsertItemDetailsService,
             _InsertLeadQuestions: Service.IInsertLeadQuestionsService, _Ans1Service: Service.IQAns1Service, _Ans2Service: Service.IQAns2Service, _Ans3Service: Service.IQAns3Service, _LeadOpportunity: Service.ILeadOpportunity, _SalesAreaService: Service.ISalesAreaService, _SalesOfficeService: Service.ISalesOfficeService, _EditActivityList: Service.IEditActivityList, _EditContactService: Service.IContactEditService, _EditItemList: Service.IEditItemList, _LeadReturnService: Service.ILeadReturnService, _CreateInSAPLeadActivityService: Service.ICreateInSAPLeadActivityService,
-            _SubmitService: Service.IInsertLeadToOppSAPService, _ProjectNameService: Service.IProjectNameService, _DisqualificationReasonDDService: Service.IDisqualificationReasonDDService, _LeadStageDDService: Service.ILeadStageDDService, _LeadStatusDDService: Service.ILeadStatusDDService, _UpdateLeadDataService: Service.IUpdateLeadDataService, _ProductDescAutofill: Service.IProductDescAutoFillService, _deleteItem: Service.IDeleteItemService, _DeleteActService: Service.IDeleteActivityService, _CountryService: Service.ICountryService,
+            _SubmitService: Service.IInsertLeadToOppSAPService, _ProjectNameService: Service.IProjectNameService, _DisqualificationReasonDDService: Service.IDisqualificationReasonDDService, _LeadStageDDService: Service.ILeadStageDDService, _LeadStatusDDService: Service.ILeadStatusDDService, _UpdateLeadDataService: Service.IUpdateLeadDataService, _ProductDescAutofill: Service.IProductDescAutoFillService, _ProductCodeAutofill: Service.IProductCodeAutoFillService, _deleteItem: Service.IDeleteItemService, _DeleteActService: Service.IDeleteActivityService, _CountryService: Service.ICountryService,
             _StateService: Service.IStateddService, _DistrictService: Service.IDistrictddService, _DepartmentService: Service.IDepartmentService, _DesignationService: Service.IDesignationService, _InsertContactService: Service.IInsertContactService, private $location: ng.ILocationService, private _cookieStore: any) {
 
             this.LeadStatusService = _LeadStatusService;
@@ -256,6 +265,7 @@
             this.Ans1Service = _Ans1Service;
             this.Ans2Service = _Ans2Service;
             this.Ans3Service = _Ans3Service;
+            this.ProductCodeAutofill = _ProductCodeAutofill;
             this.LeadReturnService = _LeadReturnService;
             this.SubmitService = _SubmitService;
             this.DisqualificationReasonDDService = _DisqualificationReasonDDService;
@@ -320,6 +330,7 @@
         //Page Load Define Values//
         Init(): void {
 
+            console.log("Init_Anuja");
             //this.EMAIL_REGEXP = /^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 
             $("#errorclose").hide();
@@ -378,6 +389,7 @@
             this.DesignationDropDown = this.DesignationService.Find().then((response => {
                 this.DesignationDropDown = this.DesignationService.GetDesignationName(response.data.Result);
             }));
+
 
             this.IndustryDivisionDropDown = this.IndustryDivisionService.Find().then((response => {
                 this.IndustryDivisionDropDown = this.IndustryDivisionService.GetIndustryName(response.data.Result);
@@ -474,6 +486,39 @@
 
             let that = this;
 
+            $("#txtProductCode").autocomplete({
+                //  source:['1a0','anjali','archana'],
+                source: function (request, res) {
+                    that.ProductCodeAutofill.FilterAutoComplete(request).then((response => {
+
+                        let data = that.ProductCodeAutofill.GetAutoProductCode(response.data.Result);
+                        res($.map(data, function (item, index) {
+                            return {
+                                label: item.Product,
+                                value: item.Product,
+                                id: item.ProductDesc,
+                                productid: item.ProductID
+                            }
+                        }));
+                    }));
+
+                },
+                minLength: 2,
+                focus: (event, ui) => {
+
+                    event.preventDefault();
+                },
+                select: function (e, ui) {
+                    that.InsertItem.ProductDesc = ui.item.id;
+                    that.InsertItem.ProductID = ui.item.productid;
+                    that.Product();
+                    /*that.Search(ui.item.id);*/
+                },
+                change: function () {
+
+                }
+            });
+
             $("#txtProductDesc").autocomplete({
                 //  source:['1a0','anjali','archana'],
                 source: function (request, res) {
@@ -484,7 +529,8 @@
                             return {
                                 label: item.ProductDesc,
                                 value: item.ProductDesc,
-                                id: item.ProductID
+                                id: item.Product,
+                                productid: item.ProductID
 
                             }
                         }));
@@ -497,12 +543,46 @@
                     event.preventDefault();
                 },
                 select: function (e, ui) {
-                    that.InsertItem.ProductID = ui.item.id;
+
+                    that.InsertItem.Product = ui.item.id;
+                    that.InsertItem.ProductID = ui.item.productid;
+                    that.Product();
+
                 },
                 change: function () {
 
                 }
             });
+
+            //$("#txtProductCode").autocomplete({
+            //    //  source:['1a0','anjali','archana'],
+            //    source: function (request, res) {
+            //        that.ProductCodeAutofill.FilterAutoComplete(request).then((response => {
+
+            //            let data = that.ProductCodeAutofill.GetAutoProductCode(response.data.Result);
+            //            res($.map(data, function (item, index) {
+            //                return {
+            //                    label: item.ProductCode,
+            //                    value: item.ProductCode,
+            //                    id: item.ProductID
+
+            //                }
+            //            }));
+            //        }));
+
+            //    },
+            //    minLength: 2,
+            //    focus: (event, ui) => {
+
+            //        event.preventDefault();
+            //    },
+            //    select: function (e, ui) {
+            //        that.InsertItem.ProductID = ui.item.id;
+            //    },
+            //    change: function () {
+
+            //    }
+            //});
 
         }
 
@@ -564,6 +644,18 @@
             }));
         }
 
+        Product(): void {
+
+            this.ProductDropDown = this.ProductService.Find(this.InsertItem.ProductID).then((response => {
+                this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
+                this.InsertItem.Product = this.ProductDropDown.Product;
+                this.InsertItem.ProductDesc = this.ProductDropDown.ProductDesc;
+                //$('#txtProductDesc').val(this.ProductDropDown.ProductDesc);
+                //(<HTMLInputElement>document.getElementById("txtProductDesc")).value = this.ProductDropDown.ProductDesc
+            }));
+
+        }
+
         //Product(data: any): void {
 
         //    this.ProductDropDown = this.ProductService.Find(data).then((response => {
@@ -598,7 +690,7 @@
                 this.Init();
                 $("#errorclose").hide();
                 $("#close").show();
-                this.popupMessage("Item deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                this.popupMessage("Record deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
 
             }));
         }
@@ -615,14 +707,20 @@
         }
 
         Assessment(data: any): void {
+
+
+
             this.LeadAssessmentService.Find(data).then((response => {
+
 
                 this.AssessmentInfo = this.LeadAssessmentService.GetLeadAssessment(response.data.Result);
 
+                console.log(this.AssessmentInfo, "AssessmentInfo11111");
                 this.AssessmentInfo.CategoryID = this.AssessmentInfo.CategoryID;
                 this.AssessmentInfo.ProjectID = this.AssessmentInfo.ProjectID;
                 this.Division(this.AssessmentInfo.CategoryID);
                 this.AssessmentInfo.DivisionID = this.AssessmentInfo.DivisionID;
+                /*this.Product(this.AssessmentInfo.DivisionID);*/
                 this.AssessmentInfo.ProductID = this.AssessmentInfo.ProductID;
                 this.Model(this.AssessmentInfo.ProductID);
                 this.AssessmentInfo.ModelID = this.AssessmentInfo.ModelID;
@@ -713,6 +811,7 @@
                 $("#txtDays2").hide();
             }
         }
+
 
         ContactDetail(): void {
 
@@ -849,6 +948,8 @@
 
 
 
+
+
         SubmitReturn(): void {
             if (this.CrtAssessmt.Comments == undefined || this.CrtAssessmt.Comments == null || this.CrtAssessmt.Comments == "") {
                 this.HideShow();
@@ -883,8 +984,8 @@
             }
 
         }
-
         SubmitContact(): void {
+            debugger;
 
             this.InsertContact.CustomerID = this.AssessmentInfo.CustomerID;
             if (this.InsertContact.CustomerID.length == 0) {
@@ -1156,6 +1257,7 @@
             debugger;
             this.InsertItem.LeadID = this.LeadID;
             this.InsertItem.UserID = this.UserID;
+            this.InsertItem.ProductID = this.InsertItem.ProductID;
             console.log("OP", this.InsertItem);
             if (this.InsertItem.LeadType == undefined || this.InsertItem.LeadType == null || this.InsertItem.LeadType == "") {
                 this.HideShow();
@@ -1211,6 +1313,8 @@
                 this.InsertItem.CategoryID = this.InsertItem.CategoryID;
                 this.InsertItem.LeadCategoryID = this.InsertItem.LeadCategoryID;
                 this.InsertItem.DeliveryStatus = this.LeadItemlist.DeliveryStatus;
+                this.InsertItem.ProductID = this.InsertItem.ProductID;
+
 
                 console.log("OP", this.InsertItem);
                 //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
@@ -1460,6 +1564,7 @@
 
         }
 
+
         EditItem(data: any): void {
          
 
@@ -1576,6 +1681,8 @@
 
             }));
         }
+
+
 
     }
     class LeadAssessmentComponentController implements ng.IComponentOptions {

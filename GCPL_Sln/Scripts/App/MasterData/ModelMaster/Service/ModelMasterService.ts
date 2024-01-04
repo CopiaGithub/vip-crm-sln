@@ -62,7 +62,7 @@ namespace GCPL.Service {
         constructor(private $http: ng.IHttpService, private $q: ng.IQService) {
 
             super($http, $q);
-            this.apiUrl = `${this.url}/${"ProductDD"}`;
+            this.apiUrl = `${this.url}/${"ProductDDNew"}`;
         }
 
 
@@ -70,7 +70,7 @@ namespace GCPL.Service {
 
             let config = {
                 params: {
-                    divisionID: data
+                    ProductID: data
                 }
             };
             return this.ajaXUtility.Get({
@@ -85,6 +85,7 @@ namespace GCPL.Service {
                 list.push({
                     ProductID: item.ProductID.toString(),
                     Product: item.Product,
+                    ProductDesc: item.ProductDesc
                 });
             }
             return list;

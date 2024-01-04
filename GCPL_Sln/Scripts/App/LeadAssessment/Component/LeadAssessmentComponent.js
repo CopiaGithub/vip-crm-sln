@@ -20,7 +20,7 @@ var GCPL;
             var ContactMaster = GCPL.Model.InsertContactMaster;
             var LeadAssessmentController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function LeadAssessmentController(_LeadStatusService, _IndustryDivisionService, _IndustrialSegmentService, _LeadTypeService, _LeadCategoryService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _CampaignDDService, _ValidReferredEmpService, _leadassessmentService, _ContactInfoService, _CrtAssessmtService, _LeadActivityListService, _LeadItemListService, _LeadQueAnsService, _ModeActivityService, _LeadActivityStatusDDservice, _LeadActivityPurposeDDservice, _LeadActivityLocationDDservice, _InsertLeadAssessment, _InsertItemAssessment, _InsertLeadQuestions, _Ans1Service, _Ans2Service, _Ans3Service, _LeadOpportunity, _SalesAreaService, _SalesOfficeService, _EditActivityList, _EditContactService, _EditItemList, _LeadReturnService, _CreateInSAPLeadActivityService, _SubmitService, _ProjectNameService, _DisqualificationReasonDDService, _LeadStageDDService, _LeadStatusDDService, _UpdateLeadDataService, _ProductDescAutofill, _deleteItem, _DeleteActService, _CountryService, _StateService, _DistrictService, _DepartmentService, _DesignationService, _InsertContactService, $location, _cookieStore) {
+                function LeadAssessmentController(_LeadStatusService, _IndustryDivisionService, _IndustrialSegmentService, _LeadTypeService, _LeadCategoryService, _PurchaseTimlineDDService, _CategoryService, _DivisionPService, _ProductService, _ModelService, _ChannelDDService, _LeadSourceDDService, _CampaignDDService, _ValidReferredEmpService, _leadassessmentService, _ContactInfoService, _CrtAssessmtService, _LeadActivityListService, _LeadItemListService, _LeadQueAnsService, _ModeActivityService, _LeadActivityStatusDDservice, _LeadActivityPurposeDDservice, _LeadActivityLocationDDservice, _InsertLeadAssessment, _InsertItemAssessment, _InsertLeadQuestions, _Ans1Service, _Ans2Service, _Ans3Service, _LeadOpportunity, _SalesAreaService, _SalesOfficeService, _EditActivityList, _EditContactService, _EditItemList, _LeadReturnService, _CreateInSAPLeadActivityService, _SubmitService, _ProjectNameService, _DisqualificationReasonDDService, _LeadStageDDService, _LeadStatusDDService, _UpdateLeadDataService, _ProductDescAutofill, _ProductCodeAutofill, _deleteItem, _DeleteActService, _CountryService, _StateService, _DistrictService, _DepartmentService, _DesignationService, _InsertContactService, $location, _cookieStore) {
                     this.$location = $location;
                     this._cookieStore = _cookieStore;
                     this.LeadActivitylist = null;
@@ -57,7 +57,6 @@ var GCPL;
                     this.AssessmentInfo = null;
                     this.InsertContact = null;
                     this.EMAIL_REGEXP = null;
-                    this.RemarksHistory = null;
                     this.ContactInfo = null;
                     this.LeadID = null;
                     this.ModelID = null;
@@ -79,6 +78,7 @@ var GCPL;
                     this.alert = null;
                     this.InsertAct = null;
                     this.InsertItem = null;
+                    this.RemarksHistory = null;
                     this.SubmitData = null;
                     this.Cookie = null;
                     this.ProjectNameDD = null;
@@ -88,6 +88,14 @@ var GCPL;
                     this.lat = null;
                     this.lng = null;
                     this.UpdateLeadData = null;
+                    this.numRecords = 10;
+                    this.page = 0;
+                    this.incre = 0;
+                    this.shownItems = [];
+                    this.maxPages = 0;
+                    this.ShowNext = true;
+                    this.ShowBack = true;
+                    this.NoOfRds = 10;
                     this.LeadStatusService = _LeadStatusService;
                     this.LeadStatusService = _LeadStatusService;
                     this.ProjectNameService = _ProjectNameService;
@@ -137,6 +145,7 @@ var GCPL;
                     this.Ans1Service = _Ans1Service;
                     this.Ans2Service = _Ans2Service;
                     this.Ans3Service = _Ans3Service;
+                    this.ProductCodeAutofill = _ProductCodeAutofill;
                     this.LeadReturnService = _LeadReturnService;
                     this.SubmitService = _SubmitService;
                     this.DisqualificationReasonDDService = _DisqualificationReasonDDService;
@@ -192,8 +201,9 @@ var GCPL;
                 };
                 //Page Load Define Values//
                 LeadAssessmentController.prototype.Init = function () {
-                    //this.EMAIL_REGEXP = /^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
                     var _this = this;
+                    console.log("Init_Anuja");
+                    //this.EMAIL_REGEXP = /^[+a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
                     $("#errorclose").hide();
                     $("#txtDays").hide();
                     $("#ee-date").hide();
@@ -310,16 +320,17 @@ var GCPL;
                     this.FillGrid1();
                     //this.getLocation();
                     var that = this;
-                    $("#txtProductDesc").autocomplete({
+                    $("#txtProductCode").autocomplete({
                         //  source:['1a0','anjali','archana'],
                         source: function (request, res) {
-                            that.ProductDescAutofill.FilterAutoComplete(request).then((function (response) {
-                                var data = that.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
+                            that.ProductCodeAutofill.FilterAutoComplete(request).then((function (response) {
+                                var data = that.ProductCodeAutofill.GetAutoProductCode(response.data.Result);
                                 res($.map(data, function (item, index) {
                                     return {
-                                        label: item.ProductDesc,
-                                        value: item.ProductDesc,
-                                        id: item.ProductID
+                                        label: item.Product,
+                                        value: item.Product,
+                                        id: item.ProductDesc,
+                                        productid: item.ProductID
                                     };
                                 }));
                             }));
@@ -329,11 +340,65 @@ var GCPL;
                             event.preventDefault();
                         },
                         select: function (e, ui) {
-                            that.InsertItem.ProductID = ui.item.id;
+                            that.InsertItem.ProductDesc = ui.item.id;
+                            that.InsertItem.ProductID = ui.item.productid;
+                            that.Product();
+                            /*that.Search(ui.item.id);*/
                         },
                         change: function () {
                         }
                     });
+                    $("#txtProductDesc").autocomplete({
+                        //  source:['1a0','anjali','archana'],
+                        source: function (request, res) {
+                            that.ProductDescAutofill.FilterAutoComplete(request).then((function (response) {
+                                var data = that.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
+                                res($.map(data, function (item, index) {
+                                    return {
+                                        label: item.ProductDesc,
+                                        value: item.ProductDesc,
+                                        id: item.Product,
+                                        productid: item.ProductID
+                                    };
+                                }));
+                            }));
+                        },
+                        minLength: 2,
+                        focus: function (event, ui) {
+                            event.preventDefault();
+                        },
+                        select: function (e, ui) {
+                            that.InsertItem.Product = ui.item.id;
+                            that.InsertItem.ProductID = ui.item.productid;
+                            that.Product();
+                        },
+                        change: function () {
+                        }
+                    });
+                    //$("#txtProductCode").autocomplete({
+                    //    //  source:['1a0','anjali','archana'],
+                    //    source: function (request, res) {
+                    //        that.ProductCodeAutofill.FilterAutoComplete(request).then((response => {
+                    //            let data = that.ProductCodeAutofill.GetAutoProductCode(response.data.Result);
+                    //            res($.map(data, function (item, index) {
+                    //                return {
+                    //                    label: item.ProductCode,
+                    //                    value: item.ProductCode,
+                    //                    id: item.ProductID
+                    //                }
+                    //            }));
+                    //        }));
+                    //    },
+                    //    minLength: 2,
+                    //    focus: (event, ui) => {
+                    //        event.preventDefault();
+                    //    },
+                    //    select: function (e, ui) {
+                    //        that.InsertItem.ProductID = ui.item.id;
+                    //    },
+                    //    change: function () {
+                    //    }
+                    //});
                 };
                 //getLocation() {
                 //    if (navigator.geolocation) {
@@ -378,6 +443,16 @@ var GCPL;
                         _this.DivisionDropDownP = _this.DivisionPService.GetDivisionDDP(response.data.Result);
                     }));
                 };
+                LeadAssessmentController.prototype.Product = function () {
+                    var _this = this;
+                    this.ProductDropDown = this.ProductService.Find(this.InsertItem.ProductID).then((function (response) {
+                        _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
+                        _this.InsertItem.Product = _this.ProductDropDown.Product;
+                        _this.InsertItem.ProductDesc = _this.ProductDropDown.ProductDesc;
+                        //$('#txtProductDesc').val(this.ProductDropDown.ProductDesc);
+                        //(<HTMLInputElement>document.getElementById("txtProductDesc")).value = this.ProductDropDown.ProductDesc
+                    }));
+                };
                 //Product(data: any): void {
                 //    this.ProductDropDown = this.ProductService.Find(data).then((response => {
                 //        this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
@@ -409,7 +484,7 @@ var GCPL;
                         _this.Init();
                         $("#errorclose").hide();
                         $("#close").show();
-                        _this.popupMessage("Item deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                        _this.popupMessage("Record deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
                     }));
                 };
                 LeadAssessmentController.prototype.DeleteActivity = function (ActivityID) {
@@ -426,10 +501,12 @@ var GCPL;
                     var _this = this;
                     this.LeadAssessmentService.Find(data).then((function (response) {
                         _this.AssessmentInfo = _this.LeadAssessmentService.GetLeadAssessment(response.data.Result);
+                        console.log(_this.AssessmentInfo, "AssessmentInfo11111");
                         _this.AssessmentInfo.CategoryID = _this.AssessmentInfo.CategoryID;
                         _this.AssessmentInfo.ProjectID = _this.AssessmentInfo.ProjectID;
                         _this.Division(_this.AssessmentInfo.CategoryID);
                         _this.AssessmentInfo.DivisionID = _this.AssessmentInfo.DivisionID;
+                        /*this.Product(this.AssessmentInfo.DivisionID);*/
                         _this.AssessmentInfo.ProductID = _this.AssessmentInfo.ProductID;
                         _this.Model(_this.AssessmentInfo.ProductID);
                         _this.AssessmentInfo.ModelID = _this.AssessmentInfo.ModelID;
@@ -661,6 +738,7 @@ var GCPL;
                 };
                 LeadAssessmentController.prototype.SubmitContact = function () {
                     var _this = this;
+                    debugger;
                     this.InsertContact.CustomerID = this.AssessmentInfo.CustomerID;
                     if (this.InsertContact.CustomerID.length == 0) {
                         this.HideShow();
@@ -906,6 +984,7 @@ var GCPL;
                     debugger;
                     this.InsertItem.LeadID = this.LeadID;
                     this.InsertItem.UserID = this.UserID;
+                    this.InsertItem.ProductID = this.InsertItem.ProductID;
                     console.log("OP", this.InsertItem);
                     if (this.InsertItem.LeadType == undefined || this.InsertItem.LeadType == null || this.InsertItem.LeadType == "") {
                         this.HideShow();
@@ -954,6 +1033,7 @@ var GCPL;
                         this.InsertItem.CategoryID = this.InsertItem.CategoryID;
                         this.InsertItem.LeadCategoryID = this.InsertItem.LeadCategoryID;
                         this.InsertItem.DeliveryStatus = this.LeadItemlist.DeliveryStatus;
+                        this.InsertItem.ProductID = this.InsertItem.ProductID;
                         console.log("OP", this.InsertItem);
                         //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
                         this.InsertItemAssessment.PostItem(this.InsertItem).then((function (response) {
@@ -1267,7 +1347,7 @@ var GCPL;
                 LeadAssessmentController.$inject = ["LeadStatusddService", "IndustryDivisionService", "IndustrialSegmentService", "LeadTypeddService", "LeadCategoryDDService", "PurchaseTimelineService", "CategoryddService", "DivisionDDPService", "ProductddService",
                     "ModelDDService", "ChannelDDService", "LeadSourceDetailsService", "CampaignDetailsService", "ValidateReferredEmployeeService", "LeadAssessmentService", "LeadContactDetailsService", "CrtAssessmtServiceService",
                     "LeadActivityListService", "LeadItemListService", "LeadQueAnsService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertItemDetailsService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service", "LeadOpportunity",
-                    "SalesAreaService", "SalesOfficeService", "EditActivityList", "ContactEditService", "EditItemList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "ProductDescAutoFillService",
+                    "SalesAreaService", "SalesOfficeService", "EditActivityList", "ContactEditService", "EditItemList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "ProductDescAutoFillService", "ProductCodeAutoFillService",
                     "DeleteItemService", "DeleteActivityService", "CountryService", "StateddService", "DistrictddService", "DepartmentService", "DesignationService", "InsertContactService", "$location", "$cookieStore"];
                 return LeadAssessmentController;
             }());
