@@ -1015,7 +1015,7 @@ namespace GCPL.Service {
                 list.push({
                     TACID: item.TACID,
                     Description: item.Description
-                    
+
 
                 });
             }
@@ -1194,7 +1194,7 @@ namespace GCPL.Service {
                 list.TotalPrice = data.TotalPrice,
                 list.TotalGST = data.TotalGST,
                 list.NetAmount = data.NetAmount
-      
+
             return list;
 
         }

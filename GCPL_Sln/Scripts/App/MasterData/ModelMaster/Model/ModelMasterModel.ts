@@ -12,6 +12,7 @@
         }
         ProductID: number;
         Product: string;
+        ProductDesc: string;
     }
     export class ModelListModel {
         constructor() {

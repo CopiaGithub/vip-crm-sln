@@ -270,6 +270,8 @@ var GCPL;
                     console.log(data);
                     this.EditItemService.Find(data).then((function (response) {
                         _this.InsertItem = _this.EditItemService.GetItemEdit(response.data.Result);
+                        $('#txtProduct').val(_this.InsertItem.Product);
+                        $('#MRPUnit').val(_this.InsertItem.MRPUnit);
                         $('#TotalPrice').val(_this.InsertItem.TotalPrice);
                         $('#TotalGST').val(_this.InsertItem.TotalGST);
                         $('#DiscountedPricePerUnit').val(_this.InsertItem.DiscountedPricePerUnit);

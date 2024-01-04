@@ -126,7 +126,6 @@ namespace GCPL.Service {
             obj.SPEmail = data.SPEmail;
             obj.SPDesignation = data.SPDesignation;
 
-
             return obj;
 
         }

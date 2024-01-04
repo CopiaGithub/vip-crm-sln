@@ -1,4 +1,4 @@
-﻿﻿namespace GCPL.Component.Home {
+﻿namespace GCPL.Component.Home {
 
     import app = GCPL.app;
     import Service = GCPL.Service;
@@ -10,8 +10,8 @@
     import OfferList = GCPL.Model.OfferModel;
     import Capabilities = GCPL.Model.CapabilityModel;
     import GSTCalculation = GCPL.Model.TotalPriceModel;
-     import LeadChangeInsert = GCPL.Model.UpdateLeadChangeModel;
-     import LeadItem = GCPL.Model.LeadItemCreateModel;
+    import LeadChangeInsert = GCPL.Model.UpdateLeadChangeModel;
+    import LeadItem = GCPL.Model.LeadItemCreateModel;
 
 
 
@@ -51,7 +51,7 @@
         ModelDropDown: Array<Model.ModelDDModel>
         ChannelDD: Array<Model.ChannelDDModel>
         LeadSourcedd: Array<Model.LeadSourceDetailsModel>
-        
+
         OpportunitySAPNo: any;
         InsertLeadChange: LeadChangeInsert;
         InsertQuotation: Quotation;
@@ -191,7 +191,7 @@
 
 
 
-        static $inject = ["LeadAssessmentService","Accessory1DDService", "Option1Service", "Accessory2DDService", "Option2Service", "Accessory3DDService",
+        static $inject = ["LeadAssessmentService", "Accessory1DDService", "Option1Service", "Accessory2DDService", "Option2Service", "Accessory3DDService",
             "Option3Service", "Accessory4DDService", "Option4Service", "Accessory5DDService", "Option5Service", "Accessory6DDService",
             "Option6Service", "Configuration1DDService", "Configuration2DDService", "ScopeofSupplyService", "CoveringLetterInfoService",
             "ProductFeaturesInfoService", "TermsConditionInfoService", "OfferingInfoService", "CapabilitiesInfoService", "TotalPriceService",
@@ -203,7 +203,7 @@
 
         //constructor define with Serivce _Name:Service.IServiceName//
 
-        constructor(_leadassessmentService: Service.ILeadAssessmentService,_Accessory1Service: Service.IAccessory1DDService, _Option1Service: Service.IOption1DDService,
+        constructor(_leadassessmentService: Service.ILeadAssessmentService, _Accessory1Service: Service.IAccessory1DDService, _Option1Service: Service.IOption1DDService,
             _Accessory2Service: Service.IAccessory2DDService, _Option2Service: Service.IOption2DDService,
             _Accessory3Service: Service.IAccessory3DDService, _Option3Service: Service.IOption3DDService,
             _Accessory4Service: Service.IAccessory4DDService, _Option4Service: Service.IOption4DDService,
@@ -216,7 +216,7 @@
             _TotalPriceCalService: Service.ITotalPriceService, _InsertService: Service.IInsertQuotationService,
             private $location: ng.ILocationService, private _cookieStore: any, _EditService: Service.ILeadChangeEditService, _LeadItemListService: Service.ILeadItemListService,
             _EditItemList: Service.IEditItemList, _InsertItemAssessment: Service.IInsertItemDetailsService, _CountryddService: Service.ICountryddService,
-            _DistrictService: Service.IDistrictService, _DepartmentService: Service.IDepartmentService, _DesignationService: Service.IDesignationService, _LeadStatusService: Service.ILeadStatusddService, 
+            _DistrictService: Service.IDistrictService, _DepartmentService: Service.IDepartmentService, _DesignationService: Service.IDesignationService, _LeadStatusService: Service.ILeadStatusddService,
             _SalesOfficeService: Service.ISalesOfficeService, _LeadTypeService: Service.ILeadTypeddService, _LeadCategoryService: Service.ILeadCategoryDDService, _ProjectNameService: Service.IProjectNameService,
             _IndustryDivisionService: Service.IIndustryDivisionService, _IndustrialSegmentService: Service.IIndustrialSegmentService, _PurchaseTimlineDDService: Service.IPurchaseTimelineService, _CategoryService: Service.ICategoryddService,
             _DivisionPService: Service.IDivisionDDPService, _ProductService: Service.IProductddService, _ModelService: Service.IModelDDService, _ChannelDDService: Service.IChannelDDService, _LeadSourceDDService: Service.ILeadSourceDetailsService,
@@ -283,18 +283,18 @@
             //this.ModelID = $location.search().Model;
             //this.ProductID = $location.search().Product;
             /*this.LeadAssessment = new LeadAssess();*/
-            
+
         }
 
 
 
         $onInit() {
-            
-            
+
+
             $("#errorclose").hide();
             $('#search-btn-loader').hide();
             $("#close").hide();
-            
+
 
             var splTab = document.getElementsByClassName("spl-tab");
 
@@ -314,7 +314,7 @@
         //Page Load Define Values//
         Init(): void {
 
-            
+
             $("#errorclose").hide();
             $("#txtDays").hide();
             $("#ee-date").hide();
@@ -328,7 +328,7 @@
             $("#act-btn-loader").hide();
             $("#txtDisqual").hide();
 
-            
+
             if (this.LeadID != undefined || this.LeadID != null || this.LeadID != "") {
                 this.Edit(this.LeadID);
                 console.log(this.LeadID);
@@ -390,18 +390,18 @@
             this.ModelDropDown = this.ModelService.Find(1).then((response => {
                 this.ModelDropDown = this.ModelService.GetModelDD(response.data.Result);
             }));
-            
-            
 
 
-           
+
+
+
             this.ProjectNameDD = this.ProjectNameService.FindProjectNameDD(this.UserID).then((response => {
                 this.ProjectNameDD = this.ProjectNameService.GetProjectNameDD(response.data.Result);
             }));
-            
-            
 
-            
+
+
+
             let that = this;
             $("#txtProductDesc").autocomplete({
                 //  source:['1a0','anjali','archana'],
@@ -431,8 +431,8 @@
                 change: function () {
 
                 }
-            });         
-           
+            });
+
         }
 
         Model(data: any): void {
@@ -456,7 +456,7 @@
         //    }));
         //}
 
-        
+
         LeadSource(data: any): void {
 
             this.LeadSourcedd = this.LeadSourceDDService.Find(this.LeadAssessment.ChannelID).then((response => {
@@ -471,6 +471,8 @@
             this.EditItemService.Find(data).then((response => {
 
                 this.InsertItem = this.EditItemService.GetItemEdit(response.data.Result);
+                $('#txtProduct').val(this.InsertItem.Product);
+                $('#MRPUnit').val(this.InsertItem.MRPUnit);
                 $('#TotalPrice').val(this.InsertItem.TotalPrice);
                 $('#TotalGST').val(this.InsertItem.TotalGST);
                 $('#DiscountedPricePerUnit').val(this.InsertItem.DiscountedPricePerUnit);
@@ -479,7 +481,7 @@
                 console.log("GetItemEdit", response.data.Result);
                 this.Model(this.InsertItem.ProductID);
                 this.InsertItem.ModelID = this.InsertItem.ModelID;
-                
+
 
 
 
@@ -498,7 +500,7 @@
                 this.InsertQuotation.ID = this.InsertLeadChange.ID;
                 this.InsertQuotation.QID = this.InsertLeadChange.QID;
                 this.InsertQuotation.SPName = this.InsertLeadChange.SPName;
-                 this.InsertQuotation.SPMobileNo = this.InsertLeadChange.SPMobileNo;
+                this.InsertQuotation.SPMobileNo = this.InsertLeadChange.SPMobileNo;
                 this.InsertQuotation.SPEmail = this.InsertLeadChange.SPEmail;
                 this.InsertQuotation.SPDesignation = this.InsertLeadChange.SPDesignation
                 this.InsertQuotation.TCDetails = this.InsertQuotation.TCDetails
@@ -507,12 +509,12 @@
 
                 }));
 
-              
+
                 //this.StateDropDown = this.StateService.Find(this.InsertLeadChange.CountryID).then((response => {
                 //        this.StateDropDown = this.StateService.GetStateName(response.data.Result);
                 //}));
 
-                
+
 
                 if (this.InsertLeadChange.LeadStatusID == "8" || this.InsertLeadChange.LeadStatusID == "9") {
                     $("#txtstatus").prop("disabled", false);
@@ -688,8 +690,7 @@
 
                     }));
                 }
-                else
-                {
+                else {
                     this.InsertQuotation.TC1 = this.InsertLeadChange.TC1;
                     this.InsertQuotation.TC2 = this.InsertLeadChange.TC2;
                     this.InsertQuotation.TC3 = this.InsertLeadChange.TC3;
@@ -700,11 +701,11 @@
 
                 }
 
-                
+
 
             }));
         }
-        
+
 
         FillGridItems(): void {
 
@@ -714,7 +715,7 @@
             }));
         }
 
-        
+
         HideShow() {
             $("#errorclose").show();
             $("#close").hide();
@@ -729,7 +730,7 @@
 
         CheckPrice(): void {
 
-            
+
             this.InsertItem.MRPUnit = this.InsertItem.MRPUnit;
             this.InsertItem.Quantity = this.InsertItem.Quantity;
             this.InsertItem.GST = this.InsertItem.GST;
@@ -739,7 +740,7 @@
                 this.Total = this.TotalPriceCalService.GetTotalPriceChange(response.data.Result);
 
 
-                console.log("GetTotalPriceChange",response.data.Result)
+                console.log("GetTotalPriceChange", response.data.Result)
 
 
             }));
@@ -842,12 +843,12 @@
             this.InsertQuotation.CreatedBy = this.UserID;
             this.InsertQuotation.LeadID = this.LeadID;
             this.InsertQuotation.QID = this.InsertLeadChange.QID;
-            
+
             if (this.UserID != null || this.UserID != "") {
                 this.InsertQuotation.CreatedBy = this.UserID;
             }
 
-            
+
 
 
 
@@ -913,8 +914,8 @@
             }));
 
 
-            
-            
+
+
         }
 
         Close(): void {

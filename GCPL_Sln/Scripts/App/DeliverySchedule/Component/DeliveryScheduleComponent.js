@@ -386,7 +386,7 @@ var GCPL;
                 DeliveryScheduleController.prototype.AddDsToCart = function (data) {
                     var _this = this;
                     this.InsertItem.UserID = this.UserID;
-                    this.InsertItem.LeadID = this.LeadID;
+                    this.InsertItem.LeadID = this.InsertItem.LeadID;
                     if ($("#txtDeliveryDate").val() != null) {
                         this.InsertItem.DeliveryDate = document.getElementById("txtDeliveryDate").value;
                         console.log(this.InsertItem.DeliveryDate);
@@ -409,7 +409,7 @@ var GCPL;
                         if (this.UserID != null || this.UserID != "") {
                             this.InsertItem.UserID = this.UserID;
                         }
-                        //debugger
+                        debugger;
                         this.AddToCartDsService.PostDeliveryScheduleToCart(this.InsertItem).then((function (response) {
                             console.log("ADDTOCART Model", _this.InsertItem);
                             //if (response.data.Result != null) {
@@ -435,7 +435,9 @@ var GCPL;
                 DeliveryScheduleController.prototype.AddDsToCartEdit = function (data) {
                     var _this = this;
                     this.InsertItem.UserID = this.UserID;
-                    this.InsertItem.LeadID = this.LeadID;
+                    this.InsertItem.LeadID = this.InsertItem.LeadID;
+                    //this.InsertItem.LeadID = this.DeliverySchedulelist.LeadID;
+                    //this.InsertItem.LeadID = this.LeadID;
                     if ($("#txtDeliveryDateEdit").val() != null) {
                         this.InsertItem.DeliveryDate = document.getElementById("txtDeliveryDateEdit").value;
                         console.log(this.InsertItem.DeliveryDate);
@@ -468,8 +470,7 @@ var GCPL;
                                 $("#errorclose").hide();
                                 $("#close").show();
                                 _this.popupMessage("Delivery Schedule Successfully Added to Cart.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-                                _this.InsertLeadChange = null;
-                                _this.InsertLeadChange.ID = "";
+                                _this.Init();
                             }
                             else {
                                 _this.HideShow();
@@ -483,7 +484,7 @@ var GCPL;
                     //debugger;
                     this.DeleteService.Find(DsID).then((function (response) {
                         _this.DeleteService.postDsDelete(response.data.Result);
-                        _this.Init();
+                        //this.Init();
                         $("#errorclose").hide();
                         $("#close").show();
                         _this.popupMessage("Record deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
@@ -518,6 +519,7 @@ var GCPL;
                         debugger;
                         this.InsertDsDetailsService.PostDS(this.InsertItem).then((function (response) {
                             if (response.data.Result > 0) {
+                                _this.DeleteDSItem();
                                 //flag = 0;
                                 //SuccessCount++;
                                 _this.HideShow();

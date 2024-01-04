@@ -253,6 +253,78 @@ var GCPL;
     var Service;
     (function (Service) {
         var app = GCPL.app;
+        var ProductCodeAutoFillService = /** @class */ (function (_super) {
+            __extends(ProductCodeAutoFillService, _super);
+            function ProductCodeAutoFillService($http, $q, _cookieStore) {
+                var _this = _super.call(this, $http, $q) || this;
+                _this.$http = $http;
+                _this.$q = $q;
+                _this._cookieStore = _cookieStore;
+                _this.apiUrl = "";
+                _this.Cookie = null;
+                _this.apiUrl = _this.url + "/" + "FillProductCode";
+                _this.Cookie = _cookieStore;
+                return _this;
+            }
+            ProductCodeAutoFillService.prototype.FilterAutoComplete = function (data) {
+                var url = this.apiUrl + "/FillProductCode";
+                var config = {
+                    params: {
+                        Input: data.term
+                    }
+                };
+                return this.ajaXUtility.Get({
+                    Url: url,
+                    Config: config
+                });
+            };
+            ProductCodeAutoFillService.prototype.GetAutoProductCode = function (data) {
+                var list = Array();
+                for (var _i = 0, data_5 = data; _i < data_5.length; _i++) {
+                    var item = data_5[_i];
+                    list.push({
+                        ProductID: item.ProductID.toString(),
+                        Product: item.Product,
+                        ProductDesc: item.ProductDesc
+                    });
+                }
+                return list;
+            };
+            ProductCodeAutoFillService.prototype.FindProductCode = function (data) {
+                var url = this.apiUrl + "/FindProduct";
+                var config = {
+                    params: {
+                        Input: data.term
+                    }
+                };
+                return this.ajaXUtility.Get({
+                    Url: url,
+                    Config: config
+                });
+            };
+            ProductCodeAutoFillService.prototype.GetProductCode = function (data) {
+                var list = Array();
+                for (var _i = 0, data_6 = data; _i < data_6.length; _i++) {
+                    var item = data_6[_i];
+                    list.push({
+                        ProductID: item.ProductID.toString(),
+                        ProductDesc: item.ProductDesc
+                    });
+                }
+                return list;
+            };
+            ProductCodeAutoFillService.$inject = ["$http", "$q", "$cookieStore"];
+            return ProductCodeAutoFillService;
+        }(GCPL.Service.BaseService));
+        Service.ProductCodeAutoFillService = ProductCodeAutoFillService;
+        //inject service
+        app.AddService("ProductCodeAutoFillService", ProductCodeAutoFillService);
+    })(Service = GCPL.Service || (GCPL.Service = {}));
+})(GCPL || (GCPL = {}));
+(function (GCPL) {
+    var Service;
+    (function (Service) {
+        var app = GCPL.app;
         var InsertItemDetailsService = /** @class */ (function (_super) {
             __extends(InsertItemDetailsService, _super);
             function InsertItemDetailsService($http, $q, _cookieStore) {
@@ -340,8 +412,8 @@ var GCPL;
             };
             PurchaseTimelineService.prototype.GetPurchaseTimeline = function (data) {
                 var list = Array();
-                for (var _i = 0, data_5 = data; _i < data_5.length; _i++) {
-                    var item = data_5[_i];
+                for (var _i = 0, data_7 = data; _i < data_7.length; _i++) {
+                    var item = data_7[_i];
                     list.push({
                         PurchaseTimelineID: item.PurchaseTimelineID.toString(),
                         Title: item.Title,
@@ -445,7 +517,6 @@ var GCPL;
             LeadContactDetailsService.prototype.Find = function (data) {
                 var url = this.apiUrl + "/GetLeadContactDetails";
                 var CustomerID;
-                debugger;
                 if (data == undefined) {
                     CustomerID = "";
                 }
@@ -463,10 +534,9 @@ var GCPL;
                 });
             };
             LeadContactDetailsService.prototype.GetLeadContactInfo = function (data) {
-                debugger;
                 var list = Array();
-                for (var _i = 0, data_6 = data; _i < data_6.length; _i++) {
-                    var item = data_6[_i];
+                for (var _i = 0, data_8 = data; _i < data_8.length; _i++) {
+                    var item = data_8[_i];
                     list.push({
                         ContactName: item.ContactName,
                         Email: item.Email,
@@ -533,8 +603,8 @@ var GCPL;
             };
             ContactInfoService.prototype.GetContactName = function (data) {
                 var list = Array();
-                for (var _i = 0, data_7 = data; _i < data_7.length; _i++) {
-                    var item = data_7[_i];
+                for (var _i = 0, data_9 = data; _i < data_9.length; _i++) {
+                    var item = data_9[_i];
                     list.push({
                         ContactID: item.ContactID,
                         ContactName: item.ContactName
@@ -591,8 +661,8 @@ var GCPL;
             LeadDetailsService.prototype.GetLeadInfo = function (data) {
                 debugger;
                 var list = Array();
-                for (var _i = 0, data_8 = data; _i < data_8.length; _i++) {
-                    var item = data_8[_i];
+                for (var _i = 0, data_10 = data; _i < data_10.length; _i++) {
+                    var item = data_10[_i];
                     list.push({
                         CompanyName: item.CompanyName,
                         Email: item.Email,
@@ -703,8 +773,8 @@ var GCPL;
             LeadCustomerGetDetailsService.prototype.GetCustomerDetails = function (data) {
                 debugger;
                 var list = Array();
-                for (var _i = 0, data_9 = data; _i < data_9.length; _i++) {
-                    var item = data_9[_i];
+                for (var _i = 0, data_11 = data; _i < data_11.length; _i++) {
+                    var item = data_11[_i];
                     list.push({
                         CustomerID: item.CustomerID,
                         CompanyName: item.CompanyName,
@@ -854,8 +924,8 @@ var GCPL;
             LeadCustomerGetDetails1Service.prototype.GetCustomerDetails = function (data) {
                 debugger;
                 var list = Array();
-                for (var _i = 0, data_10 = data; _i < data_10.length; _i++) {
-                    var item = data_10[_i];
+                for (var _i = 0, data_12 = data; _i < data_12.length; _i++) {
+                    var item = data_12[_i];
                     list.push({
                         CustomerID: item.CustomerID,
                         CompanyName: item.CompanyName,
@@ -914,8 +984,8 @@ var GCPL;
             };
             LeadCategotyWPDDService.prototype.GetLeadCategoryddl = function (data) {
                 var list = Array();
-                for (var _i = 0, data_11 = data; _i < data_11.length; _i++) {
-                    var item = data_11[_i];
+                for (var _i = 0, data_13 = data; _i < data_13.length; _i++) {
+                    var item = data_13[_i];
                     list.push({
                         LeadCategoryID: item.LeadCategoryID.toString(),
                         LeadCategory: item.LeadCategory,
@@ -973,8 +1043,8 @@ var GCPL;
             };
             LeadTypeProductService1.prototype.GetLeadTypeProduct = function (data) {
                 var list = Array();
-                for (var _i = 0, data_12 = data; _i < data_12.length; _i++) {
-                    var item = data_12[_i];
+                for (var _i = 0, data_14 = data; _i < data_14.length; _i++) {
+                    var item = data_14[_i];
                     list.push({
                         ModelID: item.ModelID.toString(),
                         ModelNo: item.ModelNo
