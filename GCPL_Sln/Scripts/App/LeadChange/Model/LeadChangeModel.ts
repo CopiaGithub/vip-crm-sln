@@ -82,6 +82,10 @@
         TC7: string;
         TC8: string;
         QID: string;
+        SPName: string;
+        SPMobileNo: string;
+        SPEmail: string;
+        SPDesignation: string;
     }
 
    

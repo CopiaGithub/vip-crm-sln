@@ -121,6 +121,11 @@ namespace GCPL.Service {
             obj.TC8ID = data.TC8ID;
             obj.TC8 = data.TC8;
             obj.QID = data.QID;
+            obj.SPName = data.SPName;
+            obj.SPMobileNo = data.SPMobileNo;
+            obj.SPEmail = data.SPEmail;
+            obj.SPDesignation = data.SPDesignation;
+
 
             return obj;
 

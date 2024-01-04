@@ -170,10 +170,6 @@ var GCPL;
                     $("#txtDisqual").hide();
                     if (this.LeadID != undefined || this.LeadID != null || this.LeadID != "") {
                         this.Edit(this.LeadID);
-                        //$('#Heading').hide();
-                    }
-                    if (this.LeadID != undefined || this.LeadID != null || this.LeadID != "") {
-                        this.Edit(this.LeadID);
                         console.log(this.LeadID);
                         this.FillGridItems();
                     }
@@ -403,49 +399,58 @@ var GCPL;
                         //    this.InsertQuotation.TC7 = this.InsertQuotation.TC7.toString();
                         //    this.InsertQuotation.TC8 = this.InsertQuotation.TC8.toString();
                         //}
-                        //console.log("QID1", this.InsertQuotation.QID)
-                        //if (this.InsertQuotation.QID == undefined || this.InsertQuotation.QID == null || this.InsertQuotation.QID == "")
-                        //{
-                        console.log("QID2", _this.InsertQuotation.QID);
-                        _this.TCService.Find().then((function (response) {
-                            _this.ViewTC = _this.TCService.GetTC(response.data.Result);
-                            console.log("TC", response.data.Result);
-                            for (var i = 0; i < _this.ViewTC.length; i++) {
-                                if (i === 0) {
-                                    _this.InsertQuotation.TC1 = _this.ViewTC[0].Description.toString();
-                                    //var TAC1 = this.ViewTC[0].TACID;
+                        console.log("QID1", _this.InsertQuotation.QID);
+                        console.log("QID2", _this.InsertLeadChange.QID);
+                        if (_this.InsertQuotation.QID == undefined || _this.InsertQuotation.QID == null || _this.InsertQuotation.QID == "") {
+                            console.log("QID3", _this.InsertQuotation.QID);
+                            _this.TCService.Find().then((function (response) {
+                                _this.ViewTC = _this.TCService.GetTC(response.data.Result);
+                                console.log("TC", response.data.Result);
+                                for (var i = 0; i < _this.ViewTC.length; i++) {
+                                    if (i === 0) {
+                                        _this.InsertQuotation.TC1 = _this.ViewTC[0].Description.toString();
+                                        //var TAC1 = this.ViewTC[0].TACID;
+                                    }
+                                    if (i === 1) {
+                                        _this.InsertQuotation.TC2 = _this.ViewTC[1].Description.toString();
+                                        //var TAC2 = this.ViewTC[1].TACID;
+                                    }
+                                    if (i === 2) {
+                                        _this.InsertQuotation.TC3 = _this.ViewTC[2].Description.toString();
+                                        //var TAC3 = this.ViewTC[2].TACID;
+                                    }
+                                    if (i === 3) {
+                                        _this.InsertQuotation.TC4 = _this.ViewTC[3].Description.toString();
+                                        //var TAC4 = this.ViewTC[3].TACID;
+                                    }
+                                    if (i === 4) {
+                                        _this.InsertQuotation.TC5 = _this.ViewTC[4].Description.toString();
+                                        //var TAC5 = this.ViewTC[4].TACID;
+                                    }
+                                    if (i === 5) {
+                                        _this.InsertQuotation.TC6 = _this.ViewTC[5].Description.toString();
+                                        //var TAC6 = this.ViewTC[5].TACID;
+                                    }
+                                    if (i === 6) {
+                                        _this.InsertQuotation.TC7 = _this.ViewTC[6].Description.toString();
+                                        //var TAC7 = this.ViewTC[6].TACID;
+                                    }
+                                    if (i === 7) {
+                                        _this.InsertQuotation.TC8 = _this.ViewTC[7].Description.toString();
+                                        //var TAC8 = this.ViewTC[7].TACID;
+                                    }
                                 }
-                                if (i === 1) {
-                                    _this.InsertQuotation.TC2 = _this.ViewTC[1].Description.toString();
-                                    //var TAC2 = this.ViewTC[1].TACID;
-                                }
-                                if (i === 2) {
-                                    _this.InsertQuotation.TC3 = _this.ViewTC[2].Description.toString();
-                                    //var TAC3 = this.ViewTC[2].TACID;
-                                }
-                                if (i === 3) {
-                                    _this.InsertQuotation.TC4 = _this.ViewTC[3].Description.toString();
-                                    //var TAC4 = this.ViewTC[3].TACID;
-                                }
-                                if (i === 4) {
-                                    _this.InsertQuotation.TC5 = _this.ViewTC[4].Description.toString();
-                                    //var TAC5 = this.ViewTC[4].TACID;
-                                }
-                                if (i === 5) {
-                                    _this.InsertQuotation.TC6 = _this.ViewTC[5].Description.toString();
-                                    //var TAC6 = this.ViewTC[5].TACID;
-                                }
-                                if (i === 6) {
-                                    _this.InsertQuotation.TC7 = _this.ViewTC[6].Description.toString();
-                                    //var TAC7 = this.ViewTC[6].TACID;
-                                }
-                                if (i === 7) {
-                                    _this.InsertQuotation.TC8 = _this.ViewTC[7].Description.toString();
-                                    //var TAC8 = this.ViewTC[7].TACID;
-                                }
-                            }
-                        }));
-                        /*  }*/
+                            }));
+                        }
+                        else {
+                            _this.InsertQuotation.TC1 = _this.InsertLeadChange.TC1;
+                            _this.InsertQuotation.TC2 = _this.InsertLeadChange.TC2;
+                            _this.InsertQuotation.TC3 = _this.InsertLeadChange.TC3;
+                            _this.InsertQuotation.TC4 = _this.InsertLeadChange.TC4;
+                            _this.InsertQuotation.TC5 = _this.InsertLeadChange.TC5;
+                            _this.InsertQuotation.TC6 = _this.InsertLeadChange.TC6;
+                            _this.InsertQuotation.TC7 = _this.InsertLeadChange.TC7;
+                        }
                     }));
                 };
                 CreateQuotationController.prototype.FillGridItems = function () {
@@ -553,17 +558,23 @@ var GCPL;
                 CreateQuotationController.prototype.Submit = function () {
                     var _this = this;
                     debugger;
-                    this.InsertQuotation.CustomerName = 'Test';
-                    this.InsertQuotation.ContactName = 'Testt';
-                    this.InsertQuotation.CustomerID = 1123;
-                    this.InsertQuotation.ContactID = 1123;
+                    this.InsertQuotation.CustomerName = this.InsertLeadChange.CompanyName;
+                    this.InsertQuotation.ContactName = this.InsertLeadChange.ContactName;
+                    this.InsertQuotation.CustomerID = this.InsertLeadChange.CustomerID;
+                    this.InsertQuotation.ContactID = this.InsertLeadChange.ContactID;
                     this.InsertQuotation.CreatedBy = this.UserID;
                     this.InsertQuotation.LeadID = this.LeadID;
                     this.InsertQuotation.QID = this.InsertLeadChange.QID;
                     if (this.UserID != null || this.UserID != "") {
                         this.InsertQuotation.CreatedBy = this.UserID;
                     }
-                    /*this.InsertQuotation.QuoteDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;*/
+                    this.InsertQuotation.TC1 = document.getElementById("txtTC1").value;
+                    this.InsertQuotation.TC2 = document.getElementById("txtTC2").value;
+                    this.InsertQuotation.TC3 = document.getElementById("txtTC3").value;
+                    this.InsertQuotation.TC4 = document.getElementById("txtTC4").value;
+                    this.InsertQuotation.TC5 = document.getElementById("txtTC5").value;
+                    this.InsertQuotation.TC6 = document.getElementById("txtTC6").value;
+                    this.InsertQuotation.TC7 = document.getElementById("txtTC7").value;
                     this.InsertService.PostQuote(this.InsertQuotation).then((function (response) {
                         if (response.data.Result != null) {
                             $("#errorclose").hide();

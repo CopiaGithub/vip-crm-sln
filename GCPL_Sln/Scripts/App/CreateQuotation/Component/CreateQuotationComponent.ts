@@ -328,12 +328,7 @@
             $("#act-btn-loader").hide();
             $("#txtDisqual").hide();
 
-            if (this.LeadID != undefined || this.LeadID != null || this.LeadID != "") {
-
-                this.Edit(this.LeadID);
-                //$('#Heading').hide();
-            }
-
+            
             if (this.LeadID != undefined || this.LeadID != null || this.LeadID != "") {
                 this.Edit(this.LeadID);
                 console.log(this.LeadID);
@@ -640,11 +635,12 @@
 
 
                 //}
-                //console.log("QID1", this.InsertQuotation.QID)
-                //if (this.InsertQuotation.QID == undefined || this.InsertQuotation.QID == null || this.InsertQuotation.QID == "")
-                //{
-                    console.log("QID2", this.InsertQuotation.QID)
-                  this.TCService.Find().then((response => {
+                console.log("QID1", this.InsertQuotation.QID)
+                console.log("QID2", this.InsertLeadChange.QID)
+                if (this.InsertQuotation.QID == undefined || this.InsertQuotation.QID == null || this.InsertQuotation.QID == "") {
+
+                    console.log("QID3", this.InsertQuotation.QID)
+                    this.TCService.Find().then((response => {
                         this.ViewTC = this.TCService.GetTC(response.data.Result);
                         console.log("TC", response.data.Result)
                         for (var i = 0; i < this.ViewTC.length; i++) {
@@ -690,8 +686,19 @@
                             }
                         }
 
-                  }));
-              /*  }*/
+                    }));
+                }
+                else
+                {
+                    this.InsertQuotation.TC1 = this.InsertLeadChange.TC1;
+                    this.InsertQuotation.TC2 = this.InsertLeadChange.TC2;
+                    this.InsertQuotation.TC3 = this.InsertLeadChange.TC3;
+                    this.InsertQuotation.TC4 = this.InsertLeadChange.TC4;
+                    this.InsertQuotation.TC5 = this.InsertLeadChange.TC5;
+                    this.InsertQuotation.TC6 = this.InsertLeadChange.TC6;
+                    this.InsertQuotation.TC7 = this.InsertLeadChange.TC7;
+
+                }
 
                 
 
@@ -827,10 +834,10 @@
 
         Submit(): void {
             debugger;
-            this.InsertQuotation.CustomerName = 'Test';
-            this.InsertQuotation.ContactName = 'Testt';
-            this.InsertQuotation.CustomerID = 1123;
-            this.InsertQuotation.ContactID = 1123;
+            this.InsertQuotation.CustomerName = this.InsertLeadChange.CompanyName;
+            this.InsertQuotation.ContactName = this.InsertLeadChange.ContactName;
+            this.InsertQuotation.CustomerID = this.InsertLeadChange.CustomerID;
+            this.InsertQuotation.ContactID = this.InsertLeadChange.ContactID;
 
             this.InsertQuotation.CreatedBy = this.UserID;
             this.InsertQuotation.LeadID = this.LeadID;
@@ -844,7 +851,13 @@
 
 
 
-            /*this.InsertQuotation.QuoteDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;*/
+            this.InsertQuotation.TC1 = (<HTMLInputElement>document.getElementById("txtTC1")).value;
+            this.InsertQuotation.TC2 = (<HTMLInputElement>document.getElementById("txtTC2")).value;
+            this.InsertQuotation.TC3 = (<HTMLInputElement>document.getElementById("txtTC3")).value;
+            this.InsertQuotation.TC4 = (<HTMLInputElement>document.getElementById("txtTC4")).value;
+            this.InsertQuotation.TC5 = (<HTMLInputElement>document.getElementById("txtTC5")).value;
+            this.InsertQuotation.TC6 = (<HTMLInputElement>document.getElementById("txtTC6")).value;
+            this.InsertQuotation.TC7 = (<HTMLInputElement>document.getElementById("txtTC7")).value;
             this.InsertService.PostQuote(this.InsertQuotation).then((response => {
 
                 if (response.data.Result != null) {
