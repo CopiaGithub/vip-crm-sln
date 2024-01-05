@@ -87,7 +87,8 @@ namespace GCPL.Service {
                     DeliveryDate: item.DeliveryDate,
                     DeliveryQty: item.DeliveryQty,
                     EditState: item.EditState,
-                    index: item.index
+                    index: item.index,
+                    DsNO: item.DsNO
 
 
                 });
@@ -174,6 +175,40 @@ namespace GCPL.Service {
     }
 
     app.AddService("InsertDsDetailsService", InsertDsDetailsService);
+}
+
+namespace GCPL.Service {
+    import app = GCPL.app;
+    import model = GCPL.Model;
+
+    export interface IInsertDsDetailsEditService {
+        PostDSEdit(data: any): ng.IPromise<Utility.Ajax.IResponse>;
+    }
+    export class InsertDsDetailsEditService extends GCPL.Service.BaseService implements IInsertDsDetailsEditService {
+
+
+        private apiUrl: string = "";
+        private Cookie: any = null;
+        static $inject = ["$http", "$q", "$cookieStore"];
+        constructor(private $http: ng.IHttpService, private $q: ng.IQService, private _cookieStore: any) {
+            super($http, $q);
+
+            this.apiUrl = `${this.url}/${"InsertDsDetailsEdit"}`;
+            this.Cookie = _cookieStore;
+        }
+        Find(): ng.IPromise<Utility.Ajax.IResponse> {
+
+            return this.ajaXUtility.Get({ Url: this.apiUrl });
+
+        }
+        PostDSEdit(data: any): ng.IPromise<Utility.Ajax.IResponse> {
+            let url = this.apiUrl;
+            // console.log(url);
+            return this.ajaXUtility.Post({ Url: url, data: data });
+        }
+    }
+
+    app.AddService("InsertDsDetailsEditService", InsertDsDetailsEditService);
 }
 
 namespace GCPL.Service {

@@ -118,7 +118,8 @@ var GCPL;
                         DeliveryDate: item.DeliveryDate,
                         DeliveryQty: item.DeliveryQty,
                         EditState: item.EditState,
-                        index: item.index
+                        index: item.index,
+                        DsNO: item.DsNO
                     });
                 }
                 return list;

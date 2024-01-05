@@ -42,7 +42,7 @@
                                         <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
                                     </select>
                                 </div>
-                            </div>                      
+                            </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Customer Name</label>
@@ -68,7 +68,6 @@
 
                     </div>
                 </li>-->
-
                 <!--<li class="laed-id-container">
                     <span class="acco-tab spl-tab toggle-spl-plus" id="LeadID" data-toggle="collapse" data-target="#acco10">Item List</span>
                     <div class="collapse" id="acco10">
@@ -116,7 +115,7 @@
 
                 </li>-->
                 <li>
-                    <span  data-target="#acco2" title="Personal Detail" class="acco-tab spl-tab toggle-spl-plus">Delivery Details</span>
+                    <span data-target="#acco2" title="Personal Detail" class="acco-tab spl-tab toggle-spl-plus">Delivery Details</span>
                     <div id="acco2" class="customer-form acco-content transition">
                         <div class="row">
                             <div class="col-lg-3">
@@ -200,9 +199,11 @@
                                                             <td>{{item.ProductDesc}}</td>
                                                             <td>{{item.DeliveryDate}}</td>
                                                             <td>{{item.DeliveryQty}}</td>
-                                                            <td><a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.DeleteDsFromCart(item.ID);"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                                                             <td>
                                                                 <span class="edit-table-link" data-toggle="modal" data-target="#myModalEditDS" ng-click="$ctrl.EditDSList(item.ID);"><i class="fa fa-edit" aria-hidden="true"></i></span>
+                                                            </td>
+                                                            <td>
+                                                                <a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.SetDeleteType({TxnID: item.ID});"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -224,7 +225,7 @@
                     </div>
                 </li>
 
-                
+
 
                 <!--<li class="laed-id-container">
                     <span class="acco-tab spl-tab toggle-spl-plus" id="DSID" data-toggle="collapse" ng-click="$ctrl.FillGridDeliverySchedule()" data-target="#acco30">Add To Cart List</span>
@@ -445,7 +446,7 @@
                 </div>
 
                 <div id="div-1" class="modal-body">
-                    <form >
+                    <form>
                         <!--<div class="modal-header">
                             <div class="row">-->
                         <!--<div class="col-md-12 text-right">
@@ -470,11 +471,11 @@
                                     <label>Item Description</label>
                                     <input type="text" id="txtItemDescription" ng-model="$ctrl.InsertItem.ProductDesc" name="txtItemDescription" class="form-control" required disabled>
                                     <!--<select id="txtProduct" name="Product" ng-model="$ctrl.InsertItem.ProductID" class="form-control leader-create-dropdown" tabindex="2" required disabled>
-                <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.ProductDesc}}</option>
+                                        <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.ProductDesc}}</option>
 
-            </select>-->
+                                    </select>-->
                                 </div>
-                            </div>                          
+                            </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Delivery Date</label>
@@ -529,6 +530,54 @@
                         <img id="success-img-id" style="width: 40px;" src="../../../../../Content/assets/img/success-img.gif" />
                         <img id="error-img-id" style="width: 28px;" src="../../../../../Content/assets/img/error-img.png" />
                         <span id="message-text">Data Inserted Successfully</span>
+                    </p>
+                </div>
+                <div class="modal-footer message-modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Ok</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" id="errorclose" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalDelete" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+
+            <!-- Modal content-->
+
+            <div class="modal-content">
+                <div class="modal-header" style="height: 39px;background-color:#DC143C;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title success-modal-title">Message</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <span id="message-text">Confirm deletion?</span>
+                    </p>
+                </div>
+                <div class="modal-footer message-modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.DeleteDsFromCart();" data-dismiss="modal">Confirm</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="succeess-message-box-delelte" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!--Modal content-->
+
+            <div class="modal-content">
+                <div class="modal-header" id="success-modal-head">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title success-modal-title">Message</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <img id="success-img-id" style="width: 40px;" src="../../../../../Content/assets/img/success-img.gif" />
+                        <img id="error-img-id" style="width: 28px;" src="../../../../../Content/assets/img/error-img.png" />
+                        <span id="message-text">Data Deleted Successfully</span>
                     </p>
                 </div>
                 <div class="modal-footer message-modal-footer">

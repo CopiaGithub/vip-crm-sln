@@ -180,9 +180,9 @@ var GCPL;
                     this.DivisionDropDownP = this.DivisionPService.Find(0).then((function (response) {
                         _this.DivisionDropDownP = _this.DivisionPService.GetDivisionDDP(response.data.Result);
                     }));
-                    this.ProductDropDown = this.ProductService.Find(0).then((function (response) {
-                        _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
-                    }));
+                    //this.ProductDropDown = this.ProductService.Find(0).then((response => {
+                    //    this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
+                    //}));
                     this.LeadTypeDropDown = this.LeadTypeService.Find().then((function (response) {
                         _this.LeadTypeDropDown = _this.LeadTypeService.GetLeadTypeName(response.data.Result);
                         _this.InsertLead.LeadType = "5";
@@ -370,11 +370,10 @@ var GCPL;
                     var _this = this;
                     console.log("ProductID1", this.InsertLead.ProductID);
                     this.ProductDropDown = this.ProductService.Find(this.InsertLead.ProductID).then((function (response) {
-                        console.log("ProductDropDown", _this.ProductDropDown);
                         _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
-                        _this.InsertLead.Product = _this.ProductDropDown.Product;
-                        _this.InsertLead.ProductDesc = _this.ProductDropDown.ProductDesc;
-                        _this.InsertLead.ProductID = _this.ProductDropDown.ProductID;
+                        //this.InsertLead.Product = this.ProductDropDown.Product;
+                        //this.InsertLead.ProductDesc = this.ProductDropDown.ProductDesc;
+                        /*this.InsertLead.ProductID = this.ProductDropDown.ProductID;*/
                         console.log("ProductID3", _this.InsertLead.ProductID);
                         //$('#txtProductDesc').val(this.ProductDropDown.ProductDesc);
                         //(<HTMLInputElement>document.getElementById("txtProductDesc")).value = this.ProductDropDown.ProductDesc

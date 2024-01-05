@@ -60,6 +60,11 @@
     class DeliveryScheduleEditController  implements IDeliveryScheduleEditController  {
         numRecords: number = 10;
         page: number = 0;
+        counter: number = 0;
+        totalds: number = 0;
+        total: number = 0;
+        TotalDSQty: number = 0;
+        TotalDSItemQty: number = 0;
         incre: number = 0;
         shownItems = [];
         maxPages: number = 0;
@@ -110,10 +115,9 @@
         InsertItem = null;
         DeliverySchedulelist = null;
         InsertToCart = null;
-        TotalDsList = null;
-        TotalDsQty = null;
-        TotalDSItemQty = 0;
+        TotalDsList = null;   
         SubmitEnable: boolean = false;
+        TxnID: any;
 
         private ProjectNameService: Service.IProjectNameService;
         private InsertService: Service.IUpdateLeadChangeService;
@@ -151,6 +155,7 @@
         private DeliveryScheduleEditService: Service.IDeliveryScheduleEditService;
         private DeleteService: Service.IDeleteDsFromAddToCartService;
         private InsertDsDetailsService: Service.IInsertDsDetailsService;
+        private InsertDsDetailsEditService: Service.IInsertDsDetailsEditService;
         private LeadStatusService: Service.ILeadStatusddService;
         private EditDSListService: Service.IEditDSListService;
         private DeleteDSItemService: Service.IDeleteDSItemService;
@@ -162,8 +167,9 @@
             "PurchaseTimelineService", "ChannelDDService", "LeadSourceDetailsService", "LeadCategoryDDService",
             "SalesAreaService", "UpdateLeadChangeService", "CheckRegionService", "CheckSalesAreaDataService", "ProjectNameService",
             "$location", "$cookieStore", "CampaignDetailsService", "UserCodeAutoFillService", "LeadItemNewDSListService", "EditItemList",
-            "AddToCartDsService", "DeliveryScheduleEditService", "DeleteDsFromAddToCartService", "InsertDsDetailsService",
+            "AddToCartDsService", "DeliveryScheduleEditService", "DeleteDsFromAddToCartService", "InsertDsDetailsService", "InsertDsDetailsEditService",
             "LeadStatusddService", "EditDSListService", "DeleteDSItemService"];
+       
        
 
         //constructor define with Serivce _Name:Service.IServiceName//
@@ -183,7 +189,7 @@
             _EditItemList: Service.IEditItemList
             , _AddToCartDsService: Service.IAddToCartDsService,
             _DeliveryScheduleEditService: Service.IDeliveryScheduleEditService, _deleteItem: Service.IDeleteDsFromAddToCartService,
-            _InsertDsDetailsService: Service.IInsertDsDetailsService, _LeadStatusService: Service.ILeadStatusddService,
+            _InsertDsDetailsService: Service.IInsertDsDetailsService, _InsertDsDetailsEditService: Service.IInsertDsDetailsEditService, _LeadStatusService: Service.ILeadStatusddService,
             _EditDSListService: Service.IEditDSListService, _DeleteDSItemService: Service.IDeleteDSItemService) {
 
             //this.LeadStatusService = _LeadStatusService;
@@ -231,6 +237,7 @@
             this.DeleteDSItemService = _DeleteDSItemService;
             this.EditDSListService = _EditDSListService;
             this.InsertDsDetailsService = _InsertDsDetailsService;
+            this.InsertDsDetailsEditService = _InsertDsDetailsEditService;
             this.Cookie = _cookieStore;
             this.UserID = this.Cookie.get('UserInfo')['UserID'];
             this.RoleID = this.Cookie.get('UserInfo')['RoleID'];
@@ -442,11 +449,32 @@
             this.DeliverySchedulelist = this.DeliveryScheduleEditService.Find(this.ItemID).then((response => {
                 this.DeliverySchedulelist = this.DeliveryScheduleEditService.GetLeadItemDSEditList(response.data.Result);
                 console.log("this.DeliverySchedulelist", this.DeliverySchedulelist);
+                let counter = 0;
+                let totalds = 0;
+                
+                for (let i = 0; i < this.DeliverySchedulelist.length; i++) {
+                    totalds = this.DeliverySchedulelist[i].DeliveryQty;
+                    counter = counter + totalds;
+                    console.log(counter);
+                }
 
+                var remainder, sumOfDigits = 0;
+                while (counter) {
+                    remainder = counter % 10;
+                    sumOfDigits = sumOfDigits + remainder;
+                    counter = Math.floor(counter / 10);
+                }
+                console.log(sumOfDigits);
+                this.TotalDSItemQty = sumOfDigits;
+                console.log("TotalDSItemQty",this.TotalDSItemQty)
+
+                
             }));
 
 
         }
+
+        
 
         EditDSList(data: any): void {
             console.log("Op", data);
@@ -651,9 +679,18 @@
             }
         }
 
-        DeleteAssignmentCart(index) {
+        SetDeleteType(Data: any) {
 
-            this.DeliverySchedulelist.splice(index, 1);
+
+            this.TxnID = Data.TxnID;
+            $("#exampleModalDelete").modal("show");
+
+
+        }
+
+        DeleteAssignmentCart() {
+
+            this.DeliverySchedulelist.splice(this.TxnID -1, 1);
 
             if (this.DeliverySchedulelist.length <= 0) {
                 this.DeliverySchedulelist = null;
@@ -739,19 +776,38 @@
 
 
 
-        Submit(data: any): void {
-            if (this.SubmitEnable == false) {
-                this.HideShow();
-                this.popupMessage("Please delete previous delivery records for this item", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-            }
-            else {
-                debugger;
+        Submit(data: any): void {        
+            debugger;
+            // Initialize the total sum to 0
 
+            this.counter += this.DeliverySchedulelist[i].DeliveryQty; console.log(this.counter);
+                    
+            for (let i = 0; i < this.DeliverySchedulelist.length; i++) {              
+                this.totalds = this.DeliverySchedulelist[i].DeliveryQty;
+                
+
+                this.counter = this.counter + this.totalds;
+                console.log(this.counter);
+            }
+            
+            console.log("counter", this.counter)
+
+            var remainder, sumOfDigits = 0;
+            while (this.counter) {
+                remainder = this.counter % 10;
+                sumOfDigits = sumOfDigits + remainder;
+                this.counter = Math.floor(this.counter / 10);
+            }
+            console.log(sumOfDigits);
+            this.TotalDSItemQty = sumOfDigits;
+
+            if (this.TotalDSItemQty == this.InsertItem.Quantity) {
 
                 var err = 0;
                 var flag = 0;
                 var failureCount = 0;
                 var SuccessCount = 0;
+
 
                 if (this.DeliverySchedulelist == undefined || this.TotalDsList == null) {
 
@@ -771,11 +827,17 @@
 
 
 
+
+
+
+
                     this.InsertItem = this.DeliverySchedulelist[i];
+
+
 
                     debugger;
 
-                    this.InsertDsDetailsService.PostDS(this.InsertItem).then((response => {
+                    this.InsertDsDetailsEditService.PostDSEdit(this.InsertItem).then((response => {
                         if (response.data.Result > 0) {
 
 
@@ -783,19 +845,23 @@
                             //flag = 0;
                             //SuccessCount++;
                             this.HideShow();
-                            this.popupMessage("Delivery Schedule Created Successfully", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                            this.popupMessage("Delivery Schedule Updated Successfully", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
 
                         } else {
                             //flag = 1;
                             //failureCount++;
                             this.HideShow();
-                            this.popupMessage("Delivery Qty should be equal to Item Qty.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                            this.popupMessage("Some error occured", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
 
                         }
 
                     }));
-                }
 
+                }
+            }
+            else {
+                this.HideShow();
+                this.popupMessage("Delivery Qty should be equal to Item Qty.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
             }
 
         }
