@@ -142,6 +142,7 @@
         ShowNext: boolean = true;
         ShowBack: boolean = true;
         NoOfRds: number = 10;
+        TxnID: any;
 
         private ProjectNameService: Service.IProjectNameService;
         private SubmitService: Service.IInsertLeadToOppSAPService;
@@ -203,6 +204,7 @@
             "LeadActivityListService", "LeadItemListService", "LeadQueAnsService", "ModeActivityService", "LeadActivityStatusDDservice", "LeadActivityPurposeDDservice", "LeadActivityLocationDDservice", "InsertLeadActivityService", "InsertItemDetailsService", "InsertLeadQuestionsService", "QAns1Service", "QAns2Service", "QAns3Service", "LeadOpportunity",
             "SalesAreaService", "SalesOfficeService", "EditActivityList", "ContactEditService", "EditItemList", "LeadReturnService", "CreateInSAPLeadActivityService", "InsertLeadToOppSAPService", "ProjectNameService", "DisqualificationReasonDDService", "LeadStageDDService", "LeadStatusDDService", "UpdateLeadDataService", "ProductDescAutoFillService", "ProductCodeAutoFillService",
             "DeleteItemService", "DeleteActivityService", "CountryService", "StateddService", "DistrictddService", "DepartmentService", "DesignationService", "InsertContactService", "$location", "$cookieStore"];
+        
 
 
         //constructor define with Serivce _Name:Service.IServiceName//
@@ -474,10 +476,10 @@
                 // this.UpdateLeadData.SalesStage = this.StageDD[0].ID.toString();
             }));
 
-            this.ProductDropDown = this.ProductService.Find(0).then((response => {
-                this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
+            //this.ProductDropDown = this.ProductService.Find(0).then((response => {
+            //    this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
 
-            }));
+            //}));
 
             this.FillGrid();
             this.FillGridItems();
@@ -648,8 +650,8 @@
 
             this.ProductDropDown = this.ProductService.Find(this.InsertItem.ProductID).then((response => {
                 this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
-                this.InsertItem.Product = this.ProductDropDown.Product;
-                this.InsertItem.ProductDesc = this.ProductDropDown.ProductDesc;
+                //this.InsertItem.Product = this.ProductDropDown.Product;
+                //this.InsertItem.ProductDesc = this.ProductDropDown.ProductDesc;
                 //$('#txtProductDesc').val(this.ProductDropDown.ProductDesc);
                 //(<HTMLInputElement>document.getElementById("txtProductDesc")).value = this.ProductDropDown.ProductDesc
             }));
@@ -684,24 +686,42 @@
             }));
         }
 
-        DeleteItem(ItemID): void {
-            this.DeleteService.Find(ItemID).then((response => {
+        SetDeleteType(Data: any) {
+
+
+            this.TxnID = Data.TxnID;
+            $("#exampleModalDelete").modal("show");
+
+
+        }
+
+        SetDeleteTypeActivity(Data: any) {
+
+
+            this.TxnID = Data.TxnID;
+            $("#exampleModalDeleteActivity").modal("show");
+
+
+        }
+
+        DeleteItem() {
+            this.DeleteService.Find(this.TxnID).then((response => {
                 this.DeleteService.postItemDelete(response.data.Result);
-                this.Init();
+                this.TxnID = "";
                 $("#errorclose").hide();
                 $("#close").show();
-                this.popupMessage("Record deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                this.popupMessage("Data deleted successfully.", "succeess-message-box-delelte", "error-modal-head", "#success-img-id", "#error-img-id");
 
             }));
         }
 
-        DeleteActivity(ActivityID): void {
-            this.DeleteActService.Find(ActivityID).then((response => {
+        DeleteActivity(): void {
+            this.DeleteActService.Find(this.TxnID).then((response => {
                 this.DeleteActService.postActivityDelete(response.data.Result);
-                this.Init();
+                this.TxnID = "";
                 $("#errorclose").hide();
                 $("#close").show();
-                this.popupMessage("Activity deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                this.popupMessage("Activity deleted successfully.", "success-modal-head-delete-activity", "error-modal-head", "#success-img-id", "#error-img-id");
 
             }));
         }

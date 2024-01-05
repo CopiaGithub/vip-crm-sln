@@ -88,7 +88,7 @@
 
                                                 <tr>
 
-                                                    <th>Sr. No.</th>
+                                                    <!--<th>Sr. No.</th>-->
                                                     <th>ItemCode</th>
                                                     <th>Item Description</th>
                                                     <th>Item Status</th>
@@ -102,7 +102,7 @@
                                             <tbody>
                                                 <tr ng-repeat="item in $ctrl.LeadItemlist">
 
-                                                    <td>{{item.ItemID}}</td>
+                                                    <!--<td>{{item.ItemID}}</td>-->
                                                     <td>{{item.ItemCode}}</td>
                                                     <td>{{item.ProductDesc}}</td>
                                                     <td>{{item.ItemStatus}}</td>
@@ -325,29 +325,29 @@
 
                     <div class="form-group">
 
-                        <div class="col-md-3">
+                        <!--<div class="col-md-3">
                             <b>Sr. No.</b>
 
                             <input type="text" placeholder="New Item" ng-model="$ctrl.InsertItem.ItemID" name="leadid" class="form-control" disabled />
-                        </div>
+                        </div>-->
 
                         <div class="col-md-3">
                             <b>Item Code<span class="Mandatory">*</span></b>
                             <input type="text" placeholder="New Item" ng-model="$ctrl.InsertItem.Product" name="Product" id="txtProduct" class="form-control" disabled />
 
                             <!--<select id="txtProduct" name="Product" ng-model="$ctrl.InsertItem.Product" class="form-control leader-create-dropdown" tabindex="2" required>
-        <option value="">Select</option>
-        <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
 
-    </select>-->
+                            </select>-->
 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-9">
                             <b>Item Description</b>
 
                             <input type="text" id="txtProductDesc" placeholder="Product Description" ng-model="$ctrl.InsertItem.ProductDesc" name="txtProductDesc" class="form-control" ng-change="$ctrl.Product($ctrl.InsertItem.ProductID)" />
                         </div>
-                        
+
 
                         <!--<div class="col-md-3">
                             <b>Sales Office </b>
@@ -428,68 +428,68 @@
                         </div>
 
                     </div>-->
-                <div class="form-group">
-                    <!--<div class="col-md-3">
-        <b>Product </b>
-        <select id="txtProduct" name="Product" ng-model="$ctrl.InsertItem.ProductID" class="form-control leader-create-dropdown" tabindex="2" required>
-            <option value="">Select</option>
-            <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
+                    <div class="form-group">
+                        <!--<div class="col-md-3">
+                            <b>Product </b>
+                            <select id="txtProduct" name="Product" ng-model="$ctrl.InsertItem.ProductID" class="form-control leader-create-dropdown" tabindex="2" required>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.Product}}</option>
 
-        </select>
-    </div>-->
-                    <!--<div class="col-md-3">
-        <label>Product Description<span class="Mandatory">*</span></label>
-        <input type="text" id="txtProductDesc" name="txtProductDesc" ng-model="$ctrl.InsertItem.ProductDesc" class="form-control" ng-change="$ctrl.Product($ctrl.InsertItem.ProductID)" ; placeholder="Product Description" />
+                            </select>
+                        </div>-->
+                        <!--<div class="col-md-3">
+                            <label>Product Description<span class="Mandatory">*</span></label>
+                            <input type="text" id="txtProductDesc" name="txtProductDesc" ng-model="$ctrl.InsertItem.ProductDesc" class="form-control" ng-change="$ctrl.Product($ctrl.InsertItem.ProductID)" ; placeholder="Product Description" />
 
-    </div>-->
-                    <div class="col-md-3">
-                        <b>Item Status </b>
-                        <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.InsertItem.LeadStatusId" style="width:100%">
-                            <option value="">Select</option>
-                            <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
-                        </select>
+                        </div>-->
+                        <div class="col-md-3">
+                            <b>Item Status </b>
+                            <select id="txtLeadStatusId" class="form-control" ng-model="$ctrl.InsertItem.LeadStatusId" style="width:100%">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.LeadStatusDropDown" value={{item.LeadStatusID}}>{{item.Status}}</option>
+                            </select>
 
+                        </div>
+                        <div class="col-md-3">
+                            <b>Model </b>
+                            <select id="txtModel" name="Model" ng-model="$ctrl.InsertItem.ModelID" class="form-control leader-create-dropdown" tabindex="2" required>
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ModelDropDown" value={{item.ModelID}}>{{item.ModelNo}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <b>Quantity </b>
+                            <input type="text" placeholder="Select Quantity" ng-model="$ctrl.InsertItem.Quantity" name="quantity" class="form-control" />
+                        </div>
+                        <div class="col-md-3">
+                            <b>HSN/SAC </b>
+                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.HSN" name="quantity" class="form-control" />
+                        </div>
+
+                        <!--<div class="col-md-3">
+                            <b>Channel </b>
+                            <select id="txtChannel" name="txtChannel" ng-model="$ctrl.InsertItem.ChannelID" class="form-control leader-create-dropdown" ng-change="$ctrl.LeadSource();" tabindex="2">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.ChannelDD" value="{{item.ID}}">{{item.Channel}}</option>
+
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <b>Opportunity Source  </b>
+
+                            <select id="ddlleadsource" class="form-control leader-create-dropdown" name="LeadSource" ng-model="$ctrl.InsertItem.LeadSourceID" ng-change="$ctrl.LeadSourceChange();">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.LeadSourcedd" value={{item.LeadSourceID}}>{{item.LeadSource}}</option>
+                            </select>
+                        </div>-->
+                        <!--<div class="col-md-3">
+                            <b>Sales Area </b>
+                            <select id="txtSales" name="SalesArea" ng-model="$ctrl.InsertItem.SalesAreaID" class="form-control">
+                                <option value="">Select</option>
+                                <option ng-repeat="item in $ctrl.SalesAreaDropDown" value={{item.SalesAreaID}}>{{item.SalesArea}}</option>
+                            </select>
+                        </div>-->
                     </div>
-                    <div class="col-md-3">
-                        <b>Model </b>
-                        <select id="txtModel" name="Model" ng-model="$ctrl.InsertItem.ModelID" class="form-control leader-create-dropdown" tabindex="2" required>
-                            <option value="">Select</option>
-                            <option ng-repeat="item in $ctrl.ModelDropDown" value={{item.ModelID}}>{{item.ModelNo}}</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <b>Quantity </b>
-                        <input type="text" placeholder="Select Quantity" ng-model="$ctrl.InsertItem.Quantity" name="quantity" class="form-control" />
-                    </div>
-                    <div class="col-md-3">
-                        <b>HSN/SAC </b>
-                        <input type="text" placeholder="" ng-model="$ctrl.InsertItem.HSN" name="quantity" class="form-control" />
-                    </div>
-                    
-                    <!--<div class="col-md-3">
-        <b>Channel </b>
-        <select id="txtChannel" name="txtChannel" ng-model="$ctrl.InsertItem.ChannelID" class="form-control leader-create-dropdown" ng-change="$ctrl.LeadSource();" tabindex="2">
-            <option value="">Select</option>
-            <option ng-repeat="item in $ctrl.ChannelDD" value="{{item.ID}}">{{item.Channel}}</option>
-
-        </select>
-    </div>
-    <div class="col-md-3">
-        <b>Opportunity Source  </b>
-
-        <select id="ddlleadsource" class="form-control leader-create-dropdown" name="LeadSource" ng-model="$ctrl.InsertItem.LeadSourceID" ng-change="$ctrl.LeadSourceChange();">
-            <option value="">Select</option>
-            <option ng-repeat="item in $ctrl.LeadSourcedd" value={{item.LeadSourceID}}>{{item.LeadSource}}</option>
-        </select>
-    </div>-->
-                    <!--<div class="col-md-3">
-        <b>Sales Area </b>
-        <select id="txtSales" name="SalesArea" ng-model="$ctrl.InsertItem.SalesAreaID" class="form-control">
-            <option value="">Select</option>
-            <option ng-repeat="item in $ctrl.SalesAreaDropDown" value={{item.SalesAreaID}}>{{item.SalesArea}}</option>
-        </select>
-    </div>-->
-                </div>
                     <!--<div class="form-group">
 
 
@@ -500,24 +500,24 @@
 
 
                     </div>-->
-                <div class="form-group">
-                    <div class="col-md-3">
-                        <b>MRP/Unit </b>
-                        <input type="text" placeholder="" ng-model="$ctrl.InsertItem.MRPUnit" id="MRPUnit" name="quantity" class="form-control" />
-                    </div>
-                    <div class="col-md-3">
-                        <b>GST % </b>
-                        <input type="text" placeholder="" ng-model="$ctrl.InsertItem.GST" name="quantity" class="form-control" />
-                    </div>
-                    <div class="col-md-3">
-                        <b>Discount </b>
-                        <input type="text" placeholder="" ng-model="$ctrl.InsertItem.Discount" name="quantity" class="form-control" />
-                    </div>
-                    <div class="col-md-3 text-right" style="margin-top: 25px">
-                        <input type="submit" id="Check-submit" value="Check Price" ng-click="$ctrl.CheckPrice();" class="btn search-btn" style="background-color: #367fa9; ">
-                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <b>MRP/Unit </b>
+                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.MRPUnit" id="MRPUnit" name="quantity" class="form-control" />
+                        </div>
+                        <div class="col-md-3">
+                            <b>GST % </b>
+                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.GST" name="quantity" class="form-control" />
+                        </div>
+                        <div class="col-md-3">
+                            <b>Discount </b>
+                            <input type="text" placeholder="" ng-model="$ctrl.InsertItem.Discount" name="quantity" class="form-control" />
+                        </div>
+                        <div class="col-md-3 text-right" style="margin-top: 25px">
+                            <input type="submit" id="Check-submit" value="Check Price" ng-click="$ctrl.CheckPrice();" class="btn search-btn" style="background-color: #367fa9; ">
+                        </div>
 
-                </div>
+                    </div>
                     <div class="form-group">
                         <div class="col-md-3">
                             <b> Total Price</b>

@@ -315,10 +315,10 @@
 
             }));
 
-            this.ProductDropDown = this.ProductService.Find(0).then((response => {
-                this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
+            //this.ProductDropDown = this.ProductService.Find(0).then((response => {
+            //    this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
 
-            }));
+            //}));
 
             this.LeadTypeDropDown = this.LeadTypeService.Find().then((response => {
                 this.LeadTypeDropDown = this.LeadTypeService.GetLeadTypeName(response.data.Result);
@@ -560,12 +560,11 @@
 
         Product(): void {          
                 console.log("ProductID1",this.InsertLead.ProductID)
-            this.ProductDropDown = this.ProductService.Find(this.InsertLead.ProductID).then((response => {
-                console.log("ProductDropDown", this.ProductDropDown)
+            this.ProductDropDown = this.ProductService.Find(this.InsertLead.ProductID).then((response => {               
                 this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
-                this.InsertLead.Product = this.ProductDropDown.Product;
-                this.InsertLead.ProductDesc = this.ProductDropDown.ProductDesc;
-                this.InsertLead.ProductID = this.ProductDropDown.ProductID;
+                //this.InsertLead.Product = this.ProductDropDown.Product;
+                //this.InsertLead.ProductDesc = this.ProductDropDown.ProductDesc;
+                /*this.InsertLead.ProductID = this.ProductDropDown.ProductID;*/
                 console.log("ProductID3", this.InsertLead.ProductID)
 
                 //$('#txtProductDesc').val(this.ProductDropDown.ProductDesc);

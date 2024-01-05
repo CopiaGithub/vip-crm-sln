@@ -17,6 +17,9 @@ var GCPL;
                     this._cookieStore = _cookieStore;
                     this.numRecords = 10;
                     this.page = 0;
+                    this.counter = 0;
+                    this.totalds = 0;
+                    this.total = 0;
                     this.TotalDSQty = 0;
                     this.TotalDSItemQty = 0;
                     this.incre = 0;
@@ -280,12 +283,21 @@ var GCPL;
                         _this.DeliverySchedulelist = _this.DeliveryScheduleEditService.GetLeadItemDSEditList(response.data.Result);
                         console.log("this.DeliverySchedulelist", _this.DeliverySchedulelist);
                         var counter = 0;
+                        var totalds = 0;
                         for (var i = 0; i < _this.DeliverySchedulelist.length; i++) {
-                            _this.TotalDSQty = _this.DeliverySchedulelist[i].DeliveryQty;
-                            _this.TotalDSItemQty = _this.TotalDSItemQty + _this.TotalDSQty;
-                            console.log(_this.TotalDSItemQty);
+                            totalds = _this.DeliverySchedulelist[i].DeliveryQty;
+                            counter = counter + totalds;
+                            console.log(counter);
                         }
-                        console.log(counter); // 6
+                        var remainder, sumOfDigits = 0;
+                        while (counter) {
+                            remainder = counter % 10;
+                            sumOfDigits = sumOfDigits + remainder;
+                            counter = Math.floor(counter / 10);
+                        }
+                        console.log(sumOfDigits);
+                        _this.TotalDSItemQty = sumOfDigits;
+                        console.log("TotalDSItemQty", _this.TotalDSItemQty);
                     }));
                 };
                 DeliveryScheduleEditController.prototype.EditDSList = function (data) {
@@ -456,8 +468,12 @@ var GCPL;
                         }
                     }
                 };
-                DeliveryScheduleEditController.prototype.DeleteAssignmentCart = function (index) {
-                    this.DeliverySchedulelist.splice(index, 1);
+                DeliveryScheduleEditController.prototype.SetDeleteType = function (Data) {
+                    this.TxnID = Data.TxnID;
+                    $("#exampleModalDelete").modal("show");
+                };
+                DeliveryScheduleEditController.prototype.DeleteAssignmentCart = function () {
+                    this.DeliverySchedulelist.splice(this.TxnID - 1, 1);
                     if (this.DeliverySchedulelist.length <= 0) {
                         this.DeliverySchedulelist = null;
                     }
@@ -529,38 +545,61 @@ var GCPL;
                 DeliveryScheduleEditController.prototype.Submit = function (data) {
                     var _this = this;
                     debugger;
-                    var err = 0;
-                    var flag = 0;
-                    var failureCount = 0;
-                    var SuccessCount = 0;
-                    if (this.DeliverySchedulelist == undefined || this.TotalDsList == null) {
+                    // Initialize the total sum to 0
+                    this.counter += this.DeliverySchedulelist[i].DeliveryQty;
+                    console.log(this.counter);
+                    for (var i_1 = 0; i_1 < this.DeliverySchedulelist.length; i_1++) {
+                        this.totalds = this.DeliverySchedulelist[i_1].DeliveryQty;
+                        this.counter = this.counter + this.totalds;
+                        console.log(this.counter);
+                    }
+                    console.log("counter", this.counter);
+                    var remainder, sumOfDigits = 0;
+                    while (this.counter) {
+                        remainder = this.counter % 10;
+                        sumOfDigits = sumOfDigits + remainder;
+                        this.counter = Math.floor(this.counter / 10);
+                    }
+                    console.log(sumOfDigits);
+                    this.TotalDSItemQty = sumOfDigits;
+                    if (this.TotalDSItemQty == this.InsertItem.Quantity) {
+                        var err = 0;
+                        var flag = 0;
+                        var failureCount = 0;
+                        var SuccessCount = 0;
+                        if (this.DeliverySchedulelist == undefined || this.TotalDsList == null) {
+                        }
+                        else {
+                            this.TotalDsList = this.DeliverySchedulelist;
+                        }
+                        for (var i = 0; i < this.DeliverySchedulelist.length; i++) {
+                            if (this.UserID != null || this.UserID != "") {
+                                this.DeliverySchedulelist[i].UserID = this.UserID;
+                                //this.TotalDsQty = this.DeliverySchedulelist[i].DeliveryQty;
+                                //this.TotalDSItemQty = this.TotalDSItemQty + this.TotalDsQty;
+                                //console.log(this.TotalDSItemQty);
+                            }
+                            this.InsertItem = this.DeliverySchedulelist[i];
+                            debugger;
+                            this.InsertDsDetailsEditService.PostDSEdit(this.InsertItem).then((function (response) {
+                                if (response.data.Result > 0) {
+                                    //flag = 0;
+                                    //SuccessCount++;
+                                    _this.HideShow();
+                                    _this.popupMessage("Delivery Schedule Updated Successfully", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                                }
+                                else {
+                                    //flag = 1;
+                                    //failureCount++;
+                                    _this.HideShow();
+                                    _this.popupMessage("Some error occured", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
+                                }
+                            }));
+                        }
                     }
                     else {
-                        this.TotalDsList = this.DeliverySchedulelist;
-                    }
-                    for (var i = 0; i < this.DeliverySchedulelist.length; i++) {
-                        if (this.UserID != null || this.UserID != "") {
-                            this.DeliverySchedulelist[i].UserID = this.UserID;
-                            //this.TotalDsQty = this.DeliverySchedulelist[i].DeliveryQty;
-                            //this.TotalDSItemQty = this.TotalDSItemQty + this.TotalDsQty;
-                            //console.log(this.TotalDSItemQty);
-                        }
-                        this.InsertItem = this.DeliverySchedulelist[i];
-                        debugger;
-                        this.InsertDsDetailsEditService.PostDSEdit(this.InsertItem).then((function (response) {
-                            if (response.data.Result > 0) {
-                                //flag = 0;
-                                //SuccessCount++;
-                                _this.HideShow();
-                                _this.popupMessage("Delivery Schedule Updated Successfully", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
-                            }
-                            else {
-                                //flag = 1;
-                                //failureCount++;
-                                _this.HideShow();
-                                _this.popupMessage("Delivery Qty should be equal to Item Qty.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
-                            }
-                        }));
+                        this.HideShow();
+                        this.popupMessage("Delivery Qty should be equal to Item Qty.", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
                     }
                 };
                 DeliveryScheduleEditController.prototype.locationreload = function () {

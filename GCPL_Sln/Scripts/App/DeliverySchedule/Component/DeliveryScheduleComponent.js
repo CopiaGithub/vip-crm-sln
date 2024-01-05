@@ -479,15 +479,19 @@ var GCPL;
                         }));
                     }
                 };
-                DeliveryScheduleController.prototype.DeleteDsFromCart = function (DsID) {
+                DeliveryScheduleController.prototype.SetDeleteType = function (Data) {
+                    this.TxnID = Data.TxnID;
+                    $("#exampleModalDelete").modal("show");
+                };
+                DeliveryScheduleController.prototype.DeleteDsFromCart = function () {
                     var _this = this;
                     //debugger;
-                    this.DeleteService.Find(DsID).then((function (response) {
+                    this.DeleteService.Find(this.TxnID).then((function (response) {
                         _this.DeleteService.postDsDelete(response.data.Result);
                         //this.Init();
                         $("#errorclose").hide();
                         $("#close").show();
-                        _this.popupMessage("Record deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                        _this.popupMessage("Record deleted successfully.", "succeess-message-box-delelte", "error-modal-head", "#success-img-id", "#error-img-id");
                     }));
                 };
                 DeliveryScheduleController.prototype.DeleteDSItem = function () {

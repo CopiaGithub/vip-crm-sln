@@ -195,19 +195,18 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr ng-repeat="item in $ctrl.DeliverySchedulelist">
-                                                            <td>{{item.LeadID}}-{{item.index}}</td>
+                                                            <td>{{item.DsNO}}</td>
                                                             <td>{{item.ProductCode}}</td>
                                                             <td>{{item.ProductDesc}}</td>
                                                             <!--<td>{{item.DeliveryDate}}</td>-->
-                                                            <td><input id="hfDeliveryDate" type="hidden" name="hfDeliveryDate"><input type="text" id="txtDeliveryDate" ng-model="item.DeliveryDate" name="txtDeliveryDate" input="hfDeliveryDate"  class="form-control"></td>
+                                                            <td><input id="hfDeliveryDate" type="hidden" name="hfDeliveryDate"><input type="text" id="DeliveryDate" ng-model="item.DeliveryDate" name="DeliveryDate" class="form-control"></td>
                                                             <!--<td>{{item.DeliveryQty}}</td>-->
                                                             <td><input type="text" id="DeliveryQty" ng-model="item.DeliveryQty" name="DeliveryQty" class="form-control"></td>
-                                                            <td><a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.DeleteAssignmentCart(i);"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                                            <!--<td><a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.DeleteAssignmentCart(i);"><i class="fa fa-trash" aria-hidden="true"></i></a></td>-->
+                                                            <td>
+                                                                <a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.SetDeleteType({TxnID: item.index});"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                                            </td>
 
-                                                            <!--<a class="delete-table-link" data-toggle="modal" data-target="#myAlert" ng-click="$ctrl.DeleteDsFromCart(item.ID);"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
-                                                            <!--<td>
-                                                                <span class="edit-table-link" data-toggle="modal" data-target="#myModalEditDS" ng-click="$ctrl.EditDSList(item.ID);"><i class="fa fa-edit" aria-hidden="true"></i></span>
-                                                            </td>-->
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -441,7 +440,7 @@
         </div>
     </div>
 
-    <!--<div class="modal fade" id="myModalEditDS" tabindex="-2" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
+    <div class="modal fade" id="myModalEditDS" tabindex="-2" role="dialog" aria-labelledby="myModalLabel4" aria-hidden="true">
         <div class="modal-dialog modal-2">
             <div class="modal-content " style="position: relative">
                 <div class="modal-header modal-head">
@@ -450,7 +449,7 @@
                 </div>
 
                 <div id="div-1" class="modal-body">
-                    <form>-->
+                    <form>
                         <!--<div class="modal-header">
                             <div class="row">-->
                         <!--<div class="col-md-12 text-right">
@@ -463,7 +462,7 @@
                         <!--</div>
                         </div>-->
 
-                        <!--<div class="row">
+                        <div class="row">
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Item Code</label>
@@ -473,12 +472,12 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Item Description</label>
-                                    <input type="text" id="txtItemDescription" ng-model="$ctrl.InsertItem.ProductDesc" name="txtItemDescription" class="form-control" required disabled>-->
+                                    <input type="text" id="txtItemDescription" ng-model="$ctrl.InsertItem.ProductDesc" name="txtItemDescription" class="form-control" required disabled>
                                     <!--<select id="txtProduct" name="Product" ng-model="$ctrl.InsertItem.ProductID" class="form-control leader-create-dropdown" tabindex="2" required disabled>
                                         <option ng-repeat="item in $ctrl.ProductDropDown" value={{item.ProductID}}>{{item.ProductDesc}}</option>
 
                                     </select>-->
-                                <!--</div>
+                                </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
@@ -489,11 +488,11 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label>Delivery Quantity</label>-->
+                                    <label>Delivery Quantity</label>
                                     <!--<div class="col-md-3" ng-class="{ 'has-error' : (userForm.txtCustomerName.$invalid && userForm.txtCustomerName.$pristine) }">-->
-                                    <!--<input type="text" id="DeliveryQty" ng-model="$ctrl.InsertItem.DeliveryQty" name="DeliveryQty" class="form-control">-->
+                                    <input type="text" id="DeliveryQty" ng-model="$ctrl.InsertItem.DeliveryQty" name="DeliveryQty" class="form-control">
                                     <!--<p ng-show="(userForm.txtCustomerName.$invalid && !userForm.txtCustomerName.$pristine)" id="errorWOType" class="help-block" style="color:red">Customer Name is required.</p>-->
-                                <!--</div>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -505,17 +504,17 @@
                             </div>
                         </div>
                     </form>
-                </div>-->
+                </div>
                 <!-- Search Loader Started -->
-                <!--<div class="search-loader" id="ass-btn-loader1" style="display: none;background: rgba(0,0,0,.5)">
+                <div class="search-loader" id="ass-btn-loader1" style="display: none;background: rgba(0,0,0,.5)">
                     <div class="search-loader-container">
                         <img class="search-gif-loader" src="../../../../../Content/assets/img/loader-icon.gif" />
                     </div>
-                </div>-->
+                </div>
                 <!-- Search Loader Ended -->
-            <!--</div>
+            </div>
         </div>
-    </div>-->
+    </div>
 
 
 
@@ -534,6 +533,54 @@
                         <img id="success-img-id" style="width: 40px;" src="../../../../../Content/assets/img/success-img.gif" />
                         <img id="error-img-id" style="width: 28px;" src="../../../../../Content/assets/img/error-img.png" />
                         <span id="message-text">Data Inserted Successfully</span>
+                    </p>
+                </div>
+                <div class="modal-footer message-modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.Close();" id="close" data-dismiss="modal">Ok</button>
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.ErrorClose();" id="errorclose" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalDelete" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog" role="document">
+
+            <!-- Modal content-->
+
+            <div class="modal-content">
+                <div class="modal-header" style="height: 39px;background-color:#DC143C;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title success-modal-title">Message</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <span id="message-text">Confirm deletion?</span>
+                    </p>
+                </div>
+                <div class="modal-footer message-modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="$ctrl.DeleteAssignmentCart();" data-dismiss="modal">Confirm</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="succeess-message-box-delelte" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!--Modal content-->
+
+            <div class="modal-content">
+                <div class="modal-header" id="success-modal-head">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title success-modal-title">Message</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <img id="success-img-id" style="width: 40px;" src="../../../../../Content/assets/img/success-img.gif" />
+                        <img id="error-img-id" style="width: 28px;" src="../../../../../Content/assets/img/error-img.png" />
+                        <span id="message-text">Data Deleted Successfully</span>
                     </p>
                 </div>
                 <div class="modal-footer message-modal-footer">

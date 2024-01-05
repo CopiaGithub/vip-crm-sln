@@ -312,9 +312,9 @@ var GCPL;
                         _this.LeadStatusDD = _this.LeadStatusDDService.GetStage(response.data.Result);
                         // this.UpdateLeadData.SalesStage = this.StageDD[0].ID.toString();
                     }));
-                    this.ProductDropDown = this.ProductService.Find(0).then((function (response) {
-                        _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
-                    }));
+                    //this.ProductDropDown = this.ProductService.Find(0).then((response => {
+                    //    this.ProductDropDown = this.ProductService.GetProductName(response.data.Result);
+                    //}));
                     this.FillGrid();
                     this.FillGridItems();
                     this.FillGrid1();
@@ -447,8 +447,8 @@ var GCPL;
                     var _this = this;
                     this.ProductDropDown = this.ProductService.Find(this.InsertItem.ProductID).then((function (response) {
                         _this.ProductDropDown = _this.ProductService.GetProductName(response.data.Result);
-                        _this.InsertItem.Product = _this.ProductDropDown.Product;
-                        _this.InsertItem.ProductDesc = _this.ProductDropDown.ProductDesc;
+                        //this.InsertItem.Product = this.ProductDropDown.Product;
+                        //this.InsertItem.ProductDesc = this.ProductDropDown.ProductDesc;
                         //$('#txtProductDesc').val(this.ProductDropDown.ProductDesc);
                         //(<HTMLInputElement>document.getElementById("txtProductDesc")).value = this.ProductDropDown.ProductDesc
                     }));
@@ -477,24 +477,32 @@ var GCPL;
                         _this.Campaigndd = _this.CampaignDDService.GetCampaignDetails(response.data.Result);
                     }));
                 };
-                LeadAssessmentController.prototype.DeleteItem = function (ItemID) {
+                LeadAssessmentController.prototype.SetDeleteType = function (Data) {
+                    this.TxnID = Data.TxnID;
+                    $("#exampleModalDelete").modal("show");
+                };
+                LeadAssessmentController.prototype.SetDeleteTypeActivity = function (Data) {
+                    this.TxnID = Data.TxnID;
+                    $("#exampleModalDeleteActivity").modal("show");
+                };
+                LeadAssessmentController.prototype.DeleteItem = function () {
                     var _this = this;
-                    this.DeleteService.Find(ItemID).then((function (response) {
+                    this.DeleteService.Find(this.TxnID).then((function (response) {
                         _this.DeleteService.postItemDelete(response.data.Result);
-                        _this.Init();
+                        _this.TxnID = "";
                         $("#errorclose").hide();
                         $("#close").show();
-                        _this.popupMessage("Record deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                        _this.popupMessage("Data deleted successfully.", "succeess-message-box-delelte", "error-modal-head", "#success-img-id", "#error-img-id");
                     }));
                 };
-                LeadAssessmentController.prototype.DeleteActivity = function (ActivityID) {
+                LeadAssessmentController.prototype.DeleteActivity = function () {
                     var _this = this;
-                    this.DeleteActService.Find(ActivityID).then((function (response) {
+                    this.DeleteActService.Find(this.TxnID).then((function (response) {
                         _this.DeleteActService.postActivityDelete(response.data.Result);
-                        _this.Init();
+                        _this.TxnID = "";
                         $("#errorclose").hide();
                         $("#close").show();
-                        _this.popupMessage("Activity deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                        _this.popupMessage("Activity deleted successfully.", "success-modal-head-delete-activity", "error-modal-head", "#success-img-id", "#error-img-id");
                     }));
                 };
                 LeadAssessmentController.prototype.Assessment = function (data) {

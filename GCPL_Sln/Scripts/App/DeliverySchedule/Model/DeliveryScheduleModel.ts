@@ -13,6 +13,7 @@
         DeliveryQty: string;
         EditState: string;
         index: string;
+        DsNO: string;
     }
 }
 

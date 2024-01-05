@@ -110,6 +110,7 @@
         TotalDsList = null;
         TotalDsQty = null;
         TotalDSItemQty = 0;
+        TxnID: any;
 
         private ProjectNameService: Service.IProjectNameService;
         private InsertService: Service.IUpdateLeadChangeService;
@@ -160,6 +161,7 @@
             "$location", "$cookieStore", "CampaignDetailsService", "UserCodeAutoFillService", "LeadItemNewDSListService", "EditItemList",
                           "AddToCartDsService", "DeliveryScheduleListService", "DeleteDsFromAddToCartService", "InsertDsDetailsService",
             "LeadStatusddService", "EditDSListService", "DeleteDSItemService"];
+        
 
         //constructor define with Serivce _Name:Service.IServiceName//
         constructor(_EditService: Service.ILeadChangeEditService, _ReasonForLeadOpenDDService: Service.IReasonForLeadOpenDDService,
@@ -683,15 +685,24 @@
 
             }
         }
+
+        SetDeleteType(Data: any) {
+
+
+            this.TxnID = Data.TxnID;
+            $("#exampleModalDelete").modal("show");
+
+
+        }
      
-        DeleteDsFromCart(DsID): void {
+        DeleteDsFromCart(): void {
             //debugger;
-            this.DeleteService.Find(DsID).then((response => {
+            this.DeleteService.Find(this.TxnID).then((response => {
                 this.DeleteService.postDsDelete(response.data.Result);
                 //this.Init();
                 $("#errorclose").hide();
                 $("#close").show();
-                this.popupMessage("Record deleted successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
+                this.popupMessage("Record deleted successfully.", "succeess-message-box-delelte", "error-modal-head", "#success-img-id", "#error-img-id");
 
             }));
         }
