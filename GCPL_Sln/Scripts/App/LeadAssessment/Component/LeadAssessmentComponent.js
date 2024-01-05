@@ -993,7 +993,6 @@ var GCPL;
                     this.InsertItem.LeadID = this.LeadID;
                     this.InsertItem.UserID = this.UserID;
                     this.InsertItem.ProductID = this.InsertItem.ProductID;
-                    console.log("OP", this.InsertItem);
                     if (this.InsertItem.LeadType == undefined || this.InsertItem.LeadType == null || this.InsertItem.LeadType == "") {
                         this.HideShow();
                         this.popupMessage("Please Select Opportunity Type", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
@@ -1037,10 +1036,11 @@ var GCPL;
                     else {
                         debugger;
                         $("#Item-submit").prop("disabled", true);
+                        console.log(this.LeadItemlist.DeliveryStatus, "this.LeadItemlist.DeliveryStatus11111");
                         this.InsertItem.ItemStatusID = this.InsertItem.LeadStatusId;
                         this.InsertItem.CategoryID = this.InsertItem.CategoryID;
                         this.InsertItem.LeadCategoryID = this.InsertItem.LeadCategoryID;
-                        this.InsertItem.DeliveryStatus = this.LeadItemlist.DeliveryStatus;
+                        this.InsertItem.DeliveryStatus = this.InsertItem.DeliveryStatus;
                         this.InsertItem.ProductID = this.InsertItem.ProductID;
                         console.log("OP", this.InsertItem);
                         //this.CreateInSAPLeadActivityService.PostCreateInSAPLeadActivity(this.InsertAct).then((response => {
@@ -1204,7 +1204,8 @@ var GCPL;
                     var _this = this;
                     this.LeadItemlist = this.ListItemservice.Find(this.LeadID).then((function (response) {
                         _this.LeadItemlist = _this.ListItemservice.GetLeadItemList(response.data.Result);
-                        console.log("GetLeadItemList", response.data.Result);
+                        console.log("GetLeadItemList11111", _this.LeadItemlist);
+                        console.log(_this.LeadItemlist.DeliveryStatus, "this.LeadItemlist.DeliveryStatus22222");
                     }));
                 };
                 LeadAssessmentController.prototype.FillGrid1 = function () {
@@ -1253,7 +1254,7 @@ var GCPL;
                     var _this = this;
                     this.EditItemService.Find(data).then((function (response) {
                         _this.InsertItem = _this.EditItemService.GetItemEdit(response.data.Result);
-                        console.log("InsertItem", response.data.Result);
+                        console.log("InsertItem", _this.InsertItem);
                         $("myModalAdd").show();
                     }));
                 };

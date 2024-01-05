@@ -6,6 +6,7 @@
         ID: string;
         LeadID: string;
         ItemID: string;
+        DSNO: string;
         CustomerName: string;
         UserID: string;
         ItemQty: string;

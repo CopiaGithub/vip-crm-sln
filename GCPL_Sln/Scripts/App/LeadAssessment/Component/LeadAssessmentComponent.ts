@@ -1123,7 +1123,7 @@
                         //this.IsDisplayModalPopup = true;
 
                         $("#errorclose").hide();
-                        $("#close").show();
+                        $("#close").show(); 
                         this.popupMessage("Assessment saved Successfully.", "success-modal-head", "error-modal-head", "#success-img-id", "#error-img-id");
                         this.Init();
                         //$("#myModalAddNew").hide();
@@ -1278,7 +1278,7 @@
             this.InsertItem.LeadID = this.LeadID;
             this.InsertItem.UserID = this.UserID;
             this.InsertItem.ProductID = this.InsertItem.ProductID;
-            console.log("OP", this.InsertItem);
+
             if (this.InsertItem.LeadType == undefined || this.InsertItem.LeadType == null || this.InsertItem.LeadType == "") {
                 this.HideShow();
                 this.popupMessage("Please Select Opportunity Type", "error-modal-head", "success-modal-head", "#error-img-id", "#success-img-id");
@@ -1328,11 +1328,12 @@
                 debugger;
                 $("#Item-submit").prop("disabled", true);
 
+                console.log(this.LeadItemlist.DeliveryStatus,"this.LeadItemlist.DeliveryStatus11111")
 
                 this.InsertItem.ItemStatusID = this.InsertItem.LeadStatusId;
                 this.InsertItem.CategoryID = this.InsertItem.CategoryID;
                 this.InsertItem.LeadCategoryID = this.InsertItem.LeadCategoryID;
-                this.InsertItem.DeliveryStatus = this.LeadItemlist.DeliveryStatus;
+                this.InsertItem.DeliveryStatus = this.InsertItem.DeliveryStatus;
                 this.InsertItem.ProductID = this.InsertItem.ProductID;
 
 
@@ -1527,8 +1528,8 @@
 
             this.LeadItemlist = this.ListItemservice.Find(this.LeadID).then((response => {
                 this.LeadItemlist = this.ListItemservice.GetLeadItemList(response.data.Result);
-                console.log("GetLeadItemList", response.data.Result)
-
+                console.log("GetLeadItemList11111", this.LeadItemlist)
+                console.log(this.LeadItemlist.DeliveryStatus, "this.LeadItemlist.DeliveryStatus22222")
             }));
         }
 
@@ -1591,7 +1592,7 @@
             this.EditItemService.Find(data).then((response => {
               
                 this.InsertItem = this.EditItemService.GetItemEdit(response.data.Result);
-                console.log("InsertItem", response.data.Result)
+                console.log("InsertItem", this.InsertItem)
                 $("myModalAdd").show();
 
             }));
