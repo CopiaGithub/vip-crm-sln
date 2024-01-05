@@ -3,17 +3,29 @@
         constructor() {
 
         }
-
         ID: string;
+        LeadID: string;
         ItemID: string;
+        CustomerName: string;
+        UserID: string;
+        ItemQty: string;
+        DeliveryDate: string; 
+        DeliveryQty: string;
         ProductID: string;
         ProductCode: string;
         ProductDesc: string;
-        UserID: string;
+    }
+
+    export class DSSearchModel {
+
+        constructor() {
+
+        }
+        FromDate: string;
+        ToDate: string;
+        DsID: string;
         LeadID: string;
-        DeliveryDate: string;
-        DeliveryQty: string;
-        EditState: string;
-        index: string;
+        ProductID: string;
+        CustomerID: string;
     }
 }

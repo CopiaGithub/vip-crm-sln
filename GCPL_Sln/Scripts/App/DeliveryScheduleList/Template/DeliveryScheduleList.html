@@ -41,33 +41,33 @@
                                 <div class="col-lg-2 col-md-2">
                                     <div class="form-group">
                                         <label class="form-label">To Date</label>
-                                        <input id="hfFromDate" type="hidden" name="hfFromDate">
-                                        <input name="txtToDate" placeholder="DD MMM YYYY" input="hfFromDate" data-intro="true" id="txtToDate" class="form-control">
+                                        <input id="hfToDate" type="hidden" name="hfToDate">
+                                        <input name="txtToDate" placeholder="DD MMM YYYY" input="hfToDate" data-intro="true" id="txtToDate" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2">
                                     <div class="form-group">
                                         <label class="form-label">Delivery Schedule No</label>
-                                        <input type="text" placeholder="Delivery Schedule No" ng-model="$ctrl.AllActSearchModel.ActivityID" class="form-control" name="name" value="" />
+                                        <input type="text" placeholder="Delivery Schedule No" ng-model="$ctrl.DeliveryScheduleSearchModel.DsID" class="form-control" name="name" value="" />
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2">
                                     <div class="form-group">
                                         <label class="form-label">Opportunity No</label>
-                                        <input type="text" placeholder="Opportunity No" ng-model="$ctrl.AllActSearchModel.LeadID" class="form-control" name="name" value="" />
+                                        <input type="text" placeholder="Opportunity No" ng-model="$ctrl.DeliveryScheduleSearchModel.LeadID" class="form-control" name="name" value="" />
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-md-2">
                                     <div class="form-group">
                                         <label class="form-label">Item Code</label>
-                                        <input type="text" name="username" id="txtUserName" placeholder="Item Code" class="form-control" value="" />
+                                        <input type="text" id="txtProductCode" name="txtProductCode" placeholder="Enter Item Code" class="form-control" />
                                     </div>
                                 </div>
 
                                 <div class="col-lg-2 col-md-2">
                                     <div class="form-group">
                                         <label class="form-label">Item Description</label>
-                                        <input type="text" name="username" id="txtUserName" placeholder="Item Description" class="form-control" value="" />
+                                        <input type="text" id="txtProductDesc" name="txtProductDesc" placeholder="Enter Item Name" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -96,88 +96,13 @@
                                 <div class="col-lg-8 col-md-8 selection-filter-btn-col text-right">
                                     <input type="submit" name="btnSubmit" value="Search" ng-click="$ctrl.Search()" id="btnSubmit" class="btn search-btn">
                                     <input type="submit" name="btnSubmit" value="Clear" ng-click="$ctrl.Clear()" id="btnSubmit" class="btn clear-btn">
-                                    <input type="submit" name="btnSubmit" value="Download Excel" id="btnSubmit" ng-click="$ctrl.exportTableToCSV('AllActivitiesReport.csv')" class="btn download-btn">
+                                    <input type="submit" name="btnSubmit" value="Download Excel" id="btnSubmit" ng-click="$ctrl.exportTableToCSV('DeliveryScheduleReport.csv')" class="btn download-btn">
                                 </div>
                             </div>
                         </div>
 
 
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="tiles-section" style="display:none">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 ">
-            <!--<div class="dashboard-col-updatecol-lg-2 col-md-2 tile-col">-->
-            <!--<div class="info-container">
-                <h2 class="tile-title">Allocated Leads</h2>
-                <input name="txtTotalLead" type="text" id="txtTotalLead" ng-model="$ctrl.getAllLeadCount.Allocated" class="form-control" style="width:100%" disabled>
-            </div>-->
-            <div class="dashboard-col-update col-lg-2 col-md-2 tile-col">
-                <div class="dashboard-tile one-tile">
-                    <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
-                    <input name="txtTotalLead" type="text" id="txtAllocatedLead" ng-model="$ctrl.getAllLeadCount.Allocated" class="form-control" style="width:100%" disabled>
-                    <p class="dashboard-sugession">Allocated</p>
-                </div>
-            </div>
-
-            <div class="dashboard-col-update col-lg-2 col-md-2 tile-col">
-                <!--<div class="info-container">
-                    <h2 class="tile-title">Deferred</h2>
-                    <input name="txtTotalLead" type="text" id="txtTotalLead" ng-model="$ctrl.getAllLeadCount.Deferred" class="form-control" style="width:100%" disabled>
-                </div>-->
-
-                <div class="dashboard-tile one-tile">
-                    <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
-                    <input name="txtTotalLead" type="text" id="txtTotalLead" ng-model="$ctrl.getAllLeadCount.Deferred" class="dashboard-tile-inputdata" style="width:100%" disabled>
-                    <p class="dashboard-sugession">Deferred</p>
-                </div>
-            </div>
-            <div class="dashboard-col-update col-lg-2 col-md-2 tile-col">
-                <div class="dashboard-tile two-tile">
-                    <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
-                    <input name="txtTotalLead" type="text" id="txtTotalLead" ng-model="$ctrl.getAllLeadCount.Delayed" class="dashboard-tile-inputdata" style="width:100%" disabled>
-                    <p class="dashboard-sugession">Delayed</p>
-                </div>
-            </div>
-            <div class="dashboard-col-update col-lg-2 col-md-2 tile-col">
-                <div class="dashboard-tile one-tile">
-                    <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
-                    <input name="txtTotalLead" type="text" id="txtInprocessLead" ng-model="$ctrl.getAllLeadCount.Inprocess" class="dashboard-tile-inputdata" style="width:100%" disabled>
-                    <p class="dashboard-sugession">Inprocess</p>
-                </div>
-            </div>
-            <div class="dashboard-col-update col-lg-2 col-md-2 tile-col">
-                <div class="dashboard-tile one-tile">
-                    <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
-                    <input name="txtTotalLead" type="text" id="txtTotalLead" ng-model="$ctrl.getAllLeadCount.ActivityCreated" class="dashboard-tile-inputdata" style="width:100%" disabled>
-                    <p class="dashboard-sugession">Activity Created</p>
-                </div>
-
-            </div>
-            <!--<div class="dashboard-col-update col-lg-2 col-md-2 tile-col">
-                <div class="dashboard-tile one-tile">
-                    <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
-                    <input name="txtTotalLead" type="text" id="txtTotalLead" ng-model="$ctrl.getAllLeadCount.ActivityCompleted" class="dashboard-tile-inputdata" style="width:100%" disabled>
-                    <p class="dashboard-sugession">Activity Completed</p>
-                </div>
-            </div>-->
-            <div class="dashboard-col-update" style="padding-top:5px">
-                <div class="dashboard-tile one-tile">
-                    <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
-                    <input name="txtTotalLead" type="text" id="txtTotalLead" ng-model="$ctrl.getAllLeadCount.ActivityCompleted" class="dashboard-tile-inputdata" style="width:100%" disabled>
-                    <p class="dashboard-sugession">Activity Complete</p>
-                </div>
-            </div>
-            <div class="dashboard-col-update col-lg-2 col-md-2 tile-col">
-                <div class="dashboard-tile one-tile">
-                    <i class="fa fa-shopping-bag dash-font-icon" aria-hidden="true"></i>
-                    <input name="txtTotalLead" type="text" id="txtConvertedLead" ng-model="$ctrl.getAllLeadCount.Converted" class="dashboard-tile-inputdata" style="width:100%" disabled>
-                    <p class="dashboard-sugession">Converted</p>
                 </div>
             </div>
         </div>
@@ -195,7 +120,7 @@
                 <div id="div-1" class="body">
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
-                            <!-- <label class="table-label">Count : {{$ctrl.FillAllActivitiesGrid.length}} </label> -->
+                            <label class="table-label">Count : {{$ctrl.FillDeliveryScheduleGrid.length}} </label> 
                         </div>
                         <div class="col-lg-6 col-md-6 text-right">
                             <label class="table-label">No of Records Display : </label>
@@ -223,14 +148,14 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="item in $ctrl.shownItems">
-                                    <td>{{item.ItemID}}</td>
+                                    <td>{{item.LeadID}}</td>
                                     <td>{{item.ID}}</td>
-                                    <td>{{item.ProductID}}</td>
+                                    <td>{{item.CustomerName}}</td>
                                     <td>{{item.ProductCode}}</td>
                                     <td>{{item.ProductDesc}}</td>
+                                    <td>{{item.ItemQty}}</td>
                                     <td>{{item.DeliveryQty}}</td>
-                                    <td>{{item.DeliveryQty}}</td>
-                                    <td>{{item.ProductID}}</td>
+                                    <td>{{item.DeliveryDate}}</td>
                                 </tr>
 
                             </tbody>
@@ -238,38 +163,26 @@
                         <table id="excelDownload" style="display:none;">
                             <thead>
                                 <tr>
-                                    <th>Activity No</th>
-                                    <th>Lead ID</th>
-                                    <th>Opportunity ID</th>
-                                    <th>Activity Date</th>
-                                    <th>Created By</th>
-                                    <th>Activity Type</th>
-                                    <th>Activity Status</th>
+                                    <th>Opportunity No</th>
+                                    <th>DS No</th>
                                     <th>Customer Name</th>
-                                    <th>Contact Name</th>
-                                    <th>Activity Against</th>
-                                    <th>Category</th>
-                                    <th>Location</th>
-                                    <th>Purpose</th>
-                                    <th>Notes</th>
+                                    <th>Item Code</th>
+                                    <th>Item Description</th>
+                                    <th>Item Qty</th>
+                                    <th>Delivery Qty</th>
+                                    <th>Delivery Date</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="item in $ctrl.DownloadAllActListGrid">
-                                    <td>{{item.ActivityNumber}}</td>
-                                    <td>{{item.ReferenceLead}}</td>
-                                    <td>{{item.ReferenceOpportunity}}</td>
-                                    <td>{{item.ActivityDate}}</td>
-                                    <td>{{item.CreatedBy}}</td>
-                                    <td>{{item.ActivityType}}</td>
-                                    <td>{{item.Status}}</td>
-                                    <td>{{item.CompanyName}}</td>
-                                    <td>{{item.ContactName}}</td>
-                                    <td>{{item.ActivityAgainst}}</td>
-                                    <td>{{item.Category}}</td>
-                                    <td>{{item.Location}}</td>
-                                    <td>{{item.Purpose}}</td>
-                                    <td>{{item.Note}}</td>
+                                <tr ng-repeat="item in $ctrl.FillDeliveryScheduleGrid">
+                                    <td>{{item.LeadID}}</td>
+                                    <td>{{item.ID}}</td>
+                                    <td>{{item.CustomerName}}</td>
+                                    <td>{{item.ProductCode}}</td>
+                                    <td>{{item.ProductDesc}}</td>
+                                    <td>{{item.ItemQty}}</td>
+                                    <td>{{item.DeliveryQty}}</td>
+                                    <td>{{item.DeliveryDate}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -285,14 +198,14 @@
                         </h3>
                     </div>
                 </div>
-                <!--<div class="row nex-prev-container">
+                <div class="row nex-prev-container">
                     <div class="col-lg-12 col-md-12 text-right">
-                        <button ng-show="$ctrl.ShowBack" ng-click="$ctrl.back()" class="btn btn-default">Prev</button>
-                        <button ng-show="$ctrl.ShowNext" ng-click="$ctrl.next()" class="btn btn-default">Next</button>
+                        <button ng-show="$ctrl.showback" ng-click="$ctrl.back()" class="btn btn-default">prev</button>
+                        <button ng-show="$ctrl.shownext" ng-click="$ctrl.next()" class="btn btn-default">next</button>
                     </div>
 
-                </div>-->
-                <div class="row">
+                </div>
+                <!--<div class="row">
                     <div class="col-lg-12 col-md-12 text-right">
                         <button class="btn btn-default" ng-show="$ctrl.ShowBack" ng-click="$ctrl.previousPage()">
                             Prev
@@ -301,7 +214,7 @@
                             Next
                         </button>
                     </div>
-                </div>
+                </div>-->
             </div>
 
         </div>

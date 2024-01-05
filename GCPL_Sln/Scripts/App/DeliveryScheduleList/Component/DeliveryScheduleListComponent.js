@@ -10,7 +10,7 @@ var GCPL;
             var ContactMaster = GCPL.Model.InsertContactMaster;
             var DeliveryScheduleListController = /** @class */ (function () {
                 //constructor define with Serivce _Name:Service.IServiceName//
-                function DeliveryScheduleListController(_DeliveryScheduleListService, _LeadStatusService, _DivisionService, _ProductService, _ModelService, _ZoneDDService, _RegionService, _StateService, _DistrictService, _LSService, _getAutoSalesrep2, _AllLeadReportViewService, _getAutoCampaign, _ActivityTypeService, _AllLeadCountService, _CustomerSapAutofill, _getAutoProjectName, _cookieStore) {
+                function DeliveryScheduleListController(_DeliveryScheduleListService, _LeadStatusService, _DivisionService, _ProductService, _ModelService, _ZoneDDService, _RegionService, _StateService, _DistrictService, _LSService, _getAutoSalesrep2, _AllLeadReportViewService, _getAutoCampaign, _ActivityTypeService, _AllLeadCountService, _CustomerSapAutofill, _ProductCodeAutofill, _ProductDescAutofill, _getAutoProjectName, _cookieStore) {
                     this._cookieStore = _cookieStore;
                     this.AllStatus = null;
                     this.FillDeliveryScheduleGrid = null;
@@ -42,27 +42,8 @@ var GCPL;
                     //RoleID = null;
                     this.Cookie = null;
                     this.getAllLeadCount = null;
-                    this.downloadCSVFromJson = function (filename, DownloadDeliveryScheduleList) {
-                        console.log('downloadCSVFromJson');
-                        // convert JSON to CSV
-                        var replacer = function (key, value) { return value === null ? '' : value; }; // specify how you want to handle null values here
-                        var header = Object.keys(DownloadDeliveryScheduleList[0]);
-                        var csv = DownloadDeliveryScheduleList.map(function (row) { return header.map(function (fieldName) {
-                            return JSON.stringify(row[fieldName], replacer);
-                        }).join(','); });
-                        csv.unshift(header.join(','));
-                        csv = csv.join('\r\n');
-                        // Create link and download
-                        var link = document.createElement('a');
-                        link.setAttribute('href', 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURIComponent(csv));
-                        link.setAttribute('download', filename);
-                        link.style.visibility = 'hidden';
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                    };
                     this.DeliveryScheduleList = _DeliveryScheduleListService;
-                    this.DeliveryScheduleSearchModel = new GCPL.Model.AllActSearchModel();
+                    this.DeliveryScheduleSearchModel = new GCPL.Model.DSSearchModel();
                     this.getAutoProjectName = _getAutoProjectName;
                     this.DivisionService = _DivisionService;
                     this.ProductService = _ProductService;
@@ -76,6 +57,8 @@ var GCPL;
                     this.AllLeadCountService = _AllLeadCountService;
                     this.getAllLeadCount = new getAllLeadCount();
                     this.CustomerSapAutofill = _CustomerSapAutofill;
+                    this.ProductCodeAutofill = _ProductCodeAutofill;
+                    this.ProductDescAutofill = _ProductDescAutofill;
                     this.InsertContact = new ContactMaster();
                     //this.RoleID = this.Cookie.get('UserInfo')['RoleID'];
                 }
@@ -128,15 +111,42 @@ var GCPL;
                     $("#errorclose").hide();
                     $("#close").hide();
                     var that = this;
-                    $("#txtUserName").autocomplete({
+                    $("#txtCustomerName").autocomplete({
+                        //  source:['1a0','anjali','archana'],
                         source: function (request, res) {
-                            that.getAutoSalesrep2.FilterAutoComplete(request).then((function (response) {
-                                var data = that.getAutoSalesrep2.GetAutEmployee(response.data.Result);
+                            that.CustomerSapAutofill.FilterAutoComplete(request).then((function (response) {
+                                var data = that.CustomerSapAutofill.GetAutoCustSAPID(response.data.Result);
                                 res($.map(data, function (item, index) {
                                     return {
-                                        label: item.Name,
-                                        value: item.Name,
-                                        id: item.userid
+                                        label: item.CustomerName,
+                                        value: item.CustomerName,
+                                        id: item.CustomerID
+                                    };
+                                }));
+                            }));
+                        },
+                        minLength: 2,
+                        focus: function (event, ui) {
+                            // Don't populate input field with selected value (pxid)
+                            event.preventDefault();
+                        },
+                        select: function (e, ui) {
+                            that.DeliveryScheduleSearchModel.CustomerID = ui.item.id;
+                            //that.Search1(ui.item.id);
+                        },
+                        change: function () {
+                        }
+                    });
+                    $("#txtProductCode").autocomplete({
+                        //  source:['1a0','anjali','archana'],
+                        source: function (request, res) {
+                            that.ProductCodeAutofill.FilterAutoComplete(request).then((function (response) {
+                                var data = that.ProductCodeAutofill.GetAutoProductCode(response.data.Result);
+                                res($.map(data, function (item, index) {
+                                    return {
+                                        label: item.Product,
+                                        value: item.Product,
+                                        id: item.ProductID
                                     };
                                 }));
                             }));
@@ -146,39 +156,36 @@ var GCPL;
                             event.preventDefault();
                         },
                         select: function (e, ui) {
-                            that.DeliveryScheduleSearchModel.CreatedBy = ui.item.id;
-                            console.log(that.DeliveryScheduleSearchModel.CreatedBy);
+                            that.DeliveryScheduleSearchModel.ProductID = ui.item.id;
+                            /*that.Search(ui.item.id);*/
                         },
                         change: function () {
                         }
                     });
-                    //$("#txtCustomerName").autocomplete({
-                    //    //  source:['1a0','anjali','archana'],
-                    //    source: function (request, res) {
-                    //        that.CustomerSapAutofill.FilterAutoComplete(request).then((response => {
-                    //            let data = that.CustomerSapAutofill.GetAutoCustSAPID(response.data.Result);
-                    //            res($.map(data, function (item, index) {
-                    //                return {
-                    //                    label: item.CustomerName,
-                    //                    value: item.CustomerName,
-                    //                    id: item.CustomerID
-                    //                }
-                    //            }));
-                    //        }));
-                    //    },
-                    //    minLength: 2,
-                    //    focus: (event, ui) => {
-                    //        // Don't populate input field with selected value (pxid)
-                    //        event.preventDefault();
-                    //    },
-                    //    select: function (e, ui) {
-                    //        that.AllLeadsHeaderModel.CustomerID = ui.item.id;
-                    //        that.Search1(ui.item.id);
-                    //        console.log(that.AllLeadsHeaderModel.CustomerID);
-                    //    },
-                    //    change: function () {
-                    //    }
-                    //});
+                    $("#txtProductDesc").autocomplete({
+                        //  source:['1a0','anjali','archana'],
+                        source: function (request, res) {
+                            that.ProductDescAutofill.FilterAutoComplete(request).then((function (response) {
+                                var data = that.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
+                                res($.map(data, function (item, index) {
+                                    return {
+                                        label: item.ProductDesc,
+                                        value: item.ProductDesc,
+                                        id: item.ProductID
+                                    };
+                                }));
+                            }));
+                        },
+                        minLength: 2,
+                        focus: function (event, ui) {
+                            event.preventDefault();
+                        },
+                        select: function (e, ui) {
+                            that.DeliveryScheduleSearchModel.ProductID = ui.item.id;
+                        },
+                        change: function () {
+                        }
+                    });
                     this.ActivityTypeDropDown = this.ActivityTypeService.Find().then((function (response) {
                         _this.ActivityTypeDropDown = _this.ActivityTypeService.GetActivityTypeName(response.data.Result);
                     }));
@@ -267,7 +274,7 @@ var GCPL;
                     this.DeliveryScheduleSearchModel.FromDate = document.getElementById("txtFromDate").value;
                     this.DeliveryScheduleSearchModel.ToDate = document.getElementById("txtToDate").value;
                     console.log(this.DeliveryScheduleSearchModel);
-                    this.FillDeliveryScheduleGrid = this.DeliveryScheduleList.FindGrid(28).then((function (response) {
+                    this.FillDeliveryScheduleGrid = this.DeliveryScheduleList.FindGrid(this.DeliveryScheduleSearchModel).then((function (response) {
                         _this.FillDeliveryScheduleGrid = _this.DeliveryScheduleList.GetDeliveryScheduleListReport(response.data.Result);
                         console.log(_this.FillDeliveryScheduleGrid, 'AllActivity');
                         $('#search-btn-loader').hide();
@@ -324,46 +331,6 @@ var GCPL;
                     DeliveryScheduleListController.statusDropdownList = [];
                     DeliveryScheduleListController.activityTypeDropdownList = [];
                 };
-                DeliveryScheduleListController.prototype.ExlDownload = function () {
-                    var _this = this;
-                    var that = this;
-                    that.incre = 0;
-                    //that.numRecords = parseInt(NoOfRecords);
-                    that.page = 0;
-                    that.maxPages = 0;
-                    that.shownItems = [];
-                    this.DeliveryScheduleSearchModel.FromDate = document.getElementById("txtFromDate").value;
-                    this.DeliveryScheduleSearchModel.ToDate = document.getElementById("txtToDate").value;
-                    this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadGrid(this.DeliveryScheduleSearchModel).then((function (response) {
-                        _this.DownloadDeliveryScheduleList = _this.DeliveryScheduleList.DownloadDeliveryScheduleListReport(response.data.Result);
-                        console.log(_this.DownloadDeliveryScheduleList, 'DownloadAllActivity');
-                        $('#search-btn-loader').hide();
-                        if (_this.DownloadDeliveryScheduleList.length > 0) {
-                            $("#nullDataDiv").hide();
-                            $("#dataTable").show();
-                            _this.DownloadDeliveryScheduleList.forEach(function (value, key) {
-                                that.incre = parseInt(key) + that.numRecords;
-                            });
-                            $('#search-btn-loader').hide();
-                            _this.maxPages = (that.incre / that.numRecords);
-                            _this.ShowBack = false;
-                            _this.ShowNext = that.maxPages > 1 ? true : false;
-                            _this.shownItems = _this.DownloadDeliveryScheduleList.slice(0, that.numRecords);
-                        }
-                        else {
-                            $("#nullDataDiv").show();
-                            $("#dataTable").hide();
-                        }
-                    }));
-                };
-                DeliveryScheduleListController.prototype.DownloadExl = function () {
-                    console.log("AllActivity123");
-                    $('#search-btn-loader').show();
-                    $('.chkBox').prop('checked', false);
-                    this.ExlDownload();
-                    DeliveryScheduleListController.statusDropdownList = [];
-                    DeliveryScheduleListController.activityTypeDropdownList = [];
-                };
                 DeliveryScheduleListController.prototype.Refresh = function () {
                     this.NoOfRds = this.NoOfRds;
                     this.FillGrid(this.numRecords);
@@ -400,13 +367,14 @@ var GCPL;
                     this.alert = Message;
                 };
                 DeliveryScheduleListController.prototype.Clear = function () {
-                    // this.FillGrid(this.numRecords);
-                    this.DeliveryScheduleSearchModel.ActivityID = "";
+                    this.DeliveryScheduleSearchModel.DsID = "";
                     this.DeliveryScheduleSearchModel.LeadID = "";
-                    this.DeliveryScheduleSearchModel.OpportunityID = "";
-                    this.DeliveryScheduleSearchModel.CreatedBy = "";
-                    this.DeliveryScheduleSearchModel.ActivityType = "";
-                    document.getElementById("txtUserName").value = "";
+                    this.DeliveryScheduleSearchModel.ProductID = "";
+                    this.DeliveryScheduleSearchModel.CustomerID = "";
+                    document.getElementById("txtProductCode").value = "";
+                    document.getElementById("txtProductDesc").value = "";
+                    document.getElementById("txtCustomerName").value = "";
+                    //this.FillGrid(this.numRecords);
                 };
                 DeliveryScheduleListController.prototype.Close = function () {
                     location.href = "#!/DeliveryScheduleList";
@@ -414,22 +382,69 @@ var GCPL;
                 DeliveryScheduleListController.prototype.ErrorClose = function () {
                     location.href = "#!/DeliveryScheduleList";
                 };
+                //exportTableToCSV(filename) {
+                //    let that = this;
+                //    that.incre = 0;
+                //    //that.numRecords = parseInt(NoOfRecords);
+                //    that.page = 0;
+                //    that.maxPages = 0;
+                //    that.shownItems = [];
+                //    this.DeliveryScheduleSearchModel.FromDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;
+                //    this.DeliveryScheduleSearchModel.ToDate = (<HTMLInputElement>document.getElementById("txtToDate")).value;
+                //    this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadGrid(this.DeliveryScheduleSearchModel).then((response => {
+                //        this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadDeliveryScheduleListReport(response.data.Result);
+                //        console.log(this.DownloadDeliveryScheduleList, 'DownloadAllActivity');
+                //        $('#search-btn-loader').hide();
+                //        this.downloadCSVFromJson(filename, this.DownloadDeliveryScheduleList);
+                //    }));
+                //}
+                //downloadCSVFromJson = (filename, DownloadDeliveryScheduleList) => {
+                //    console.log('downloadCSVFromJson');
+                //    // convert JSON to CSV
+                //    const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
+                //    const header = Object.keys(DownloadDeliveryScheduleList[0])
+                //    let csv = DownloadDeliveryScheduleList.map(row => header.map(fieldName =>
+                //        JSON.stringify(row[fieldName], replacer)).join(','))
+                //    csv.unshift(header.join(','))
+                //    csv = csv.join('\r\n')
+                //    // Create link and download
+                //    var link = document.createElement('a');
+                //    link.setAttribute('href', 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURIComponent(csv));
+                //    link.setAttribute('download', filename);
+                //    link.style.visibility = 'hidden';
+                //    document.body.appendChild(link);
+                //    link.click();
+                //    document.body.removeChild(link);
+                //};
+                DeliveryScheduleListController.prototype.downloadCSV = function (csv, filename) {
+                    var csvFile;
+                    var downloadLink;
+                    // CSV file
+                    csvFile = new Blob([csv], { type: "text/csv" });
+                    // Download link
+                    downloadLink = document.createElement("a");
+                    // File name
+                    downloadLink.download = filename;
+                    // Create a link to the file
+                    downloadLink.href = window.URL.createObjectURL(csvFile);
+                    // Hide download link
+                    downloadLink.style.display = "none";
+                    // Add the link to DOM
+                    document.body.appendChild(downloadLink);
+                    // Click download link
+                    downloadLink.click();
+                };
                 DeliveryScheduleListController.prototype.exportTableToCSV = function (filename) {
-                    var _this = this;
-                    var that = this;
-                    that.incre = 0;
-                    //that.numRecords = parseInt(NoOfRecords);
-                    that.page = 0;
-                    that.maxPages = 0;
-                    that.shownItems = [];
-                    this.DeliveryScheduleSearchModel.FromDate = document.getElementById("txtFromDate").value;
-                    this.DeliveryScheduleSearchModel.ToDate = document.getElementById("txtToDate").value;
-                    this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadGrid(this.DeliveryScheduleSearchModel).then((function (response) {
-                        _this.DownloadDeliveryScheduleList = _this.DeliveryScheduleList.DownloadDeliveryScheduleListReport(response.data.Result);
-                        console.log(_this.DownloadDeliveryScheduleList, 'DownloadAllActivity');
-                        $('#search-btn-loader').hide();
-                        _this.downloadCSVFromJson(filename, _this.DownloadDeliveryScheduleList);
-                    }));
+                    var csv = [];
+                    var rows = document.querySelectorAll("#excelDownload tr");
+                    for (var i = 0; i < rows.length; i++) {
+                        var row = [], cols = rows[i].querySelectorAll("td, th");
+                        for (var j = 0; j < cols.length; j++)
+                            row.push('"' + cols[j].innerHTML + '"');
+                        csv.push(row.join(","));
+                    }
+                    // Download CSV file
+                    this.downloadCSV(csv.join("\n"), filename);
                 };
                 DeliveryScheduleListController.prototype.Search1 = function (data) {
                     var _this = this;
@@ -444,7 +459,7 @@ var GCPL;
                     "RegionddService", "StateddPService", "DistrictddService",
                     "LeadSourceddService", "EmployeeAtofillService",
                     "AllLeadReportService", "CampaignAtofillService", "ActivityTypeddService",
-                    "LeadsStatusCountService", "CustomerSapIdAutoFillService", "getAutoProjectNameService",
+                    "LeadsStatusCountService", "CustomerSapIdAutoFillService", "ProductCodeAutoFillService", "ProductDescAutoFillService", "getAutoProjectNameService",
                     "$cookieStore"];
                 return DeliveryScheduleListController;
             }());

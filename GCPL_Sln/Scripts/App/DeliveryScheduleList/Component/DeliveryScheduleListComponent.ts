@@ -1,7 +1,7 @@
 ﻿namespace GCPL.Component.Home {
     import app = GCPL.app;
     import Service = GCPL.Service;
-    import AllActSearch = GCPL.Model.AllActSearchModel;
+    import DSSearch = GCPL.Model.DSSearchModel;
     import LeadReportViewDetails = GCPL.Model.AllLeadReportViewModel;
     import getAllLeadCount = GCPL.Model.LeadStatusModel;
     import ContactMaster = GCPL.Model.InsertContactMaster;
@@ -9,7 +9,7 @@
 
 
     interface IDeliveryScheduleListController {
-        DeliveryScheduleSearchModel: AllActSearch;
+        DeliveryScheduleSearchModel: DSSearch;
         Search(): void;
         LeadStatusDropDown: Array<Model.LeadStatusddlModel>
         DivisionDropDown: Array<Model.DivisionModel>
@@ -70,6 +70,8 @@
         private ActivityTypeService: Service.IActivityTypeddService;
         private AllLeadCountService: Service.ILeadsStatusCountService;
         private CustomerSapAutofill: Service.ICustomerSapIdAutoFillService;
+        private ProductCodeAutofill: Service.IProductCodeAutoFillService;
+        private ProductDescAutofill: Service.IProductDescAutoFillService;
         getAllLeadCount: GCPL.Model.LeadStatusModel = null;
 
 
@@ -78,7 +80,7 @@
             "RegionddService", "StateddPService", "DistrictddService",
             "LeadSourceddService", "EmployeeAtofillService",
             "AllLeadReportService", "CampaignAtofillService", "ActivityTypeddService",
-            "LeadsStatusCountService", "CustomerSapIdAutoFillService", "getAutoProjectNameService",
+            "LeadsStatusCountService", "CustomerSapIdAutoFillService", "ProductCodeAutoFillService", "ProductDescAutoFillService", "getAutoProjectNameService",
             "$cookieStore"];
         //constructor define with Serivce _Name:Service.IServiceName//
         constructor(_DeliveryScheduleListService: Service.IDeliveryScheduleListReportService, _LeadStatusService: Service.ILeadStatusddService,
@@ -89,10 +91,10 @@
             _getAutoSalesrep2: Service.IEmployeeAtofillService,
             _AllLeadReportViewService: Service.IAllLeadReportService, _getAutoCampaign: Service.ICampaignAtofillService,
             _ActivityTypeService: Service.IActivityTypeddService, _AllLeadCountService: Service.ILeadsStatusCountService,
-            _CustomerSapAutofill: Service.ICustomerSapIdAutoFillService,
+            _CustomerSapAutofill: Service.ICustomerSapIdAutoFillService, _ProductCodeAutofill: Service.IProductCodeAutoFillService, _ProductDescAutofill: Service.IProductDescAutoFillService,
             _getAutoProjectName: Service.IgetAutoProjectNameService, private _cookieStore: any) {
             this.DeliveryScheduleList = _DeliveryScheduleListService;
-            this.DeliveryScheduleSearchModel = new GCPL.Model.AllActSearchModel();
+            this.DeliveryScheduleSearchModel = new GCPL.Model.DSSearchModel();
             this.getAutoProjectName = _getAutoProjectName;
             this.DivisionService = _DivisionService;
             this.ProductService = _ProductService;
@@ -106,6 +108,8 @@
             this.AllLeadCountService = _AllLeadCountService;
             this.getAllLeadCount = new getAllLeadCount();
             this.CustomerSapAutofill = _CustomerSapAutofill;
+            this.ProductCodeAutofill = _ProductCodeAutofill;
+            this.ProductDescAutofill = _ProductDescAutofill;
             this.InsertContact = new ContactMaster();
             //this.RoleID = this.Cookie.get('UserInfo')['RoleID'];
         }
@@ -169,20 +173,18 @@
             $("#close").hide();
             let that = this;
             
-            $("#txtUserName").autocomplete({
-
+           
+            $("#txtCustomerName").autocomplete({
+                //  source:['1a0','anjali','archana'],
                 source: function (request, res) {
-                    that.getAutoSalesrep2.FilterAutoComplete(request).then((response => {
+                    that.CustomerSapAutofill.FilterAutoComplete(request).then((response => {
 
-                        let data = that.getAutoSalesrep2.GetAutEmployee(response.data.Result);
-
+                        let data = that.CustomerSapAutofill.GetAutoCustSAPID(response.data.Result);
                         res($.map(data, function (item, index) {
-
                             return {
-
-                                label: item.Name,
-                                value: item.Name,
-                                id: item.userid
+                                label: item.CustomerName,
+                                value: item.CustomerName,
+                                id: item.CustomerID
 
                             }
                         }));
@@ -192,51 +194,77 @@
                 },
                 minLength: 2,
                 focus: (event, ui) => {
+                    // Don't populate input field with selected value (pxid)
+                    event.preventDefault();
+                },
+                select: function (e, ui) {
+                    that.DeliveryScheduleSearchModel.CustomerID = ui.item.id;
+                    //that.Search1(ui.item.id);
+                },
+                change: function () {
+                }
+            });
+            $("#txtProductCode").autocomplete({
+                //  source:['1a0','anjali','archana'],
+                source: function (request, res) {
+                    that.ProductCodeAutofill.FilterAutoComplete(request).then((response => {
+
+                        let data = that.ProductCodeAutofill.GetAutoProductCode(response.data.Result);
+                        res($.map(data, function (item, index) {
+                            return {
+                                label: item.Product,
+                                value: item.Product,
+                                id: item.ProductID
+                            }
+                        }));
+                    }));
+
+                },
+                minLength: 2,
+                focus: (event, ui) => {
 
                     event.preventDefault();
                 },
                 select: function (e, ui) {
-
-                    that.DeliveryScheduleSearchModel.CreatedBy = ui.item.id;
-                    console.log(that.DeliveryScheduleSearchModel.CreatedBy);
-
+                    that.DeliveryScheduleSearchModel.ProductID = ui.item.id;
+                    /*that.Search(ui.item.id);*/
                 },
                 change: function () {
 
                 }
             });
-            //$("#txtCustomerName").autocomplete({
-            //    //  source:['1a0','anjali','archana'],
-            //    source: function (request, res) {
-            //        that.CustomerSapAutofill.FilterAutoComplete(request).then((response => {
 
-            //            let data = that.CustomerSapAutofill.GetAutoCustSAPID(response.data.Result);
-            //            res($.map(data, function (item, index) {
-            //                return {
-            //                    label: item.CustomerName,
-            //                    value: item.CustomerName,
-            //                    id: item.CustomerID
+            $("#txtProductDesc").autocomplete({
+                //  source:['1a0','anjali','archana'],
+                source: function (request, res) {
+                    that.ProductDescAutofill.FilterAutoComplete(request).then((response => {
 
-            //                }
-            //            }));
+                        let data = that.ProductDescAutofill.GetAutoProductDesc(response.data.Result);
+                        res($.map(data, function (item, index) {
+                            return {
+                                label: item.ProductDesc,
+                                value: item.ProductDesc,
+                                id: item.ProductID
 
-            //        }));
 
-            //    },
-            //    minLength: 2,
-            //    focus: (event, ui) => {
-            //        // Don't populate input field with selected value (pxid)
-            //        event.preventDefault();
-            //    },
-            //    select: function (e, ui) {
-            //        that.AllLeadsHeaderModel.CustomerID = ui.item.id;
-            //        that.Search1(ui.item.id);
-            //        console.log(that.AllLeadsHeaderModel.CustomerID);
-            //    },
-            //    change: function () {
-            //    }
-            //});
-            
+                            }
+                        }));
+                    }));
+
+                },
+                minLength: 2,
+                focus: (event, ui) => {
+
+                    event.preventDefault();
+                },
+                select: function (e, ui) {
+                    that.DeliveryScheduleSearchModel.ProductID = ui.item.id;
+                },
+                change: function () {
+
+                }
+            });
+
             this.ActivityTypeDropDown = this.ActivityTypeService.Find().then((response => {
                 this.ActivityTypeDropDown = this.ActivityTypeService.GetActivityTypeName(response.data.Result);
             }));
@@ -340,7 +368,7 @@
 
             console.log(this.DeliveryScheduleSearchModel);
 
-            this.FillDeliveryScheduleGrid = this.DeliveryScheduleList.FindGrid(28).then((response => {
+            this.FillDeliveryScheduleGrid = this.DeliveryScheduleList.FindGrid(this.DeliveryScheduleSearchModel).then((response => {
                 this.FillDeliveryScheduleGrid = this.DeliveryScheduleList.GetDeliveryScheduleListReport(response.data.Result);
                 console.log(this.FillDeliveryScheduleGrid, 'AllActivity');
                 $('#search-btn-loader').hide();
@@ -409,55 +437,6 @@
             DeliveryScheduleListController.activityTypeDropdownList = [];
         }
 
-        ExlDownload(): void {
-
-            let that = this;
-            that.incre = 0;
-            //that.numRecords = parseInt(NoOfRecords);
-            that.page = 0;
-            that.maxPages = 0;
-            that.shownItems = [];           
-
-            this.DeliveryScheduleSearchModel.FromDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;
-            this.DeliveryScheduleSearchModel.ToDate = (<HTMLInputElement>document.getElementById("txtToDate")).value;
-            this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadGrid(this.DeliveryScheduleSearchModel).then((response => {
-                this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadDeliveryScheduleListReport(response.data.Result);
-                console.log(this.DownloadDeliveryScheduleList, 'DownloadAllActivity');
-                $('#search-btn-loader').hide();
-
-                if (this.DownloadDeliveryScheduleList.length > 0) {
-                    $("#nullDataDiv").hide();
-                    $("#dataTable").show();
-                    this.DownloadDeliveryScheduleList.forEach(function (value, key) {
-                        that.incre = parseInt(key) + that.numRecords;
-                    });
-
-                    $('#search-btn-loader').hide();
-                    this.maxPages = (that.incre / that.numRecords);
-                    this.ShowBack = false;
-                    this.ShowNext = that.maxPages > 1 ? true : false;
-                    this.shownItems = this.DownloadDeliveryScheduleList.slice(0, that.numRecords);
-                }
-                else {
-                    $("#nullDataDiv").show();
-                    $("#dataTable").hide();
-                }
-
-                
-            }));
-        }
-
-
-        DownloadExl(): void {
-            console.log("AllActivity123");
-            $('#search-btn-loader').show();
-            $('.chkBox').prop('checked', false);
-
-            this.ExlDownload();
-            DeliveryScheduleListController.statusDropdownList = [];
-            DeliveryScheduleListController.activityTypeDropdownList = [];
-        }
-
         Refresh() {
             this.NoOfRds = this.NoOfRds;
             this.FillGrid(this.numRecords);
@@ -496,13 +475,14 @@
         }
 
         Clear() {
-            // this.FillGrid(this.numRecords);
-            this.DeliveryScheduleSearchModel.ActivityID = "";
+            this.DeliveryScheduleSearchModel.DsID = "";
             this.DeliveryScheduleSearchModel.LeadID = "";
-            this.DeliveryScheduleSearchModel.OpportunityID = "";
-            this.DeliveryScheduleSearchModel.CreatedBy = "";
-            this.DeliveryScheduleSearchModel.ActivityType = "";
-            (<HTMLInputElement>document.getElementById("txtUserName")).value = "";
+            this.DeliveryScheduleSearchModel.ProductID = "";
+            this.DeliveryScheduleSearchModel.CustomerID = "";
+            (<HTMLInputElement>document.getElementById("txtProductCode")).value = "";
+            (<HTMLInputElement>document.getElementById("txtProductDesc")).value = "";
+            (<HTMLInputElement>document.getElementById("txtCustomerName")).value = "";
+            //this.FillGrid(this.numRecords);
         }
 
         Close(): void {
@@ -512,47 +492,81 @@
             location.href = "#!/DeliveryScheduleList";
         }
 
-        exportTableToCSV(filename) {
+        //exportTableToCSV(filename) {
 
-            let that = this;
-            that.incre = 0;
-            //that.numRecords = parseInt(NoOfRecords);
-            that.page = 0;
-            that.maxPages = 0;
-            that.shownItems = [];
+        //    let that = this;
+        //    that.incre = 0;
+        //    //that.numRecords = parseInt(NoOfRecords);
+        //    that.page = 0;
+        //    that.maxPages = 0;
+        //    that.shownItems = [];
 
-            this.DeliveryScheduleSearchModel.FromDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;
-            this.DeliveryScheduleSearchModel.ToDate = (<HTMLInputElement>document.getElementById("txtToDate")).value;
-            this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadGrid(this.DeliveryScheduleSearchModel).then((response => {
-                this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadDeliveryScheduleListReport(response.data.Result);
-                console.log(this.DownloadDeliveryScheduleList, 'DownloadAllActivity');
-                $('#search-btn-loader').hide();
+        //    this.DeliveryScheduleSearchModel.FromDate = (<HTMLInputElement>document.getElementById("txtFromDate")).value;
+        //    this.DeliveryScheduleSearchModel.ToDate = (<HTMLInputElement>document.getElementById("txtToDate")).value;
+        //    this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadGrid(this.DeliveryScheduleSearchModel).then((response => {
+        //        this.DownloadDeliveryScheduleList = this.DeliveryScheduleList.DownloadDeliveryScheduleListReport(response.data.Result);
+        //        console.log(this.DownloadDeliveryScheduleList, 'DownloadAllActivity');
+        //        $('#search-btn-loader').hide();
 
-                this.downloadCSVFromJson(filename, this.DownloadDeliveryScheduleList);
+        //        this.downloadCSVFromJson(filename, this.DownloadDeliveryScheduleList);
 
-            }));
+        //    }));
 
+        //}
+
+        //downloadCSVFromJson = (filename, DownloadDeliveryScheduleList) => {
+        //    console.log('downloadCSVFromJson');
+        //    // convert JSON to CSV
+        //    const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
+        //    const header = Object.keys(DownloadDeliveryScheduleList[0])
+        //    let csv = DownloadDeliveryScheduleList.map(row => header.map(fieldName =>
+        //        JSON.stringify(row[fieldName], replacer)).join(','))
+        //    csv.unshift(header.join(','))
+        //    csv = csv.join('\r\n')
+
+        //    // Create link and download
+        //    var link = document.createElement('a');
+        //    link.setAttribute('href', 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURIComponent(csv));
+        //    link.setAttribute('download', filename);
+        //    link.style.visibility = 'hidden';
+        //    document.body.appendChild(link);
+        //    link.click();
+        //    document.body.removeChild(link);
+        //};
+
+        downloadCSV(csv, filename) {
+            var csvFile;
+            var downloadLink;
+            // CSV file
+            csvFile = new Blob([csv], { type: "text/csv" });
+            // Download link
+            downloadLink = document.createElement("a");
+            // File name
+            downloadLink.download = filename;
+            // Create a link to the file
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+            // Hide download link
+            downloadLink.style.display = "none";
+            // Add the link to DOM
+            document.body.appendChild(downloadLink);
+            // Click download link
+            downloadLink.click();
         }
 
-        downloadCSVFromJson = (filename, DownloadDeliveryScheduleList) => {
-            console.log('downloadCSVFromJson');
-            // convert JSON to CSV
-            const replacer = (key, value) => value === null ? '' : value // specify how you want to handle null values here
-            const header = Object.keys(DownloadDeliveryScheduleList[0])
-            let csv = DownloadDeliveryScheduleList.map(row => header.map(fieldName =>
-                JSON.stringify(row[fieldName], replacer)).join(','))
-            csv.unshift(header.join(','))
-            csv = csv.join('\r\n')
+        exportTableToCSV(filename) {
 
-            // Create link and download
-            var link = document.createElement('a');
-            link.setAttribute('href', 'data:text/csv;charset=utf-8,%EF%BB%BF' + encodeURIComponent(csv));
-            link.setAttribute('download', filename);
-            link.style.visibility = 'hidden';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        };
+            var csv = [];
+            var rows = document.querySelectorAll("#excelDownload tr");
+            for (var i = 0; i < rows.length; i++) {
+                var row = [], cols = rows[i].querySelectorAll("td, th");
+                for (var j = 0; j < cols.length; j++)
+                    row.push('"' + cols[j].innerHTML + '"');
+                csv.push(row.join(","));
+
+            }
+            // Download CSV file
+            this.downloadCSV(csv.join("\n"), filename);
+        }
 
         public Search1(data: any): void {
             this.CustomerSapAutofill.FindCustomerSAPID(data).then((response => {

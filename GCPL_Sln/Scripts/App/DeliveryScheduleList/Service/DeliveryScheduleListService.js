@@ -33,91 +33,72 @@ var GCPL;
             }
             DeliveryScheduleListReportService.prototype.FindGrid = function (data) {
                 var url = this.apiUrl + "/DeliveryScheduleListReport";
-                var config = {
-                    params: {
-                        // UserID: this.Cookie.get('UserInfo')['UserID'],
-                        ItemID: data
-                    }
-                };
-                return this.ajaXUtility.Get({
-                    Url: url,
-                    Config: config
-                });
-                //////////////////////////////// Anuja
-                //var LeadID;
-                //var OpportunityID;
-                //var CreatedBy;
-                //var ActivityType;
-                //var FromDate;
-                //var ToDate;
-                //var UserID;
-                //var ActivityID;
-                //if (data.LeadID == undefined) {
-                //    LeadID = '';
-                //}
-                //else {
-                //    LeadID = data.LeadID;
-                //}
-                //if (data.OpportunityID == undefined) {
-                //    OpportunityID = '';
-                //}
-                //else {
-                //    OpportunityID = data.OpportunityID;
-                //}
-                //if (data.CreatedBy == undefined) {
-                //    CreatedBy = '';
-                //}
-                //else {
-                //    CreatedBy = data.CreatedBy;
-                //}
-                //if (data.ActivityType == undefined) {
-                //    ActivityType = '';
-                //}
-                //else {
-                //    ActivityType = data.ActivityType;
-                //}
-                //if (data.FromDate == undefined) {
-                //    FromDate = '';
-                //}
-                //else {
-                //    FromDate = data.FromDate;
-                //}
-                //if (data.ToDate == undefined) {
-                //    ToDate = '';
-                //}
-                //else {
-                //    ToDate = data.ToDate;
-                //}
-                //if (data.UserID == undefined) {
-                //    UserID = '';
-                //}
-                //else {
-                //    UserID = data.UserID;
-                //}
-                //if (data.ActivityID == undefined) {
-                //    ActivityID = '';
-                //}
-                //else {
-                //    ActivityID = data.ActivityID;
-                //}
                 //let config = {
                 //    params: {
-                //        LeadID: LeadID,
-                //        OpportunityID: OpportunityID,
-                //        CreatedBy: CreatedBy,
-                //        ActivityType: ActivityType,
-                //        FromDate: FromDate,
-                //        ToDate: ToDate,
-                //        UserID: UserID,
-                //        ActivityID: ActivityID
-                //        // erpid: this.Cookie.get('UserInfo')['UserID']
+                //        // UserID: this.Cookie.get('UserInfo')['UserID'],
+                //        ItemID: data
                 //    }
                 //};
                 //return this.ajaXUtility.Get({
                 //    Url: url,
                 //    Config: config
                 //});
-                //////////////////////////////
+                var FromDate;
+                var ToDate;
+                var DsID;
+                var LeadID;
+                var ProductID;
+                var CustomerID;
+                if (data.FromDate == undefined) {
+                    FromDate = '';
+                }
+                else {
+                    FromDate = data.FromDate;
+                }
+                if (data.ToDate == undefined) {
+                    ToDate = '';
+                }
+                else {
+                    ToDate = data.ToDate;
+                }
+                if (data.DsID == undefined) {
+                    DsID = '';
+                }
+                else {
+                    DsID = data.DsID;
+                }
+                if (data.LeadID == undefined) {
+                    LeadID = '';
+                }
+                else {
+                    LeadID = data.LeadID;
+                }
+                if (data.ProductID == undefined) {
+                    ProductID = '';
+                }
+                else {
+                    ProductID = data.ProductID;
+                }
+                if (data.CustomerID == undefined) {
+                    CustomerID = '';
+                }
+                else {
+                    CustomerID = data.CustomerID;
+                }
+                var config = {
+                    params: {
+                        FromDate: FromDate,
+                        ToDate: ToDate,
+                        DsID: DsID,
+                        LeadID: LeadID,
+                        ProductID: ProductID,
+                        CustomerID: CustomerID
+                    }
+                };
+                return this.ajaXUtility.Get({
+                    Url: url,
+                    Config: config
+                });
             };
             DeliveryScheduleListReportService.prototype.GetDeliveryScheduleListReport = function (data) {
                 var list = Array();
@@ -125,16 +106,16 @@ var GCPL;
                     var item = data_1[_i];
                     list.push({
                         ID: item.ID,
-                        ItemID: item.ItemID,
-                        ProductID: item.ProductID,
-                        ProductCode: item.ProductCode,
-                        ProductDesc: item.ProductDesc,
-                        UserID: item.UserID,
                         LeadID: item.LeadID,
+                        ItemID: item.ItemID,
+                        CustomerName: item.CustomerName,
+                        UserID: item.UserID,
+                        ItemQty: item.ItemQty,
                         DeliveryDate: item.DeliveryDate,
                         DeliveryQty: item.DeliveryQty,
-                        EditState: item.EditState,
-                        index: item.index
+                        ProductID: item.ProductID,
+                        ProductCode: item.ProductCode,
+                        ProductDesc: item.ProductDesc
                     });
                 }
                 return list;
@@ -221,16 +202,16 @@ var GCPL;
                     var item = data_2[_i];
                     list.push({
                         ID: item.ID,
-                        ItemID: item.ItemID,
-                        ProductID: item.ProductID,
-                        ProductCode: item.ProductCode,
-                        ProductDesc: item.ProductDesc,
-                        UserID: item.UserID,
                         LeadID: item.LeadID,
+                        ItemID: item.ItemID,
+                        CustomerName: item.CustomerName,
+                        UserID: item.UserID,
+                        ItemQty: item.ItemQty,
                         DeliveryDate: item.DeliveryDate,
                         DeliveryQty: item.DeliveryQty,
-                        EditState: item.EditState,
-                        index: item.index
+                        ProductID: item.ProductID,
+                        ProductCode: item.ProductCode,
+                        ProductDesc: item.ProductDesc
                     });
                 }
                 return list;
